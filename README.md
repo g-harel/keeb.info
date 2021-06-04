@@ -1,18 +1,18 @@
-![](kle/alix40.svg)
+![](files/kle/images/alix40.svg)
 
-![](kle/bear65.svg)
+![](files/kle/images/bear65.svg)
 
-![](kle/candybar.svg)
+![](files/kle/images/candybar.svg)
 
-![](kle/corne.svg)
+![](files/kle/images/corne.svg)
 
-![](kle/discipline65.svg)
+![](files/kle/images/discipline65.svg)
 
-![](kle/epoch80.svg)
+![](files/kle/images/epoch80.svg)
 
-![](kle/hhkb.svg)
+![](files/kle/images/hhkb.svg)
 
-![](kle/id80.svg)
+![](files/kle/images/id80.svg)
 
-![](kle/tkl.svg)
+![](files/kle/images/tkl.svg)
 

@@ -160,7 +160,8 @@ const render = (keyboard: Keyboard): string => {
             key.labels[8] = String(width);
         }
         if (width !== 1 && key.labels[8] == String(width)) {
-            while (key.textColor.length < 9) key.textColor.push(key.default.textColor);
+            while (key.textColor.length < 9)
+                key.textColor.push(key.default.textColor);
             key.textColor[8] = c(key.color).darken(STROKE_COLOR_DARKEN).hex();
         }
     }
@@ -284,13 +285,15 @@ const render = (keyboard: Keyboard): string => {
 };
 
 const genOut = () => {
-    const paths = glob.sync("kle/**/*.json");
+    const paths = glob.sync("files/kle/**/*.json");
 
     const svgPaths: string[] = [];
     for (const path of paths) {
         console.log(path);
         const rendered = render(Serial.parse(fs.readFileSync(path).toString()));
-        const svgPath = path.replace(/\.json$/g, ".svg");
+        const svgPath = path
+            .replace(/\.json$/g, ".svg")
+            .replace("kle/", "kle/images/");
         fs.writeFileSync(svgPath, rendered);
         svgPaths.push(svgPath);
     }
