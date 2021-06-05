@@ -1,73 +1,11 @@
-import * as fs from "fs";
-
-import {Keyboard, Serial} from "@ijprest/kle-serial";
+import {Keyboard} from "@ijprest/kle-serial";
 import * as c from "color";
-import * as glob from "glob";
+
+import {Element} from "./xml";
 
 interface Coord {
     x: number;
     y: number;
-}
-
-export class Element {
-    private attributes: Record<string, string | number> = {};
-    private styles: Record<string, string | number> = {};
-    private children: any[] = [];
-
-    public constructor(public tag: string) {}
-
-    public attr(key: string, value: string | number): Element {
-        this.attributes[key] = value;
-        return this;
-    }
-
-    public style(key: string, value: string | number): Element {
-        this.styles[key] = value;
-        return this;
-    }
-
-    public child(element: Element | string): Element {
-        if (typeof element === "string") {
-            this.children.push({render: () => element});
-        } else {
-            this.children.push(element);
-        }
-        return this;
-    }
-
-    public render(): string {
-        const attributes = this.renderAttributes();
-        const content = this.renderChildren();
-        if (content === "") {
-            return `<${this.tag}${attributes}/>`;
-        }
-        return `<${this.tag}${attributes}>${content}</${this.tag}>`;
-    }
-
-    private renderAttributes(): string {
-        let styleOut = "";
-        const styles = Object.keys(this.styles);
-        for (const style of styles) {
-            styleOut += `${style}:${this.styles[style]};`;
-        }
-        let out = "";
-        if (styleOut.length > 0) {
-            out += ` style="${styleOut}"`;
-        }
-        const attributes = Object.keys(this.attributes);
-        for (const attribute of attributes) {
-            out += ` ${attribute}="${this.attributes[attribute]}"`;
-        }
-        return out;
-    }
-
-    private renderChildren(): string {
-        let out = "";
-        for (const child of this.children) {
-            out += child.render();
-        }
-        return out;
-    }
 }
 
 const PIXEL_WIDTH = 838;
@@ -120,7 +58,7 @@ const sanitizeLabel = (label: string) => {
     });
 };
 
-const render = (keyboard: Keyboard): string => {
+export const render = (keyboard: Keyboard): string => {
     let max: Coord = {x: 0, y: 0};
     let min: Coord = {x: Infinity, y: Infinity};
     for (const k of keyboard.keys) {
@@ -283,47 +221,3 @@ const render = (keyboard: Keyboard): string => {
 
     return parent.render();
 };
-
-const genOut = () => {
-    const paths = glob.sync("files/kle/**/*.json");
-
-    const svgPaths: string[] = [];
-    for (const path of paths) {
-        console.log(path);
-        const rendered = render(Serial.parse(fs.readFileSync(path).toString()));
-        const svgPath = path
-            .replace(/\.json$/g, ".svg")
-            .replace("kle/", "kle/images/");
-        fs.writeFileSync(svgPath, rendered);
-        svgPaths.push(svgPath);
-    }
-
-    let readmeContents = "";
-    for (const svgPath of svgPaths) {
-        readmeContents += `![](${svgPath})\n\n`;
-    }
-    fs.writeFileSync("README.md", readmeContents);
-
-    let images = "";
-    for (const svgPath of svgPaths) {
-        images += `<img src="${svgPath}"/>\n`;
-    }
-    const outContents = `
-<html>
-    <head>
-        <title>Keyboard Layouts</title>
-    </head>
-    <body style="padding:100px;">
-        <div style="max-width:1000px;margin:0 auto;display:flex;flex-direction:column;align-items:center;">
-            ${images}
-            <a href="https://github.com/g-harel/kbd" style="padding:40px;">
-                github.com/g-harel/kbd
-            </a>
-        </div>
-    </body>
-</html>
-    `;
-    fs.writeFileSync("index.html", outContents);
-};
-
-genOut();
