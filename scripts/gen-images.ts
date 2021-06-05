@@ -20,7 +20,7 @@ for (const path of paths) {
 
 let readmeContents = "";
 for (const svgPath of svgPaths) {
-    readmeContents += `![](${svgPath})\n\n`;
+    readmeContents += `![](${svgPath})\n`;
 }
 fs.writeFileSync("README.md", readmeContents);
 
@@ -28,19 +28,17 @@ let images = "";
 for (const svgPath of svgPaths) {
     images += `<img src="${svgPath}"/>\n`;
 }
-const outContents = `
-<html>
+const outContents = `<html>
     <head>
         <title>Keyboard Layouts</title>
     </head>
     <body style="padding:100px;">
         <div style="max-width:1000px;margin:0 auto;display:flex;flex-direction:column;align-items:center;">
-            ${images}
-            <a href="https://github.com/g-harel/kbd" style="padding:40px;">
+${images}            <a href="https://github.com/g-harel/kbd" style="padding:40px;">
                 github.com/g-harel/kbd
             </a>
         </div>
     </body>
 </html>
-    `;
+`;
 fs.writeFileSync("index.html", outContents);

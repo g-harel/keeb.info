@@ -1,6 +1,7 @@
 {
     "scripts": {
-        "gen": "nodemon --exec ts-node scripts/gen-images.ts",
+        "gen": "ts-node scripts/gen-images.ts",
+        "gen-watch": "nodemon --exec ts-node scripts/gen-images.ts",
         "fmt": "prettier --list-different --write --ignore-path .gitignore \"**/*.{js,ts,tsx,html,md}\""
     },
     "dependencies": {
