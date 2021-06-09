@@ -18,12 +18,6 @@ for (const path of paths) {
     svgPaths.push(svgPath);
 }
 
-let readmeContents = "";
-for (const svgPath of svgPaths) {
-    readmeContents += `![](${svgPath})\n`;
-}
-fs.writeFileSync("README.md", readmeContents);
-
 let images = "";
 for (const svgPath of svgPaths) {
     images += `<img src="${svgPath}"/>\n`;
