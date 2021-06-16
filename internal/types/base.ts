@@ -12,7 +12,7 @@ export type Angle = number;
 
 // Unique identifier for product SKU.
 export interface ID {
-    vendorID:string;
+    vendorID: string;
     productID: string;
 }
 
