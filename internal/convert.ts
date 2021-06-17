@@ -1,6 +1,6 @@
 import {Serial} from "@ijprest/kle-serial";
 
-import {Layout, LayoutKey} from "./types/layout";
+import {Layout} from "./types/layout";
 
 export const convertKLE = (raw: any): Layout => {
     const kle = Serial.deserialize(raw);
