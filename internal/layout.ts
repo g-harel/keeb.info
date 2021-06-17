@@ -17,17 +17,21 @@ const rotateCoord = (p: Coord, a: number): Coord => {
 export const corners = (key: LayoutKey): Coord[] => {
     const coords: Coord[] = [];
     for (const shape of key.key.shape) {
-        coords.push({x: shape.offset.x, y: shape.offset.y});
-        coords.push({x: shape.offset.x, y: shape.offset.y + shape.height});
-        coords.push({x: shape.offset.x + shape.width, y: shape.offset.y + shape.height});
-        coords.push({x: shape.offset.x + shape.width, y: shape.offset.y});
+        const x = shape.offset.x + key.position.x;
+        const y = shape.offset.y + key.position.y;
+        const width = shape.width;
+        const height = shape.height;
+        coords.push({x: x, y: y});
+        coords.push({x: x, y: y + height});
+        coords.push({x: x + width, y: y + height});
+        coords.push({x: x + width, y: y});
     }
     return coords;
 }
 
-export const minmax = (layout: Layout) => {
-    let max: Coord = {x: 0, y: 0};
+export const minmax = (layout: Layout): [Coord, Coord] => {
     let min: Coord = {x: Infinity, y: Infinity};
+    let max: Coord = {x: 0, y: 0};
 
     const keys: LayoutKey[] = [];
     keys.push(...layout.fixedKeys);
@@ -49,4 +53,6 @@ export const minmax = (layout: Layout) => {
             y: Math.min(min.y, ...rotated.map((c) => c.y)),
         };
     }
+
+    return [min, max];
 }

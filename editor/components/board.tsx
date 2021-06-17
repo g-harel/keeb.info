@@ -1,10 +1,12 @@
 import React from "react";
-import styled, {css} from "styled-components";
-import {Serial} from "@ijprest/kle-serial";
+import styled from "styled-components";
 
-import tkl from "../../files/kle/tkl.json";
-import {render} from "../../internal/svg";
+import bear65 from "../../files/kle/bear65.json";
 import {convertKLE} from "../../internal/convert";
+import {minmax} from "../../internal/layout";
+
+// TODO props.
+const targetWidth = 800;
 
 export interface IProps {
     // TODO keyboard
@@ -12,8 +14,6 @@ export interface IProps {
 
 const Wrapper = styled.div<IProps>`
     border: 1px solid red;
-    width: 20em;
-    height: 20em;
 
     /* 1u */
     font-size: 2rem;
@@ -36,19 +36,31 @@ const Key = styled.div`
     }
 `;
 
-const u = (value: string | number) => `${value}em`;
+const u = (value: number) => `${value}em`;
+const px = (value: number) => `${value}px`;
 
 export const Board: React.FunctionComponent<IProps> = (props) => {
-    const layout = convertKLE(tkl);
+    const layout = convertKLE(bear65);
+    const [min, max] = minmax(layout);
+
+    const width = max.x - min.x;
+    const height = max.y - min.y;
+    const unit = targetWidth / width;
 
     return (
-        <Wrapper>
-            {layout.fixedKeys.map((key) => (
-                <KeyWrapper>
+        <Wrapper
+            style={{
+                width: u(width),
+                height: u(height),
+                fontSize: px(unit),
+            }}
+        >
+            {layout.fixedKeys.map((key, i) => (
+                <KeyWrapper key={i}>
                     <Key
                         style={{
-                            left: u(key.position.x),
-                            top: u(key.position.y),
+                            left: u(key.position.x - min.x),
+                            top: u(key.position.y - min.y),
                             width: u(key.key.shape[0].width),
                             height: u(key.key.shape[0].height),
                         }}
