@@ -63,6 +63,8 @@ export const Board: React.FunctionComponent<IProps> = (props) => {
                             top: u(key.position.y - min.y),
                             width: u(key.key.shape[0].width),
                             height: u(key.key.shape[0].height),
+                            transform: `rotate(${key.angle}deg)`,
+                            transformOrigin: `-${u(key.position.x - min.x)} -${u(key.position.y - min.y)}`,
                         }}
                     />
                 </KeyWrapper>
