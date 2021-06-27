@@ -1,4 +1,4 @@
-import { Coord } from "./types/base";
+import {Coord} from "./types/base";
 import {Layout, LayoutKey} from "./types/layout";
 
 // Key's position is P and the rotation origin 0,0.
@@ -25,7 +25,7 @@ export const corners = (key: LayoutKey): Coord[] => {
         coords.push({x: x + width, y: y});
     }
     return coords;
-}
+};
 
 export const minmax = (layout: Layout): [Coord, Coord] => {
     let min: Coord = {x: Infinity, y: Infinity};
@@ -53,4 +53,4 @@ export const minmax = (layout: Layout): [Coord, Coord] => {
     }
 
     return [min, max];
-}
+};

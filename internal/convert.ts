@@ -1,4 +1,5 @@
 import {Serial} from "@ijprest/kle-serial";
+import {Shape} from "./types/base";
 
 import {Layout} from "./types/layout";
 
@@ -6,13 +7,30 @@ export const convertKLE = (raw: any): Layout => {
     const kle = Serial.deserialize(raw);
 
     return {
-        fixedKeys: kle.keys.map((key) => ({
+        fixedKeys: kle.keys.map((key) => {
+            const shapes: Shape[] = [];
+            shapes.push({
+                height: key.height,
+                width: key.width,
+                offset: {x: 0, y: 0},
+            });
+            const hasSecond =
+                key.width2 !== 0 ||
+                key.height2 !== 0 ||
+                key.x2 !== key.x ||
+                key.y2 !== key.y;
+            if (hasSecond) {
+                console.log(key);
+                shapes.push({
+                    height: key.height2,
+                    width: key.width2,
+                    offset: {x: key.x2, y: key.y2},
+                });
+            }
+
+            return {
                 key: {
-                    shape: [{
-                        height: key.height,
-                        width: key.width,
-                        offset: {x: 0, y: 0},
-                    }],
+                    shape: shapes,
                     stabilizers: [],
                     // Assume centered all the time.
                     stem: {
@@ -25,7 +43,8 @@ export const convertKLE = (raw: any): Layout => {
                     y: key.y,
                 },
                 angle: key.rotation_angle,
-            })),
+            };
+        }),
         options: [],
     };
 };

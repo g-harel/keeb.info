@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-import bear65 from "../../files/kle/bear65.json";
+import bear65 from "../../.iso.json";
 import {convertKLE} from "../../internal/convert";
 import {minmax} from "../../internal/layout";
+import {Coord} from "../../internal/types/base";
 
 // TODO props.
 const targetWidth = 800;
@@ -55,20 +56,37 @@ export const Board: React.FunctionComponent<IProps> = (props) => {
                 fontSize: px(unit),
             }}
         >
-            {layout.fixedKeys.map((key, i) => (
-                <KeyWrapper key={i}>
-                    <Key
-                        style={{
-                            left: u(key.position.x - min.x),
-                            top: u(key.position.y - min.y),
-                            width: u(key.key.shape[0].width),
-                            height: u(key.key.shape[0].height),
-                            transform: `rotate(${key.angle}deg)`,
-                            transformOrigin: `-${u(key.position.x - min.x)} -${u(key.position.y - min.y)}`,
-                        }}
-                    />
-                </KeyWrapper>
-            ))}
+            {layout.fixedKeys.map((fixedKey, i) => {
+                const origin: Coord = {
+                    x: fixedKey.position.x - min.x,
+                    y: fixedKey.position.y - min.y,
+                };
+                return (
+                    <KeyWrapper key={i}>
+                        {fixedKey.key.shape.map((shape, j) => {
+                            const left =
+                                fixedKey.position.x + shape.offset.x - min.x;
+                            const top =
+                                fixedKey.position.y + shape.offset.y - min.y;
+                            return (
+                                <Key
+                                    key={j}
+                                    style={{
+                                        left: u(left),
+                                        top: u(top),
+                                        width: u(shape.width),
+                                        height: u(shape.height),
+                                        transform: `rotate(${fixedKey.angle}deg)`,
+                                        transformOrigin: `-${u(origin.x)} -${u(
+                                            origin.y,
+                                        )}`,
+                                    }}
+                                />
+                            );
+                        })}
+                    </KeyWrapper>
+                );
+            })}
         </Wrapper>
     );
 };
