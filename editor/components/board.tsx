@@ -1,16 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 
-import bear65 from "../../.iso.json";
-import {convertKLE} from "../../internal/convert";
 import {minmax} from "../../internal/layout";
 import {Coord} from "../../internal/types/base";
+import {Layout} from "../../internal/types/layout";
+import {Key} from "./key";
 
 // TODO props.
 const targetWidth = 800;
 
 export interface IProps {
-    // TODO keyboard
+    layout: Layout;
 }
 
 const Wrapper = styled.div<IProps>`
@@ -20,32 +20,13 @@ const Wrapper = styled.div<IProps>`
     font-size: 2rem;
 `;
 
-const Key = styled.div`
-    position: relative;
-    border: 1px solid blue;
-    width: 1em;
-    height: 1em;
-`;
-
-const KeyGroup = styled.div`
-    :hover {
-        ${Key} {
-            background-color: red;
-        }
-    }
-`;
-
-const KeyWrapper = styled.div`
+const KeyTransform = styled.div`
     position: relative;
     width: 0;
     height: 0;
 `;
 
-const u = (value: number) => `${value}em`;
-const px = (value: number) => `${value}px`;
-
-export const Board: React.FunctionComponent<IProps> = (props) => {
-    const layout = convertKLE(bear65);
+export const Board: React.FunctionComponent<IProps> = ({layout}) => {
     const [min, max] = minmax(layout);
 
     const width = max.x - min.x;
@@ -55,41 +36,28 @@ export const Board: React.FunctionComponent<IProps> = (props) => {
     return (
         <Wrapper
             style={{
-                width: u(width),
-                height: u(height),
-                fontSize: px(unit),
+                width: width + "em",
+                height: height + "em",
+                fontSize: unit + "px",
             }}
         >
             {layout.fixedKeys.map((fixedKey, i) => {
                 const origin: Coord = {
-                    x: fixedKey.position.x - min.x,
-                    y: fixedKey.position.y - min.y,
+                    x: -fixedKey.position.x + min.x,
+                    y: -fixedKey.position.y + min.y,
                 };
                 return (
-                    <KeyGroup key={i}>
-                        {fixedKey.key.shape.map((shape, j) => {
-                            const left =
-                                fixedKey.position.x + shape.offset.x - min.x;
-                            const top =
-                                fixedKey.position.y + shape.offset.y - min.y;
-                            return (
-                                <KeyWrapper key={j}>
-                                    <Key
-                                        style={{
-                                            left: u(left),
-                                            top: u(top),
-                                            width: u(shape.width),
-                                            height: u(shape.height),
-                                            transform: `rotate(${fixedKey.angle}deg)`,
-                                            transformOrigin: `-${u(
-                                                origin.x,
-                                            )} -${u(origin.y)}`,
-                                        }}
-                                    />
-                                </KeyWrapper>
-                            );
-                        })}
-                    </KeyGroup>
+                    <KeyTransform
+                        key={i}
+                        style={{
+                            left: fixedKey.position.x - min.x + "em",
+                            top: fixedKey.position.y - min.y + "em",
+                            transform: `rotate(${fixedKey.angle}deg)`,
+                            transformOrigin: `${origin.x}em ${origin.y}em`,
+                        }}
+                    >
+                        <Key blank={fixedKey.key} />
+                    </KeyTransform>
                 );
             })}
         </Wrapper>

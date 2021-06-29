@@ -4,6 +4,10 @@ import {createGlobalStyle} from "styled-components";
 
 import {Board} from "./components/board";
 
+import iso from "../.iso.json";
+import bear65 from "../files/kle/bear65.json";
+import {convertKLE} from "../internal/convert";
+
 // Global styles, similar to traditional css.
 const GlobalStyle = createGlobalStyle`
     html, body, #root {
@@ -26,7 +30,8 @@ const GlobalStyle = createGlobalStyle`
 const App: React.FunctionComponent = () => (
     <Fragment>
         <GlobalStyle />
-        <Board />
+        <Board layout={convertKLE(iso)} />
+        <Board layout={convertKLE(bear65)} />
     </Fragment>
 );
 
