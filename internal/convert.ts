@@ -14,11 +14,12 @@ export const convertKLE = (raw: any): Layout => {
                 width: key.width,
                 offset: {x: 0, y: 0},
             });
-            const hasSecond =
-                key.width2 !== 0 ||
-                key.height2 !== 0 ||
-                key.x2 !== key.x ||
-                key.y2 !== key.y;
+
+            const isSmall = key.width2 === 0 || key.height2 === 0;
+            const isResized =
+                key.width2 !== key.width || key.height2 !== key.height;
+            const isMoved = key.x2 !== 0 || key.y2 !== 0;
+            const hasSecond = !isSmall && (isMoved || isResized);
             if (hasSecond) {
                 console.log(key);
                 shapes.push({

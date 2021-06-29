@@ -20,21 +20,25 @@ const Wrapper = styled.div<IProps>`
     font-size: 2rem;
 `;
 
-const KeyWrapper = styled.div`
-    position: relative;
-    width: 0;
-    height: 0;
-`;
-
 const Key = styled.div`
     position: relative;
     border: 1px solid blue;
     width: 1em;
     height: 1em;
+`;
 
+const KeyGroup = styled.div`
     :hover {
-        background-color: red;
+        ${Key} {
+            background-color: red;
+        }
     }
+`;
+
+const KeyWrapper = styled.div`
+    position: relative;
+    width: 0;
+    height: 0;
 `;
 
 const u = (value: number) => `${value}em`;
@@ -62,29 +66,30 @@ export const Board: React.FunctionComponent<IProps> = (props) => {
                     y: fixedKey.position.y - min.y,
                 };
                 return (
-                    <KeyWrapper key={i}>
+                    <KeyGroup key={i}>
                         {fixedKey.key.shape.map((shape, j) => {
                             const left =
                                 fixedKey.position.x + shape.offset.x - min.x;
                             const top =
                                 fixedKey.position.y + shape.offset.y - min.y;
                             return (
-                                <Key
-                                    key={j}
-                                    style={{
-                                        left: u(left),
-                                        top: u(top),
-                                        width: u(shape.width),
-                                        height: u(shape.height),
-                                        transform: `rotate(${fixedKey.angle}deg)`,
-                                        transformOrigin: `-${u(origin.x)} -${u(
-                                            origin.y,
-                                        )}`,
-                                    }}
-                                />
+                                <KeyWrapper key={j}>
+                                    <Key
+                                        style={{
+                                            left: u(left),
+                                            top: u(top),
+                                            width: u(shape.width),
+                                            height: u(shape.height),
+                                            transform: `rotate(${fixedKey.angle}deg)`,
+                                            transformOrigin: `-${u(
+                                                origin.x,
+                                            )} -${u(origin.y)}`,
+                                        }}
+                                    />
+                                </KeyWrapper>
                             );
                         })}
-                    </KeyWrapper>
+                    </KeyGroup>
                 );
             })}
         </Wrapper>
