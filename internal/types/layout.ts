@@ -28,5 +28,6 @@ export interface LayoutKey {
 
     // Angle of the footprint.
     // +180deg for inverted switches.
+    // TODO convert to rotation origin around position.
     angle: Angle;
 }

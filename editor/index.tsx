@@ -12,6 +12,7 @@ import {convertKLE} from "../internal/convert";
 const GlobalStyle = createGlobalStyle`
     html, body, #root {
         align-items: center;
+        background-color: #ece2ca;
         justify-content: center;
         display: flex;
         flex-direction: column;
@@ -20,10 +21,6 @@ const GlobalStyle = createGlobalStyle`
         margin: 0;
         min-height: 100%;
         width: 100%;
-    }
-
-    * {
-        box-sizing: border-box;
     }
 `;
 

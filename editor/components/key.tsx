@@ -3,19 +3,22 @@ import styled from "styled-components";
 
 import {Blank} from "../../internal/types/base";
 
+const PAD = 0.025;
+
 export interface IProps {
     blank: Blank;
 }
 
 const Shape = styled.div`
     position: relative;
-    border: 1px solid blue;
+    border-radius: ${1.5*PAD}em;
+    background-color: #c2ae8f;
 `;
 
 const Wrapper = styled.div`
     :hover {
         ${Shape} {
-            background-color: red;
+            background-color: #9e8c65;
         }
     }
 `;
@@ -33,10 +36,10 @@ export const Key: React.FunctionComponent<IProps> = ({blank}) => {
                 <ShapeWrapper key={j}>
                     <Shape
                         style={{
-                            left: shape.offset.x + "em",
-                            top: shape.offset.y + "em",
-                            width: shape.width + "em",
-                            height: shape.height + "em",
+                            left: shape.offset.x + PAD + "em",
+                            top: shape.offset.y + PAD + "em",
+                            width: shape.width - 2 * PAD + "em",
+                            height: shape.height - 2 * PAD + "em",
                         }}
                     />
                 </ShapeWrapper>

@@ -14,7 +14,7 @@ export interface IProps {
 }
 
 const Wrapper = styled.div<IProps>`
-    border: 1px solid red;
+    padding: 10px;
 
     /* 1u */
     font-size: 2rem;
