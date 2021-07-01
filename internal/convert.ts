@@ -21,7 +21,6 @@ export const convertKLE = (raw: any): Layout => {
             const isMoved = key.x2 !== 0 || key.y2 !== 0;
             const hasSecond = !isSmall && (isMoved || isResized);
             if (hasSecond) {
-                console.log(key);
                 shapes.push({
                     height: key.height2,
                     width: key.width2,

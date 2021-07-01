@@ -6,10 +6,8 @@ import {Coord} from "../../internal/types/base";
 import {Layout} from "../../internal/types/layout";
 import {Key} from "./key";
 
-// TODO props.
-const targetWidth = 800;
-
 export interface IProps {
+    width: number;
     layout: Layout;
 }
 
@@ -26,18 +24,18 @@ const KeyTransform = styled.div`
     height: 0;
 `;
 
-export const Board: React.FunctionComponent<IProps> = ({layout}) => {
+export const Board: React.FunctionComponent<IProps> = ({layout, width}) => {
     const [min, max] = minmax(layout);
 
-    const width = max.x - min.x;
-    const height = max.y - min.y;
-    const unit = targetWidth / width;
+    const unitWidth = max.x - min.x;
+    const unitHeight = max.y - min.y;
+    const unit = width / unitWidth;
 
     return (
         <Wrapper
             style={{
-                width: width + "em",
-                height: height + "em",
+                width: unitWidth + "em",
+                height: unitHeight + "em",
                 fontSize: unit + "px",
             }}
         >
