@@ -4,8 +4,9 @@ import styled from "styled-components";
 import {Blank} from "../../internal/types/base";
 import {theme} from "../theme";
 
-const PAD = 0.025;
-const BORDER = 0.05;
+const PAD = 0;
+const BORDER = 0.015;
+const BORDER_RADIUS = 0.06;
 
 export interface IProps {
     blank: Blank;
@@ -15,7 +16,7 @@ export interface IProps {
 
 const Shape = styled.div`
     background-color: ${theme.colors.component};
-    border-radius: ${1.5 * PAD}em;
+    border-radius: ${BORDER_RADIUS}em;
     border: ${BORDER}em solid ${theme.colors.foreground};
     box-sizing: border-box;
     position: relative;

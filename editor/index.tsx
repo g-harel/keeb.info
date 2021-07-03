@@ -3,9 +3,7 @@ import ReactDOM from "react-dom";
 import {createGlobalStyle} from "styled-components";
 
 import {Board} from "./components/board";
-
-import iso from "../.iso.json";
-import bear65 from "../files/kle/bear65.json";
+import kleLayout from "./testing/kle.json";
 import {convertKLE} from "../internal/convert";
 import {theme} from "./theme";
 
@@ -28,8 +26,7 @@ const GlobalStyle = createGlobalStyle`
 const App: React.FunctionComponent = () => (
     <Fragment>
         <GlobalStyle />
-        <Board layout={convertKLE(iso)} width={900} />
-        <Board layout={convertKLE(bear65)} width={900} />
+        <Board layout={convertKLE(kleLayout)} width={900} />
     </Fragment>
 );
 
