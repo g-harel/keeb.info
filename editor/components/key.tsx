@@ -9,6 +9,8 @@ const BORDER = 0.05;
 
 export interface IProps {
     blank: Blank;
+    onClick: () => void;
+    selected: boolean;
 }
 
 const Shape = styled.div`
@@ -20,7 +22,8 @@ const Shape = styled.div`
 `;
 
 const Wrapper = styled.div`
-    :hover {
+    :hover,
+    &.selected {
         ${Shape} {
             background-color: ${theme.colors.foreground};
         }
@@ -33,9 +36,13 @@ const ShapeWrapper = styled.div`
     height: 0;
 `;
 
-export const Key: React.FunctionComponent<IProps> = ({blank}) => {
+export const Key: React.FunctionComponent<IProps> = ({
+    blank,
+    onClick,
+    selected,
+}) => {
     return (
-        <Wrapper>
+        <Wrapper onClick={onClick} className={selected ? "selected" : ""}>
             {blank.shape.map((shape, j) => (
                 <ShapeWrapper key={j}>
                     <Shape

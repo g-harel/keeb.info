@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 
 import {minmax} from "../../internal/layout";
@@ -26,10 +26,14 @@ const KeyTransform = styled.div`
 
 export const Board: React.FunctionComponent<IProps> = ({layout, width}) => {
     const [min, max] = minmax(layout);
-
     const unitWidth = max.x - min.x;
     const unitHeight = max.y - min.y;
     const unit = width / unitWidth;
+
+    const [selected, setSelected] = useState<Record<string, boolean>>({});
+    const toggleSelected = (id: number) => () => {
+        setSelected(Object.assign({}, selected, {[id]: !selected[id]}));
+    };
 
     return (
         <Wrapper
@@ -54,7 +58,11 @@ export const Board: React.FunctionComponent<IProps> = ({layout, width}) => {
                             transformOrigin: `${origin.x}em ${origin.y}em`,
                         }}
                     >
-                        <Key blank={fixedKey.key} />
+                        <Key
+                            blank={fixedKey.key}
+                            onClick={toggleSelected(i)}
+                            selected={selected[i]}
+                        />
                     </KeyTransform>
                 );
             })}
