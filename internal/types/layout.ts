@@ -29,4 +29,8 @@ export interface LayoutKey {
     // Angle of the footprint (rotated around 0,0).
     // +180deg for inverted switches.
     angle: Angle;
+
+    // Matrix position of the footprint.
+    matrixRow: number;
+    matrixColumn: number;
 }

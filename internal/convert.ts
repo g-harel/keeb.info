@@ -43,6 +43,8 @@ export const convertKLE = (raw: any): Layout => {
                     y: key.y,
                 },
                 angle: key.rotation_angle,
+                matrixRow: 0,
+                matrixColumn: 0,
             };
         }),
         options: [],
