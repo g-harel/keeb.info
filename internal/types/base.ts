@@ -1,14 +1,17 @@
 // TODO led support.
 // TODO key profiles.
-// TODO legend->keycode mapping (incl non-english).
-// TODO novelties/blanks.
+// TODO non-english.
 // TODO keycode/row preference.
+// TODO novelties/blanks.
 
 // Unit measurement, scaled for 1.0 = 1u.
 export type Unit = number;
 
 // Angle in degrees clockwise from the horizontal line (0deg = o--->).
 export type Angle = number;
+
+// Private unique identifier.
+export type UUID = string;
 
 // Unique identifier for product SKU.
 export interface ID {
