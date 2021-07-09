@@ -4,7 +4,7 @@ import {Angle, Blank, Coord, UUID} from "./base";
 export interface Keymap {
     layout: Layout;
     matrix: Record<UUID, KeymapMatrix>;
-    keycodes: Record<UUID, KeymapKeycode>;
+    layers: Record<UUID, KeymapKeycode>[];
 }
 
 export interface KeymapMatrix {
