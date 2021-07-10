@@ -33,8 +33,10 @@ export const minmax = (layout: Layout): [Coord, Coord] => {
 
     const keys: LayoutKey[] = [];
     keys.push(...layout.fixedKeys);
-    for (const option of layout.options) {
-        keys.push(...option.options[0]);
+    for (const section of layout.variableKeys) {
+        for (const option of section.options) {
+            keys.push(...option.keys);
+        }
     }
 
     for (const k of keys) {

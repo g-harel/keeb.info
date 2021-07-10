@@ -29,13 +29,14 @@ export const convertKLE = (raw: any): Layout => {
             }
 
             return {
+                ref: String(Math.random()),
                 key: {
                     shape: shapes,
-                    stabilizers: [],
+                    stabilizers: [], // TODO on larger than 2u.
                     // Assume centered all the time.
                     stem: {
-                        x: key.x + key.width / 2,
-                        y: key.y + key.height / 2,
+                        x: key.width / 2,
+                        y: key.height / 2,
                     },
                 },
                 position: {
@@ -47,6 +48,6 @@ export const convertKLE = (raw: any): Layout => {
                 matrixColumn: 0,
             };
         }),
-        options: [],
+        variableKeys: [],
     };
 };
