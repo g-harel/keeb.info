@@ -2,7 +2,7 @@ import {Coord} from "./types/base";
 import {Layout, LayoutKey} from "./types/layout";
 
 // Key's position is P and the rotation origin 0,0.
-const rotateCoord = (p: Coord, a: number): Coord => {
+export const rotateCoord = (p: Coord, a: number): Coord => {
     if (a === 0) return p;
     const distance = Math.sqrt(p.x ** 2 + p.y ** 2);
     const angle = Math.acos(p.x / distance);

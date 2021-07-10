@@ -1,5 +1,5 @@
 import {Serial} from "@ijprest/kle-serial";
-import {Shape} from "./types/base";
+import {Shape, Stabilizer} from "./types/base";
 
 import {Layout} from "./types/layout";
 
@@ -15,11 +15,12 @@ export const convertKLE = (raw: any): Layout => {
                 offset: {x: 0, y: 0},
             });
 
-            const isSmall = key.width2 === 0 || key.height2 === 0;
+            // Add second shape when required.
+            const isMicro = key.width2 === 0 || key.height2 === 0;
             const isResized =
                 key.width2 !== key.width || key.height2 !== key.height;
             const isMoved = key.x2 !== 0 || key.y2 !== 0;
-            const hasSecond = !isSmall && (isMoved || isResized);
+            const hasSecond = !isMicro && (isMoved || isResized);
             if (hasSecond) {
                 shapes.push({
                     height: key.height2,
@@ -28,11 +29,27 @@ export const convertKLE = (raw: any): Layout => {
                 });
             }
 
+            // Infer stabilizers.
+            const stabilizers: Stabilizer[] = [];
+            if (shapes[0].width >= 2) {
+                stabilizers.push({
+                    angle: 0,
+                    length: shapes[0].width - 1,
+                    offset: {x: 0.5, y: 0.5},
+                });
+            } else if (shapes[0].height >= 2) {
+                stabilizers.push({
+                    angle: 90,
+                    length: shapes[0].height - 1,
+                    offset: {x: 0.5, y: 0.5},
+                });
+            }
+
             return {
                 ref: String(Math.random()),
                 key: {
                     shape: shapes,
-                    stabilizers: [], // TODO on larger than 2u.
+                    stabilizers,
                     // Assume centered all the time.
                     stem: {
                         x: key.width / 2,

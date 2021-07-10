@@ -26,7 +26,7 @@ const GlobalStyle = createGlobalStyle`
 const App: React.FunctionComponent = () => (
     <Fragment>
         <GlobalStyle />
-        <Board layout={convertKLE(kleLayout)} width={900} />
+        <Board layout={convertKLE(kleLayout)} width={1500} />
     </Fragment>
 );
 

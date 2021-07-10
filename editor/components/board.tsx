@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import styled from "styled-components";
 
-import {minmax} from "../../internal/layout";
+import {minmax, rotateCoord} from "../../internal/layout";
 import {Blank, Coord} from "../../internal/types/base";
 import {Layout} from "../../internal/types/layout";
 
@@ -24,7 +24,7 @@ const KEY_COLOR = "#cccccc";
 const KEY_BORDER_COLOR = "#676767";
 const KEY_SHINE_COLOR = "#ebebeb";
 const KEY_SHINE_BORDER_COLOR = "#bebebe";
-const PAD = 0.0;
+const PAD = -0.002;
 const BORDER = 0.024;
 const KEY_RADIUS = 0.1;
 const INNER_KEY_RADIUS = 0.075;
@@ -116,6 +116,20 @@ export const Shape: React.FunctionComponent<Blank> = (props) => {
                 />
             ))}
             <Stem {...props.stem} />
+            {props.stabilizers.map((stabilizer) => (
+                <>
+                    <Stem {...stabilizer.offset} />
+                    <Stem
+                        {...rotateCoord(
+                            {
+                                x: stabilizer.offset.x + stabilizer.length,
+                                y: stabilizer.offset.y,
+                            },
+                            stabilizer.angle,
+                        )}
+                    />
+                </>
+            ))}
         </>
     );
 };
