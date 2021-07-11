@@ -24,16 +24,20 @@ const KEY_COLOR = "#cccccc";
 const KEY_BORDER_COLOR = "#676767";
 const KEY_SHINE_COLOR = "#ebebeb";
 const KEY_SHINE_BORDER_COLOR = "#bebebe";
-const PAD = -0.002;
+const PAD = 0.012;
 const BORDER = 0.024;
-const KEY_RADIUS = 0.1;
-const INNER_KEY_RADIUS = 0.075;
+const KEY_RADIUS = 0.075;
+const INNER_KEY_RADIUS = KEY_RADIUS * 0.75;
 const SHINE_PADDING_TOP = 0.05;
 const SHINE_PADDING_SIDE = 0.12;
 const SHINE_PADDING_BOTTOM = 0.2;
 const STEM_WIDTH = 0.05;
 const STEM_SIZE = 0.1;
 const STEM_COLOR = "#cccccc";
+const WIRE_WIDTH = STEM_WIDTH;
+const WIRE_COLOR = STEM_COLOR;
+const WIRE_OFFSET = STEM_SIZE + WIRE_WIDTH / 2;
+const WIRE_ANGLE = 90;
 
 export const Stem: React.FunctionComponent<Coord> = (props) => (
     <>
@@ -116,20 +120,48 @@ export const Shape: React.FunctionComponent<Blank> = (props) => {
                 />
             ))}
             <Stem {...props.stem} />
-            {props.stabilizers.map((stabilizer) => (
-                <>
-                    <Stem {...stabilizer.offset} />
-                    <Stem
-                        {...rotateCoord(
-                            {
-                                x: stabilizer.offset.x + stabilizer.length,
-                                y: stabilizer.offset.y,
-                            },
-                            stabilizer.angle,
-                        )}
-                    />
-                </>
-            ))}
+            {props.stabilizers.map((stabilizer) => {
+                const startStem = stabilizer.offset;
+                const endStem = rotateCoord(
+                    {
+                        x: startStem.x + stabilizer.length,
+                        y: startStem.y,
+                    },
+                    startStem,
+                    stabilizer.angle,
+                );
+                const startWire = rotateCoord(
+                    {
+                        x: startStem.x + WIRE_OFFSET,
+                        y: startStem.y,
+                    },
+                    startStem,
+                    WIRE_ANGLE,
+                );
+                const endWire = rotateCoord(
+                    {
+                        x: endStem.x + WIRE_OFFSET,
+                        y: endStem.y,
+                    },
+                    endStem,
+                    180 - WIRE_ANGLE,
+                );
+                return (
+                    <>
+                        <Stem {...startStem} />
+                        <Stem {...endStem} />
+                        <line
+                            x1={startWire.x}
+                            y1={startWire.y}
+                            x2={endWire.x}
+                            y2={endWire.y}
+                            stroke={WIRE_COLOR}
+                            strokeWidth={WIRE_WIDTH}
+                            strokeLinecap="square"
+                        />
+                    </>
+                );
+            })}
         </>
     );
 };
