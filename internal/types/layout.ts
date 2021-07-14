@@ -1,23 +1,30 @@
 import {Angle, Blank, Coord, UUID} from "./base";
 
 // Keymap applied to a layout.
-export interface Keymap {
-    layout: Layout;
-    matrix: Record<UUID, KeymapMatrix>;
+export interface LayoutKeymap {
+    layout: UUID;
     layers: Record<UUID, KeymapKeycode>[];
-}
-
-export interface KeymapMatrix {
-    row: number;
-    column: number;
 }
 
 export interface KeymapKeycode {
     keycode: any; // TODO
 }
 
+export interface LayoutImplementation {
+    layout: UUID;
+    matrix: Record<UUID, MatrixLocation>;
+}
+
+export interface MatrixLocation {
+    row: number;
+    column: number;
+}
+
 // Keyboard layout.
 export interface Layout {
+    // Unique identifier to refer to the layout.
+    ref: UUID;
+
     // Keys that do not overlap and not part of an option.
     fixedKeys: LayoutKey[];
 
