@@ -2,19 +2,33 @@ import {Angle, Blank, Coord, UUID} from "./base";
 
 // Keymap applied to a layout.
 export interface LayoutKeymap {
+    // Reference to target layout.
     layout: UUID;
+    
+    // Layer definitions mapping key refs to keycodes.
     layers: Record<UUID, KeymapKeycode>[];
+
+    // Selected layout options for the keymap.
+    optionSelection: UUID[];
 }
 
 export interface KeymapKeycode {
     keycode: any; // TODO
 }
 
+// Implementation of a layout on a board
 export interface LayoutImplementation {
+    // Reference to target layout.
     layout: UUID;
+    
+    // Mapping of key ref to matrix coordinates.
     matrix: Record<UUID, MatrixLocation>;
+    
+    // Selection available layout options.
+    availableOptions: UUID[];
 }
 
+// Matrix coordinates.
 export interface MatrixLocation {
     row: number;
     column: number;
