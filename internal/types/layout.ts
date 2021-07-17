@@ -4,7 +4,7 @@ import {Angle, Blank, Coord, UUID} from "./base";
 export interface LayoutKeymap {
     // Reference to target layout.
     layout: UUID;
-    
+
     // Layer definitions mapping key refs to keycodes.
     layers: Record<UUID, KeymapKeycode>[];
 
@@ -20,10 +20,10 @@ export interface KeymapKeycode {
 export interface LayoutImplementation {
     // Reference to target layout.
     layout: UUID;
-    
+
     // Mapping of key ref to matrix coordinates.
     matrix: Record<UUID, MatrixLocation>;
-    
+
     // Selection available layout options.
     availableOptions: UUID[];
 }

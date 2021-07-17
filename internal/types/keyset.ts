@@ -1,4 +1,4 @@
-import {Blank, Coord, ID} from "./base";
+import {Blank, Coord, ID, UUID} from "./base";
 
 // Group of keycap kits with matching theme.
 export interface Keyset {
@@ -27,11 +27,25 @@ export interface KeysetKit {
 // Individual keycap placed on an example layout.
 export interface KeysetKeycap {
     // Printed legend.
-    legend: string;
+    legend: KeycapLegend;
+
+    // Profile of the keycap.
+    profile: KeycapProfile;
 
     // Physical attributes of the keycap.
     key: Blank;
 
     // Position in the example layout.
     position: Coord;
+}
+
+export interface KeycapLegend {
+    topLegends: string[][];
+    frontLegends: string[][];
+    keycodeAffinity: any[]; // TODO
+}
+
+export interface KeycapProfile {
+    profile: UUID;
+    row: string;
 }
