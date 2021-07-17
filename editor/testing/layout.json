@@ -85,22 +85,6 @@
             "matrixColumn": 0
         },
         {
-            "ref": "0.5496543810863703",
-            "key": {
-                "shape": [
-                    {"height": 1, "width": 2, "offset": {"x": 0, "y": 0}}
-                ],
-                "stabilizers": [
-                    {"angle": 0, "length": 1, "offset": {"x": 0.5, "y": 0.5}}
-                ],
-                "stem": {"x": 1, "y": 0.5}
-            },
-            "position": {"x": 15.1, "y": 0.95},
-            "angle": 0,
-            "matrixRow": 0,
-            "matrixColumn": 0
-        },
-        {
             "ref": "0.06445813950396229",
             "key": {
                 "shape": [
@@ -924,5 +908,81 @@
             "matrixColumn": 0
         }
     ],
-    "variableKeys": []
+    "variableKeys": [
+        {
+            "ref": "backspace section",
+            "options": [
+                {
+                    "ref": "2u backspace",
+                    "keys": [
+                        {
+                            "ref": "0.5496543810863703",
+                            "key": {
+                                "shape": [
+                                    {
+                                        "height": 1,
+                                        "width": 2,
+                                        "offset": {"x": 0, "y": 0}
+                                    }
+                                ],
+                                "stabilizers": [
+                                    {
+                                        "angle": 0,
+                                        "length": 1,
+                                        "offset": {"x": 0.5, "y": 0.5}
+                                    }
+                                ],
+                                "stem": {"x": 1, "y": 0.5}
+                            },
+                            "position": {"x": 15.1, "y": 0.95},
+                            "angle": 0,
+                            "matrixRow": 0,
+                            "matrixColumn": 0
+                        }
+                    ]
+                },
+                {
+                    "ref": "split backspace",
+                    "keys": [
+                        {
+                            "ref": "0.5496543810863703-1",
+                            "key": {
+                                "shape": [
+                                    {
+                                        "height": 1,
+                                        "width": 1,
+                                        "offset": {"x": 0, "y": 0}
+                                    }
+                                ],
+                                "stabilizers": [],
+                                "stem": {"x": 0.5, "y": 0.5}
+                            },
+                            "position": {"x": 15.1, "y": 0.95},
+                            "angle": 0,
+                            "matrixRow": 0,
+                            "matrixColumn": 0
+                        },
+                        {
+                            "ref": "0.5496543810863703-2",
+                            "key": {
+                                "shape": [
+                                    {
+                                        "height": 1,
+                                        "width": 1,
+                                        "offset": {"x": 0, "y": 0}
+                                    }
+                                ],
+                                "stabilizers": [],
+                                "stem": {"x": 0.5, "y": 0.5}
+                            },
+                            "position": {"x": 16.1, "y": 0.95},
+                            "angle": 0,
+                            "matrixRow": 0,
+                            "matrixColumn": 0
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
 }
