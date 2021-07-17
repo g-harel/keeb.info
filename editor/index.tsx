@@ -4,6 +4,7 @@ import {createGlobalStyle} from "styled-components";
 
 import {Board} from "./components/board";
 import kleLayout from "./testing/kle.json";
+import testLayout from "./testing/layout.json";
 import {convertKLE} from "../internal/convert";
 import {theme} from "./theme";
 
@@ -26,7 +27,8 @@ const GlobalStyle = createGlobalStyle`
 const App: React.FunctionComponent = () => (
     <Fragment>
         <GlobalStyle />
-        <Board layout={convertKLE(kleLayout)} width={1500} />
+        <Board layout={convertKLE(kleLayout)} width={800} />
+        <Board layout={testLayout} width={1200} />
     </Fragment>
 );
 

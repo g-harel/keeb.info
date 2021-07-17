@@ -83,7 +83,7 @@ export const Mounts: React.FunctionComponent<Blank> = (props) => (
                     y: startStem.y,
                 },
                 startStem,
-                WIRE_ANGLE,
+                stabilizer.angle + WIRE_ANGLE,
             );
             const endWire = rotateCoord(
                 {
@@ -91,7 +91,7 @@ export const Mounts: React.FunctionComponent<Blank> = (props) => (
                     y: endStem.y,
                 },
                 endStem,
-                180 - WIRE_ANGLE,
+                stabilizer.angle + 180 - WIRE_ANGLE,
             );
             return (
                 <>
