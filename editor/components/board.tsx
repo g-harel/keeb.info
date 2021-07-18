@@ -15,13 +15,12 @@ interface PositionProps {
     min: Coord;
     max: Coord;
     layoutKey: LayoutKey;
+    color: string;
 }
 
-export const PositionedKey: React.FunctionComponent<PositionProps> = (
-    props,
-) => (
+export const PositionedKey = (props: PositionProps) => (
     <g
-        id={props.ref}
+        id={props.layoutKey.ref}
         style={{
             transform: `rotate(${props.layoutKey.angle}deg) translate(${
                 props.layoutKey.position.x - props.min.x
@@ -29,11 +28,11 @@ export const PositionedKey: React.FunctionComponent<PositionProps> = (
             transformOrigin: `${-props.min.x}px ${-props.min.y}px`,
         }}
     >
-        <Key blank={props.layoutKey.key} />
+        <Key blank={props.layoutKey.key} color={props.color} />
     </g>
 );
 
-export const Board: React.FunctionComponent<BoardProps> = (props) => {
+export const Board = (props: BoardProps) => {
     const {layout, width} = props as BoardProps;
     const [min, max] = minmax(layout);
     const unitWidth = max.x - min.x;
@@ -52,8 +51,9 @@ export const Board: React.FunctionComponent<BoardProps> = (props) => {
         >
             {layout.fixedKeys.map((fixedKey, i) => (
                 <PositionedKey
-                    key={i}
+                    // key={i}
                     layoutKey={fixedKey}
+                    color="#cccccc"
                     min={min}
                     max={max}
                 />
@@ -62,8 +62,9 @@ export const Board: React.FunctionComponent<BoardProps> = (props) => {
                 section.options.map((option, j) =>
                     option.keys.map((key, k) => (
                         <PositionedKey
-                            key={i}
+                            // key={i}
                             layoutKey={key}
+                            color="#cea2a2"
                             min={min}
                             max={max}
                         />

@@ -7,6 +7,7 @@ import kleLayout from "./testing/kle.json";
 import testLayout from "./testing/layout.json";
 import {convertKLE} from "../internal/convert";
 import {theme} from "./theme";
+import {Layout} from "../internal/types/layout";
 
 // Global styles, similar to traditional css.
 const GlobalStyle = createGlobalStyle`
@@ -24,11 +25,11 @@ const GlobalStyle = createGlobalStyle`
     }
 `;
 
-const App: React.FunctionComponent = () => (
+const App = () => (
     <Fragment>
         <GlobalStyle />
         <Board layout={convertKLE(kleLayout)} width={800} />
-        <Board layout={testLayout} width={1200} />
+        <Board layout={testLayout as any as Layout} width={1200} />
     </Fragment>
 );
 
