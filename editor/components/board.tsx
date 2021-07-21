@@ -1,10 +1,12 @@
 import React, {useState} from "react";
 import styled from "styled-components";
+import * as color from "color";
 
 import {minmax} from "../../internal/layout";
 import {Coord} from "../../internal/types/base";
 import {Layout, LayoutKey} from "../../internal/types/layout";
 import {Key} from "./key";
+import {START_SECTION_COLOR} from "../cons";
 
 export interface BoardProps {
     width: number;
@@ -58,13 +60,15 @@ export const Board = (props: BoardProps) => {
                     max={max}
                 />
             ))}
-            {layout.variableKeys.map((section, i) =>
+            {layout.variableKeys.map((section, i, sections) =>
                 section.options.map((option, j) =>
                     option.keys.map((key, k) => (
                         <PositionedKey
-                            // key={i}
+                            // key={i} // TODO
                             layoutKey={key}
-                            color="#cea2a2"
+                            color={color(START_SECTION_COLOR)
+                                .rotate((i / sections.length) * 360)
+                                .hex()}
                             min={min}
                             max={max}
                         />
