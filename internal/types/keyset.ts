@@ -25,6 +25,7 @@ export interface KeysetKit {
 }
 
 // Individual keycap placed on an example layout.
+// TODO stepped.
 export interface KeysetKeycap {
     // Printed legend.
     legend: KeycapLegend;

@@ -51,7 +51,7 @@ export const Board = (props: BoardProps) => {
         >
             {layout.fixedKeys.map((fixedKey, i) => (
                 <PositionedKey
-                    // key={i}
+                    // key={i} TODO
                     layoutKey={fixedKey}
                     color="#cccccc"
                     min={min}

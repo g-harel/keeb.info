@@ -6,14 +6,14 @@ import {Board} from "./components/board";
 import kleLayout from "./testing/kle.json";
 import testLayout from "./testing/layout.json";
 import {convertKLE} from "../internal/convert";
-import {theme} from "./theme";
+import {BACKGROUND_COLOR} from "./cons";
 import {Layout} from "../internal/types/layout";
 
 // Global styles, similar to traditional css.
 const GlobalStyle = createGlobalStyle`
     html, body, #root {
         align-items: center;
-        background-color: ${theme.colors.background};
+        background-color: ${BACKGROUND_COLOR};
         justify-content: center;
         display: flex;
         flex-direction: column;
@@ -29,7 +29,7 @@ const App = () => (
     <Fragment>
         <GlobalStyle />
         <Board layout={convertKLE(kleLayout)} width={800} />
-        <Board layout={testLayout as any as Layout} width={1200} />
+        <Board layout={testLayout as Layout} width={1200} />
     </Fragment>
 );
 
