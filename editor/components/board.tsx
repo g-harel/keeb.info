@@ -30,7 +30,11 @@ export const PositionedKey = (props: PositionProps) => (
             transformOrigin: `${-props.min.x}px ${-props.min.y}px`,
         }}
     >
-        <Key blank={props.layoutKey.key} color={props.color} />
+        <Key
+            blank={props.layoutKey.key}
+            color={props.color}
+            shelf={(props.layoutKey as any).shelf || []}
+        />
     </g>
 );
 

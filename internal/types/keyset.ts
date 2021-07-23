@@ -1,4 +1,4 @@
-import {Blank, Coord, ID, UUID} from "./base";
+import {Blank, Coord, ID, Shape, UUID} from "./base";
 
 // Group of keycap kits with matching theme.
 export interface Keyset {
@@ -26,6 +26,8 @@ export interface KeysetKit {
 
 // Individual keycap placed on an example layout.
 // TODO stepped.
+// TODO barred/scooped.
+// TODO relegendable.
 export interface KeysetKeycap {
     // Printed legend.
     legend: KeycapLegend;
@@ -35,6 +37,9 @@ export interface KeysetKeycap {
 
     // Physical attributes of the keycap.
     key: Blank;
+
+    // Elevated portion of the keycap.
+    shelf: Shape[];
 
     // Position in the example layout.
     position: Coord;

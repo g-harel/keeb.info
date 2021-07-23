@@ -890,7 +890,11 @@
                             "ref": "0.23940420239527116",
                             "key": {
                                 "shape": [
-                                    {"height": 1, "width": 1.75, "offset": {"x": 0, "y": 0}}
+                                    {
+                                        "height": 1,
+                                        "width": 1.75,
+                                        "offset": {"x": 0, "y": 0}
+                                    }
                                 ],
                                 "stabilizers": [],
                                 "stem": {"x": 0.875, "y": 0.5}
@@ -909,11 +913,22 @@
                             "ref": "0.23940420239527116-1",
                             "key": {
                                 "shape": [
-                                    {"height": 1, "width": 1.75, "offset": {"x": 0, "y": 0}}
+                                    {
+                                        "height": 1,
+                                        "width": 1.75,
+                                        "offset": {"x": 0, "y": 0}
+                                    }
                                 ],
                                 "stabilizers": [],
-                                "stem": {"x": 0.875, "y": 0.5}
+                                "stem": {"x": 0.5, "y": 0.5}
                             },
+                            "shelf": [
+                                {
+                                    "height": 1,
+                                    "width": 1.25,
+                                    "offset": {"x": 0, "y": 0}
+                                }
+                            ],
                             "position": {"x": 1.25, "y": 2.95},
                             "angle": 0,
                             "matrixRow": 0,

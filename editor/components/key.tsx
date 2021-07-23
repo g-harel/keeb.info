@@ -3,12 +3,13 @@ import styled from "styled-components";
 import * as color from "color";
 
 import {rotateCoord} from "../../internal/layout";
-import {Blank, Coord} from "../../internal/types/base";
+import {Blank, Coord, Shape} from "../../internal/types/base";
 import * as c from "../cons";
 
 export interface KeyProps {
     color: string;
     blank: Blank;
+    shelf?: Shape[];
 }
 
 export interface StemProps {
@@ -103,9 +104,14 @@ export const Mounts = (props: MountProps) => (
 );
 
 export const Key = (props: KeyProps) => {
+    let shineShape = props.blank.shape;
+    if (props.shelf && props.shelf.length > 0) {
+        shineShape = props.shelf;
+    }
     return (
         <Group>
             {props.blank.shape.map((shape, j) => (
+                // Outer stroke.
                 <OuterRect
                     key={props.blank.shape.length * 1 + j}
                     fill={color(props.color).darken(c.STROKE_COLOR_DARKEN)}
@@ -117,6 +123,7 @@ export const Key = (props: KeyProps) => {
                 />
             ))}
             {props.blank.shape.map((shape, j) => (
+                // Base fill.
                 <rect
                     key={props.blank.shape.length * 2 + j}
                     fill={props.color}
@@ -127,7 +134,8 @@ export const Key = (props: KeyProps) => {
                     height={shape.height - 2 * (c.PAD + c.BORDER)}
                 />
             ))}
-            {props.blank.shape.map((shape, j) => (
+            {shineShape.map((shape, j) => (
+                // Shine stroke.
                 <rect
                     key={props.blank.shape.length * 3 + j}
                     fill={color(props.color).darken(c.SHINE_COLOR_DIFF)}
@@ -143,7 +151,8 @@ export const Key = (props: KeyProps) => {
                     }
                 />
             ))}
-            {props.blank.shape.map((shape, j) => (
+            {shineShape.map((shape, j) => (
+                // Shine fill.
                 <rect
                     key={props.blank.shape.length * 4 + j}
                     fill={color(props.color).lighten(c.SHINE_COLOR_DIFF)}

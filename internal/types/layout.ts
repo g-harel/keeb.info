@@ -17,6 +17,8 @@ export interface KeymapKeycode {
 }
 
 // Implementation of a layout on a board
+// TODO rotary encoders.
+// TODO split matrix.
 export interface LayoutImplementation {
     // Reference to target layout.
     layout: UUID;
