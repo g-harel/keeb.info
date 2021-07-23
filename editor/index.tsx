@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import {createGlobalStyle} from "styled-components";
 
 import {Board} from "./components/board";
-import kleLayout from "./testing/kle.json";
+import kleLayout from "./testing/kle-layout.json";
 import testLayout from "./testing/layout.json";
 import {convertKLE} from "../internal/convert";
 import {BACKGROUND_COLOR} from "./cons";
