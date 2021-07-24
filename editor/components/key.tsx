@@ -5,19 +5,20 @@ import * as color from "color";
 import {rotateCoord} from "../../internal/layout";
 import {Blank, Coord, Shape} from "../../internal/types/base";
 import * as c from "../cons";
+import {ReactProps} from "../../internal/types/util";
 
-export interface KeyProps {
+export interface KeyProps extends ReactProps {
     color: string;
     blank: Blank;
     shelf?: Shape[];
 }
 
-export interface StemProps {
+export interface StemProps extends ReactProps {
     coord: Coord;
     color: string;
 }
 
-export interface MountProps {
+export interface MountProps extends ReactProps {
     blank: Blank;
     color: string;
 }
@@ -56,9 +57,9 @@ export const Stem = (props: StemProps) => (
 );
 
 export const Mounts = (props: MountProps) => (
-    <>
+    <g>
         <Stem coord={props.blank.stem} color={props.color} />
-        {props.blank.stabilizers.map((stabilizer) => {
+        {props.blank.stabilizers.map((stabilizer, i) => {
             const startStem = stabilizer.offset;
             const endStem = rotateCoord(
                 {
@@ -85,7 +86,7 @@ export const Mounts = (props: MountProps) => (
                 stabilizer.angle + 180 - c.WIRE_ANGLE,
             );
             return (
-                <>
+                <g key={i}>
                     <Stem coord={startStem} color={props.color} />
                     <Stem coord={endStem} color={props.color} />
                     <line
@@ -97,10 +98,10 @@ export const Mounts = (props: MountProps) => (
                         strokeWidth={c.WIRE_WIDTH}
                         strokeLinecap="round"
                     />
-                </>
+                </g>
             );
         })}
-    </>
+    </g>
 );
 
 export const Key = (props: KeyProps) => {

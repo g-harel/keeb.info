@@ -7,13 +7,14 @@ import {Coord} from "../../internal/types/base";
 import {Layout, LayoutKey} from "../../internal/types/layout";
 import {Key} from "./key";
 import {START_SECTION_COLOR} from "../cons";
+import {ReactProps} from "../../internal/types/util";
 
-export interface BoardProps {
+export interface BoardProps extends ReactProps {
     width: number;
     layout: Layout;
 }
 
-interface PositionProps {
+interface PositionProps extends ReactProps {
     min: Coord;
     max: Coord;
     layoutKey: LayoutKey;
@@ -55,10 +56,10 @@ export const Board = (props: BoardProps) => {
             viewBox={`0 0 ${unitWidth} ${unitHeight}`}
             width={width}
         >
-            {layout.fixedKeys.map((fixedKey, i) => (
+            {layout.fixedKeys.map((key, i) => (
                 <PositionedKey
-                    // key={i} TODO
-                    layoutKey={fixedKey}
+                    key={key.ref}
+                    layoutKey={key}
                     color="#cccccc"
                     min={min}
                     max={max}
@@ -68,7 +69,7 @@ export const Board = (props: BoardProps) => {
                 section.options.map((option, j) =>
                     option.keys.map((key, k) => (
                         <PositionedKey
-                            // key={i} // TODO
+                            key={key.ref}
                             layoutKey={key}
                             color={color(START_SECTION_COLOR)
                                 .rotate((i / sections.length) * 360)
