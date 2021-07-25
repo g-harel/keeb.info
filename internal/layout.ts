@@ -1,4 +1,5 @@
 import polygonClipping, {Polygon, Pair, MultiPolygon, union} from "polygon-clipping";
+import {LAYOUT_OPTIONS_PADDING, LAYOUT_SPREAD_INCREMENT} from "../editor/cons";
 
 import {Coord, Shape} from "./types/base";
 import {Layout, LayoutKey} from "./types/layout";
@@ -104,31 +105,49 @@ const unionKeys = (poly: MultiPolygon, ...keys: LayoutKey[]): MultiPolygon => {
     return polygonClipping.union(poly, ...polys);
 }
 
+const deepCopy = <T>(o: T): T => {
+    return JSON.parse(JSON.stringify(o));
+}
+
 const keyIntersects = (poly: MultiPolygon, key: LayoutKey): boolean => {
     const intersection = polygonClipping.intersection(poly, unionKeys([], key));
     return !!intersection.flat(2).length;
 };
 
 const offsetKey = (key: LayoutKey, offset: Coord): LayoutKey => {
-    const oKey: LayoutKey = JSON.parse(JSON.stringify(key));
+    const oKey: LayoutKey = deepCopy(key);
     oKey.position.x += offset.x;
     oKey.position.y += offset.y;
     return oKey;
 };
 
+// TODO padding around initial layout.
 export const spreadSections = (layout: Layout): Layout => {
-    const out: Layout = JSON.parse(JSON.stringify(layout));
+    const out: Layout = deepCopy(layout);
 
-    const optionFirsts: LayoutKey[] = [];
+    const avoidKeys: LayoutKey[] = out.fixedKeys;
     for (const options of layout.variableKeys) {
-        optionFirsts.push(...options.options[0].keys);
+        avoidKeys.push(...options.options[0].keys);
     }
-    let avoid = unionKeys([], ...out.fixedKeys, ...optionFirsts);
+
+    // Add padding around unmodified layout.
+    const paddedAvoidKeys = deepCopy(avoidKeys).map((key) => {
+        key.key.shape = key.key.shape.map((shape) => {
+            shape.width += 2 * LAYOUT_OPTIONS_PADDING;
+            shape.height += 2 * LAYOUT_OPTIONS_PADDING;
+            shape.offset.x -= LAYOUT_OPTIONS_PADDING;
+            shape.offset.y -= LAYOUT_OPTIONS_PADDING;
+            return shape;
+        });
+        return key;
+    });
+    let avoid = unionKeys([], ...paddedAvoidKeys);
+    console.log(avoid);
 
     for (const section of out.variableKeys) {
         for (const option of section.options.slice(1)) {
             // Move option until it doesn't intersect.
-            for (let j = 1; j < 100; j += 1) {
+            for (let j = 1; j < 100; j += LAYOUT_SPREAD_INCREMENT) {
                 let intersects = false;
                 for (const key of option.keys) {
                     if (keyIntersects(avoid, offsetKey(key, {x: 0, y: j}))) {

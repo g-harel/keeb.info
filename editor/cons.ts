@@ -17,3 +17,5 @@ export const WIRE_WIDTH = STEM_WIDTH;
 export const WIRE_COLOR_DARKEN = STEM_COLOR_DARKEN;
 export const WIRE_OFFSET = 2 * (STEM_SIZE + WIRE_WIDTH / 2);
 export const WIRE_ANGLE = 105;
+export const LAYOUT_OPTIONS_PADDING = 0.45;
+export const LAYOUT_SPREAD_INCREMENT = 0.5;

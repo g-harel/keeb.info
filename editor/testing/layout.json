@@ -158,18 +158,6 @@
             "angle": 0
         },
         {
-            "ref": "0.1440995011945414",
-            "key": {
-                "shape": [
-                    {"height": 1, "width": 1.5, "offset": {"x": 0, "y": 0}}
-                ],
-                "stabilizers": [],
-                "stem": {"x": 0.75, "y": 0.5}
-            },
-            "position": {"x": 15.8, "y": 1.95},
-            "angle": 0
-        },
-        {
             "ref": "0.09476037118754421",
             "key": {
                 "shape": [
@@ -215,34 +203,6 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 14.25, "y": 2.95},
-            "angle": 0
-        },
-        {
-            "ref": "0.7710057571796907",
-            "key": {
-                "shape": [
-                    {"height": 1, "width": 2.25, "offset": {"x": 0, "y": 0}}
-                ],
-                "stabilizers": [
-                    {"angle": 0, "length": 1.25, "offset": {"x": 0.5, "y": 0.5}}
-                ],
-                "stem": {"x": 1.125, "y": 0.5}
-            },
-            "position": {"x": 15.25, "y": 2.95},
-            "angle": 0
-        },
-        {
-            "ref": "0.43349254278083094",
-            "key": {
-                "shape": [
-                    {"height": 1, "width": 2.25, "offset": {"x": 0, "y": 0}}
-                ],
-                "stabilizers": [
-                    {"angle": 0, "length": 1.25, "offset": {"x": 0.5, "y": 0.5}}
-                ],
-                "stem": {"x": 1.125, "y": 0.5}
-            },
-            "position": {"x": 1.05, "y": 3.95},
             "angle": 0
         },
         {
@@ -944,7 +904,7 @@
                                 "stabilizers": [
                                     {"angle": 90, "length": 1, "offset": {"x": 1.5, "y": -0.5}}
                                 ],
-                                "stem": {"x": 1.5, "y": 0.5}
+                                "stem": {"x": 1.5, "y": 0}
                             },
                             "position": {"x": 15.7, "y": 4.95},
                             "angle": 0
@@ -1038,8 +998,9 @@
                                         "offset": {"x": 0, "y": 0}
                                     }
                                 ],
-                                "stabilizers": [],
-                                "stem": {"x": 0.5, "y": 0.5}
+                                "stabilizers": [
+                                    {"angle": 0, "length": 1, "offset": {"x": 0.5, "y": 0.5}}],
+                                "stem": {"x": 1, "y": 0.5}
                             },
                             "position": {"x": 8.35, "y": 5.15},
                             "angle": -10
@@ -1054,8 +1015,9 @@
                                         "offset": {"x": 0, "y": 0}
                                     }
                                 ],
-                                "stabilizers": [],
-                                "stem": {"x": 0.5, "y": 0.5}
+                                "stabilizers": [
+                                    {"angle": 0, "length": 1, "offset": {"x": 0.5, "y": 0.5}}],
+                                "stem": {"x": 1, "y": 0.5}
                             },
                             "position": {"x": 10.35, "y": 5.15},
                             "angle": -10
@@ -1075,11 +1037,136 @@
                                         "offset": {"x": 0, "y": 0}
                                     }
                                 ],
-                                "stabilizers": [],
-                                "stem": {"x": 0.5, "y": 0.5}
+                                "stabilizers": [
+                                    {"angle": 0, "length": 3, "offset": {"x": 0.5, "y": 0.5}}],
+                                "stem": {"x": 2, "y": 0.5}
                             },
                             "position": {"x": 8.35, "y": 5.15},
                             "angle": -10
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "ref": "left shift",
+            "options": [
+                {
+                    "ref": "ansi",
+                    "keys": [
+                        {
+                            "ref": "0.43349254278083094",
+                            "key": {
+                                "shape": [
+                                    {"height": 1, "width": 2.25, "offset": {"x": 0, "y": 0}}
+                                ],
+                                "stabilizers": [
+                                    {"angle": 0, "length": 1.25, "offset": {"x": 0.5, "y": 0.5}}
+                                ],
+                                "stem": {"x": 1.125, "y": 0.5}
+                            },
+                            "position": {"x": 1.05, "y": 3.95},
+                            "angle": 0
+                        }
+                    ]
+                },
+                {
+                    "ref": "iso",
+                    "keys": [
+                        {
+                            "ref": "0.43349254278083094-1",
+                            "key": {
+                                "shape": [
+                                    {"height": 1, "width": 1.25, "offset": {"x": 0, "y": 0}}
+                                ],
+                                "stabilizers": [],
+                                "stem": {"x": 0.625, "y": 0.5}
+                            },
+                            "position": {"x": 1.05, "y": 3.95},
+                            "angle": 0
+                        },
+                        {
+                            "ref": "0.43349254278083094-2",
+                            "key": {
+                                "shape": [
+                                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
+                                ],
+                                "stabilizers": [],
+                                "stem": {"x": 0.5, "y": 0.5}
+                            },
+                            "position": {"x": 2.3, "y": 3.95},
+                            "angle": 0
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "ref": "enter",
+            "options": [
+                {
+                    "ref": "ansi",
+                    "keys": [
+                        {
+                            "ref": "0.1440995011945414",
+                            "key": {
+                                "shape": [
+                                    {"height": 1, "width": 1.7, "offset": {"x": 0, "y": 0}}
+                                ],
+                                "stabilizers": [],
+                                "stem": {"x": 0.875, "y": 0.5}
+                            },
+                            "position": {"x": 15.8, "y": 1.95},
+                            "angle": 0
+                        },
+                        {
+                            "ref": "0.7710057571796907",
+                            "key": {
+                                "shape": [
+                                    {"height": 1, "width": 2.25, "offset": {"x": 0, "y": 0}}
+                                ],
+                                "stabilizers": [
+                                    {"angle": 0, "length": 1.25, "offset": {"x": 0.5, "y": 0.5}}
+                                ],
+                                "stem": {"x": 1.125, "y": 0.5}
+                            },
+                            "position": {"x": 15.25, "y": 2.95},
+                            "angle": 0
+                        }
+                    ]
+                },
+                {
+                    "ref": "iso",
+                    "keys": [
+                        {
+                            "ref": "0.1440995011945414-1",
+                            "key": {
+                                "shape": [
+                                    {"height": 1, "width": 1.7, "offset": {"x": 0, "y": 0}},
+                                    {"height": 2, "width": 1.25, "offset": {"x": 0.45, "y": 0}}
+                                ],
+                                "stabilizers": [
+                                    {"angle": 90, "length": 1, "offset": {"x": 1.05, "y": 0.5}}
+                                ],
+                                "stem": {"x": 1.05, "y": 1}
+                            },
+                            "shelf": [
+                                {"height": 2, "width": 1.25, "offset": {"x": 0.45, "y": 0}}
+                            ],
+                            "position": {"x": 15.8, "y": 1.95},
+                            "angle": 0
+                        },
+                        {
+                            "ref": "0.7710057571796907-1",
+                            "key": {
+                                "shape": [
+                                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
+                                ],
+                                "stabilizers": [],
+                                "stem": {"x": 0.5, "y": 0.5}
+                            },
+                            "position": {"x": 15.25, "y": 2.95},
+                            "angle": 0
                         }
                     ]
                 }
