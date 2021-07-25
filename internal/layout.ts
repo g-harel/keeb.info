@@ -1,4 +1,9 @@
-import polygonClipping, {Polygon, Pair, MultiPolygon, union} from "polygon-clipping";
+import polygonClipping, {
+    Polygon,
+    Pair,
+    MultiPolygon,
+    union,
+} from "polygon-clipping";
 import {LAYOUT_OPTIONS_PADDING, LAYOUT_SPREAD_INCREMENT} from "../editor/cons";
 
 import {Coord, Shape} from "./types/base";
@@ -103,11 +108,11 @@ const unionKeys = (poly: MultiPolygon, ...keys: LayoutKey[]): MultiPolygon => {
         }
     }
     return polygonClipping.union(poly, ...polys);
-}
+};
 
 const deepCopy = <T>(o: T): T => {
     return JSON.parse(JSON.stringify(o));
-}
+};
 
 const keyIntersects = (poly: MultiPolygon, key: LayoutKey): boolean => {
     const intersection = polygonClipping.intersection(poly, unionKeys([], key));
@@ -142,26 +147,36 @@ export const spreadSections = (layout: Layout): Layout => {
         return key;
     });
     let avoid = unionKeys([], ...paddedAvoidKeys);
-    console.log(avoid);
 
     for (const section of out.variableKeys) {
+        // Keep track of how far last option had to be moved and start there.
+        let lastIncrement = 1;
         for (const option of section.options.slice(1)) {
             // Move option until it doesn't intersect.
-            for (let j = 1; j < 100; j += LAYOUT_SPREAD_INCREMENT) {
-                let intersects = false;
-                for (const key of option.keys) {
-                    if (keyIntersects(avoid, offsetKey(key, {x: 0, y: j}))) {
-                        intersects = true;
+            for (let j = lastIncrement; j < 100; j += LAYOUT_SPREAD_INCREMENT) {
+                let found = false;
+                for (const offset of [
+                    {x: 0, y: j},
+                    {x: 0, y: -j},
+                ]) {
+                    let intersects = false;
+                    for (const key of option.keys) {
+                        if (keyIntersects(avoid, offsetKey(key, offset))) {
+                            intersects = true;
+                            break;
+                        }
+                    }
+                    if (!intersects) {
+                        found = true;
+                        lastIncrement = j;
+                        for (const key of option.keys) {
+                            key.position = offsetKey(key, offset).position;
+                        }
+                        avoid = unionKeys(avoid, ...option.keys);
                         break;
                     }
                 }
-                if (!intersects) {
-                    for (const key of option.keys) {
-                        key.position.y += j;
-                    }
-                    avoid = unionKeys(avoid, ...option.keys);
-                    break;
-                }
+                if (found) break;
             }
         }
     }

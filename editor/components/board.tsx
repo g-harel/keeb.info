@@ -41,7 +41,10 @@ export const PositionedKey = (props: PositionProps) => (
 
 export const Board = (props: BoardProps) => {
     const {layout, width} = props as BoardProps;
+
+    console.time("spread");
     const spreadLayout = spreadSections(layout);
+    console.timeEnd("spread");
 
     const [min, max] = minmax(spreadLayout);
     const unitWidth = max.x - min.x;
