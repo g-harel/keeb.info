@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import styled from "styled-components";
 import * as color from "color";
 
-import {minmax} from "../../internal/layout";
+import {minmax, spreadSections} from "../../internal/layout";
 import {Coord} from "../../internal/types/base";
 import {Layout, LayoutKey} from "../../internal/types/layout";
 import {Key} from "./key";
@@ -41,7 +41,9 @@ export const PositionedKey = (props: PositionProps) => (
 
 export const Board = (props: BoardProps) => {
     const {layout, width} = props as BoardProps;
-    const [min, max] = minmax(layout);
+    const spreadLayout = spreadSections(layout);
+
+    const [min, max] = minmax(spreadLayout);
     const unitWidth = max.x - min.x;
     const unitHeight = max.y - min.y;
 
@@ -56,7 +58,7 @@ export const Board = (props: BoardProps) => {
             viewBox={`0 0 ${unitWidth} ${unitHeight}`}
             width={width}
         >
-            {layout.fixedKeys.map((key, i) => (
+            {spreadLayout.fixedKeys.map((key, i) => (
                 <PositionedKey
                     key={key.ref}
                     layoutKey={key}
@@ -65,7 +67,7 @@ export const Board = (props: BoardProps) => {
                     max={max}
                 />
             ))}
-            {layout.variableKeys.map((section, i, sections) =>
+            {spreadLayout.variableKeys.map((section, i, sections) =>
                 section.options.map((option, j) =>
                     option.keys.map((key, k) => (
                         <PositionedKey

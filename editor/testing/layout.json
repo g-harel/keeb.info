@@ -356,23 +356,6 @@
             "matrixColumn": 0
         },
         {
-            "ref": "0.21420400616735935",
-            "key": {
-                "shape": [
-                    {"height": 1, "width": 3, "offset": {"x": 0, "y": 0}},
-                    {"height": 2, "width": 1, "offset": {"x": 1, "y": -1}}
-                ],
-                "stabilizers": [
-                    {"angle": 90, "length": 1, "offset": {"x": 1.5, "y": -0.5}}
-                ],
-                "stem": {"x": 1.5, "y": 0.5}
-            },
-            "position": {"x": 15.7, "y": 4.95},
-            "angle": 0,
-            "matrixRow": 0,
-            "matrixColumn": 0
-        },
-        {
             "ref": "0.4637181029168682",
             "key": {
                 "shape": [
@@ -753,62 +736,6 @@
             "matrixColumn": 0
         },
         {
-            "ref": "0.9589218535220114",
-            "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
-                "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
-            },
-            "position": {"x": 8.35, "y": 5.15},
-            "angle": -10,
-            "matrixRow": 0,
-            "matrixColumn": 0
-        },
-        {
-            "ref": "0.2945775888935336",
-            "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
-                "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
-            },
-            "position": {"x": 9.35, "y": 5.15},
-            "angle": -10,
-            "matrixRow": 0,
-            "matrixColumn": 0
-        },
-        {
-            "ref": "0.9189168611427863",
-            "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
-                "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
-            },
-            "position": {"x": 10.35, "y": 5.15},
-            "angle": -10,
-            "matrixRow": 0,
-            "matrixColumn": 0
-        },
-        {
-            "ref": "0.04875012309274629",
-            "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
-                "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
-            },
-            "position": {"x": 11.35, "y": 5.15},
-            "angle": -10,
-            "matrixRow": 0,
-            "matrixColumn": 0
-        },
-        {
             "ref": "0.19780645794483553",
             "key": {
                 "shape": [
@@ -1080,6 +1007,201 @@
                                 "stem": {"x": 0.875, "y": 0.5}
                             },
                             "position": {"x": 8.85, "y": 7.15},
+                            "angle": -10,
+                            "matrixRow": 0,
+                            "matrixColumn": 0
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "ref": "big arrow",
+            "options": [
+                {
+                    "ref": "first",
+                    "keys": [
+                        {
+                            "ref": "0.21420400616735935",
+                            "key": {
+                                "shape": [
+                                    {"height": 1, "width": 3, "offset": {"x": 0, "y": 0}},
+                                    {"height": 2, "width": 1, "offset": {"x": 1, "y": -1}}
+                                ],
+                                "stabilizers": [
+                                    {"angle": 90, "length": 1, "offset": {"x": 1.5, "y": -0.5}}
+                                ],
+                                "stem": {"x": 1.5, "y": 0.5}
+                            },
+                            "position": {"x": 15.7, "y": 4.95},
+                            "angle": 0,
+                            "matrixRow": 0,
+                            "matrixColumn": 0
+                        }
+                    ]
+                },
+                {
+                    "ref": "second",
+                    "keys": [
+                        {
+                            "ref": "0.21420400616735935-1",
+                            "key": {
+                                "shape": [
+                                    {"height": 1, "width": 3, "offset": {"x": 0, "y": 0}},
+                                    {"height": 2, "width": 1, "offset": {"x": 1, "y": -1}}
+                                ],
+                                "stabilizers": [
+                                    {"angle": 90, "length": 1, "offset": {"x": 1.5, "y": -0.5}}
+                                ],
+                                "stem": {"x": 1.5, "y": 0.5}
+                            },
+                            "position": {"x": 15.7, "y": 4.95},
+                            "angle": 0,
+                            "matrixRow": 0,
+                            "matrixColumn": 0
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "ref": "test homing",
+            "options": [
+                {
+                    "ref": "standard",
+                    "keys": [
+                        {
+                            "ref": "0.9589218535220114",
+                            "key": {
+                                "shape": [
+                                    {
+                                        "height": 1,
+                                        "width": 1,
+                                        "offset": {"x": 0, "y": 0}
+                                    }
+                                ],
+                                "stabilizers": [],
+                                "stem": {"x": 0.5, "y": 0.5}
+                            },
+                            "position": {"x": 8.35, "y": 5.15},
+                            "angle": -10,
+                            "matrixRow": 0,
+                            "matrixColumn": 0
+                        },
+                        {
+                            "ref": "0.2945775888935336",
+                            "key": {
+                                "shape": [
+                                    {
+                                        "height": 1,
+                                        "width": 1,
+                                        "offset": {"x": 0, "y": 0}
+                                    }
+                                ],
+                                "stabilizers": [],
+                                "stem": {"x": 0.5, "y": 0.5}
+                            },
+                            "position": {"x": 9.35, "y": 5.15},
+                            "angle": -10,
+                            "matrixRow": 0,
+                            "matrixColumn": 0
+                        },
+                        {
+                            "ref": "0.9189168611427863",
+                            "key": {
+                                "shape": [
+                                    {
+                                        "height": 1,
+                                        "width": 1,
+                                        "offset": {"x": 0, "y": 0}
+                                    }
+                                ],
+                                "stabilizers": [],
+                                "stem": {"x": 0.5, "y": 0.5}
+                            },
+                            "position": {"x": 10.35, "y": 5.15},
+                            "angle": -10,
+                            "matrixRow": 0,
+                            "matrixColumn": 0
+                        },
+                        {
+                            "ref": "0.04875012309274629",
+                            "key": {
+                                "shape": [
+                                    {
+                                        "height": 1,
+                                        "width": 1,
+                                        "offset": {"x": 0, "y": 0}
+                                    }
+                                ],
+                                "stabilizers": [],
+                                "stem": {"x": 0.5, "y": 0.5}
+                            },
+                            "position": {"x": 11.35, "y": 5.15},
+                            "angle": -10,
+                            "matrixRow": 0,
+                            "matrixColumn": 0
+                        }
+                    ]
+                },
+                {
+                    "ref": "double",
+                    "keys": [
+                        {
+                            "ref": "0.9589218535220114-1",
+                            "key": {
+                                "shape": [
+                                    {
+                                        "height": 1,
+                                        "width": 2,
+                                        "offset": {"x": 0, "y": 0}
+                                    }
+                                ],
+                                "stabilizers": [],
+                                "stem": {"x": 0.5, "y": 0.5}
+                            },
+                            "position": {"x": 8.35, "y": 5.15},
+                            "angle": -10,
+                            "matrixRow": 0,
+                            "matrixColumn": 0
+                        },
+                        {
+                            "ref": "0.9189168611427863-2",
+                            "key": {
+                                "shape": [
+                                    {
+                                        "height": 1,
+                                        "width": 2,
+                                        "offset": {"x": 0, "y": 0}
+                                    }
+                                ],
+                                "stabilizers": [],
+                                "stem": {"x": 0.5, "y": 0.5}
+                            },
+                            "position": {"x": 10.35, "y": 5.15},
+                            "angle": -10,
+                            "matrixRow": 0,
+                            "matrixColumn": 0
+                        }
+                    ]
+                },
+                {
+                    "ref": "single",
+                    "keys": [
+                        {
+                            "ref": "0.9589218535220114-3",
+                            "key": {
+                                "shape": [
+                                    {
+                                        "height": 1,
+                                        "width": 4,
+                                        "offset": {"x": 0, "y": 0}
+                                    }
+                                ],
+                                "stabilizers": [],
+                                "stem": {"x": 0.5, "y": 0.5}
+                            },
+                            "position": {"x": 8.35, "y": 5.15},
                             "angle": -10,
                             "matrixRow": 0,
                             "matrixColumn": 0
