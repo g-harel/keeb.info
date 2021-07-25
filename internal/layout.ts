@@ -1,3 +1,5 @@
+import polygonClipping, {Polygon, Pair, MultiPolygon, union} from "polygon-clipping";
+
 import {Coord, Shape} from "./types/base";
 import {Layout, LayoutKey} from "./types/layout";
 
@@ -12,17 +14,24 @@ export const rotateCoord = (p: Coord, r: Coord, a: number): Coord => {
     return {x: r.x + xOffsetRtoP, y: r.y + yOffsetRtoP};
 };
 
+// Corners in ring order.
+const shapeCorners = (offset: Coord, shape: Shape): Coord[] => {
+    const x = shape.offset.x + offset.x;
+    const y = shape.offset.y + offset.y;
+    const width = shape.width;
+    const height = shape.height;
+    return [
+        {x: x, y: y},
+        {x: x, y: y + height},
+        {x: x + width, y: y + height},
+        {x: x + width, y: y},
+    ];
+};
+
 export const corners = (key: LayoutKey): Coord[] => {
     const coords: Coord[] = [];
     for (const shape of key.key.shape) {
-        const x = shape.offset.x + key.position.x;
-        const y = shape.offset.y + key.position.y;
-        const width = shape.width;
-        const height = shape.height;
-        coords.push({x: x, y: y});
-        coords.push({x: x, y: y + height});
-        coords.push({x: x + width, y: y + height});
-        coords.push({x: x + width, y: y});
+        coords.push(...shapeCorners(key.position, shape));
     }
     return coords;
 };
@@ -77,74 +86,64 @@ const minmaxFromCoord = (coords: Coord[]): [Coord, Coord] => {
     return [min, max];
 };
 
-const pointInKey = (key: LayoutKey, point: Coord): boolean => {
-    const rotatedPoint = rotateCoord(point, {x: 0, y: 0}, -key.angle);
-    for (const shape of key.key.shape) {
-        const left = rotatedPoint.x > key.position.x + shape.offset.x;
-        const right =
-            rotatedPoint.x < key.position.x + shape.offset.x + shape.width;
-        const top = rotatedPoint.y > key.position.y + shape.offset.y;
-
-        // Bottom edge treated differently because option keys are only shifted down.
-        // Distance from bottom edge to point.
-        const bottomDiff =
-            rotatedPoint.y - (key.position.y + shape.offset.y + shape.height);
-
-        if (left && right && top && bottomDiff >= -1) {
-            return true;
-        }
-    }
-    return false;
-};
-
 export const minmax = (layout: Layout): [Coord, Coord] => {
     return minmaxFromCoord(allCoords(layout));
 };
 
+const toPair = (c: Coord): Pair => {
+    return [c.x, c.y];
+};
+
+const unionKeys = (poly: MultiPolygon, ...keys: LayoutKey[]): MultiPolygon => {
+    const polys: Polygon[] = [];
+    for (const key of keys) {
+        for (const shape of key.key.shape) {
+            polys.push([[...shapeCorners(key.position, shape).map(toPair)]]);
+        }
+    }
+    return polygonClipping.union(poly, ...polys);
+}
+
+const keyIntersects = (poly: MultiPolygon, key: LayoutKey): boolean => {
+    const intersection = polygonClipping.intersection(poly, unionKeys([], key));
+    return !!intersection.flat(2).length;
+};
+
+const offsetKey = (key: LayoutKey, offset: Coord): LayoutKey => {
+    const oKey: LayoutKey = JSON.parse(JSON.stringify(key));
+    oKey.position.x += offset.x;
+    oKey.position.y += offset.y;
+    return oKey;
+};
+
 export const spreadSections = (layout: Layout): Layout => {
     const out: Layout = JSON.parse(JSON.stringify(layout));
-    const avoidCoords = allCoords(layout);
+
+    const optionFirsts: LayoutKey[] = [];
+    for (const options of layout.variableKeys) {
+        optionFirsts.push(...options.options[0].keys);
+    }
+    let avoid = unionKeys([], ...out.fixedKeys, ...optionFirsts);
 
     for (const section of out.variableKeys) {
-        for (let i = 0; i < section.options.length; i++) {
-            const option = section.options[i];
-
-            // Leave the first option in place.
-            if (i === 0) {
-                avoidCoords.push(...coordsFromKeys(option.keys));
-                continue;
-            }
-
+        for (const option of section.options.slice(1)) {
             // Move option until it doesn't intersect.
-            let offset = 0;
-            for (let j = 1; j < 100; j += 0.01) {
+            for (let j = 1; j < 100; j += 1) {
                 let intersects = false;
                 for (const key of option.keys) {
-                    const offsetKey: LayoutKey = JSON.parse(
-                        JSON.stringify(key),
-                    );
-                    offsetKey.position.y += j;
-
-                    for (const coord of avoidCoords) {
-                        if (pointInKey(offsetKey, coord)) {
-                            intersects = true;
-                            break;
-                        }
+                    if (keyIntersects(avoid, offsetKey(key, {x: 0, y: j}))) {
+                        intersects = true;
+                        break;
                     }
-                    if (intersects) break;
                 }
                 if (!intersects) {
-                    offset = j;
+                    for (const key of option.keys) {
+                        key.position.y += j;
+                    }
+                    avoid = unionKeys(avoid, ...option.keys);
                     break;
                 }
             }
-
-            for (const key of option.keys) {
-                key.position.y += offset;
-            }
-            avoidCoords.push(...coordsFromKeys(option.keys));
-            // TODO all directions
-            // TODO push new coords
         }
     }
 

@@ -11,9 +11,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 3.65, "y": 0.85},
-            "angle": 0,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 0
         },
         {
             "ref": "0.9656968120270644",
@@ -25,9 +23,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 13.1, "y": 0.85},
-            "angle": 0,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 0
         },
         {
             "ref": "0.2650950989273628",
@@ -39,9 +35,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 0.5, "y": 0.9},
-            "angle": 0,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 0
         },
         {
             "ref": "0.036981432519344715",
@@ -53,9 +47,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 1.65, "y": 0.95},
-            "angle": 0,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 0
         },
         {
             "ref": "0.13866477172533997",
@@ -67,9 +59,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 2.65, "y": 0.95},
-            "angle": 0,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 0
         },
         {
             "ref": "0.5494198383217388",
@@ -81,9 +71,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 14.1, "y": 0.95},
-            "angle": 0,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 0
         },
         {
             "ref": "0.06445813950396229",
@@ -95,9 +83,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 17.7, "y": 0.95},
-            "angle": 0,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 0
         },
         {
             "ref": "0.44279312222510914",
@@ -109,9 +95,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 0.3, "y": 1.9},
-            "angle": 0,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 0
         },
         {
             "ref": "0.8332435733572394",
@@ -123,9 +107,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 12.8, "y": 1.9},
-            "angle": 0,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 0
         },
         {
             "ref": "0.7356245630729086",
@@ -137,9 +119,7 @@
                 "stem": {"x": 0.75, "y": 0.5}
             },
             "position": {"x": 1.45, "y": 1.95},
-            "angle": 0,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 0
         },
         {
             "ref": "0.5220711141461161",
@@ -151,9 +131,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 2.95, "y": 1.95},
-            "angle": 0,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 0
         },
         {
             "ref": "0.7240142229410664",
@@ -165,9 +143,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 13.8, "y": 1.95},
-            "angle": 0,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 0
         },
         {
             "ref": "0.6532485018357883",
@@ -179,9 +155,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 14.8, "y": 1.95},
-            "angle": 0,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 0
         },
         {
             "ref": "0.1440995011945414",
@@ -193,9 +167,7 @@
                 "stem": {"x": 0.75, "y": 0.5}
             },
             "position": {"x": 15.8, "y": 1.95},
-            "angle": 0,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 0
         },
         {
             "ref": "0.09476037118754421",
@@ -207,9 +179,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 0.1, "y": 2.9},
-            "angle": 0,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 0
         },
         {
             "ref": "0.9561680340208347",
@@ -221,9 +191,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 3, "y": 2.95},
-            "angle": 0,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 0
         },
         {
             "ref": "0.49147793109283233",
@@ -235,9 +203,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 13.25, "y": 2.95},
-            "angle": 0,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 0
         },
         {
             "ref": "0.6591653980599836",
@@ -249,9 +215,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 14.25, "y": 2.95},
-            "angle": 0,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 0
         },
         {
             "ref": "0.7710057571796907",
@@ -265,9 +229,7 @@
                 "stem": {"x": 1.125, "y": 0.5}
             },
             "position": {"x": 15.25, "y": 2.95},
-            "angle": 0,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 0
         },
         {
             "ref": "0.43349254278083094",
@@ -281,9 +243,7 @@
                 "stem": {"x": 1.125, "y": 0.5}
             },
             "position": {"x": 1.05, "y": 3.95},
-            "angle": 0,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 0
         },
         {
             "ref": "0.009891707948402662",
@@ -295,9 +255,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 3.3, "y": 3.95},
-            "angle": 0,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 0
         },
         {
             "ref": "0.4063687345312941",
@@ -309,9 +267,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 12.95, "y": 3.95},
-            "angle": 0,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 0
         },
         {
             "ref": "0.907280863634135",
@@ -323,9 +279,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 13.95, "y": 3.95},
-            "angle": 0,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 0
         },
         {
             "ref": "0.39613543691876063",
@@ -337,9 +291,7 @@
                 "stem": {"x": 0.875, "y": 0.5}
             },
             "position": {"x": 14.95, "y": 3.95},
-            "angle": 0,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 0
         },
         {
             "ref": "0.1373831843982536",
@@ -351,9 +303,7 @@
                 "stem": {"x": 0.75, "y": 0.5}
             },
             "position": {"x": 1.05, "y": 4.95},
-            "angle": 0,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 0
         },
         {
             "ref": "0.4637181029168682",
@@ -365,9 +315,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 5.9, "y": 0.14999999999999947},
-            "angle": 10,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 10
         },
         {
             "ref": "0.7534331681690036",
@@ -379,9 +327,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 6.9, "y": 0.15000000000000002},
-            "angle": 10,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 10
         },
         {
             "ref": "0.9604592638610707",
@@ -393,9 +339,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 7.9, "y": 0.15000000000000002},
-            "angle": 10,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 10
         },
         {
             "ref": "0.932683450992233",
@@ -407,9 +351,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 4.9, "y": 0.15000000000000036},
-            "angle": 10,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 10
         },
         {
             "ref": "0.38600462393833657",
@@ -421,9 +363,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 4.35, "y": 1.15},
-            "angle": 10,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 10
         },
         {
             "ref": "0.7030722200464166",
@@ -435,9 +375,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 5.35, "y": 1.15},
-            "angle": 10,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 10
         },
         {
             "ref": "0.03740153868958984",
@@ -449,9 +387,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 6.35, "y": 1.15},
-            "angle": 10,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 10
         },
         {
             "ref": "0.6792557349186183",
@@ -463,9 +399,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 7.35, "y": 1.15},
-            "angle": 10,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 10
         },
         {
             "ref": "0.148592294417359",
@@ -477,9 +411,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 4.55, "y": 2.15},
-            "angle": 10,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 10
         },
         {
             "ref": "0.3066562141335776",
@@ -491,9 +423,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 5.55, "y": 2.15},
-            "angle": 10,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 10
         },
         {
             "ref": "0.7149613944577693",
@@ -505,9 +435,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 6.55, "y": 2.15},
-            "angle": 10,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 10
         },
         {
             "ref": "0.7482526628513164",
@@ -519,9 +447,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 7.55, "y": 2.15},
-            "angle": 10,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 10
         },
         {
             "ref": "0.772520399319836",
@@ -533,9 +459,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 5.05, "y": 3.15},
-            "angle": 10,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 10
         },
         {
             "ref": "0.49019623137999724",
@@ -547,9 +471,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 6.05, "y": 3.15},
-            "angle": 10,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 10
         },
         {
             "ref": "0.6332693224026817",
@@ -561,9 +483,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 7.05, "y": 3.15},
-            "angle": 10,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 10
         },
         {
             "ref": "0.5599196330712957",
@@ -575,9 +495,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 8.05, "y": 3.15},
-            "angle": 10,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 10
         },
         {
             "ref": "0.4382691818635369",
@@ -591,9 +509,7 @@
                 "stem": {"x": 1.125, "y": 0.5}
             },
             "position": {"x": 6.3, "y": 4.15},
-            "angle": 10,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 10
         },
         {
             "ref": "0.9017144561261254",
@@ -605,9 +521,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 8.55, "y": 4.15},
-            "angle": 10,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 10
         },
         {
             "ref": "0.5372096446270971",
@@ -619,9 +533,7 @@
                 "stem": {"x": 0.75, "y": 0.5}
             },
             "position": {"x": 4.8, "y": 4.2},
-            "angle": 10,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": 10
         },
         {
             "ref": "0.2991575169252325",
@@ -633,9 +545,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 8.6, "y": 3.15},
-            "angle": -10,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": -10
         },
         {
             "ref": "0.7102422047192363",
@@ -647,9 +557,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 9.6, "y": 3.15},
-            "angle": -10,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": -10
         },
         {
             "ref": "0.9609180748106936",
@@ -661,9 +569,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 10.6, "y": 3.15},
-            "angle": -10,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": -10
         },
         {
             "ref": "0.9345608572831845",
@@ -675,9 +581,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 11.6, "y": 3.15},
-            "angle": -10,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": -10
         },
         {
             "ref": "0.31696454244456995",
@@ -689,9 +593,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 8.1, "y": 4.15},
-            "angle": -10,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": -10
         },
         {
             "ref": "0.19713372570723053",
@@ -703,9 +605,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 9.1, "y": 4.15},
-            "angle": -10,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": -10
         },
         {
             "ref": "0.1581372372608223",
@@ -717,9 +617,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 10.1, "y": 4.15},
-            "angle": -10,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": -10
         },
         {
             "ref": "0.3326042067082262",
@@ -731,9 +629,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 11.1, "y": 4.15},
-            "angle": -10,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": -10
         },
         {
             "ref": "0.19780645794483553",
@@ -745,9 +641,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 7.85, "y": 6.15},
-            "angle": -10,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": -10
         },
         {
             "ref": "0.45322385936736254",
@@ -759,9 +653,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 8.85, "y": 6.15},
-            "angle": -10,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": -10
         },
         {
             "ref": "0.9833928007259292",
@@ -773,9 +665,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 9.85, "y": 6.15},
-            "angle": -10,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": -10
         },
         {
             "ref": "0.3831701963351115",
@@ -787,9 +677,7 @@
                 "stem": {"x": 0.5, "y": 0.5}
             },
             "position": {"x": 10.85, "y": 6.15},
-            "angle": -10,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": -10
         },
         {
             "ref": "0.7090746387293527",
@@ -801,9 +689,7 @@
                 "stem": {"x": 0.75, "y": 0.5}
             },
             "position": {"x": 10.6, "y": 7.2},
-            "angle": -10,
-            "matrixRow": 0,
-            "matrixColumn": 0
+            "angle": -10
         }
     ],
     "variableKeys": [
@@ -827,9 +713,7 @@
                                 "stem": {"x": 0.875, "y": 0.5}
                             },
                             "position": {"x": 1.25, "y": 2.95},
-                            "angle": 0,
-                            "matrixRow": 0,
-                            "matrixColumn": 0
+                            "angle": 0
                         }
                     ]
                 },
@@ -857,9 +741,7 @@
                                 }
                             ],
                             "position": {"x": 1.25, "y": 2.95},
-                            "angle": 0,
-                            "matrixRow": 0,
-                            "matrixColumn": 0
+                            "angle": 0
                         }
                     ]
                 }
@@ -891,9 +773,7 @@
                                 "stem": {"x": 1, "y": 0.5}
                             },
                             "position": {"x": 15.1, "y": 0.95},
-                            "angle": 0,
-                            "matrixRow": 0,
-                            "matrixColumn": 0
+                            "angle": 0
                         }
                     ]
                 },
@@ -914,9 +794,7 @@
                                 "stem": {"x": 0.5, "y": 0.5}
                             },
                             "position": {"x": 15.1, "y": 0.95},
-                            "angle": 0,
-                            "matrixRow": 0,
-                            "matrixColumn": 0
+                            "angle": 0
                         },
                         {
                             "ref": "0.5496543810863703-2",
@@ -932,9 +810,7 @@
                                 "stem": {"x": 0.5, "y": 0.5}
                             },
                             "position": {"x": 16.1, "y": 0.95},
-                            "angle": 0,
-                            "matrixRow": 0,
-                            "matrixColumn": 0
+                            "angle": 0
                         }
                     ]
                 }
@@ -966,9 +842,7 @@
                                 "stem": {"x": 1.375, "y": 0.5}
                             },
                             "position": {"x": 7.85, "y": 7.15},
-                            "angle": -10,
-                            "matrixRow": 0,
-                            "matrixColumn": 0
+                            "angle": -10
                         }
                     ]
                 },
@@ -989,9 +863,7 @@
                                 "stem": {"x": 0.5, "y": 0.5}
                             },
                             "position": {"x": 7.85, "y": 7.15},
-                            "angle": -10,
-                            "matrixRow": 0,
-                            "matrixColumn": 0
+                            "angle": -10
                         },
                         {
                             "ref": "0.9705071904967628-2",
@@ -1007,9 +879,7 @@
                                 "stem": {"x": 0.875, "y": 0.5}
                             },
                             "position": {"x": 8.85, "y": 7.15},
-                            "angle": -10,
-                            "matrixRow": 0,
-                            "matrixColumn": 0
+                            "angle": -10
                         }
                     ]
                 }
@@ -1019,34 +889,55 @@
             "ref": "big arrow",
             "options": [
                 {
-                    "ref": "first",
-                    "keys": [
-                        {
-                            "ref": "0.21420400616735935",
-                            "key": {
-                                "shape": [
-                                    {"height": 1, "width": 3, "offset": {"x": 0, "y": 0}},
-                                    {"height": 2, "width": 1, "offset": {"x": 1, "y": -1}}
-                                ],
-                                "stabilizers": [
-                                    {"angle": 90, "length": 1, "offset": {"x": 1.5, "y": -0.5}}
-                                ],
-                                "stem": {"x": 1.5, "y": 0.5}
-                            },
-                            "position": {"x": 15.7, "y": 4.95},
-                            "angle": 0,
-                            "matrixRow": 0,
-                            "matrixColumn": 0
-                        }
-                    ]
-                },
-                {
-                    "ref": "second",
+                    "ref": "vertical",
                     "keys": [
                         {
                             "ref": "0.21420400616735935-1",
                             "key": {
                                 "shape": [
+                                    {"height": 2, "width": 1, "offset": {"x": 0, "y": 0}}
+                                ],
+                                "stabilizers": [
+                                    {"angle": 90, "length": 1, "offset": {"x": 0.5, "y": 0.5}}
+                                ],
+                                "stem": {"x": 0.5, "y": 1}
+                            },
+                            "position": {"x": 16.7, "y": 3.95},
+                            "angle": 0
+                        },
+                        {
+                            "ref": "0.21420400616735935-2",
+                            "key": {
+                                "shape": [
+                                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
+                                ],
+                                "stabilizers": [],
+                                "stem": {"x": 0.5, "y": 0.5}
+                            },
+                            "position": {"x": 15.7, "y": 4.95},
+                            "angle": 0
+                        },
+                        {
+                            "ref": "0.21420400616735935-3",
+                            "key": {
+                                "shape": [
+                                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
+                                ],
+                                "stabilizers": [],
+                                "stem": {"x": 0.5, "y": 0.5}
+                            },
+                            "position": {"x": 17.7, "y": 4.95},
+                            "angle": 0
+                        }
+                    ]
+                },
+                {
+                    "ref": "chonk",
+                    "keys": [
+                        {
+                            "ref": "0.21420400616735935-4",
+                            "key": {
+                                "shape": [
                                     {"height": 1, "width": 3, "offset": {"x": 0, "y": 0}},
                                     {"height": 2, "width": 1, "offset": {"x": 1, "y": -1}}
                                 ],
@@ -1056,9 +947,7 @@
                                 "stem": {"x": 1.5, "y": 0.5}
                             },
                             "position": {"x": 15.7, "y": 4.95},
-                            "angle": 0,
-                            "matrixRow": 0,
-                            "matrixColumn": 0
+                            "angle": 0
                         }
                     ]
                 }
@@ -1084,9 +973,7 @@
                                 "stem": {"x": 0.5, "y": 0.5}
                             },
                             "position": {"x": 8.35, "y": 5.15},
-                            "angle": -10,
-                            "matrixRow": 0,
-                            "matrixColumn": 0
+                            "angle": -10
                         },
                         {
                             "ref": "0.2945775888935336",
@@ -1102,9 +989,7 @@
                                 "stem": {"x": 0.5, "y": 0.5}
                             },
                             "position": {"x": 9.35, "y": 5.15},
-                            "angle": -10,
-                            "matrixRow": 0,
-                            "matrixColumn": 0
+                            "angle": -10
                         },
                         {
                             "ref": "0.9189168611427863",
@@ -1120,9 +1005,7 @@
                                 "stem": {"x": 0.5, "y": 0.5}
                             },
                             "position": {"x": 10.35, "y": 5.15},
-                            "angle": -10,
-                            "matrixRow": 0,
-                            "matrixColumn": 0
+                            "angle": -10
                         },
                         {
                             "ref": "0.04875012309274629",
@@ -1138,9 +1021,7 @@
                                 "stem": {"x": 0.5, "y": 0.5}
                             },
                             "position": {"x": 11.35, "y": 5.15},
-                            "angle": -10,
-                            "matrixRow": 0,
-                            "matrixColumn": 0
+                            "angle": -10
                         }
                     ]
                 },
@@ -1161,9 +1042,7 @@
                                 "stem": {"x": 0.5, "y": 0.5}
                             },
                             "position": {"x": 8.35, "y": 5.15},
-                            "angle": -10,
-                            "matrixRow": 0,
-                            "matrixColumn": 0
+                            "angle": -10
                         },
                         {
                             "ref": "0.9189168611427863-2",
@@ -1179,9 +1058,7 @@
                                 "stem": {"x": 0.5, "y": 0.5}
                             },
                             "position": {"x": 10.35, "y": 5.15},
-                            "angle": -10,
-                            "matrixRow": 0,
-                            "matrixColumn": 0
+                            "angle": -10
                         }
                     ]
                 },
@@ -1202,9 +1079,7 @@
                                 "stem": {"x": 0.5, "y": 0.5}
                             },
                             "position": {"x": 8.35, "y": 5.15},
-                            "angle": -10,
-                            "matrixRow": 0,
-                            "matrixColumn": 0
+                            "angle": -10
                         }
                     ]
                 }
