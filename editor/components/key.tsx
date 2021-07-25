@@ -6,6 +6,7 @@ import {rotateCoord} from "../../internal/layout";
 import {Blank, Coord, Shape} from "../../internal/types/base";
 import * as c from "../cons";
 import {ReactProps} from "../../internal/types/util";
+import {StrokeShape} from "./stroke-shape";
 
 export interface KeyProps extends ReactProps {
     color: string;
@@ -22,16 +23,6 @@ export interface MountProps extends ReactProps {
     blank: Blank;
     color: string;
 }
-
-const OuterRect = styled.rect``;
-
-const Group = styled.g`
-    :hover {
-        ${OuterRect} {
-            fill: red;
-        }
-    }
-`;
 
 export const Stem = (props: StemProps) => (
     <>
@@ -110,69 +101,33 @@ export const Key = (props: KeyProps) => {
         shineShape = props.shelf;
     }
     return (
-        <Group>
-            {props.blank.shape.map((shape, j) => (
-                // Outer stroke.
-                <OuterRect
-                    key={props.blank.shape.length * 1 + j}
-                    fill={color(props.color).darken(c.STROKE_COLOR_DARKEN)}
-                    x={shape.offset.x + c.PAD}
-                    y={shape.offset.y + c.PAD}
-                    rx={c.KEY_RADIUS}
-                    width={shape.width - 2 * c.PAD}
-                    height={shape.height - 2 * c.PAD}
-                />
-            ))}
-            {props.blank.shape.map((shape, j) => (
-                // Base fill.
-                <rect
-                    key={props.blank.shape.length * 2 + j}
-                    fill={props.color}
-                    x={shape.offset.x + c.PAD + c.BORDER}
-                    y={shape.offset.y + c.PAD + c.BORDER}
-                    rx={c.INNER_KEY_RADIUS}
-                    width={shape.width - 2 * (c.PAD + c.BORDER)}
-                    height={shape.height - 2 * (c.PAD + c.BORDER)}
-                />
-            ))}
-            {shineShape.map((shape, j) => (
-                // Shine stroke.
-                <rect
-                    key={props.blank.shape.length * 3 + j}
-                    fill={color(props.color).darken(c.SHINE_COLOR_DIFF)}
-                    x={shape.offset.x + c.PAD + c.SHINE_PADDING_SIDE}
-                    y={shape.offset.y + c.PAD + c.SHINE_PADDING_TOP}
-                    rx={c.KEY_RADIUS}
-                    width={shape.width - 2 * (c.PAD + c.SHINE_PADDING_SIDE)}
-                    height={
-                        shape.height -
-                        2 * c.PAD -
-                        c.SHINE_PADDING_TOP -
-                        c.SHINE_PADDING_BOTTOM
-                    }
-                />
-            ))}
-            {shineShape.map((shape, j) => (
-                // Shine fill.
-                <rect
-                    key={props.blank.shape.length * 4 + j}
-                    fill={color(props.color).lighten(c.SHINE_COLOR_DIFF)}
-                    x={shape.offset.x + c.PAD + c.BORDER + c.SHINE_PADDING_SIDE}
-                    y={shape.offset.y + c.PAD + c.BORDER + c.SHINE_PADDING_TOP}
-                    rx={c.INNER_KEY_RADIUS}
-                    width={
-                        shape.width -
-                        2 * (c.PAD + c.BORDER + c.SHINE_PADDING_SIDE)
-                    }
-                    height={
-                        shape.height -
-                        2 * (c.PAD + c.BORDER) -
-                        c.SHINE_PADDING_TOP -
-                        c.SHINE_PADDING_BOTTOM
-                    }
-                />
-            ))}
+        <g>
+            <StrokeShape
+                borderWidth={c.BORDER}
+                fillColor={props.color}
+                padding={[c.PAD, c.PAD, c.PAD, c.PAD]}
+                radius={c.KEY_RADIUS}
+                shape={props.blank.shape}
+                strokeColor={color(props.color)
+                    .darken(c.STROKE_COLOR_DARKEN)
+                    .hex()}
+            />
+            <StrokeShape
+                borderWidth={c.BORDER}
+                fillColor={color(props.color).lighten(c.SHINE_COLOR_DIFF).hex()}
+                padding={[
+                    c.SHINE_PADDING_TOP,
+                    c.SHINE_PADDING_SIDE,
+                    c.SHINE_PADDING_BOTTOM,
+                    c.SHINE_PADDING_SIDE,
+                ]}
+                radius={c.KEY_RADIUS}
+                shape={shineShape}
+                strokeColor={color(props.color)
+                    .darken(c.SHINE_COLOR_DIFF)
+                    .hex()}
+            />
             <Mounts blank={props.blank} color={props.color} />
-        </Group>
+        </g>
     );
 };

@@ -2,13 +2,14 @@ import React, {Fragment} from "react";
 import ReactDOM from "react-dom";
 import styled, {createGlobalStyle} from "styled-components";
 
-import {Board} from "./components/board";
+import {ExpolodedLayout} from "./components/views/exploded-layout";
 import kleLayout from "./testing/kle-layout.json";
 import kleKeyset from "./testing/kle-keyset.json";
 import testLayout from "./testing/layout.json";
 import {convertKLEToLayout} from "../internal/convert";
 import {BACKGROUND_COLOR} from "./cons";
 import {Layout} from "../internal/types/layout";
+import {FootprintLayout} from "./components/views/footprint-layout";
 
 // Global styles, similar to traditional css.
 const GlobalStyle = createGlobalStyle`
@@ -35,10 +36,17 @@ const LegacyTestContainer = styled.div`
 const App = () => (
     <Fragment>
         <GlobalStyle />
-        <Board layout={testLayout as Layout} width={1200} />
+        <ExpolodedLayout layout={testLayout} width={1200} />
+        <FootprintLayout layout={testLayout} width={1200} />
         <LegacyTestContainer>
-            <Board layout={convertKLEToLayout(kleLayout)} width={600} />
-            <Board layout={convertKLEToLayout(kleKeyset)} width={600} />
+            <ExpolodedLayout
+                layout={convertKLEToLayout(kleLayout)}
+                width={600}
+            />
+            <ExpolodedLayout
+                layout={convertKLEToLayout(kleKeyset)}
+                width={600}
+            />
         </LegacyTestContainer>
     </Fragment>
 );

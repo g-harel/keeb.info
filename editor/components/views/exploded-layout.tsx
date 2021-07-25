@@ -1,19 +1,19 @@
 import React from "react";
 import * as color from "color";
 
-import {minmax, spreadSections} from "../../internal/layout";
-import {Layout, LayoutKey} from "../../internal/types/layout";
-import {Key} from "./key";
-import {DEFAULT_KEY_COLOR, START_SECTION_COLOR} from "../cons";
-import {ReactProps} from "../../internal/types/util";
-import {Plane, PlaneItem} from "./plane";
+import {minmax, spreadSections} from "../../../internal/layout";
+import {Layout} from "../../../internal/types/layout";
+import {Key} from "../key";
+import {DEFAULT_KEY_COLOR, START_SECTION_COLOR} from "../../cons";
+import {ReactProps} from "../../../internal/types/util";
+import {Plane, PlaneItem} from "../plane";
 
-export interface BoardProps extends ReactProps {
+export interface ExplodedLayoutProps extends ReactProps {
     width: number;
     layout: Layout;
 }
 
-export const Board = (props: BoardProps) => {
+export const ExpolodedLayout = (props: ExplodedLayoutProps) => {
     console.time("spread");
     const spreadLayout = spreadSections(props.layout);
     console.timeEnd("spread");
@@ -29,6 +29,7 @@ export const Board = (props: BoardProps) => {
         >
             {spreadLayout.fixedKeys.map((key, i) => (
                 <PlaneItem
+                    key={key.ref}
                     origin={min}
                     angle={key.angle}
                     position={key.position}
@@ -47,6 +48,7 @@ export const Board = (props: BoardProps) => {
                 return section.options.map((option) =>
                     option.keys.map((key) => (
                         <PlaneItem
+                            key={key.ref}
                             origin={min}
                             angle={key.angle}
                             position={key.position}

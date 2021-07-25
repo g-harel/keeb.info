@@ -29,6 +29,7 @@ export interface KeysetKit {
 // TODO barred/scooped.
 // TODO relegendable.
 // TODO colors.
+// TODO stem copatibility.
 export interface KeysetKeycap {
     // Printed legend.
     legend: KeycapLegend;

@@ -67,6 +67,7 @@ export interface LayoutOption {
 }
 
 // Location in the layout where a key can be populated.
+// TODO switch orientation + footprints.
 export interface LayoutKey {
     // Unique identifier to refer to key.
     ref: UUID;
