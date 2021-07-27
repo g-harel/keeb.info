@@ -34,47 +34,24 @@ const shapeCorners = (offset: Coord, shape: Shape): Coord[] => {
     ];
 };
 
-export const corners = (key: LayoutKey): Coord[] => {
-    const coords: Coord[] = [];
-    for (const shape of key.key.shape) {
-        coords.push(...shapeCorners(key.position, shape));
-    }
-    return coords;
-};
-
-const coordsFromKeys = (keys: LayoutKey[]): Coord[] => {
-    const rotated: Coord[] = [];
-    const seen: Record<string, boolean> = {};
-    for (const k of keys) {
-        const rotatedCorners: Coord[] = corners(k).map((c) => {
-            return rotateCoord(c, {x: 0, y: 0}, k.angle);
-        });
-
-        // Only keep unique coordinates.
-        for (const r of rotatedCorners) {
-            const id = `${r.x}/${r.y}`;
-            if (seen[id]) continue;
-            seen[id] = true;
-            rotated.push(r);
-        }
-    }
-    return rotated;
-};
-
-// Extract all unique coordinates (corners) from the layout.
-// TODO only keep edge points.
-const allCoords = (layout: Layout): Coord[] => {
-    const keys: LayoutKey[] = [];
-    keys.push(...layout.fixedKeys);
+export const minmax = (layout: Layout): [Coord, Coord] => {
+    const keys: LayoutKey[] = layout.fixedKeys;
     for (const section of layout.variableKeys) {
         for (const option of section.options) {
             keys.push(...option.keys);
         }
     }
-    return coordsFromKeys(keys);
-};
+    const coords: Coord[] = [];
+    for (const key of keys) {
+        for (const shape of key.key.shape) {
+            coords.push(
+                ...shapeCorners(key.position, shape).map((c) =>
+                    rotateCoord(c, {x: 0, y: 0}, key.angle),
+                ),
+            );
+        }
+    }
 
-const minmaxFromCoord = (coords: Coord[]): [Coord, Coord] => {
     let min: Coord = {x: Infinity, y: Infinity};
     let max: Coord = {x: 0, y: 0};
 
@@ -90,10 +67,6 @@ const minmaxFromCoord = (coords: Coord[]): [Coord, Coord] => {
     }
 
     return [min, max];
-};
-
-export const minmax = (layout: Layout): [Coord, Coord] => {
-    return minmaxFromCoord(allCoords(layout));
 };
 
 const toPair = (c: Coord): Pair => {

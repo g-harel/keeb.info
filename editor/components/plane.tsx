@@ -34,6 +34,7 @@ export const Plane = (props: BoardProps) => (
         xmlnls="http://www.w3.org/2000/svg"
         viewBox={`0 0 ${props.unitSize.x} ${props.unitSize.y}`}
         width={props.pixelWidth}
+        style={{border: "1px solid red"}}
     >
         {props.children}
     </svg>
