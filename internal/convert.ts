@@ -9,7 +9,7 @@ export const converKLEKey = (key: KLEKey): Blank => {
     shapes.push({
         height: key.height,
         width: key.width,
-        offset: {x: 0, y: 0},
+        offset: [0, 0],
     });
 
     // Add second shape when required.
@@ -21,7 +21,7 @@ export const converKLEKey = (key: KLEKey): Blank => {
         shapes.push({
             height: key.height2,
             width: key.width2,
-            offset: {x: key.x2, y: key.y2},
+            offset: [key.x2, key.y2],
         });
     }
 
@@ -31,13 +31,13 @@ export const converKLEKey = (key: KLEKey): Blank => {
         stabilizers.push({
             angle: 0,
             length: shapes[0].width - 1,
-            offset: {x: 0.5, y: 0.5},
+            offset: [0.5, 0.5],
         });
     } else if (shapes[0].height >= 2) {
         stabilizers.push({
             angle: 90,
             length: shapes[0].height - 1,
-            offset: {x: 0.5, y: 0.5},
+            offset: [0.5, 0.5],
         });
     }
 
@@ -45,10 +45,7 @@ export const converKLEKey = (key: KLEKey): Blank => {
         shape: shapes,
         stabilizers,
         // Assume centered all the time.
-        stem: {
-            x: key.width / 2,
-            y: key.height / 2,
-        },
+        stem: [key.width / 2, key.height / 2],
     };
 };
 
@@ -61,10 +58,7 @@ export const convertKLEToLayout = (raw: any): Layout => {
             return {
                 ref: String(Math.random()),
                 key: converKLEKey(key),
-                position: {
-                    x: key.x,
-                    y: key.y,
-                },
+                position: [key.x, key.y],
                 angle: key.rotation_angle,
             };
         }),
@@ -102,10 +96,7 @@ export const convertKLEToKeysetKit = (raw: any): Keyset => {
                             topLegends: [],
                             keycodeAffinity: [],
                         },
-                        position: {
-                            x: key.x,
-                            y: key.y,
-                        },
+                        position: [key.x, key.y],
                     };
                 }),
             },

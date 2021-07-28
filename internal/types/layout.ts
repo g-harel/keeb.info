@@ -1,4 +1,4 @@
-import {Angle, Blank, Coord, UUID} from "./base";
+import {Angle, Blank, Pair, UUID} from "./base";
 
 // Keymap applied to a layout.
 export interface LayoutKeymap {
@@ -76,7 +76,7 @@ export interface LayoutKey {
     key: Blank;
 
     // Position of the key on the layout.
-    position: Coord;
+    position: Pair;
 
     // Angle of the footprint (rotated around 0,0).
     // +180deg for inverted switches.

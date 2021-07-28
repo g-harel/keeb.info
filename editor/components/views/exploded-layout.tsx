@@ -19,14 +19,11 @@ export const ExpolodedLayout = (props: ExplodedLayoutProps) => {
     console.timeEnd("spread");
 
     const [min, max] = minmax(spreadLayout);
-    const unitWidth = max.x - min.x;
-    const unitHeight = max.y - min.y;
+    const unitWidth = max[0] - min[0];
+    const unitHeight = max[1] - min[1];
 
     return (
-        <Plane
-            pixelWidth={props.width}
-            unitSize={{x: unitWidth, y: unitHeight}}
-        >
+        <Plane pixelWidth={props.width} unitSize={[unitWidth, unitHeight]}>
             {spreadLayout.fixedKeys.map((key, i) => (
                 <PlaneItem
                     key={key.ref}

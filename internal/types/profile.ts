@@ -1,4 +1,4 @@
-import {Angle, Blank, Coord, UUID} from "./base";
+import {UUID} from "./base";
 
 // Keycap profile definition.
 export interface Profile {

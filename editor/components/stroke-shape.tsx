@@ -22,8 +22,8 @@ export const StrokeShape = (props: StrokeShapeProps) => {
                 <rect
                     key={`stroke-${i}`}
                     fill={props.strokeColor}
-                    x={shape.offset.x + props.padding[3]}
-                    y={shape.offset.y + props.padding[0]}
+                    x={shape.offset[0] + props.padding[3]}
+                    y={shape.offset[1] + props.padding[0]}
                     rx={props.radius}
                     width={shape.width - props.padding[1] - props.padding[3]}
                     height={shape.height - props.padding[0] - props.padding[2]}
@@ -34,8 +34,8 @@ export const StrokeShape = (props: StrokeShapeProps) => {
                 <rect
                     key={`fill-${i}`}
                     fill={props.fillColor}
-                    x={shape.offset.x + props.padding[3] + props.borderWidth}
-                    y={shape.offset.y + props.padding[0] + props.borderWidth}
+                    x={shape.offset[0] + props.padding[3] + props.borderWidth}
+                    y={shape.offset[1] + props.padding[0] + props.borderWidth}
                     rx={innerStroke}
                     width={
                         shape.width -

@@ -4,651 +4,543 @@
         {
             "ref": "0.41782254895491544",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 3.65, "y": 0.85},
+            "position": [3.65, 0.85],
             "angle": 0
         },
         {
             "ref": "0.9656968120270644",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 13.1, "y": 0.85},
+            "position": [13.1, 0.85],
             "angle": 0
         },
         {
             "ref": "0.2650950989273628",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 0.5, "y": 0.9},
+            "position": [0.5, 0.9],
             "angle": 0
         },
         {
             "ref": "0.036981432519344715",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 1.65, "y": 0.95},
+            "position": [1.65, 0.95],
             "angle": 0
         },
         {
             "ref": "0.13866477172533997",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 2.65, "y": 0.95},
+            "position": [2.65, 0.95],
             "angle": 0
         },
         {
             "ref": "0.5494198383217388",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 14.1, "y": 0.95},
+            "position": [14.1, 0.95],
             "angle": 0
         },
         {
             "ref": "0.06445813950396229",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 17.7, "y": 0.95},
+            "position": [17.7, 0.95],
             "angle": 0
         },
         {
             "ref": "0.44279312222510914",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 0.3, "y": 1.9},
+            "position": [0.3, 1.9],
             "angle": 0
         },
         {
             "ref": "0.8332435733572394",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 12.8, "y": 1.9},
+            "position": [12.8, 1.9],
             "angle": 0
         },
         {
             "ref": "0.7356245630729086",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1.5, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1.5, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.75, "y": 0.5}
+                "stem": [0.75, 0.5]
             },
-            "position": {"x": 1.45, "y": 1.95},
+            "position": [1.45, 1.95],
             "angle": 0
         },
         {
             "ref": "0.5220711141461161",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 2.95, "y": 1.95},
+            "position": [2.95, 1.95],
             "angle": 0
         },
         {
             "ref": "0.7240142229410664",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 13.8, "y": 1.95},
+            "position": [13.8, 1.95],
             "angle": 0
         },
         {
             "ref": "0.6532485018357883",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 14.8, "y": 1.95},
+            "position": [14.8, 1.95],
             "angle": 0
         },
         {
             "ref": "0.09476037118754421",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 0.1, "y": 2.9},
+            "position": [0.1, 2.9],
             "angle": 0
         },
         {
             "ref": "0.9561680340208347",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 3, "y": 2.95},
+            "position": [3, 2.95],
             "angle": 0
         },
         {
             "ref": "0.49147793109283233",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 13.25, "y": 2.95},
+            "position": [13.25, 2.95],
             "angle": 0
         },
         {
             "ref": "0.6591653980599836",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 14.25, "y": 2.95},
+            "position": [14.25, 2.95],
             "angle": 0
         },
         {
             "ref": "0.009891707948402662",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 3.3, "y": 3.95},
+            "position": [3.3, 3.95],
             "angle": 0
         },
         {
             "ref": "0.4063687345312941",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 12.95, "y": 3.95},
+            "position": [12.95, 3.95],
             "angle": 0
         },
         {
             "ref": "0.907280863634135",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 13.95, "y": 3.95},
+            "position": [13.95, 3.95],
             "angle": 0
         },
         {
             "ref": "0.39613543691876063",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1.75, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1.75, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.875, "y": 0.5}
+                "stem": [0.875, 0.5]
             },
-            "position": {"x": 14.95, "y": 3.95},
+            "position": [14.95, 3.95],
             "angle": 0
         },
         {
             "ref": "0.1373831843982536",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1.5, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1.5, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.75, "y": 0.5}
+                "stem": [0.75, 0.5]
             },
-            "position": {"x": 1.05, "y": 4.95},
+            "position": [1.05, 4.95],
             "angle": 0
         },
         {
             "ref": "0.4637181029168682",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 5.9, "y": 0.14999999999999947},
+            "position": [5.9, 0.14999999999999947],
             "angle": 10
         },
         {
             "ref": "0.7534331681690036",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 6.9, "y": 0.15000000000000002},
+            "position": [6.9, 0.15000000000000002],
             "angle": 10
         },
         {
             "ref": "0.9604592638610707",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 7.9, "y": 0.15000000000000002},
+            "position": [7.9, 0.15000000000000002],
             "angle": 10
         },
         {
             "ref": "0.932683450992233",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 4.9, "y": 0.15000000000000036},
+            "position": [4.9, 0.15000000000000036],
             "angle": 10
         },
         {
             "ref": "0.38600462393833657",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 4.35, "y": 1.15},
+            "position": [4.35, 1.15],
             "angle": 10
         },
         {
             "ref": "0.7030722200464166",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 5.35, "y": 1.15},
+            "position": [5.35, 1.15],
             "angle": 10
         },
         {
             "ref": "0.03740153868958984",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 6.35, "y": 1.15},
+            "position": [6.35, 1.15],
             "angle": 10
         },
         {
             "ref": "0.6792557349186183",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 7.35, "y": 1.15},
+            "position": [7.35, 1.15],
             "angle": 10
         },
         {
             "ref": "0.148592294417359",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 4.55, "y": 2.15},
+            "position": [4.55, 2.15],
             "angle": 10
         },
         {
             "ref": "0.3066562141335776",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 5.55, "y": 2.15},
+            "position": [5.55, 2.15],
             "angle": 10
         },
         {
             "ref": "0.7149613944577693",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 6.55, "y": 2.15},
+            "position": [6.55, 2.15],
             "angle": 10
         },
         {
             "ref": "0.7482526628513164",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 7.55, "y": 2.15},
+            "position": [7.55, 2.15],
             "angle": 10
         },
         {
             "ref": "0.772520399319836",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 5.05, "y": 3.15},
+            "position": [5.05, 3.15],
             "angle": 10
         },
         {
             "ref": "0.49019623137999724",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 6.05, "y": 3.15},
+            "position": [6.05, 3.15],
             "angle": 10
         },
         {
             "ref": "0.6332693224026817",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 7.05, "y": 3.15},
+            "position": [7.05, 3.15],
             "angle": 10
         },
         {
             "ref": "0.5599196330712957",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 8.05, "y": 3.15},
+            "position": [8.05, 3.15],
             "angle": 10
         },
         {
             "ref": "0.4382691818635369",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 2.25, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 2.25, "offset": [0, 0]}],
                 "stabilizers": [
-                    {"angle": 0, "length": 1.25, "offset": {"x": 0.5, "y": 0.5}}
+                    {"angle": 0, "length": 1.25, "offset": [0.5, 0.5]}
                 ],
-                "stem": {"x": 1.125, "y": 0.5}
+                "stem": [1.125, 0.5]
             },
-            "position": {"x": 6.3, "y": 4.15},
+            "position": [6.3, 4.15],
             "angle": 10
         },
         {
             "ref": "0.9017144561261254",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 8.55, "y": 4.15},
+            "position": [8.55, 4.15],
             "angle": 10
         },
         {
             "ref": "0.5372096446270971",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1.5, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1.5, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.75, "y": 0.5}
+                "stem": [0.75, 0.5]
             },
-            "position": {"x": 4.8, "y": 4.2},
+            "position": [4.8, 4.2],
             "angle": 10
         },
         {
             "ref": "0.2991575169252325",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 8.6, "y": 3.15},
+            "position": [8.6, 3.15],
             "angle": -10
         },
         {
             "ref": "0.7102422047192363",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 9.6, "y": 3.15},
+            "position": [9.6, 3.15],
             "angle": -10
         },
         {
             "ref": "0.9609180748106936",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 10.6, "y": 3.15},
+            "position": [10.6, 3.15],
             "angle": -10
         },
         {
             "ref": "0.9345608572831845",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 11.6, "y": 3.15},
+            "position": [11.6, 3.15],
             "angle": -10
         },
         {
             "ref": "0.31696454244456995",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 8.1, "y": 4.15},
+            "position": [8.1, 4.15],
             "angle": -10
         },
         {
             "ref": "0.19713372570723053",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 9.1, "y": 4.15},
+            "position": [9.1, 4.15],
             "angle": -10
         },
         {
             "ref": "0.1581372372608223",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 10.1, "y": 4.15},
+            "position": [10.1, 4.15],
             "angle": -10
         },
         {
             "ref": "0.3326042067082262",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 11.1, "y": 4.15},
+            "position": [11.1, 4.15],
             "angle": -10
         },
         {
             "ref": "0.19780645794483553",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 7.85, "y": 6.15},
+            "position": [7.85, 6.15],
             "angle": -10
         },
         {
             "ref": "0.45322385936736254",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 8.85, "y": 6.15},
+            "position": [8.85, 6.15],
             "angle": -10
         },
         {
             "ref": "0.9833928007259292",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 9.85, "y": 6.15},
+            "position": [9.85, 6.15],
             "angle": -10
         },
         {
             "ref": "0.3831701963351115",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.5, "y": 0.5}
+                "stem": [0.5, 0.5]
             },
-            "position": {"x": 10.85, "y": 6.15},
+            "position": [10.85, 6.15],
             "angle": -10
         },
         {
             "ref": "0.7090746387293527",
             "key": {
-                "shape": [
-                    {"height": 1, "width": 1.5, "offset": {"x": 0, "y": 0}}
-                ],
+                "shape": [{"height": 1, "width": 1.5, "offset": [0, 0]}],
                 "stabilizers": [],
-                "stem": {"x": 0.75, "y": 0.5}
+                "stem": [0.75, 0.5]
             },
-            "position": {"x": 10.6, "y": 7.2},
+            "position": [10.6, 7.2],
             "angle": -10
         }
     ],
@@ -666,19 +558,19 @@
                                     {
                                         "height": 1,
                                         "width": 2.25,
-                                        "offset": {"x": 0, "y": 0}
+                                        "offset": [0, 0]
                                     }
                                 ],
                                 "stabilizers": [
                                     {
                                         "angle": 0,
                                         "length": 1.25,
-                                        "offset": {"x": 0.5, "y": 0.5}
+                                        "offset": [0.5, 0.5]
                                     }
                                 ],
-                                "stem": {"x": 1.125, "y": 0.5}
+                                "stem": [1.125, 0.5]
                             },
-                            "position": {"x": 1.05, "y": 3.95},
+                            "position": [1.05, 3.95],
                             "angle": 0
                         }
                     ]
@@ -693,13 +585,13 @@
                                     {
                                         "height": 1,
                                         "width": 1.25,
-                                        "offset": {"x": 0, "y": 0}
+                                        "offset": [0, 0]
                                     }
                                 ],
                                 "stabilizers": [],
-                                "stem": {"x": 0.625, "y": 0.5}
+                                "stem": [0.625, 0.5]
                             },
-                            "position": {"x": 1.05, "y": 3.95},
+                            "position": [1.05, 3.95],
                             "angle": 0
                         },
                         {
@@ -709,13 +601,13 @@
                                     {
                                         "height": 1,
                                         "width": 1,
-                                        "offset": {"x": 0, "y": 0}
+                                        "offset": [0, 0]
                                     }
                                 ],
                                 "stabilizers": [],
-                                "stem": {"x": 0.5, "y": 0.5}
+                                "stem": [0.5, 0.5]
                             },
-                            "position": {"x": 2.3, "y": 3.95},
+                            "position": [2.3, 3.95],
                             "angle": 0
                         }
                     ]
@@ -735,13 +627,13 @@
                                     {
                                         "height": 1,
                                         "width": 1.75,
-                                        "offset": {"x": 0, "y": 0}
+                                        "offset": [0, 0]
                                     }
                                 ],
                                 "stabilizers": [],
-                                "stem": {"x": 0.875, "y": 0.5}
+                                "stem": [0.875, 0.5]
                             },
-                            "position": {"x": 1.25, "y": 2.95},
+                            "position": [1.25, 2.95],
                             "angle": 0
                         }
                     ]
@@ -756,20 +648,20 @@
                                     {
                                         "height": 1,
                                         "width": 1.75,
-                                        "offset": {"x": 0, "y": 0}
+                                        "offset": [0, 0]
                                     }
                                 ],
                                 "stabilizers": [],
-                                "stem": {"x": 0.625, "y": 0.5}
+                                "stem": [0.625, 0.5]
                             },
                             "shelf": [
                                 {
                                     "height": 1,
                                     "width": 1.25,
-                                    "offset": {"x": 0, "y": 0}
+                                    "offset": [0, 0]
                                 }
                             ],
-                            "position": {"x": 1.25, "y": 2.95},
+                            "position": [1.25, 2.95],
                             "angle": 0
                         }
                     ]
@@ -789,19 +681,19 @@
                                     {
                                         "height": 1,
                                         "width": 2,
-                                        "offset": {"x": 0, "y": 0}
+                                        "offset": [0, 0]
                                     }
                                 ],
                                 "stabilizers": [
                                     {
                                         "angle": 0,
                                         "length": 1,
-                                        "offset": {"x": 0.5, "y": 0.5}
+                                        "offset": [0.5, 0.5]
                                     }
                                 ],
-                                "stem": {"x": 1, "y": 0.5}
+                                "stem": [1, 0.5]
                             },
-                            "position": {"x": 15.1, "y": 0.95},
+                            "position": [15.1, 0.95],
                             "angle": 0
                         }
                     ]
@@ -816,13 +708,13 @@
                                     {
                                         "height": 1,
                                         "width": 1,
-                                        "offset": {"x": 0, "y": 0}
+                                        "offset": [0, 0]
                                     }
                                 ],
                                 "stabilizers": [],
-                                "stem": {"x": 0.5, "y": 0.5}
+                                "stem": [0.5, 0.5]
                             },
-                            "position": {"x": 15.1, "y": 0.95},
+                            "position": [15.1, 0.95],
                             "angle": 0
                         },
                         {
@@ -832,13 +724,13 @@
                                     {
                                         "height": 1,
                                         "width": 1,
-                                        "offset": {"x": 0, "y": 0}
+                                        "offset": [0, 0]
                                     }
                                 ],
                                 "stabilizers": [],
-                                "stem": {"x": 0.5, "y": 0.5}
+                                "stem": [0.5, 0.5]
                             },
-                            "position": {"x": 16.1, "y": 0.95},
+                            "position": [16.1, 0.95],
                             "angle": 0
                         }
                     ]
@@ -858,19 +750,19 @@
                                     {
                                         "height": 1,
                                         "width": 2.75,
-                                        "offset": {"x": 0, "y": 0}
+                                        "offset": [0, 0]
                                     }
                                 ],
                                 "stabilizers": [
                                     {
                                         "angle": 0,
                                         "length": 1.75,
-                                        "offset": {"x": 0.5, "y": 0.5}
+                                        "offset": [0.5, 0.5]
                                     }
                                 ],
-                                "stem": {"x": 1.375, "y": 0.5}
+                                "stem": [1.375, 0.5]
                             },
-                            "position": {"x": 7.85, "y": 7.15},
+                            "position": [7.85, 7.15],
                             "angle": -10
                         }
                     ]
@@ -885,13 +777,13 @@
                                     {
                                         "height": 1,
                                         "width": 1,
-                                        "offset": {"x": 0, "y": 0}
+                                        "offset": [0, 0]
                                     }
                                 ],
                                 "stabilizers": [],
-                                "stem": {"x": 0.5, "y": 0.5}
+                                "stem": [0.5, 0.5]
                             },
-                            "position": {"x": 7.85, "y": 7.15},
+                            "position": [7.85, 7.15],
                             "angle": -10
                         },
                         {
@@ -901,13 +793,13 @@
                                     {
                                         "height": 1,
                                         "width": 1.75,
-                                        "offset": {"x": 0, "y": 0}
+                                        "offset": [0, 0]
                                     }
                                 ],
                                 "stabilizers": [],
-                                "stem": {"x": 0.875, "y": 0.5}
+                                "stem": [0.875, 0.5]
                             },
-                            "position": {"x": 8.85, "y": 7.15},
+                            "position": [8.85, 7.15],
                             "angle": -10
                         }
                     ]
@@ -927,19 +819,19 @@
                                     {
                                         "height": 2,
                                         "width": 1,
-                                        "offset": {"x": 0, "y": 0}
+                                        "offset": [0, 0]
                                     }
                                 ],
                                 "stabilizers": [
                                     {
                                         "angle": 90,
                                         "length": 1,
-                                        "offset": {"x": 0.5, "y": 0.5}
+                                        "offset": [0.5, 0.5]
                                     }
                                 ],
-                                "stem": {"x": 0.5, "y": 1}
+                                "stem": [0.5, 1]
                             },
-                            "position": {"x": 16.7, "y": 3.95},
+                            "position": [16.7, 3.95],
                             "angle": 0
                         },
                         {
@@ -949,13 +841,13 @@
                                     {
                                         "height": 1,
                                         "width": 1,
-                                        "offset": {"x": 0, "y": 0}
+                                        "offset": [0, 0]
                                     }
                                 ],
                                 "stabilizers": [],
-                                "stem": {"x": 0.5, "y": 0.5}
+                                "stem": [0.5, 0.5]
                             },
-                            "position": {"x": 15.7, "y": 4.95},
+                            "position": [15.7, 4.95],
                             "angle": 0
                         },
                         {
@@ -965,13 +857,13 @@
                                     {
                                         "height": 1,
                                         "width": 1,
-                                        "offset": {"x": 0, "y": 0}
+                                        "offset": [0, 0]
                                     }
                                 ],
                                 "stabilizers": [],
-                                "stem": {"x": 0.5, "y": 0.5}
+                                "stem": [0.5, 0.5]
                             },
-                            "position": {"x": 17.7, "y": 4.95},
+                            "position": [17.7, 4.95],
                             "angle": 0
                         }
                     ]
@@ -986,24 +878,24 @@
                                     {
                                         "height": 1,
                                         "width": 3,
-                                        "offset": {"x": 0, "y": 0}
+                                        "offset": [0, 0]
                                     },
                                     {
                                         "height": 2,
                                         "width": 1,
-                                        "offset": {"x": 1, "y": -1}
+                                        "offset": [1, -1]
                                     }
                                 ],
                                 "stabilizers": [
                                     {
                                         "angle": 90,
                                         "length": 1,
-                                        "offset": {"x": 1.5, "y": -0.5}
+                                        "offset": [1.5, -0.5]
                                     }
                                 ],
-                                "stem": {"x": 1.5, "y": 0}
+                                "stem": [1.5, 0]
                             },
-                            "position": {"x": 15.7, "y": 4.95},
+                            "position": [15.7, 4.95],
                             "angle": 0
                         }
                     ]
@@ -1023,13 +915,13 @@
                                     {
                                         "height": 1,
                                         "width": 1,
-                                        "offset": {"x": 0, "y": 0}
+                                        "offset": [0, 0]
                                     }
                                 ],
                                 "stabilizers": [],
-                                "stem": {"x": 0.5, "y": 0.5}
+                                "stem": [0.5, 0.5]
                             },
-                            "position": {"x": 8.35, "y": 5.15},
+                            "position": [8.35, 5.15],
                             "angle": -10
                         },
                         {
@@ -1039,13 +931,13 @@
                                     {
                                         "height": 1,
                                         "width": 1,
-                                        "offset": {"x": 0, "y": 0}
+                                        "offset": [0, 0]
                                     }
                                 ],
                                 "stabilizers": [],
-                                "stem": {"x": 0.5, "y": 0.5}
+                                "stem": [0.5, 0.5]
                             },
-                            "position": {"x": 9.35, "y": 5.15},
+                            "position": [9.35, 5.15],
                             "angle": -10
                         },
                         {
@@ -1055,13 +947,13 @@
                                     {
                                         "height": 1,
                                         "width": 1,
-                                        "offset": {"x": 0, "y": 0}
+                                        "offset": [0, 0]
                                     }
                                 ],
                                 "stabilizers": [],
-                                "stem": {"x": 0.5, "y": 0.5}
+                                "stem": [0.5, 0.5]
                             },
-                            "position": {"x": 10.35, "y": 5.15},
+                            "position": [10.35, 5.15],
                             "angle": -10
                         },
                         {
@@ -1071,13 +963,13 @@
                                     {
                                         "height": 1,
                                         "width": 1,
-                                        "offset": {"x": 0, "y": 0}
+                                        "offset": [0, 0]
                                     }
                                 ],
                                 "stabilizers": [],
-                                "stem": {"x": 0.5, "y": 0.5}
+                                "stem": [0.5, 0.5]
                             },
-                            "position": {"x": 11.35, "y": 5.15},
+                            "position": [11.35, 5.15],
                             "angle": -10
                         }
                     ]
@@ -1092,19 +984,19 @@
                                     {
                                         "height": 1,
                                         "width": 2,
-                                        "offset": {"x": 0, "y": 0}
+                                        "offset": [0, 0]
                                     }
                                 ],
                                 "stabilizers": [
                                     {
                                         "angle": 0,
                                         "length": 1,
-                                        "offset": {"x": 0.5, "y": 0.5}
+                                        "offset": [0.5, 0.5]
                                     }
                                 ],
-                                "stem": {"x": 1, "y": 0.5}
+                                "stem": [1, 0.5]
                             },
-                            "position": {"x": 8.35, "y": 5.15},
+                            "position": [8.35, 5.15],
                             "angle": -10
                         },
                         {
@@ -1114,19 +1006,19 @@
                                     {
                                         "height": 1,
                                         "width": 2,
-                                        "offset": {"x": 0, "y": 0}
+                                        "offset": [0, 0]
                                     }
                                 ],
                                 "stabilizers": [
                                     {
                                         "angle": 0,
                                         "length": 1,
-                                        "offset": {"x": 0.5, "y": 0.5}
+                                        "offset": [0.5, 0.5]
                                     }
                                 ],
-                                "stem": {"x": 1, "y": 0.5}
+                                "stem": [1, 0.5]
                             },
-                            "position": {"x": 10.35, "y": 5.15},
+                            "position": [10.35, 5.15],
                             "angle": -10
                         }
                     ]
@@ -1141,19 +1033,19 @@
                                     {
                                         "height": 1,
                                         "width": 4,
-                                        "offset": {"x": 0, "y": 0}
+                                        "offset": [0, 0]
                                     }
                                 ],
                                 "stabilizers": [
                                     {
                                         "angle": 0,
                                         "length": 3,
-                                        "offset": {"x": 0.5, "y": 0.5}
+                                        "offset": [0.5, 0.5]
                                     }
                                 ],
-                                "stem": {"x": 2, "y": 0.5}
+                                "stem": [2, 0.5]
                             },
-                            "position": {"x": 8.35, "y": 5.15},
+                            "position": [8.35, 5.15],
                             "angle": -10
                         }
                     ]
@@ -1173,13 +1065,13 @@
                                     {
                                         "height": 1,
                                         "width": 1.7,
-                                        "offset": {"x": 0, "y": 0}
+                                        "offset": [0, 0]
                                     }
                                 ],
                                 "stabilizers": [],
-                                "stem": {"x": 0.875, "y": 0.5}
+                                "stem": [0.875, 0.5]
                             },
-                            "position": {"x": 15.8, "y": 1.95},
+                            "position": [15.8, 1.95],
                             "angle": 0
                         },
                         {
@@ -1189,19 +1081,19 @@
                                     {
                                         "height": 1,
                                         "width": 2.25,
-                                        "offset": {"x": 0, "y": 0}
+                                        "offset": [0, 0]
                                     }
                                 ],
                                 "stabilizers": [
                                     {
                                         "angle": 0,
                                         "length": 1.25,
-                                        "offset": {"x": 0.5, "y": 0.5}
+                                        "offset": [0.5, 0.5]
                                     }
                                 ],
-                                "stem": {"x": 1.125, "y": 0.5}
+                                "stem": [1.125, 0.5]
                             },
-                            "position": {"x": 15.25, "y": 2.95},
+                            "position": [15.25, 2.95],
                             "angle": 0
                         }
                     ]
@@ -1216,31 +1108,31 @@
                                     {
                                         "height": 1,
                                         "width": 1.7,
-                                        "offset": {"x": 0, "y": 0}
+                                        "offset": [0, 0]
                                     },
                                     {
                                         "height": 2,
                                         "width": 1.25,
-                                        "offset": {"x": 0.45, "y": 0}
+                                        "offset": [0.45, 0]
                                     }
                                 ],
                                 "stabilizers": [
                                     {
                                         "angle": 90,
                                         "length": 1,
-                                        "offset": {"x": 1.05, "y": 0.5}
+                                        "offset": [1.05, 0.5]
                                     }
                                 ],
-                                "stem": {"x": 1.05, "y": 1}
+                                "stem": [1.05, 1]
                             },
                             "shelf": [
                                 {
                                     "height": 2,
                                     "width": 1.25,
-                                    "offset": {"x": 0.45, "y": 0}
+                                    "offset": [0.45, 0]
                                 }
                             ],
-                            "position": {"x": 15.8, "y": 1.95},
+                            "position": [15.8, 1.95],
                             "angle": 0
                         },
                         {
@@ -1250,13 +1142,13 @@
                                     {
                                         "height": 1,
                                         "width": 1,
-                                        "offset": {"x": 0, "y": 0}
+                                        "offset": [0, 0]
                                     }
                                 ],
                                 "stabilizers": [],
-                                "stem": {"x": 0.5, "y": 0.5}
+                                "stem": [0.5, 0.5]
                             },
-                            "position": {"x": 15.25, "y": 2.95},
+                            "position": [15.25, 2.95],
                             "angle": 0
                         }
                     ]

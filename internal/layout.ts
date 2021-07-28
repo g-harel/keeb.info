@@ -1,76 +1,65 @@
-import polygonClipping, {
-    Polygon,
-    Pair,
-    MultiPolygon,
-    union,
-} from "polygon-clipping";
+import polygonClipping, {Polygon, MultiPolygon} from "polygon-clipping";
 import {LAYOUT_OPTIONS_PADDING, LAYOUT_SPREAD_INCREMENT} from "../editor/cons";
 
-import {Coord, Shape} from "./types/base";
+import {Pair, Shape} from "./types/base";
 import {Layout, LayoutKey} from "./types/layout";
 
 // Key's position is P and the rotation origin is R.
-export const rotateCoord = (p: Coord, r: Coord, a: number): Coord => {
+export const rotateCoord = (p: Pair, r: Pair, a: number): Pair => {
     if (a === 0) return p;
-    const distanceRtoP = Math.sqrt((p.x - r.x) ** 2 + (p.y - r.y) ** 2);
-    const angleRtoP = Math.acos((p.x - r.x) / distanceRtoP);
+    const distanceRtoP = Math.sqrt((p[0] - r[0]) ** 2 + (p[1] - r[1]) ** 2);
+    const angleRtoP = Math.acos((p[0] - r[0]) / distanceRtoP);
     const finalAngle = angleRtoP + a * (Math.PI / 180);
     const xOffsetRtoP = distanceRtoP * Math.cos(finalAngle);
     const yOffsetRtoP = distanceRtoP * Math.sin(finalAngle);
-    return {x: r.x + xOffsetRtoP, y: r.y + yOffsetRtoP};
+    return [r[0] + xOffsetRtoP, r[1] + yOffsetRtoP];
 };
 
 // Corners in ring order.
-const shapeCorners = (offset: Coord, shape: Shape): Coord[] => {
-    const x = shape.offset.x + offset.x;
-    const y = shape.offset.y + offset.y;
+const shapeCorners = (offset: Pair, shape: Shape): Pair[] => {
+    const x = shape.offset[0] + offset[0];
+    const y = shape.offset[1] + offset[1];
     const width = shape.width;
     const height = shape.height;
     return [
-        {x: x, y: y},
-        {x: x, y: y + height},
-        {x: x + width, y: y + height},
-        {x: x + width, y: y},
+        [x, y],
+        [x, y + height],
+        [x + width, y + height],
+        [x + width, y],
     ];
 };
 
-export const minmax = (layout: Layout): [Coord, Coord] => {
+export const minmax = (layout: Layout): [Pair, Pair] => {
     const keys: LayoutKey[] = layout.fixedKeys;
     for (const section of layout.variableKeys) {
         for (const option of section.options) {
             keys.push(...option.keys);
         }
     }
-    const coords: Coord[] = [];
+    const coords: Pair[] = [];
     for (const key of keys) {
         for (const shape of key.key.shape) {
             coords.push(
                 ...shapeCorners(key.position, shape).map((c) =>
-                    rotateCoord(c, {x: 0, y: 0}, key.angle),
+                    rotateCoord(c, [0, 0], key.angle),
                 ),
             );
         }
     }
 
-    let min: Coord = {x: Infinity, y: Infinity};
-    let max: Coord = {x: 0, y: 0};
+    let min: Pair = [Infinity, Infinity];
+    let max: Pair = [0, 0];
 
     for (const c of coords) {
-        max = {
-            x: Math.max(max.x, c.x),
-            y: Math.max(max.y, c.y),
-        };
-        min = {
-            x: Math.min(min.x, c.x),
-            y: Math.min(min.y, c.y),
-        };
+        max = [Math.max(max[0], c[0]), Math.max(max[1], c[1])];
+        min = [Math.min(min[0], c[0]), Math.min(min[1], c[1])];
     }
 
     return [min, max];
 };
 
-const toPair = (c: Coord): Pair => {
-    return [c.x, c.y];
+const toPair = (c: Pair): Pair => {
+    return [c[0], c[1]];
 };
 
 const unionKeys = (poly: MultiPolygon, ...keys: LayoutKey[]): MultiPolygon => {
@@ -92,10 +81,10 @@ const keyIntersects = (poly: MultiPolygon, key: LayoutKey): boolean => {
     return !!intersection.flat(2).length;
 };
 
-const offsetKey = (key: LayoutKey, offset: Coord): LayoutKey => {
+const offsetKey = (key: LayoutKey, offset: Pair): LayoutKey => {
     const oKey: LayoutKey = deepCopy(key);
-    oKey.position.x += offset.x;
-    oKey.position.y += offset.y;
+    oKey.position[0] += offset[0];
+    oKey.position[1] += offset[1];
     return oKey;
 };
 
@@ -113,8 +102,8 @@ export const spreadSections = (layout: Layout): Layout => {
         key.key.shape = key.key.shape.map((shape) => {
             shape.width += 2 * LAYOUT_OPTIONS_PADDING;
             shape.height += 2 * LAYOUT_OPTIONS_PADDING;
-            shape.offset.x -= LAYOUT_OPTIONS_PADDING;
-            shape.offset.y -= LAYOUT_OPTIONS_PADDING;
+            shape.offset[0] -= LAYOUT_OPTIONS_PADDING;
+            shape.offset[1] -= LAYOUT_OPTIONS_PADDING;
             return shape;
         });
         return key;
@@ -129,9 +118,9 @@ export const spreadSections = (layout: Layout): Layout => {
             for (let j = lastIncrement; j < 100; j += LAYOUT_SPREAD_INCREMENT) {
                 let found = false;
                 for (const offset of [
-                    {x: 0, y: j},
-                    {x: 0, y: -j},
-                ]) {
+                    [0, j],
+                    [0, -j],
+                ] as Pair[]) {
                     let intersects = false;
                     for (const key of option.keys) {
                         if (keyIntersects(avoid, offsetKey(key, offset))) {

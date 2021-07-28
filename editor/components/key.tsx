@@ -3,7 +3,7 @@ import styled from "styled-components";
 import * as color from "color";
 
 import {rotateCoord} from "../../internal/layout";
-import {Blank, Coord, Shape} from "../../internal/types/base";
+import {Blank, Pair, Shape} from "../../internal/types/base";
 import * as c from "../cons";
 import {ReactProps} from "../../internal/types/util";
 import {StrokeShape} from "./stroke-shape";
@@ -15,7 +15,7 @@ export interface KeyProps extends ReactProps {
 }
 
 export interface StemProps extends ReactProps {
-    coord: Coord;
+    coord: Pair;
     color: string;
 }
 
@@ -27,19 +27,19 @@ export interface MountProps extends ReactProps {
 export const Stem = (props: StemProps) => (
     <>
         <line
-            x1={props.coord.x}
-            y1={props.coord.y - c.STEM_SIZE}
-            x2={props.coord.x}
-            y2={props.coord.y + c.STEM_SIZE}
+            x1={props.coord[0]}
+            y1={props.coord[1] - c.STEM_SIZE}
+            x2={props.coord[0]}
+            y2={props.coord[1] + c.STEM_SIZE}
             stroke={color(props.color).darken(c.STEM_COLOR_DARKEN)}
             strokeWidth={c.STEM_WIDTH}
             strokeLinecap="round"
         />
         <line
-            x1={props.coord.x - c.STEM_SIZE}
-            y1={props.coord.y}
-            x2={props.coord.x + c.STEM_SIZE}
-            y2={props.coord.y}
+            x1={props.coord[0] - c.STEM_SIZE}
+            y1={props.coord[1]}
+            x2={props.coord[0] + c.STEM_SIZE}
+            y2={props.coord[1]}
             stroke={color(props.color).darken(c.STEM_COLOR_DARKEN)}
             strokeWidth={c.STEM_WIDTH}
             strokeLinecap="round"
@@ -53,26 +53,17 @@ export const Mounts = (props: MountProps) => (
         {props.blank.stabilizers.map((stabilizer, i) => {
             const startStem = stabilizer.offset;
             const endStem = rotateCoord(
-                {
-                    x: startStem.x + stabilizer.length,
-                    y: startStem.y,
-                },
+                [startStem[0] + stabilizer.length, startStem[1]],
                 startStem,
                 stabilizer.angle,
             );
             const startWire = rotateCoord(
-                {
-                    x: startStem.x + c.WIRE_OFFSET,
-                    y: startStem.y,
-                },
+                [startStem[0] + c.WIRE_OFFSET, startStem[1]],
                 startStem,
                 stabilizer.angle + c.WIRE_ANGLE,
             );
             const endWire = rotateCoord(
-                {
-                    x: endStem.x + c.WIRE_OFFSET,
-                    y: endStem.y,
-                },
+                [endStem[0] + c.WIRE_OFFSET, endStem[1]],
                 endStem,
                 stabilizer.angle + 180 - c.WIRE_ANGLE,
             );
@@ -81,10 +72,10 @@ export const Mounts = (props: MountProps) => (
                     <Stem coord={startStem} color={props.color} />
                     <Stem coord={endStem} color={props.color} />
                     <line
-                        x1={startWire.x}
-                        y1={startWire.y}
-                        x2={endWire.x}
-                        y2={endWire.y}
+                        x1={startWire[0]}
+                        y1={startWire[1]}
+                        x2={endWire[0]}
+                        y2={endWire[1]}
                         stroke={color(props.color).darken(c.WIRE_COLOR_DARKEN)}
                         strokeWidth={c.WIRE_WIDTH}
                         strokeLinecap="round"

@@ -1,4 +1,4 @@
-import {Blank, Coord, ID, Shape, UUID} from "./base";
+import {Blank, Pair, ID, Shape, UUID} from "./base";
 
 // Group of keycap kits with matching theme.
 export interface Keyset {
@@ -44,7 +44,7 @@ export interface KeysetKeycap {
     shelf: Shape[];
 
     // Position in the example layout.
-    position: Coord;
+    position: Pair;
 }
 
 export interface KeycapLegend {

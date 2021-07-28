@@ -28,32 +28,32 @@ export const Footprint = (props: FootprintProps) => {
         <g>
             <circle
                 fill={footprintColor}
-                cx={props.blank.stem.x}
-                cy={props.blank.stem.y}
+                cx={props.blank.stem[0]}
+                cy={props.blank.stem[1]}
                 r={c.CHERRY_MIDDLE_STEM_RADIUS}
             />
             <circle
                 fill={footprintColor}
-                cx={props.blank.stem.x + c.CHERRY_PIN_OFFSET_X}
-                cy={props.blank.stem.y}
+                cx={props.blank.stem[0] + c.CHERRY_PIN_OFFSET_X}
+                cy={props.blank.stem[1]}
                 r={c.CHERRY_PIN_RADIUS}
             />
             <circle
                 fill={footprintColor}
-                cx={props.blank.stem.x - c.CHERRY_PIN_OFFSET_X}
-                cy={props.blank.stem.y}
+                cx={props.blank.stem[0] - c.CHERRY_PIN_OFFSET_X}
+                cy={props.blank.stem[1]}
                 r={c.CHERRY_PIN_RADIUS}
             />
             <circle
                 fill={footprintColor}
-                cx={props.blank.stem.x + c.CHERRY_POLE1_OFFSET_X}
-                cy={props.blank.stem.y + c.CHERRY_POLE1_OFFSET_Y}
+                cx={props.blank.stem[0] + c.CHERRY_POLE1_OFFSET_X}
+                cy={props.blank.stem[1] + c.CHERRY_POLE1_OFFSET_Y}
                 r={c.CHERRY_POLE_RADIUS}
             />
             <circle
                 fill={footprintColor}
-                cx={props.blank.stem.x + c.CHERRY_POLE2_OFFSET_X}
-                cy={props.blank.stem.y + c.CHERRY_POLE2_OFFSET_Y}
+                cx={props.blank.stem[0] + c.CHERRY_POLE2_OFFSET_X}
+                cy={props.blank.stem[1] + c.CHERRY_POLE2_OFFSET_Y}
                 r={c.CHERRY_POLE_RADIUS}
             />
         </g>
@@ -62,14 +62,11 @@ export const Footprint = (props: FootprintProps) => {
 
 export const FootprintLayout = (props: FootprintLayoutProps) => {
     const [min, max] = minmax(props.layout);
-    const unitWidth = max.x - min.x;
-    const unitHeight = max.y - min.y;
+    const unitWidth = max[0] - min[0];
+    const unitHeight = max[1] - min[1];
 
     return (
-        <Plane
-            pixelWidth={props.width}
-            unitSize={{x: unitWidth, y: unitHeight}}
-        >
+        <Plane pixelWidth={props.width} unitSize={[unitWidth, unitHeight]}>
             {props.layout.fixedKeys.map((key, i) => (
                 <PlaneItem
                     origin={min}

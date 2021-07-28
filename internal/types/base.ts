@@ -19,16 +19,8 @@ export interface ID {
     productID: string;
 }
 
-// Coordinates are not necessarily centered on canvas origin.
-export interface Coord {
-    // Horizontal offset.
-    // Point moves right as value increases.
-    x: Unit;
-
-    // Vertical offset.
-    // Point moves down as value increases.
-    y: Unit;
-}
+// X/Y pair not necessarily centered on canvas origin.
+export type Pair = [number, number];
 
 // Shared layout footprint and keycap attributes.
 export interface Blank {
@@ -36,7 +28,7 @@ export interface Blank {
     shape: Shape[];
 
     // Relative stem location.
-    stem: Coord;
+    stem: Pair;
 
     // Stabilizer mounting location(s).
     stabilizers: Stabilizer[];
@@ -52,13 +44,13 @@ export interface Shape {
 
     // Relative location for composite shapes.
     // ISO enter can be represented using two offset rects.
-    offset: Coord;
+    offset: Pair;
 }
 
 // Wire stabilizer mounting locations.
 export interface Stabilizer {
     // Relative location of first stem.
-    offset: Coord;
+    offset: Pair;
 
     // Distance between stabilizer stems.
     length: Unit;
