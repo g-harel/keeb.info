@@ -30,7 +30,7 @@ const shapeCorners = (offset: Pair, shape: Shape): Pair[] => {
 };
 
 export const minmax = (layout: Layout): [Pair, Pair] => {
-    const keys: LayoutKey[] = layout.fixedKeys;
+    const keys: LayoutKey[] = layout.fixedKeys.slice();
     for (const section of layout.variableKeys) {
         for (const option of section.options) {
             keys.push(...option.keys);
@@ -88,7 +88,6 @@ const offsetKey = (key: LayoutKey, offset: Pair): LayoutKey => {
     return oKey;
 };
 
-// TODO padding around initial layout.
 export const spreadSections = (layout: Layout): Layout => {
     const out: Layout = deepCopy(layout);
 

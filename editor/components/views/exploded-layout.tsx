@@ -24,7 +24,7 @@ export const ExpolodedLayout = (props: ExplodedLayoutProps) => {
 
     return (
         <Plane pixelWidth={props.width} unitSize={[unitWidth, unitHeight]}>
-            {spreadLayout.fixedKeys.map((key, i) => (
+            {spreadLayout.fixedKeys.map((key) => (
                 <PlaneItem
                     key={key.ref}
                     origin={min}
@@ -35,6 +35,8 @@ export const ExpolodedLayout = (props: ExplodedLayoutProps) => {
                         blank={key.key}
                         color={DEFAULT_KEY_COLOR}
                         shelf={(key as any).shelf || []}
+                        stem
+                        stabs
                     />
                 </PlaneItem>
             ))}
@@ -54,6 +56,8 @@ export const ExpolodedLayout = (props: ExplodedLayoutProps) => {
                                 blank={key.key}
                                 color={sectionColor}
                                 shelf={(key as any).shelf || []}
+                                stem
+                                stabs
                             />
                         </PlaneItem>
                     )),

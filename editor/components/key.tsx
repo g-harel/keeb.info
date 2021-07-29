@@ -12,6 +12,8 @@ export interface KeyProps extends ReactProps {
     color: string;
     blank: Blank;
     shelf?: Shape[];
+    stem?: boolean;
+    stabs?: boolean;
 }
 
 export interface StemProps extends ReactProps {
@@ -22,6 +24,8 @@ export interface StemProps extends ReactProps {
 export interface MountProps extends ReactProps {
     blank: Blank;
     color: string;
+    stem?: boolean;
+    stabs?: boolean;
 }
 
 export const Stem = (props: StemProps) => (
@@ -49,40 +53,43 @@ export const Stem = (props: StemProps) => (
 
 export const Mounts = (props: MountProps) => (
     <g>
-        <Stem coord={props.blank.stem} color={props.color} />
-        {props.blank.stabilizers.map((stabilizer, i) => {
-            const startStem = stabilizer.offset;
-            const endStem = rotateCoord(
-                [startStem[0] + stabilizer.length, startStem[1]],
-                startStem,
-                stabilizer.angle,
-            );
-            const startWire = rotateCoord(
-                [startStem[0] + c.WIRE_OFFSET, startStem[1]],
-                startStem,
-                stabilizer.angle + c.WIRE_ANGLE,
-            );
-            const endWire = rotateCoord(
-                [endStem[0] + c.WIRE_OFFSET, endStem[1]],
-                endStem,
-                stabilizer.angle + 180 - c.WIRE_ANGLE,
-            );
-            return (
-                <g key={i}>
-                    <Stem coord={startStem} color={props.color} />
-                    <Stem coord={endStem} color={props.color} />
-                    <line
-                        x1={startWire[0]}
-                        y1={startWire[1]}
-                        x2={endWire[0]}
-                        y2={endWire[1]}
-                        stroke={color(props.color).darken(c.WIRE_COLOR_DARKEN)}
-                        strokeWidth={c.WIRE_WIDTH}
-                        strokeLinecap="round"
-                    />
-                </g>
-            );
-        })}
+        {props.stem && <Stem coord={props.blank.stem} color={props.color} />}
+        {props.stabs &&
+            props.blank.stabilizers.map((stabilizer, i) => {
+                const startStem = stabilizer.offset;
+                const endStem = rotateCoord(
+                    [startStem[0] + stabilizer.length, startStem[1]],
+                    startStem,
+                    stabilizer.angle,
+                );
+                const startWire = rotateCoord(
+                    [startStem[0] + c.WIRE_OFFSET, startStem[1]],
+                    startStem,
+                    stabilizer.angle + c.WIRE_ANGLE,
+                );
+                const endWire = rotateCoord(
+                    [endStem[0] + c.WIRE_OFFSET, endStem[1]],
+                    endStem,
+                    stabilizer.angle + 180 - c.WIRE_ANGLE,
+                );
+                return (
+                    <g key={i}>
+                        <Stem coord={startStem} color={props.color} />
+                        <Stem coord={endStem} color={props.color} />
+                        <line
+                            x1={startWire[0]}
+                            y1={startWire[1]}
+                            x2={endWire[0]}
+                            y2={endWire[1]}
+                            stroke={color(props.color).darken(
+                                c.WIRE_COLOR_DARKEN,
+                            )}
+                            strokeWidth={c.WIRE_WIDTH}
+                            strokeLinecap="round"
+                        />
+                    </g>
+                );
+            })}
     </g>
 );
 
@@ -118,7 +125,12 @@ export const Key = (props: KeyProps) => {
                     .darken(c.SHINE_COLOR_DIFF)
                     .hex()}
             />
-            <Mounts blank={props.blank} color={props.color} />
+            <Mounts
+                blank={props.blank}
+                color={props.color}
+                stem={props.stem}
+                stabs={props.stabs}
+            />
         </g>
     );
 };

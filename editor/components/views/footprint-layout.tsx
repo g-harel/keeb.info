@@ -1,15 +1,12 @@
 import React from "react";
 import * as color from "color";
 
-import {minmax, spreadSections} from "../../../internal/layout";
+import {minmax} from "../../../internal/layout";
 import {Layout} from "../../../internal/types/layout";
-import {Key} from "../key";
 import * as c from "../../cons";
-import {DEFAULT_KEY_COLOR, START_SECTION_COLOR} from "../../cons";
 import {ReactProps} from "../../../internal/types/util";
 import {Plane, PlaneItem} from "../plane";
 import {Blank} from "../../../internal/types/base";
-import {StrokeShape} from "../stroke-shape";
 
 export interface FootprintLayoutProps extends ReactProps {
     width: number;
@@ -67,8 +64,9 @@ export const FootprintLayout = (props: FootprintLayoutProps) => {
 
     return (
         <Plane pixelWidth={props.width} unitSize={[unitWidth, unitHeight]}>
-            {props.layout.fixedKeys.map((key, i) => (
+            {props.layout.fixedKeys.map((key) => (
                 <PlaneItem
+                    key={key.ref}
                     origin={min}
                     angle={key.angle}
                     position={key.position}
@@ -80,6 +78,7 @@ export const FootprintLayout = (props: FootprintLayoutProps) => {
                 return section.options.map((option) =>
                     option.keys.map((key) => (
                         <PlaneItem
+                            key={key.ref}
                             origin={min}
                             angle={key.angle}
                             position={key.position}

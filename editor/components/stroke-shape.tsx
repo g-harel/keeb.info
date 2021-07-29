@@ -16,7 +16,7 @@ export interface StrokeShapeProps extends ReactProps {
 export const StrokeShape = (props: StrokeShapeProps) => {
     const innerStroke = Math.max(0, props.radius - props.borderWidth);
     return (
-        <>
+        <g>
             {props.shape.map((shape, i) => (
                 // Stroke.
                 <rect
@@ -51,6 +51,6 @@ export const StrokeShape = (props: StrokeShapeProps) => {
                     }
                 />
             ))}
-        </>
+        </g>
     );
 };
