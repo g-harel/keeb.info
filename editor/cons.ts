@@ -18,8 +18,10 @@ export const WIRE_OFFSET = 2 * (STEM_SIZE + WIRE_WIDTH / 2);
 export const WIRE_ANGLE = 105;
 export const LAYOUT_OPTIONS_PADDING = 0.45;
 export const LAYOUT_SPREAD_INCREMENT = 0.5;
-
 export const FOOTPRINT_COLOR_DARKEN = 0.3;
+
+// https://github.com/mohitg11/GH-CAD-Resources/blob/master/MX%20Series.pdf
+// https://github.com/mohitg11/GH-CAD-Resources/blob/master/MXSpec.pdf
 export const CHERRY_MIDDLE_STEM_RADIUS = 0.157 / 0.61 / 2;
 export const CHERRY_PIN_RADIUS = 0.067 / 0.61 / 2;
 export const CHERRY_PIN_OFFSET_X = (4 * 0.05) / 0.61;
@@ -28,3 +30,7 @@ export const CHERRY_POLE1_OFFSET_X = (-3 * 0.05) / 0.61;
 export const CHERRY_POLE2_OFFSET_X = (2 * 0.05) / 0.61;
 export const CHERRY_POLE1_OFFSET_Y = (-2 * 0.05) / 0.61;
 export const CHERRY_POLE2_OFFSET_Y = (-4 * 0.05) / 0.61;
+export const CHERRY_PLATE_STAB_TOP_OFFSET = ((0.61 / 15.6) * 7) / 0.61;
+export const CHERRY_PLATE_STAB_BOTTOM_OFFSET = ((0.61 / 15.6) * 8.24) / 0.61;
+export const CHERRY_PLATE_STAB_TOP_RADIUS = ((0.61 / 15.6) * 3.05) / 0.61 / 2;
+export const CHERRY_PLATE_STAB_BOTTOM_RADIUS = ((0.61 / 15.6) * 4) / 0.61 / 2;
