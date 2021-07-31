@@ -25,11 +25,6 @@ export interface KeysetKit {
 }
 
 // Individual keycap placed on an example layout.
-// TODO stepped.
-// TODO barred/scooped.
-// TODO relegendable.
-// TODO colors.
-// TODO stem copatibility.
 export interface KeysetKeycap {
     // Printed legend.
     legend: KeycapLegend;
@@ -45,8 +40,22 @@ export interface KeysetKeycap {
 
     // Position in the example layout.
     position: Pair;
+
+    // Whether the keycap has a homing bar.
+    barred: boolean;
+
+    // Whether the keycap has a homing scoop.
+    scooped: boolean;
+
+    // Base color of the keycap.
+    color?: string;
+
+    // Stem type.
+    stem: UUID;
 }
 
+// TODO relegendable.
+// TODO color.
 export interface KeycapLegend {
     topLegends: string[][];
     frontLegends: string[][];
