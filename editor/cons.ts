@@ -1,6 +1,7 @@
 export const BACKGROUND_COLOR = "#eeeeee";
 export const DEFAULT_KEY_COLOR = "#cccccc";
 export const START_SECTION_COLOR = "#e2a8a8";
+export const START_FOOTPRINT_COLOR = "#e2a8a8";
 export const STROKE_COLOR_DARKEN = 0.5;
 export const SHINE_COLOR_DIFF = 0.15;
 export const PAD = 0.012;
