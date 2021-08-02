@@ -1,4 +1,4 @@
-import {Angle, Blank, Pair, UUID} from "./base";
+import {Angle, Blank, Cartesian, Pair, UUID} from "./base";
 
 // Keymap applied to a layout.
 export interface LayoutKeymap {
@@ -67,7 +67,6 @@ export interface LayoutOption {
 }
 
 // Location in the layout where a key can be populated.
-// TODO switch orientation + footprints.
 export interface LayoutKey {
     // Unique identifier to refer to key.
     ref: UUID;
@@ -81,4 +80,7 @@ export interface LayoutKey {
     // Angle of the footprint (rotated around 0,0).
     // +180deg for inverted switches.
     angle: Angle;
+
+    // Orientation of the switch in the footprint.
+    orientation: Cartesian; // TODO implement in footprint.
 }

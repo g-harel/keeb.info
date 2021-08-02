@@ -22,6 +22,13 @@ export interface ID {
 // X/Y pair not necessarily centered on canvas origin.
 export type Pair = [number, number];
 
+// First bool inidcates vertical/horizontal and second is direction on that axis.
+// Up:    1,0  -90deg
+// Down:  1,1   90deg
+// Left:  0,0    0deg
+// Right: 0,1  180deg
+export type Cartesian = [boolean, boolean];
+
 // Shared layout footprint and keycap attributes.
 export interface Blank {
     // Shape of the key.
@@ -57,5 +64,6 @@ export interface Stabilizer {
 
     // Angle from first stem to second.
     // +180deg for inverted (wire on top).
+    // TODO conver to cartesian.
     angle: Angle;
 }

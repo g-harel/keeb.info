@@ -15,7 +15,6 @@ export interface Profile {
     spacebar: string[];
 }
 
-
 export interface Stem {
     // Unique identifier to refer to the stem type.
     ref: UUID;

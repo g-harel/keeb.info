@@ -23,7 +23,7 @@ export const FootprintLayout = (props: FootprintLayoutProps) => {
     const getColor = () => {
         count++;
         return color(c.START_FOOTPRINT_COLOR)
-            .rotate((count % numColors)/numColors * 360)
+            .rotate(((count % numColors) / numColors) * 360)
             .hex();
     };
 
@@ -36,10 +36,7 @@ export const FootprintLayout = (props: FootprintLayoutProps) => {
                     angle={key.angle}
                     position={key.position}
                 >
-                    <Footprint
-                        blank={key.key}
-                        color={getColor()}
-                    />
+                    <Footprint blank={key.key} color={getColor()} />
                 </PlaneItem>
             ))}
             {props.layout.variableKeys.map((section) => {
@@ -51,10 +48,7 @@ export const FootprintLayout = (props: FootprintLayoutProps) => {
                             angle={key.angle}
                             position={key.position}
                         >
-                            <Footprint
-                                blank={key.key}
-                                color={getColor()}
-                            />
+                            <Footprint blank={key.key} color={getColor()} />
                         </PlaneItem>
                     )),
                 );
