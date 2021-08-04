@@ -8,7 +8,6 @@ import kleKeyset from "./testing/kle-keyset.json";
 import testLayout from "./testing/layout.json";
 import {convertKLEToLayout} from "../internal/convert";
 import {BACKGROUND_COLOR} from "./cons";
-import {Layout} from "../internal/types/layout";
 import {FootprintLayout} from "./components/views/footprint-layout";
 
 // Global styles, similar to traditional css.

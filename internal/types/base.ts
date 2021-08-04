@@ -67,3 +67,178 @@ export interface Stabilizer {
     // TODO conver to cartesian.
     angle: Angle;
 }
+
+// Group of keycap kits with matching theme.
+export interface Keyset {
+    // Unique identifier.
+    id: ID;
+
+    // Public-facing keyset name.
+    name: string;
+
+    // Kits part of the keyset.
+    kits: KeysetKit[];
+}
+
+// Collection of keycaps available as a unit.
+export interface KeysetKit {
+    // Unique identifier.
+    id: ID;
+
+    // Public-facing kit name.
+    name: string;
+
+    // Keys included in the kit.
+    keys: KeysetKeycap[];
+}
+
+// Individual keycap placed on an example layout.
+export interface KeysetKeycap {
+    // Printed legend.
+    legend: KeysetKeycapLegend;
+
+    // Profile of the keycap.
+    profile: KeysetKeycapProfile;
+
+    // Physical attributes of the keycap.
+    key: Blank;
+
+    // Elevated portion of the keycap.
+    shelf: Shape[];
+
+    // Position in the example layout.
+    position: Pair;
+
+    // Whether the keycap has a homing bar.
+    barred: boolean;
+
+    // Whether the keycap has a homing scoop.
+    scooped: boolean;
+
+    // Base color of the keycap.
+    color?: string;
+
+    // Stem type.
+    stem: UUID;
+}
+
+// TODO relegendable.
+// TODO color.
+export interface KeysetKeycapLegend {
+    topLegends: string[][];
+    frontLegends: string[][];
+    keycodeAffinity: any[]; // TODO
+}
+
+export interface KeysetKeycapProfile {
+    profile: UUID;
+    row: string;
+}
+
+// Keycap profile definition.
+export interface Profile {
+    // Unique identifier to refer to the profile.
+    ref: UUID;
+
+    // Human-readable name.
+    name: string;
+
+    // Possible row values, ordered from top to bottom.
+    rows: string[];
+
+    // Spacebar value.
+    spacebar: string[];
+}
+
+export interface Stem {
+    // Unique identifier to refer to the stem type.
+    ref: UUID;
+
+    // Human-readable name.
+    name: string;
+}
+
+// Keymap applied to a layout.
+export interface LayoutKeymap {
+    // Reference to target layout.
+    layout: UUID;
+
+    // Layer definitions mapping key refs to keycodes.
+    layers: Record<UUID, KeymapKeycode>[];
+
+    // Selected layout options for the keymap.
+    optionSelection: UUID[];
+}
+
+export interface KeymapKeycode {
+    keycode: any; // TODO
+}
+
+// Implementation of a layout on a board
+// TODO rotary encoders.
+// TODO split matrix.
+export interface LayoutImplementation {
+    // Reference to target layout.
+    layout: UUID;
+
+    // Mapping of key ref to matrix coordinates.
+    matrix: Record<UUID, MatrixLocation>;
+
+    // Selection available layout options.
+    availableOptions: UUID[];
+}
+
+// Matrix coordinates.
+export interface MatrixLocation {
+    row: number;
+    column: number;
+}
+
+// Keyboard layout.
+export interface Layout {
+    // Unique identifier to refer to the layout.
+    ref: UUID;
+
+    // Keys that do not overlap and not part of an option.
+    fixedKeys: LayoutKey[];
+
+    // Sections of layout where multiple options can be used.
+    variableKeys: LayoutSection[];
+}
+
+export interface LayoutSection {
+    // Unique identifier to refer to the section.
+    ref: UUID;
+
+    // Options available for the section.
+    // All options should overlap exactly.
+    options: LayoutOption[];
+}
+
+// Key placement options for an overlapping section of the layout.
+export interface LayoutOption {
+    // Unique identifier to refer to the option.
+    ref: UUID;
+
+    // Key positions when layout is selected.
+    keys: LayoutKey[];
+}
+
+// Location in the layout where a key can be populated.
+export interface LayoutKey {
+    // Unique identifier to refer to key.
+    ref: UUID;
+
+    // Physical attributes of the key footprint.
+    key: Blank;
+
+    // Position of the key on the layout.
+    position: Pair;
+
+    // Angle of the footprint (rotated around 0,0).
+    // +180deg for inverted switches.
+    angle: Angle;
+
+    // Orientation of the switch in the footprint.
+    orientation: Cartesian; // TODO implement in footprint.
+}

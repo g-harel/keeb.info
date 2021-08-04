@@ -2,7 +2,7 @@ import React from "react";
 import * as color from "color";
 
 import {minmax, spreadSections} from "../../../internal/layout";
-import {Layout} from "../../../internal/types/layout";
+import {Layout} from "../../../internal/types/base";
 import {Key} from "../key";
 import {DEFAULT_KEY_COLOR, START_SECTION_COLOR} from "../../cons";
 import {ReactProps} from "../../../internal/types/util";

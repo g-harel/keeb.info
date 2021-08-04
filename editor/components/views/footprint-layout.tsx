@@ -2,7 +2,7 @@ import React from "react";
 import * as color from "color";
 
 import {minmax} from "../../../internal/layout";
-import {Layout} from "../../../internal/types/layout";
+import {Layout} from "../../../internal/types/base";
 import * as c from "../../cons";
 import {ReactProps} from "../../../internal/types/util";
 import {Plane, PlaneItem} from "../plane";
