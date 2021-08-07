@@ -2,13 +2,13 @@ import polygonClipping, {Polygon, MultiPolygon} from "polygon-clipping";
 import {LAYOUT_OPTIONS_PADDING, LAYOUT_SPREAD_INCREMENT} from "../editor/cons";
 
 import {Pair, Shape} from "./types/base";
-import {Layout, LayoutKey} from "./types/layout";
+import {Layout, LayoutKey} from "./types/base";
 
-// Key's position is P and the rotation origin is R.
+// Position is P and the rotation origin is R.
 export const rotateCoord = (p: Pair, r: Pair, a: number): Pair => {
     if (a === 0) return p;
     const distanceRtoP = Math.sqrt((p[0] - r[0]) ** 2 + (p[1] - r[1]) ** 2);
-    const angleRtoP = Math.acos((p[0] - r[0]) / distanceRtoP);
+    const angleRtoP = Math.acos((p[0] - r[0]) / distanceRtoP) || 0;
     const finalAngle = angleRtoP + a * (Math.PI / 180);
     const xOffsetRtoP = distanceRtoP * Math.cos(finalAngle);
     const yOffsetRtoP = distanceRtoP * Math.sin(finalAngle);

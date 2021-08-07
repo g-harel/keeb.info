@@ -9,6 +9,7 @@ import testLayout from "./testing/layout.json";
 import {convertKLEToLayout} from "../internal/convert";
 import {BACKGROUND_COLOR} from "./cons";
 import {FootprintLayout} from "./components/views/footprint-layout";
+import {Layout} from "../internal/types/base";
 
 // Global styles, similar to traditional css.
 const GlobalStyle = createGlobalStyle`

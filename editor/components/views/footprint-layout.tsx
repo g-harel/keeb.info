@@ -36,7 +36,11 @@ export const FootprintLayout = (props: FootprintLayoutProps) => {
                     angle={key.angle}
                     position={key.position}
                 >
-                    <Footprint blank={key.key} color={getColor()} />
+                    <Footprint
+                        blank={key.key}
+                        orientation={key.orientation}
+                        color={getColor()}
+                    />
                 </PlaneItem>
             ))}
             {props.layout.variableKeys.map((section) => {
@@ -48,7 +52,11 @@ export const FootprintLayout = (props: FootprintLayoutProps) => {
                             angle={key.angle}
                             position={key.position}
                         >
-                            <Footprint blank={key.key} color={getColor()} />
+                            <Footprint
+                                blank={key.key}
+                                orientation={key.orientation}
+                                color={getColor()}
+                            />
                         </PlaneItem>
                     )),
                 );

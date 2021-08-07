@@ -64,7 +64,7 @@ export interface Stabilizer {
 
     // Angle from first stem to second.
     // +180deg for inverted (wire on top).
-    // TODO conver to cartesian.
+    // TODO conver to cartesian?.
     angle: Angle;
 }
 

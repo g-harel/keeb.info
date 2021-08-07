@@ -4,18 +4,32 @@ import * as color from "color";
 import {rotateCoord} from "../../internal/layout";
 import * as c from "../cons";
 import {ReactProps} from "../../internal/types/util";
-import {Blank} from "../../internal/types/base";
+import {Angle, Blank, Cartesian, Pair} from "../../internal/types/base";
 
 export interface FootprintProps extends ReactProps {
     blank: Blank;
     color: string;
+    orientation: Cartesian;
 }
+
+const convertOrientation = (orientation: Cartesian): Angle => {
+    let angle = 0;
+    if (orientation[0]) angle -= 90;
+    if (orientation[1]) angle += 180;
+    return angle;
+};
 
 export const Footprint = (props: FootprintProps) => {
     const contactColor = color(props.color)
         // .darken(c.FOOTPRINT_COLOR_DARKEN)
         // .darken(c.FOOTPRINT_COLOR_DARKEN)
         .hex();
+    const angle = convertOrientation(props.orientation);
+    const rotate = (p: Pair): {cx: number; cy: number} => {
+        // TODO rotation is always flipping.
+        const [cx, cy] = rotateCoord(p, props.blank.stem, angle);
+        return {cx, cy};
+    };
     return (
         <g>
             <circle
@@ -26,26 +40,34 @@ export const Footprint = (props: FootprintProps) => {
             />
             <circle
                 fill={contactColor}
-                cx={props.blank.stem[0] + c.CHERRY_PIN_OFFSET_X}
-                cy={props.blank.stem[1]}
+                {...rotate([
+                    props.blank.stem[0] + c.CHERRY_PIN_OFFSET_X,
+                    props.blank.stem[1],
+                ])}
                 r={c.CHERRY_PIN_RADIUS}
             />
             <circle
                 fill={contactColor}
-                cx={props.blank.stem[0] - c.CHERRY_PIN_OFFSET_X}
-                cy={props.blank.stem[1]}
+                {...rotate([
+                    props.blank.stem[0] - c.CHERRY_PIN_OFFSET_X,
+                    props.blank.stem[1],
+                ])}
                 r={c.CHERRY_PIN_RADIUS}
             />
             <circle
                 fill={props.color}
-                cx={props.blank.stem[0] + c.CHERRY_POLE1_OFFSET_X}
-                cy={props.blank.stem[1] + c.CHERRY_POLE1_OFFSET_Y}
+                {...rotate([
+                    props.blank.stem[0] + c.CHERRY_POLE1_OFFSET_X,
+                    props.blank.stem[1] + c.CHERRY_POLE1_OFFSET_Y,
+                ])}
                 r={c.CHERRY_POLE_RADIUS}
             />
             <circle
                 fill={props.color}
-                cx={props.blank.stem[0] + c.CHERRY_POLE2_OFFSET_X}
-                cy={props.blank.stem[1] + c.CHERRY_POLE2_OFFSET_Y}
+                {...rotate([
+                    props.blank.stem[0] + c.CHERRY_POLE2_OFFSET_X,
+                    props.blank.stem[1] + c.CHERRY_POLE2_OFFSET_Y,
+                ])}
                 r={c.CHERRY_POLE_RADIUS}
             />
             {props.blank.stabilizers.map((stabilizer, i) => {
