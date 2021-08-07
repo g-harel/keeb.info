@@ -1,5 +1,4 @@
 // TODO led support.
-// TODO key profiles.
 // TODO non-english.
 // TODO keycode/row preference.
 // TODO novelties/blanks.
@@ -23,10 +22,10 @@ export interface ID {
 export type Pair = [number, number];
 
 // First bool inidcates vertical/horizontal and second is direction on that axis.
-// Up:    1,0  -90deg
-// Down:  1,1   90deg
-// Left:  0,0    0deg
-// Right: 0,1  180deg
+// Up:    true,false   -90deg
+// Down:  true,true     90deg
+// Left:  false,false    0deg
+// Right: false,true   180deg
 export type Cartesian = [boolean, boolean];
 
 // Shared layout footprint and keycap attributes.
@@ -64,8 +63,7 @@ export interface Stabilizer {
 
     // Angle from first stem to second.
     // +180deg for inverted (wire on top).
-    // TODO conver to cartesian?.
-    angle: Angle;
+    angle: Cartesian;
 }
 
 // Group of keycap kits with matching theme.
@@ -124,6 +122,8 @@ export interface KeysetKeycap {
 
 // TODO relegendable.
 // TODO color.
+// TODO novelties.
+// TODO materials?
 export interface KeysetKeycapLegend {
     topLegends: string[][];
     frontLegends: string[][];
@@ -176,6 +176,7 @@ export interface KeymapKeycode {
 
 // Implementation of a layout on a board
 // TODO rotary encoders.
+// TODO screens.
 // TODO split matrix.
 export interface LayoutImplementation {
     // Reference to target layout.
@@ -240,5 +241,5 @@ export interface LayoutKey {
     angle: Angle;
 
     // Orientation of the switch in the footprint.
-    orientation: Cartesian; // TODO implement in footprint.
+    orientation: Cartesian;
 }

@@ -617,7 +617,7 @@
                                 ],
                                 "stabilizers": [
                                     {
-                                        "angle": 0,
+                                        "angle": [false, true],
                                         "length": 1.25,
                                         "offset": [0.5, 0.5]
                                     }
@@ -745,7 +745,7 @@
                                 ],
                                 "stabilizers": [
                                     {
-                                        "angle": 0,
+                                        "angle": [false, true],
                                         "length": 1,
                                         "offset": [0.5, 0.5]
                                     }
@@ -817,7 +817,7 @@
                                 ],
                                 "stabilizers": [
                                     {
-                                        "angle": 0,
+                                        "angle": [false, true],
                                         "length": 1.75,
                                         "offset": [0.5, 0.5]
                                     }
@@ -889,7 +889,7 @@
                                 ],
                                 "stabilizers": [
                                     {
-                                        "angle": 90,
+                                        "angle": [true, true],
                                         "length": 1,
                                         "offset": [0.5, 0.5]
                                     }
@@ -956,7 +956,7 @@
                                 ],
                                 "stabilizers": [
                                     {
-                                        "angle": 90,
+                                        "angle": [true, true],
                                         "length": 1,
                                         "offset": [1.5, -0.5]
                                     }
@@ -1062,7 +1062,7 @@
                                 ],
                                 "stabilizers": [
                                     {
-                                        "angle": 0,
+                                        "angle": [false, true],
                                         "length": 1,
                                         "offset": [0.5, 0.5]
                                     }
@@ -1085,7 +1085,7 @@
                                 ],
                                 "stabilizers": [
                                     {
-                                        "angle": 0,
+                                        "angle": [false, true],
                                         "length": 1,
                                         "offset": [0.5, 0.5]
                                     }
@@ -1163,7 +1163,7 @@
                                 ],
                                 "stabilizers": [
                                     {
-                                        "angle": 0,
+                                        "angle": [false, true],
                                         "length": 1.25,
                                         "offset": [0.5, 0.5]
                                     }
@@ -1196,7 +1196,7 @@
                                 ],
                                 "stabilizers": [
                                     {
-                                        "angle": 90,
+                                        "angle": [true, true],
                                         "length": 1,
                                         "offset": [1.05, 0.5]
                                     }
