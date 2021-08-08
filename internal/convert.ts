@@ -1,8 +1,14 @@
 import {Serial, Key as KLEKey} from "@ijprest/kle-serial";
-import {Blank, Shape, Stabilizer} from "./types/base";
-import {Keyset} from "./types/keyset";
 
-import {Layout} from "./types/layout";
+import {
+    Blank,
+    Shape,
+    Stabilizer,
+    Keyset,
+    Layout,
+    Cartesian,
+    Angle,
+} from "./types/base";
 
 export const converKLEKey = (key: KLEKey): Blank => {
     const shapes: Shape[] = [];
@@ -29,13 +35,13 @@ export const converKLEKey = (key: KLEKey): Blank => {
     const stabilizers: Stabilizer[] = [];
     if (shapes[0].width >= 2) {
         stabilizers.push({
-            angle: 0,
+            angle: [false, false],
             length: shapes[0].width - 1,
             offset: [0.5, 0.5],
         });
     } else if (shapes[0].height >= 2) {
         stabilizers.push({
-            angle: 90,
+            angle: [true, false],
             length: shapes[0].height - 1,
             offset: [0.5, 0.5],
         });
@@ -60,6 +66,7 @@ export const convertKLEToLayout = (raw: any): Layout => {
                 key: converKLEKey(key),
                 position: [key.x, key.y],
                 angle: key.rotation_angle,
+                orientation: [true, false],
             };
         }),
         variableKeys: [],
@@ -97,9 +104,19 @@ export const convertKLEToKeysetKit = (raw: any): Keyset => {
                             keycodeAffinity: [],
                         },
                         position: [key.x, key.y],
+                        barred: false,
+                        scooped: false,
+                        stem: "Cherry",
                     };
                 }),
             },
         ],
     };
+};
+
+export const convertCartesiantToAngle = (c: Cartesian): Angle => {
+    let angle = 0;
+    if (c[0]) angle -= 90;
+    if (c[1]) angle += 180;
+    return angle;
 };

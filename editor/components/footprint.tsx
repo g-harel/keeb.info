@@ -5,6 +5,7 @@ import {rotateCoord} from "../../internal/layout";
 import * as c from "../cons";
 import {ReactProps} from "../../internal/types/util";
 import {Angle, Blank, Cartesian, Pair} from "../../internal/types/base";
+import {convertCartesiantToAngle} from "../../internal/convert";
 
 export interface FootprintProps extends ReactProps {
     blank: Blank;
@@ -12,19 +13,12 @@ export interface FootprintProps extends ReactProps {
     orientation: Cartesian;
 }
 
-const convertOrientation = (orientation: Cartesian): Angle => {
-    let angle = 0;
-    if (orientation[0]) angle -= 90;
-    if (orientation[1]) angle += 180;
-    return angle;
-};
-
 export const Footprint = (props: FootprintProps) => {
     const contactColor = color(props.color)
         // .darken(c.FOOTPRINT_COLOR_DARKEN)
         // .darken(c.FOOTPRINT_COLOR_DARKEN)
         .hex();
-    const angle = convertOrientation(props.orientation);
+    const angle = convertCartesiantToAngle(props.orientation);
     const rotate = (p: Pair): {cx: number; cy: number} => {
         // TODO rotation is always flipping.
         const [cx, cy] = rotateCoord(p, props.blank.stem, angle);
@@ -71,11 +65,12 @@ export const Footprint = (props: FootprintProps) => {
                 r={c.CHERRY_POLE_RADIUS}
             />
             {props.blank.stabilizers.map((stabilizer, i) => {
+                const stabilizerAngle = convertCartesiantToAngle(stabilizer.angle)
                 const startStem = stabilizer.offset;
                 const endStem = rotateCoord(
                     [startStem[0] + stabilizer.length, startStem[1]],
                     startStem,
-                    stabilizer.angle,
+                    stabilizerAngle,
                 );
                 const startBottom = rotateCoord(
                     [
@@ -83,7 +78,7 @@ export const Footprint = (props: FootprintProps) => {
                         startStem[1],
                     ],
                     startStem,
-                    stabilizer.angle + 90,
+                    stabilizerAngle + 90,
                 );
                 const endBottom = rotateCoord(
                     [
@@ -91,7 +86,7 @@ export const Footprint = (props: FootprintProps) => {
                         endStem[1],
                     ],
                     endStem,
-                    stabilizer.angle + 90,
+                    stabilizerAngle + 90,
                 );
                 const startTop = rotateCoord(
                     [
@@ -99,12 +94,12 @@ export const Footprint = (props: FootprintProps) => {
                         startStem[1],
                     ],
                     startStem,
-                    stabilizer.angle - 90,
+                    stabilizerAngle - 90,
                 );
                 const endTop = rotateCoord(
                     [endStem[0] + c.CHERRY_PLATE_STAB_TOP_OFFSET, endStem[1]],
                     endStem,
-                    stabilizer.angle - 90,
+                    stabilizerAngle - 90,
                 );
                 return (
                     <g key={i}>

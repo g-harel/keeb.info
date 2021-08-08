@@ -24,8 +24,8 @@ export type Pair = [number, number];
 // First bool inidcates vertical/horizontal and second is direction on that axis.
 // Up:    true,false   -90deg
 // Down:  true,true     90deg
-// Left:  false,false    0deg
-// Right: false,true   180deg
+// Right: false,false    0deg
+// Left:  false,true   180deg
 export type Cartesian = [boolean, boolean];
 
 // Shared layout footprint and keycap attributes.

@@ -7,6 +7,7 @@ import {Blank, Pair, Shape} from "../../internal/types/base";
 import * as c from "../cons";
 import {ReactProps} from "../../internal/types/util";
 import {StrokeShape} from "./stroke-shape";
+import {convertCartesiantToAngle} from "../../internal/convert";
 
 export interface KeyProps extends ReactProps {
     color: string;
@@ -56,21 +57,22 @@ export const Mounts = (props: MountProps) => (
         {props.stem && <Stem coord={props.blank.stem} color={props.color} />}
         {props.stabs &&
             props.blank.stabilizers.map((stabilizer, i) => {
+                const angle = convertCartesiantToAngle(stabilizer.angle);
                 const startStem = stabilizer.offset;
                 const endStem = rotateCoord(
                     [startStem[0] + stabilizer.length, startStem[1]],
                     startStem,
-                    stabilizer.angle,
+                    angle,
                 );
                 const startWire = rotateCoord(
                     [startStem[0] + c.WIRE_OFFSET, startStem[1]],
                     startStem,
-                    stabilizer.angle + c.WIRE_ANGLE,
+                    angle + c.WIRE_ANGLE,
                 );
                 const endWire = rotateCoord(
                     [endStem[0] + c.WIRE_OFFSET, endStem[1]],
                     endStem,
-                    stabilizer.angle + 180 - c.WIRE_ANGLE,
+                    angle + 180 - c.WIRE_ANGLE,
                 );
                 return (
                     <g key={i}>

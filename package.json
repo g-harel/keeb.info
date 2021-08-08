@@ -3,7 +3,8 @@
         "gen": "ts-node scripts/gen-images.ts",
         "gen-watch": "nodemon --exec ts-node scripts/gen-images.ts",
         "fmt": "prettier --list-different --write --ignore-path .gitignore *.{ts,tsx,md} editor/**/*.{ts,tsx,html,json} internal/**/*.{ts,tsx} scripts/**/*.{ts,tsx}",
-        "editor": "parcel editor/index.html --open"
+        "editor": "parcel editor/index.html --openo",
+        "test": "tsc --noEmit"
     },
     "dependencies": {
         "@ijprest/kle-serial": "^0.15.1",
