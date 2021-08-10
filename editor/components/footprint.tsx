@@ -18,9 +18,10 @@ export const Footprint = (props: FootprintProps) => {
         // .darken(c.FOOTPRINT_COLOR_DARKEN)
         // .darken(c.FOOTPRINT_COLOR_DARKEN)
         .hex();
-    const angle = convertCartesiantToAngle(props.orientation);
+    const angle = convertCartesiantToAngle(props.orientation) + 90;
     const rotate = (p: Pair): {cx: number; cy: number} => {
         // TODO rotation is always flipping.
+        // console.log(p, props.blank.stem, angle)
         const [cx, cy] = rotateCoord(p, props.blank.stem, angle);
         return {cx, cy};
     };
@@ -65,7 +66,9 @@ export const Footprint = (props: FootprintProps) => {
                 r={c.CHERRY_POLE_RADIUS}
             />
             {props.blank.stabilizers.map((stabilizer, i) => {
-                const stabilizerAngle = convertCartesiantToAngle(stabilizer.angle)
+                const stabilizerAngle = convertCartesiantToAngle(
+                    stabilizer.angle,
+                );
                 const startStem = stabilizer.offset;
                 const endStem = rotateCoord(
                     [startStem[0] + stabilizer.length, startStem[1]],

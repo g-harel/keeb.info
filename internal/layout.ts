@@ -6,13 +6,16 @@ import {Layout, LayoutKey} from "./types/base";
 
 // Position is P and the rotation origin is R.
 export const rotateCoord = (p: Pair, r: Pair, a: number): Pair => {
-    if (a === 0) return p;
-    const distanceRtoP = Math.sqrt((p[0] - r[0]) ** 2 + (p[1] - r[1]) ** 2);
-    const angleRtoP = Math.acos((p[0] - r[0]) / distanceRtoP) || 0;
-    const finalAngle = angleRtoP + a * (Math.PI / 180);
-    const xOffsetRtoP = distanceRtoP * Math.cos(finalAngle);
-    const yOffsetRtoP = distanceRtoP * Math.sin(finalAngle);
-    return [r[0] + xOffsetRtoP, r[1] + yOffsetRtoP];
+    const angleRads = a * (Math.PI / 180);
+    const rotatedX =
+        Math.cos(angleRads) * (p[0] - r[0]) -
+        Math.sin(angleRads) * (p[1] - r[1]) +
+        r[0];
+    const rotatedY =
+        Math.sin(angleRads) * (p[0] - r[0]) +
+        Math.cos(angleRads) * (p[1] - r[1]) +
+        r[1];
+    return [rotatedX, rotatedY];
 };
 
 // Corners in ring order.

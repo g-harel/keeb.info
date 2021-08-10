@@ -725,7 +725,7 @@
                             ],
                             "position": [1.25, 2.95],
                             "angle": 0,
-                            "orientation": [false, false]
+                            "orientation": [true, true]
                         }
                     ]
                 }
