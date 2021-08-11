@@ -1,7 +1,6 @@
 // TODO led support.
 // TODO non-english.
 // TODO keycode/row preference.
-// TODO novelties/blanks.
 
 // Unit measurement, scaled for 1.0 = 1u.
 export type Unit = number;
@@ -11,6 +10,12 @@ export type Angle = number;
 
 // Private unique identifier.
 export type UUID = string;
+
+// HEX color in #AARRGGBB format.
+export type Color = string;
+
+// URL to an image.
+export type URL = string;
 
 // Unique identifier for product SKU.
 export interface ID {
@@ -92,9 +97,6 @@ export interface KeysetKit {
 
 // Individual keycap placed on an example layout.
 export interface KeysetKeycap {
-    // Printed legend.
-    legend: KeysetKeycapLegend;
-
     // Profile of the keycap.
     profile: KeysetKeycapProfile;
 
@@ -114,20 +116,47 @@ export interface KeysetKeycap {
     scooped: boolean;
 
     // Base color of the keycap.
-    color?: string;
+    color?: Color;
 
     // Stem type.
     stem: UUID;
+
+    // Descending order of affinity to certain keycodes.
+    keycodeAffinity: any[]; // TODO
+
+    // Printed legends on the cap.
+    legend: KeysetKeycapLegends;
 }
 
-// TODO relegendable.
-// TODO color.
-// TODO novelties.
-// TODO materials?
+// Row x Column layout where elements are positionned using space-between semantics.
+// ex. top-left: [["x"]]
+//     centered: [[], ["", "x", ""], []]
+export type SpaceBetweenLayout<T> = T[][];
+
+// Inidividual character/glyph/label.
 export interface KeysetKeycapLegend {
-    topLegends: string[][];
-    frontLegends: string[][];
-    keycodeAffinity: any[]; // TODO
+    // Color of the entire legend item.
+    color?: Color;
+
+    // String to be displayed.
+    text: string;
+}
+
+// Content printed/added to the keycap.
+export interface KeysetKeycapLegends {
+    // Legends on the top of the keycap.
+    topLegends: SpaceBetweenLayout<KeysetKeycapLegend>;
+
+    // Legends on the front of the keycap (facing the typist).
+    frontLegends: SpaceBetweenLayout<KeysetKeycapLegend>;
+
+    // Whether the keycap's top has a relegendable cover.
+    relegendable?: boolean;
+
+    // Artwork is centered on the top of the key.
+    // Scaled to fit both dimensions and cropped.
+    // Rendered under legends.
+    artwork?: URL;
 }
 
 export interface KeysetKeycapProfile {

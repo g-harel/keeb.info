@@ -20,7 +20,6 @@ export const Footprint = (props: FootprintProps) => {
         .hex();
     const angle = convertCartesiantToAngle(props.orientation) + 90;
     const rotate = (p: Pair): {cx: number; cy: number} => {
-        // TODO rotation is always flipping.
         // console.log(p, props.blank.stem, angle)
         const [cx, cy] = rotateCoord(p, props.blank.stem, angle);
         return {cx, cy};
