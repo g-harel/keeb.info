@@ -15,6 +15,7 @@ export interface KeyProps extends ReactProps {
     shelf?: Shape[];
     stem?: boolean;
     stabs?: boolean;
+    notKey?: boolean;
 }
 
 export interface StemProps extends ReactProps {
@@ -100,11 +101,12 @@ export const Key = (props: KeyProps) => {
     if (props.shelf && props.shelf.length > 0) {
         shineShape = props.shelf;
     }
+    const shineColor = color(props.color).lighten(c.SHINE_COLOR_DIFF).hex();
     return (
         <g>
             <StrokeShape
                 borderWidth={c.BORDER}
-                fillColor={props.color}
+                fillColor={props.notKey ? shineColor : props.color}
                 padding={[c.PAD, c.PAD, c.PAD, c.PAD]}
                 radius={c.KEY_RADIUS}
                 shape={props.blank.shape}
@@ -112,27 +114,31 @@ export const Key = (props: KeyProps) => {
                     .darken(c.STROKE_COLOR_DARKEN)
                     .hex()}
             />
-            <StrokeShape
-                borderWidth={c.BORDER}
-                fillColor={color(props.color).lighten(c.SHINE_COLOR_DIFF).hex()}
-                padding={[
-                    c.SHINE_PADDING_TOP,
-                    c.SHINE_PADDING_SIDE,
-                    c.SHINE_PADDING_BOTTOM,
-                    c.SHINE_PADDING_SIDE,
-                ]}
-                radius={c.KEY_RADIUS}
-                shape={shineShape}
-                strokeColor={color(props.color)
-                    .darken(c.SHINE_COLOR_DIFF)
-                    .hex()}
-            />
-            <Mounts
-                blank={props.blank}
-                color={props.color}
-                stem={props.stem}
-                stabs={props.stabs}
-            />
+            {!props.notKey && (
+                <StrokeShape
+                    borderWidth={c.BORDER}
+                    fillColor={shineColor}
+                    padding={[
+                        c.SHINE_PADDING_TOP,
+                        c.SHINE_PADDING_SIDE,
+                        c.SHINE_PADDING_BOTTOM,
+                        c.SHINE_PADDING_SIDE,
+                    ]}
+                    radius={c.KEY_RADIUS}
+                    shape={shineShape}
+                    strokeColor={color(props.color)
+                        .darken(c.SHINE_COLOR_DIFF)
+                        .hex()}
+                />
+            )}
+            {!props.notKey && (
+                <Mounts
+                    blank={props.blank}
+                    color={props.color}
+                    stem={props.stem}
+                    stabs={props.stabs}
+                />
+            )}
         </g>
     );
 };

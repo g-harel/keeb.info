@@ -1087,18 +1087,13 @@
                                         "offset": [0, 0]
                                     }
                                 ],
-                                "stabilizers": [
-                                    {
-                                        "angle": [false, false],
-                                        "length": 1,
-                                        "offset": [0.5, 0.5]
-                                    }
-                                ],
+                                "stabilizers": [],
                                 "stem": [1, 0.5]
                             },
                             "position": [10.35, 5.15],
                             "angle": -10,
-                            "orientation": [true, false]
+                            "orientation": [true, false],
+                            "notKey": true
                         }
                     ]
                 },

@@ -204,8 +204,6 @@ export interface KeymapKeycode {
 }
 
 // Implementation of a layout on a board
-// TODO rotary encoders.
-// TODO screens.
 // TODO split matrix.
 export interface LayoutImplementation {
     // Reference to target layout.
@@ -271,4 +269,8 @@ export interface LayoutKey {
 
     // Orientation of the switch in the footprint.
     orientation: Cartesian;
+
+    // Whether the key position should be rendered as a key.
+    // This can be used to block out spots for elements like encoders and screens.
+    notKey?: boolean;
 }

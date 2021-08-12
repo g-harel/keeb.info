@@ -37,6 +37,7 @@ export const ExpolodedLayout = (props: ExplodedLayoutProps) => {
                         shelf={(key as any).shelf || []}
                         stem
                         stabs
+                        notKey={key.notKey}
                     />
                 </PlaneItem>
             ))}
@@ -58,6 +59,7 @@ export const ExpolodedLayout = (props: ExplodedLayoutProps) => {
                                 shelf={(key as any).shelf || []}
                                 stem
                                 stabs
+                                notKey={key.notKey}
                             />
                         </PlaneItem>
                     )),
