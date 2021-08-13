@@ -1,7 +1,7 @@
 import React from "react";
 import * as color from "color";
 
-import {minmax, spreadSections} from "../../../internal/layout";
+import {minmaxLayout, spreadSections} from "../../../internal/measure";
 import {Layout} from "../../../internal/types/base";
 import {Key} from "../key";
 import {DEFAULT_KEY_COLOR, START_SECTION_COLOR} from "../../cons";
@@ -18,7 +18,7 @@ export const ExpolodedLayout = (props: ExplodedLayoutProps) => {
     const spreadLayout = spreadSections(props.layout);
     console.timeEnd("spread");
 
-    const [min, max] = minmax(spreadLayout);
+    const [min, max] = minmaxLayout(spreadLayout);
     const unitWidth = max[0] - min[0];
     const unitHeight = max[1] - min[1];
 

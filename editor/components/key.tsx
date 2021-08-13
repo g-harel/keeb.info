@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import * as color from "color";
 
-import {rotateCoord} from "../../internal/layout";
+import {rotateCoord} from "../../internal/measure";
 import {Blank, Pair, Shape} from "../../internal/types/base";
 import * as c from "../cons";
 import {ReactProps} from "../../internal/types/util";

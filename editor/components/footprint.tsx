@@ -1,7 +1,7 @@
 import React from "react";
 import * as color from "color";
 
-import {rotateCoord} from "../../internal/layout";
+import {rotateCoord} from "../../internal/measure";
 import * as c from "../cons";
 import {ReactProps} from "../../internal/types/util";
 import {Angle, Blank, Cartesian, Pair} from "../../internal/types/base";

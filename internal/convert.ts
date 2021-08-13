@@ -41,7 +41,7 @@ export const converKLEKey = (key: KLEKey): Blank => {
         });
     } else if (shapes[0].height >= 2) {
         stabilizers.push({
-            angle: [true, false],
+            angle: [true, true],
             length: shapes[0].height - 1,
             offset: [0.5, 0.5],
         });
@@ -107,6 +107,7 @@ export const convertKLEToKeysetKit = (raw: any): Keyset => {
                         barred: false,
                         scooped: false,
                         stem: "Cherry",
+                        keycodeAffinity: [],
                     };
                 }),
             },

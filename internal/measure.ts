@@ -1,7 +1,7 @@
 import polygonClipping, {Polygon, MultiPolygon} from "polygon-clipping";
 import {LAYOUT_OPTIONS_PADDING, LAYOUT_SPREAD_INCREMENT} from "../editor/cons";
 
-import {Pair, Shape} from "./types/base";
+import {KeysetKit, Pair, Shape} from "./types/base";
 import {Layout, LayoutKey} from "./types/base";
 
 // Position is P and the rotation origin is R.
@@ -32,7 +32,26 @@ const shapeCorners = (offset: Pair, shape: Shape): Pair[] => {
     ];
 };
 
-export const minmax = (layout: Layout): [Pair, Pair] => {
+export const minmaxKeysetKit = (kit: KeysetKit): [Pair, Pair] => {
+    const coords: Pair[] = [];
+    for (const key of kit.keys) {
+        for (const shape of key.key.shape) {
+            coords.push(...shapeCorners(key.position, shape));
+        }
+    }
+
+    let min: Pair = [Infinity, Infinity];
+    let max: Pair = [0, 0];
+
+    for (const c of coords) {
+        max = [Math.max(max[0], c[0]), Math.max(max[1], c[1])];
+        min = [Math.min(min[0], c[0]), Math.min(min[1], c[1])];
+    }
+
+    return [min, max];
+};
+
+export const minmaxLayout = (layout: Layout): [Pair, Pair] => {
     const keys: LayoutKey[] = layout.fixedKeys.slice();
     for (const section of layout.variableKeys) {
         for (const option of section.options) {
