@@ -7,10 +7,10 @@ import kleLayout from "./testing/kle-layout.json";
 import kleKeyset from "./testing/kle-keyset.json";
 import testLayout from "./testing/layout.json";
 import testKeyset from "./testing/keyset.json";
-import {convertKLEToKeysetKit, convertKLEToLayout} from "../internal/convert";
+import {convertKLEToLayout} from "../internal/convert";
 import {BACKGROUND_COLOR} from "./cons";
 import {FootprintLayout} from "./components/views/footprint-layout";
-import {Layout} from "../internal/types/base";
+import {Keyset, Layout} from "../internal/types/base";
 import {FullKeyset} from "./components/views/full-keyset";
 
 // Global styles, similar to traditional css.
@@ -38,9 +38,9 @@ const LegacyTestContainer = styled.div`
 const App = () => (
     <Fragment>
         <GlobalStyle />
-        <ExpolodedLayout layout={testLayout} width={1200} />
-        <FootprintLayout layout={testLayout} width={1200} />
-        <FullKeyset keyset={testKeyset} width={1200} />
+        <ExpolodedLayout layout={testLayout as Layout} width={1200} />
+        <FootprintLayout layout={testLayout as Layout} width={1200} />
+        <FullKeyset keyset={testKeyset as Keyset} width={1200} />
         <LegacyTestContainer>
             <ExpolodedLayout
                 layout={convertKLEToLayout(kleLayout)}

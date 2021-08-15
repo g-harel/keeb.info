@@ -1,4 +1,4 @@
-import polygonClipping, {Polygon, MultiPolygon} from "polygon-clipping";
+import {Polygon, MultiPolygon, union, intersection} from "polygon-clipping";
 import {LAYOUT_OPTIONS_PADDING, LAYOUT_SPREAD_INCREMENT} from "../editor/cons";
 
 import {KeysetKit, Pair, Shape} from "./types/base";
@@ -91,7 +91,7 @@ const unionKeys = (poly: MultiPolygon, ...keys: LayoutKey[]): MultiPolygon => {
             polys.push([[...shapeCorners(key.position, shape).map(toPair)]]);
         }
     }
-    return polygonClipping.union(poly, ...polys);
+    return union(poly, ...polys);
 };
 
 const deepCopy = <T>(o: T): T => {
@@ -99,8 +99,8 @@ const deepCopy = <T>(o: T): T => {
 };
 
 const keyIntersects = (poly: MultiPolygon, key: LayoutKey): boolean => {
-    const intersection = polygonClipping.intersection(poly, unionKeys([], key));
-    return !!intersection.flat(2).length;
+    const intersections = intersection(poly, unionKeys([], key));
+    return !!intersections.flat(2).length;
 };
 
 const offsetKey = (key: LayoutKey, offset: Pair): LayoutKey => {
