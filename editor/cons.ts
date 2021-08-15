@@ -20,6 +20,7 @@ export const WIRE_ANGLE = 105;
 export const LAYOUT_OPTIONS_PADDING = 0.45;
 export const LAYOUT_SPREAD_INCREMENT = 0.5;
 export const FOOTPRINT_COLOR_DARKEN = 0.3;
+export const MIN_KEYSET_WIDTH_DISPLAY = 10;
 
 // https://github.com/mohitg11/GH-CAD-Resources/blob/master/MX%20Series.pdf
 // https://github.com/mohitg11/GH-CAD-Resources/blob/master/MXSpec.pdf

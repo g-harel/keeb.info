@@ -38,9 +38,9 @@ const LegacyTestContainer = styled.div`
 const App = () => (
     <Fragment>
         <GlobalStyle />
+        <FullKeyset keyset={testKeyset as Keyset} width={1200} />
         <ExpolodedLayout layout={testLayout as Layout} width={1200} />
         <FootprintLayout layout={testLayout as Layout} width={1200} />
-        <FullKeyset keyset={testKeyset as Keyset} width={1200} />
         <LegacyTestContainer>
             <ExpolodedLayout
                 layout={convertKLEToLayout(kleLayout)}
