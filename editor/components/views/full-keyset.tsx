@@ -25,6 +25,7 @@ const sum = (nums: number[]): number => {
     return nums.reduce((sum, num) => sum + num, 0);
 };
 
+// TODO kit name/spacing.
 export const FullKeyset = (props: FullKeysetProps) => {
     // Calculate bounding boxes for all kits.
     const kits: KitBox[] = [];

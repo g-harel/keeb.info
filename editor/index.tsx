@@ -7,7 +7,7 @@ import kleLayout from "./testing/kle-layout.json";
 import kleKeyset from "./testing/kle-keyset.json";
 import testLayout from "./testing/layout.json";
 import testKeyset from "./testing/keyset.json";
-import {convertKLEToLayout} from "../internal/convert";
+import {convertKLEToKeysetKit, convertKLEToLayout} from "../internal/convert";
 import {BACKGROUND_COLOR} from "./cons";
 import {FootprintLayout} from "./components/views/footprint-layout";
 import {Keyset, Layout} from "../internal/types/base";
