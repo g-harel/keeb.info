@@ -85,6 +85,7 @@ export const FullKeyset = (props: FullKeysetProps) => {
                                 blank={key.key}
                                 color={key.color || DEFAULT_KEY_COLOR}
                                 shelf={(key as any).shelf || []}
+                                legend={key.legend}
                                 stem
                                 stabs
                             />

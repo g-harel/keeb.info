@@ -37,3 +37,6 @@ export const CHERRY_PLATE_STAB_BOTTOM_OFFSET = ((0.61 / 15.6) * 8.24) / 0.61;
 export const CHERRY_PLATE_STAB_TOP_RADIUS = ((0.61 / 15.6) * 3.05) / 0.61 / 2;
 export const CHERRY_PLATE_STAB_BOTTOM_RADIUS = ((0.61 / 15.6) * 4) / 0.61 / 2;
 export const NOT_KEY_FOOTPRINT_SIZE = 2 * CHERRY_MIDDLE_STEM_RADIUS;
+
+export const LEGEND_FONT_SIZE = 0.28;
+export const LEGEND_PADDING = 0.08;

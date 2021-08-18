@@ -22,7 +22,7 @@
                     "profile": {"profile": "0.24463679921190185", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [],
+                        "topLegends": [[{"text": "Esc"}]],
                         "keycodeAffinity": []
                     },
                     "position": [0, 0],
@@ -41,7 +41,7 @@
                     "profile": {"profile": "0.3359295944002527", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [],
+                        "topLegends": [[{"text": "F1 "}]],
                         "keycodeAffinity": []
                     },
                     "position": [2, 0],
@@ -60,7 +60,7 @@
                     "profile": {"profile": "0.804205256862927", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [],
+                        "topLegends": [[{"text": "F2 "}]],
                         "keycodeAffinity": []
                     },
                     "position": [3, 0],
@@ -79,7 +79,7 @@
                     "profile": {"profile": "0.4168993172474684", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [],
+                        "topLegends": [[{"text": "F3 "}]],
                         "keycodeAffinity": []
                     },
                     "position": [4, 0],
@@ -98,7 +98,7 @@
                     "profile": {"profile": "0.4992323930281277", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [],
+                        "topLegends": [[{"text": "F4 "}]],
                         "keycodeAffinity": []
                     },
                     "position": [5, 0],
@@ -117,7 +117,7 @@
                     "profile": {"profile": "0.9464157704426215", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [],
+                        "topLegends": [[{"text": "F5 "}]],
                         "keycodeAffinity": []
                     },
                     "position": [6.5, 0],
@@ -136,7 +136,7 @@
                     "profile": {"profile": "0.9778692088149825", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [],
+                        "topLegends": [[{"text": "F6 "}]],
                         "keycodeAffinity": []
                     },
                     "position": [7.5, 0],
@@ -155,7 +155,7 @@
                     "profile": {"profile": "0.19376161393250424", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [],
+                        "topLegends": [[{"text": "F7 "}]],
                         "keycodeAffinity": []
                     },
                     "position": [8.5, 0],
@@ -174,7 +174,7 @@
                     "profile": {"profile": "0.820177209666733", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [],
+                        "topLegends": [[{"text": "F8 "}]],
                         "keycodeAffinity": []
                     },
                     "position": [9.5, 0],
@@ -193,7 +193,7 @@
                     "profile": {"profile": "0.25622494610976077", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [],
+                        "topLegends": [[{"text": "F9 "}]],
                         "keycodeAffinity": []
                     },
                     "position": [11, 0],
@@ -212,7 +212,7 @@
                     "profile": {"profile": "0.7219385098149544", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [],
+                        "topLegends": [[{"text": "F10"}]],
                         "keycodeAffinity": []
                     },
                     "position": [12, 0],
@@ -231,7 +231,7 @@
                     "profile": {"profile": "0.6888935906393601", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [],
+                        "topLegends": [[{"text": "F11"}]],
                         "keycodeAffinity": []
                     },
                     "position": [13, 0],
@@ -250,7 +250,7 @@
                     "profile": {"profile": "0.2605345594816002", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [],
+                        "topLegends": [[{"text": "F12"}]],
                         "keycodeAffinity": []
                     },
                     "position": [14, 0],
@@ -269,7 +269,7 @@
                     "profile": {"profile": "0.8557884888682366", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [],
+                        "topLegends": [[{"text": "Prt Sc"}]],
                         "keycodeAffinity": []
                     },
                     "position": [15.25, 0],
@@ -288,7 +288,10 @@
                     "profile": {"profile": "0.05606014653887592", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [],
+                        "topLegends": [
+                            [{"text": "Scroll"}],
+                            [{"text": "Lock  "}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [16.25, 0],
@@ -307,7 +310,7 @@
                     "profile": {"profile": "0.3194040677210297", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [],
+                        "topLegends": [[{"text": "Pause"}]],
                         "keycodeAffinity": []
                     },
                     "position": [17.25, 0],
@@ -326,7 +329,7 @@
                     "profile": {"profile": "0.7135759485850326", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [],
+                        "topLegends": [[{"text": "~"}], [{"text": "`"}]],
                         "keycodeAffinity": []
                     },
                     "position": [0, 1.25],

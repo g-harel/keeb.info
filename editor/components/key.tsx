@@ -3,7 +3,14 @@ import styled from "styled-components";
 import * as color from "color";
 
 import {rotateCoord} from "../../internal/measure";
-import {Blank, Pair, Shape} from "../../internal/types/base";
+import {
+    Blank,
+    KeysetKeycapLegend,
+    KeysetKeycapLegends,
+    Pair,
+    Shape,
+    SpaceBetweenLayout,
+} from "../../internal/types/base";
 import * as c from "../cons";
 import {ReactProps} from "../../internal/types/util";
 import {StrokeShape} from "./stroke-shape";
@@ -16,6 +23,7 @@ export interface KeyProps extends ReactProps {
     stem?: boolean;
     stabs?: boolean;
     notKey?: boolean;
+    legend?: KeysetKeycapLegends;
 }
 
 export interface StemProps extends ReactProps {
@@ -96,12 +104,49 @@ export const Mounts = (props: MountProps) => (
     </g>
 );
 
+interface PositionnedElement<T> {
+    position: Pair;
+    element: T;
+}
+
+export const calcLayout = <T extends any>(
+    layout: SpaceBetweenLayout<T>,
+    size: Pair,
+): PositionnedElement<T>[] => {
+    const rowHeight = size[1] / layout.length;
+    return layout
+        .map((row, i) => {
+            const cellWidth = size[0] / row.length;
+            return row.map((cell, j) => {
+                return {
+                    position: [cellWidth * j, rowHeight * i],
+                    element: cell,
+                };
+            });
+        })
+        .flat() as PositionnedElement<T>[];
+};
+
 export const Key = (props: KeyProps) => {
     let shineShape = props.blank.shape;
     if (props.shelf && props.shelf.length > 0) {
         shineShape = props.shelf;
     }
     const shineColor = color(props.color).lighten(c.SHINE_COLOR_DIFF).hex();
+
+    const legendContainer = shineShape[0];
+    const legendSpaceHeight =
+        legendContainer.height -
+        c.SHINE_PADDING_TOP -
+        c.SHINE_PADDING_BOTTOM -
+        2 * c.LEGEND_PADDING;
+    const legendSpaceWidth =
+        legendContainer.width - 2 * c.SHINE_PADDING_SIDE - 2 * c.LEGEND_PADDING;
+    const legendOffsetX = c.SHINE_PADDING_SIDE + c.LEGEND_PADDING;
+    const legendOffsetY = c.SHINE_PADDING_TOP + c.LEGEND_PADDING;
+
+    if (props.legend) console.log(props.legend);
+
     return (
         <g>
             <StrokeShape
@@ -139,6 +184,32 @@ export const Key = (props: KeyProps) => {
                     stabs={props.stabs}
                 />
             )}
+            {props.legend &&
+                calcLayout(props.legend.topLegends, [
+                    legendSpaceWidth,
+                    legendSpaceHeight,
+                ]).map((l) => {
+                    // TODO legend size in spec
+                    const size =
+                        c.LEGEND_FONT_SIZE /
+                        Math.pow(l.element.text.length, 1 / 4);
+                    return (
+                        <text
+                            x={l.position[0] + legendOffsetX}
+                            y={l.position[1] + legendOffsetY + size}
+                            font-size={size}
+                            font-weight="bold"
+                            fill={
+                                l.element.color ||
+                                color(props.color)
+                                    .darken(c.STROKE_COLOR_DARKEN)
+                                    .hex()
+                            }
+                        >
+                            {l.element.text}
+                        </text>
+                    );
+                })}
         </g>
     );
 };
