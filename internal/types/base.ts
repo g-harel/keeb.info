@@ -140,6 +140,9 @@ export interface KeysetKeycapLegend {
 
     // String to be displayed.
     text: string;
+
+    // Size multiplier relative to letter legends.
+    size?: number;
 }
 
 // Content printed/added to the keycap.

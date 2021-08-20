@@ -145,8 +145,6 @@ export const Key = (props: KeyProps) => {
     const legendOffsetX = c.SHINE_PADDING_SIDE + c.LEGEND_PADDING;
     const legendOffsetY = c.SHINE_PADDING_TOP + c.LEGEND_PADDING;
 
-    if (props.legend) console.log(props.legend);
-
     return (
         <g>
             <StrokeShape
@@ -189,10 +187,7 @@ export const Key = (props: KeyProps) => {
                     legendSpaceWidth,
                     legendSpaceHeight,
                 ]).map((l) => {
-                    // TODO legend size in spec
-                    const size =
-                        c.LEGEND_FONT_SIZE /
-                        Math.pow(l.element.text.length, 1 / 4);
+                    const size = c.LEGEND_FONT_SIZE * (l.element.size || 1);
                     return (
                         <text
                             x={l.position[0] + legendOffsetX}
