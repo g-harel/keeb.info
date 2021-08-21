@@ -20,7 +20,7 @@ for (const path of paths) {
 
 let images = "";
 for (const svgPath of svgPaths) {
-    const name = /.*\/(\w+)\.svg$/g.exec(svgPath)[1];
+    const name = (/.*\/(\w+)\.svg$/g.exec(svgPath) || [null, "error"])[1];
     images += `<img id="${name}" src="${svgPath}"/>\n`;
 }
 const outContents = `<html>

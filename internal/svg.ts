@@ -54,6 +54,8 @@ const sanitizeLabel = (label: string) => {
                 return "&lt;";
             case ">":
                 return "&gt;";
+            default:
+                return "";
         }
     });
 };
