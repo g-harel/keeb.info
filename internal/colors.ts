@@ -6,6 +6,8 @@ export const resolveColor = (hexOrCode: string): string => {
             return "#9fb5ab";
         case "botanical-dark-green":
             return "#4a6056";
+        case "botanical-beige":
+            return "#c9c6bd";
     }
     return hexOrCode;
 };

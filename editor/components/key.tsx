@@ -201,8 +201,8 @@ export const Key = (props: KeyProps) => {
                         <text
                             x={l.position[0] + legendOffsetX}
                             y={l.position[1] + legendOffsetY + size}
-                            font-size={size}
-                            font-weight="bold"
+                            fontSize={size}
+                            fontWeight="bold"
                             fill={resolveColor(l.element.color || backupColor)}
                         >
                             {l.element.text}
