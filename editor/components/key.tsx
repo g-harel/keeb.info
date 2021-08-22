@@ -15,6 +15,7 @@ import * as c from "../cons";
 import {ReactProps} from "../../internal/types/util";
 import {StrokeShape} from "./stroke-shape";
 import {convertCartesiantToAngle} from "../../internal/convert";
+import {resolveColor} from "../../internal/colors";
 
 export interface KeyProps extends ReactProps {
     color: string;
@@ -24,6 +25,7 @@ export interface KeyProps extends ReactProps {
     stabs?: boolean;
     notKey?: boolean;
     legend?: KeysetKeycapLegends;
+    noWire?: boolean;
 }
 
 export interface StemProps extends ReactProps {
@@ -36,6 +38,7 @@ export interface MountProps extends ReactProps {
     color: string;
     stem?: boolean;
     stabs?: boolean;
+    noWire?: boolean;
 }
 
 export const Stem = (props: StemProps) => (
@@ -87,17 +90,19 @@ export const Mounts = (props: MountProps) => (
                     <g key={i}>
                         <Stem coord={startStem} color={props.color} />
                         <Stem coord={endStem} color={props.color} />
-                        <line
-                            x1={startWire[0]}
-                            y1={startWire[1]}
-                            x2={endWire[0]}
-                            y2={endWire[1]}
-                            stroke={color(props.color).darken(
-                                c.WIRE_COLOR_DARKEN,
-                            )}
-                            strokeWidth={c.WIRE_WIDTH}
-                            strokeLinecap="round"
-                        />
+                        {!props.noWire && (
+                            <line
+                                x1={startWire[0]}
+                                y1={startWire[1]}
+                                x2={endWire[0]}
+                                y2={endWire[1]}
+                                stroke={color(props.color).darken(
+                                    c.WIRE_COLOR_DARKEN,
+                                )}
+                                strokeWidth={c.WIRE_WIDTH}
+                                strokeLinecap="round"
+                            />
+                        )}
                     </g>
                 );
             })}
@@ -180,6 +185,7 @@ export const Key = (props: KeyProps) => {
                     color={props.color}
                     stem={props.stem}
                     stabs={props.stabs}
+                    noWire={props.noWire}
                 />
             )}
             {props.legend &&
@@ -188,18 +194,16 @@ export const Key = (props: KeyProps) => {
                     legendSpaceHeight,
                 ]).map((l) => {
                     const size = c.LEGEND_FONT_SIZE * (l.element.size || 1);
+                    const backupColor = color(props.color)
+                        .darken(c.STROKE_COLOR_DARKEN)
+                        .hex();
                     return (
                         <text
                             x={l.position[0] + legendOffsetX}
                             y={l.position[1] + legendOffsetY + size}
                             font-size={size}
                             font-weight="bold"
-                            fill={
-                                l.element.color ||
-                                color(props.color)
-                                    .darken(c.STROKE_COLOR_DARKEN)
-                                    .hex()
-                            }
+                            fill={resolveColor(l.element.color || backupColor)}
                         >
                             {l.element.text}
                         </text>

@@ -22,13 +22,22 @@
                     "profile": {"profile": "0.24463679921190185", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Esc", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "Esc",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [0, 0],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-light-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -41,13 +50,22 @@
                     "profile": {"profile": "0.3359295944002527", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "F1", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "F1",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [2, 0],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -60,13 +78,22 @@
                     "profile": {"profile": "0.804205256862927", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "F2", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "F2",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [3, 0],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -79,13 +106,22 @@
                     "profile": {"profile": "0.4168993172474684", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "F3", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "F3",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [4, 0],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -98,13 +134,22 @@
                     "profile": {"profile": "0.4992323930281277", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "F4", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "F4",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [5, 0],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -117,13 +162,22 @@
                     "profile": {"profile": "0.9464157704426215", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "F5", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "F5",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [6.5, 0],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -136,13 +190,22 @@
                     "profile": {"profile": "0.9778692088149825", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "F6", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "F6",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [7.5, 0],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -155,13 +218,22 @@
                     "profile": {"profile": "0.19376161393250424", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "F7", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "F7",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [8.5, 0],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -174,13 +246,22 @@
                     "profile": {"profile": "0.820177209666733", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "F8", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "F8",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [9.5, 0],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -193,13 +274,22 @@
                     "profile": {"profile": "0.25622494610976077", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "F9", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "F9",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [11, 0],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -212,13 +302,22 @@
                     "profile": {"profile": "0.7219385098149544", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "F10", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "F10",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [12, 0],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -231,13 +330,22 @@
                     "profile": {"profile": "0.6888935906393601", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "F11", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "F11",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [13, 0],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -250,13 +358,22 @@
                     "profile": {"profile": "0.2605345594816002", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "F12", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "F12",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [14, 0],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -269,13 +386,22 @@
                     "profile": {"profile": "0.8557884888682366", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Prt Sc", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "Print",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [15.25, 0],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -289,8 +415,13 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
-                            [{"text": "Scroll", "size": 0.70001}],
-                            [{"text": "Lock  ", "size": 0.70001}]
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "Scroll",
+                                    "size": 0.70001
+                                }
+                            ]
                         ],
                         "keycodeAffinity": []
                     },
@@ -298,6 +429,7 @@
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -310,13 +442,22 @@
                     "profile": {"profile": "0.3194040677210297", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Pause", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "Pause",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [17.25, 0],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -329,13 +470,17 @@
                     "profile": {"profile": "0.7135759485850326", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "~"}], [{"text": "`"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "~"}],
+                            [{"color": "botanical-dark-green", "text": "`"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [0, 1.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -349,8 +494,20 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
-                            [{"text": "!", "size": 0.80001}],
-                            [{"text": "1", "size": 0.80001}]
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "!",
+                                    "size": 0.80001
+                                }
+                            ],
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "1",
+                                    "size": 0.80001
+                                }
+                            ]
                         ],
                         "keycodeAffinity": []
                     },
@@ -358,6 +515,7 @@
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -371,8 +529,20 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
-                            [{"text": "@", "size": 0.80001}],
-                            [{"text": "2", "size": 0.80001}]
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "@",
+                                    "size": 0.80001
+                                }
+                            ],
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "2",
+                                    "size": 0.80001
+                                }
+                            ]
                         ],
                         "keycodeAffinity": []
                     },
@@ -380,6 +550,7 @@
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -393,8 +564,20 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
-                            [{"text": "#", "size": 0.80001}],
-                            [{"text": "3", "size": 0.80001}]
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "#",
+                                    "size": 0.80001
+                                }
+                            ],
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "3",
+                                    "size": 0.80001
+                                }
+                            ]
                         ],
                         "keycodeAffinity": []
                     },
@@ -402,6 +585,7 @@
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -415,8 +599,20 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
-                            [{"text": "$", "size": 0.80001}],
-                            [{"text": "4", "size": 0.80001}]
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "$",
+                                    "size": 0.80001
+                                }
+                            ],
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "4",
+                                    "size": 0.80001
+                                }
+                            ]
                         ],
                         "keycodeAffinity": []
                     },
@@ -424,6 +620,7 @@
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -437,8 +634,20 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
-                            [{"text": "%", "size": 0.80001}],
-                            [{"text": "5", "size": 0.80001}]
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "%",
+                                    "size": 0.80001
+                                }
+                            ],
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "5",
+                                    "size": 0.80001
+                                }
+                            ]
                         ],
                         "keycodeAffinity": []
                     },
@@ -446,6 +655,7 @@
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -459,8 +669,20 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
-                            [{"text": "^", "size": 0.80001}],
-                            [{"text": "6", "size": 0.80001}]
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "^",
+                                    "size": 0.80001
+                                }
+                            ],
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "6",
+                                    "size": 0.80001
+                                }
+                            ]
                         ],
                         "keycodeAffinity": []
                     },
@@ -468,6 +690,7 @@
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -481,8 +704,20 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
-                            [{"text": "&", "size": 0.80001}],
-                            [{"text": "7", "size": 0.80001}]
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "&",
+                                    "size": 0.80001
+                                }
+                            ],
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "7",
+                                    "size": 0.80001
+                                }
+                            ]
                         ],
                         "keycodeAffinity": []
                     },
@@ -490,6 +725,7 @@
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -503,8 +739,20 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
-                            [{"text": "*", "size": 0.80001}],
-                            [{"text": "8", "size": 0.80001}]
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "*",
+                                    "size": 0.80001
+                                }
+                            ],
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "8",
+                                    "size": 0.80001
+                                }
+                            ]
                         ],
                         "keycodeAffinity": []
                     },
@@ -512,6 +760,7 @@
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -525,8 +774,20 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
-                            [{"text": "(", "size": 0.80001}],
-                            [{"text": "9", "size": 0.80001}]
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "(",
+                                    "size": 0.80001
+                                }
+                            ],
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "9",
+                                    "size": 0.80001
+                                }
+                            ]
                         ],
                         "keycodeAffinity": []
                     },
@@ -534,6 +795,7 @@
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -547,8 +809,20 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
-                            [{"text": ")", "size": 0.80001}],
-                            [{"text": "0", "size": 0.80001}]
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": ")",
+                                    "size": 0.80001
+                                }
+                            ],
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "0",
+                                    "size": 0.80001
+                                }
+                            ]
                         ],
                         "keycodeAffinity": []
                     },
@@ -556,6 +830,7 @@
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -568,13 +843,17 @@
                     "profile": {"profile": "0.379684906837237", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "_"}], [{"text": "-"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "_"}],
+                            [{"color": "botanical-dark-green", "text": "-"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [11, 1.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -587,13 +866,17 @@
                     "profile": {"profile": "0.4782524263069985", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "+"}], [{"text": "="}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "+"}],
+                            [{"color": "botanical-dark-green", "text": "="}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [12, 1.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -613,14 +896,21 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
-                            [{"text": "Backspace", "size": 0.70001}]
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "Backspace",
+                                    "size": 0.70001
+                                }
+                            ]
                         ],
                         "keycodeAffinity": []
                     },
                     "position": [13, 1.25],
                     "barred": false,
                     "scooped": false,
-                    "stem": "Cherry",
+                    "stem": "botanical-dark-green",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -633,13 +923,22 @@
                     "profile": {"profile": "0.8795627550225269", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Insert", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "Insert",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [15.25, 1.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -652,13 +951,22 @@
                     "profile": {"profile": "0.42421367728674797", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Home", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "Home",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [16.25, 1.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -671,13 +979,22 @@
                     "profile": {"profile": "0.507688408844579", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "PgUp", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "PgUp",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [17.25, 1.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -690,13 +1007,22 @@
                     "profile": {"profile": "0.48017902277194824", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Num", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "Num",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [18.5, 1.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -709,13 +1035,16 @@
                     "profile": {"profile": "0.5153596964450764", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "÷"}]],
+                        "topLegends": [
+                            [{"color": "botanical-light-green", "text": "÷"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [19.5, 1.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -728,13 +1057,16 @@
                     "profile": {"profile": "0.6910283909617185", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "×"}]],
+                        "topLegends": [
+                            [{"color": "botanical-light-green", "text": "×"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [20.5, 1.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -747,13 +1079,16 @@
                     "profile": {"profile": "0.6058854647325702", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "−"}]],
+                        "topLegends": [
+                            [{"color": "botanical-light-green", "text": "−"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [21.5, 1.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -768,13 +1103,22 @@
                     "profile": {"profile": "0.04354669193257865", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Tab", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "Tab",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [0, 2.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -787,13 +1131,16 @@
                     "profile": {"profile": "0.9671311861221721", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Q"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "Q"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [1.5, 2.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -806,13 +1153,16 @@
                     "profile": {"profile": "0.6809611706467982", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "W"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "W"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [2.5, 2.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -825,13 +1175,16 @@
                     "profile": {"profile": "0.05916945211906488", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "E"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "E"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [3.5, 2.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -844,13 +1197,16 @@
                     "profile": {"profile": "0.38816461067531227", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "R"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "R"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [4.5, 2.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -863,13 +1219,16 @@
                     "profile": {"profile": "0.9495851543675697", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "T"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "T"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [5.5, 2.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -882,13 +1241,16 @@
                     "profile": {"profile": "0.8162497583311117", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Y"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "Y"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [6.5, 2.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -901,13 +1263,16 @@
                     "profile": {"profile": "0.3399009056994555", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "U"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "U"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [7.5, 2.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -920,13 +1285,16 @@
                     "profile": {"profile": "0.22400590715950108", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "I"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "I"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [8.5, 2.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -939,13 +1307,16 @@
                     "profile": {"profile": "0.8152424986042333", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "O"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "O"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [9.5, 2.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -958,13 +1329,16 @@
                     "profile": {"profile": "0.537998840361908", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "P"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "P"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [10.5, 2.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -978,8 +1352,20 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
-                            [{"text": "{", "size": 0.80001}],
-                            [{"text": "[", "size": 0.80001}]
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "{",
+                                    "size": 0.80001
+                                }
+                            ],
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "[",
+                                    "size": 0.80001
+                                }
+                            ]
                         ],
                         "keycodeAffinity": []
                     },
@@ -987,6 +1373,7 @@
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -1000,8 +1387,20 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
-                            [{"text": "}", "size": 0.80001}],
-                            [{"text": "]", "size": 0.80001}]
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "}",
+                                    "size": 0.80001
+                                }
+                            ],
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "]",
+                                    "size": 0.80001
+                                }
+                            ]
                         ],
                         "keycodeAffinity": []
                     },
@@ -1009,6 +1408,7 @@
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -1024,8 +1424,20 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
-                            [{"text": "|", "size": 0.80001}],
-                            [{"text": "\\", "size": 0.80001}]
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "|",
+                                    "size": 0.80001
+                                }
+                            ],
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "\\",
+                                    "size": 0.80001
+                                }
+                            ]
                         ],
                         "keycodeAffinity": []
                     },
@@ -1033,6 +1445,7 @@
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -1045,13 +1458,22 @@
                     "profile": {"profile": "0.300645998524099", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Delete", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "Delete",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [15.25, 2.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -1064,13 +1486,22 @@
                     "profile": {"profile": "0.3447797336557512", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "End", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "End",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [16.25, 2.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -1083,13 +1514,22 @@
                     "profile": {"profile": "0.4108135093106744", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "PgDn", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "PgDn",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [17.25, 2.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -1102,13 +1542,16 @@
                     "profile": {"profile": "0.08288969300375038", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "7"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "7"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [18.5, 2.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -1121,13 +1564,16 @@
                     "profile": {"profile": "0.8831612722052096", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "8"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "8"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [19.5, 2.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -1140,13 +1586,16 @@
                     "profile": {"profile": "0.9485163595303365", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "9"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "9"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [20.5, 2.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -1165,13 +1614,16 @@
                     "profile": {"profile": "0.3797152572990399", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "+"}]],
+                        "topLegends": [
+                            [{"color": "botanical-light-green", "text": "+"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [21.5, 2.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -1186,13 +1638,22 @@
                     "profile": {"profile": "0.1204549731675808", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Caps", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "Caps",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [0, 3.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -1205,13 +1666,16 @@
                     "profile": {"profile": "0.373850241463048", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "A"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "A"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [1.75, 3.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -1224,13 +1688,16 @@
                     "profile": {"profile": "0.5637422582145486", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "S"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "S"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [2.75, 3.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -1243,13 +1710,16 @@
                     "profile": {"profile": "0.7746883675942096", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "D"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "D"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [3.75, 3.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -1262,13 +1732,16 @@
                     "profile": {"profile": "0.5744167291782178", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "F"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "F"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [4.75, 3.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -1281,13 +1754,16 @@
                     "profile": {"profile": "0.7119542225837621", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "G"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "G"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [5.75, 3.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -1300,13 +1776,16 @@
                     "profile": {"profile": "0.4054588389161342", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "H"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "H"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [6.75, 3.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -1319,13 +1798,16 @@
                     "profile": {"profile": "0.5455308380351707", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "J"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "J"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [7.75, 3.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -1338,13 +1820,16 @@
                     "profile": {"profile": "0.0518364762804131", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "K"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "K"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [8.75, 3.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -1357,13 +1842,16 @@
                     "profile": {"profile": "0.11397845847975807", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "L"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "L"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [9.75, 3.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -1377,8 +1865,20 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
-                            [{"text": ":", "size": 0.80001}],
-                            [{"text": ";", "size": 0.80001}]
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": ":",
+                                    "size": 0.80001
+                                }
+                            ],
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": ";",
+                                    "size": 0.80001
+                                }
+                            ]
                         ],
                         "keycodeAffinity": []
                     },
@@ -1386,6 +1886,7 @@
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -1399,8 +1900,20 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
-                            [{"text": "\"", "size": 0.80001}],
-                            [{"text": "'", "size": 0.80001}]
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "\"",
+                                    "size": 0.80001
+                                }
+                            ],
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "'",
+                                    "size": 0.80001
+                                }
+                            ]
                         ],
                         "keycodeAffinity": []
                     },
@@ -1408,6 +1921,7 @@
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -1428,13 +1942,22 @@
                     "profile": {"profile": "0.33969486819622685", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Enter", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "Enter",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [12.75, 3.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-light-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -1447,13 +1970,16 @@
                     "profile": {"profile": "0.03073772897800886", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "4"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "4"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [18.5, 3.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -1466,13 +1992,16 @@
                     "profile": {"profile": "0.990465959838434", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "5"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "5"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [19.5, 3.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -1485,13 +2014,16 @@
                     "profile": {"profile": "0.35415478095977826", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "6"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "6"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [20.5, 3.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -1512,13 +2044,22 @@
                     "profile": {"profile": "0.5068520488704551", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Shift", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "Shift",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [0, 4.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -1531,13 +2072,16 @@
                     "profile": {"profile": "0.8742910645542747", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Z"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "Z"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [2.25, 4.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -1550,13 +2094,16 @@
                     "profile": {"profile": "0.5014704309596052", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "X"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "X"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [3.25, 4.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -1569,13 +2116,16 @@
                     "profile": {"profile": "0.1542642679053523", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "C"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "C"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [4.25, 4.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -1588,13 +2138,16 @@
                     "profile": {"profile": "0.4740606389275075", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "V"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "V"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [5.25, 4.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -1607,13 +2160,16 @@
                     "profile": {"profile": "0.4652607632936996", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "B"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "B"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [6.25, 4.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -1626,13 +2182,16 @@
                     "profile": {"profile": "0.5117216768111048", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "N"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "N"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [7.25, 4.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -1645,13 +2204,16 @@
                     "profile": {"profile": "0.04694783320856688", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "M"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "M"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [8.25, 4.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -1665,8 +2227,20 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
-                            [{"text": "<", "size": 0.80001}],
-                            [{"text": ",", "size": 0.80001}]
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "<",
+                                    "size": 0.80001
+                                }
+                            ],
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": ",",
+                                    "size": 0.80001
+                                }
+                            ]
                         ],
                         "keycodeAffinity": []
                     },
@@ -1674,6 +2248,7 @@
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -1687,8 +2262,20 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
-                            [{"text": ">", "size": 0.80001}],
-                            [{"text": ".", "size": 0.80001}]
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": ">",
+                                    "size": 0.80001
+                                }
+                            ],
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": ".",
+                                    "size": 0.80001
+                                }
+                            ]
                         ],
                         "keycodeAffinity": []
                     },
@@ -1696,6 +2283,7 @@
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -1709,8 +2297,20 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
-                            [{"text": "?", "size": 0.80001}],
-                            [{"text": "/", "size": 0.80001}]
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "?",
+                                    "size": 0.80001
+                                }
+                            ],
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "/",
+                                    "size": 0.80001
+                                }
+                            ]
                         ],
                         "keycodeAffinity": []
                     },
@@ -1718,6 +2318,7 @@
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -1738,13 +2339,22 @@
                     "profile": {"profile": "0.5992039608230262", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Shift", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "Shift",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [12.25, 4.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -1757,13 +2367,16 @@
                     "profile": {"profile": "0.6902146622083762", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Up"}]],
+                        "topLegends": [
+                            [{"color": "botanical-light-green", "text": "Up"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [16.25, 4.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -1776,13 +2389,16 @@
                     "profile": {"profile": "0.3220930675163489", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "1"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "1"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [18.5, 4.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -1795,13 +2411,16 @@
                     "profile": {"profile": "0.07266139255948256", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "2"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "2"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [19.5, 4.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -1814,13 +2433,16 @@
                     "profile": {"profile": "0.7336959816711937", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "3"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "3"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [20.5, 4.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -1839,13 +2461,22 @@
                     "profile": {"profile": "0.9663511953113906", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Enter", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "Enter",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [21.5, 4.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-light-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -1860,13 +2491,22 @@
                     "profile": {"profile": "0.8047265422994496", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Control", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "Control",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [0, 5.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -1881,13 +2521,22 @@
                     "profile": {"profile": "0.010075835489354867", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Super", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "Super",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [1.25, 5.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -1902,13 +2551,22 @@
                     "profile": {"profile": "0.5408196779418808", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Alt", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "Alt",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [2.5, 5.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -1936,6 +2594,7 @@
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -1950,13 +2609,22 @@
                     "profile": {"profile": "0.12696408098068068", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Alt", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "Alt",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [10, 5.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -1971,13 +2639,22 @@
                     "profile": {"profile": "0.38065481781807287", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Super", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "Super",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [11.25, 5.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -1992,13 +2669,22 @@
                     "profile": {"profile": "0.2956879186681016", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Fn", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "Fn",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [12.5, 5.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -2013,13 +2699,22 @@
                     "profile": {"profile": "0.9603069867409086", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Control", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "Control",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [13.75, 5.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -2032,13 +2727,16 @@
                     "profile": {"profile": "0.4419873725907111", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Left"}]],
+                        "topLegends": [
+                            [{"color": "botanical-light-green", "text": "Left"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [15.25, 5.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -2051,13 +2749,16 @@
                     "profile": {"profile": "0.5689915518043194", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Down"}]],
+                        "topLegends": [
+                            [{"color": "botanical-light-green", "text": "Down"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [16.25, 5.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -2070,13 +2771,21 @@
                     "profile": {"profile": "0.7203343328599159", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Right"}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "Right"
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [17.25, 5.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -2095,13 +2804,16 @@
                     "profile": {"profile": "0.5405203865687231", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "0"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "0"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [18.5, 5.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -2114,13 +2826,16 @@
                     "profile": {"profile": "0.8242950296202667", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "."}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "."}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [20.5, 5.25],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -2133,13 +2848,22 @@
                     "profile": {"profile": "0.1337717154047262", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Esc", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "Esc",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [0, 6.75],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -2153,8 +2877,20 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
-                            [{"text": "~", "size": 0.80001}],
-                            [{"text": "`", "size": 0.80001}]
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "~",
+                                    "size": 0.80001
+                                }
+                            ],
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "`",
+                                    "size": 0.80001
+                                }
+                            ]
                         ],
                         "keycodeAffinity": []
                     },
@@ -2162,6 +2898,7 @@
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -2175,8 +2912,20 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
-                            [{"text": "|", "size": 0.80001}],
-                            [{"text": "\\", "size": 0.80001}]
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "|",
+                                    "size": 0.80001
+                                }
+                            ],
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "\\",
+                                    "size": 0.80001
+                                }
+                            ]
                         ],
                         "keycodeAffinity": []
                     },
@@ -2184,6 +2933,7 @@
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -2196,13 +2946,22 @@
                     "profile": {"profile": "0.49706244489477003", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Delete", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "Delete",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [15.25, 6.75],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -2215,13 +2974,22 @@
                     "profile": {"profile": "0.7848007623798534", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "End", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "End",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [16.25, 6.75],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -2234,13 +3002,22 @@
                     "profile": {"profile": "0.39140377374972646", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "PgDn", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "PgDn",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [17.25, 6.75],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -2256,8 +3033,20 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
-                            [{"text": "|", "size": 0.80001}],
-                            [{"text": "\\", "size": 0.80001}]
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "|",
+                                    "size": 0.80001
+                                }
+                            ],
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "\\",
+                                    "size": 0.80001
+                                }
+                            ]
                         ],
                         "keycodeAffinity": []
                     },
@@ -2265,6 +3054,7 @@
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -2279,13 +3069,22 @@
                     "profile": {"profile": "0.3010807278929506", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Bksp", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "Bksp",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [13.5, 7.75],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -2298,13 +3097,22 @@
                     "profile": {"profile": "0.25327540515981783", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "PgUp", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "PgUp",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [15.25, 7.75],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -2317,7 +3125,7 @@
                             {
                                 "angle": [true, true],
                                 "length": 1,
-                                "offset": [0.5, 0.5]
+                                "offset": [0.625, 0.5]
                             }
                         ],
                         "stem": [0.625, 1]
@@ -2326,13 +3134,22 @@
                     "profile": {"profile": "0.2328796639832178", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Enter", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "Enter",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [18.75, 7.75],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -2345,7 +3162,7 @@
                             {
                                 "angle": [true, true],
                                 "length": 1,
-                                "offset": [0.5, 0.5]
+                                "offset": [0.625, 0.5]
                             }
                         ],
                         "stem": [0.625, 1]
@@ -2354,13 +3171,22 @@
                     "profile": {"profile": "0.5623714871453984", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Enter", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "Enter",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [20.25, 7.75],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-light-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -2373,13 +3199,16 @@
                     "profile": {"profile": "0.4487471312911431", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "-"}]],
+                        "topLegends": [
+                            [{"color": "botanical-light-green", "text": "-"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [21.5, 7.75],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -2395,13 +3224,22 @@
                     "profile": {"profile": "0.5237539387349415", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Caps", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "Caps",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [0, 8.75],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -2416,13 +3254,22 @@
                     "profile": {"profile": "0.6623434263647681", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Control", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "Control",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [1.75, 8.75],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -2435,13 +3282,16 @@
                     "profile": {"profile": "0.20122505542623204", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "F"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "F"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [4.75, 8.75],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -2454,13 +3304,16 @@
                     "profile": {"profile": "0.8841705412388416", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "J"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "J"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [7.75, 8.75],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -2481,13 +3334,22 @@
                     "profile": {"profile": "0.5829704791659733", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Enter", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "Enter",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [12.75, 8.75],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -2500,13 +3362,22 @@
                     "profile": {"profile": "0.07519333267447936", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "PgDn", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "PgDn",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [15.25, 8.75],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -2520,8 +3391,20 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
-                            [{"text": "|", "size": 0.80001}],
-                            [{"text": "\\", "size": 0.80001}]
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "|",
+                                    "size": 0.80001
+                                }
+                            ],
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "\\",
+                                    "size": 0.80001
+                                }
+                            ]
                         ],
                         "keycodeAffinity": []
                     },
@@ -2529,6 +3412,7 @@
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -2541,13 +3425,16 @@
                     "profile": {"profile": "0.6709053965556062", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "+"}]],
+                        "topLegends": [
+                            [{"color": "botanical-light-green", "text": "+"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [21.5, 8.75],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -2573,6 +3460,7 @@
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -2600,6 +3488,7 @@
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -2612,13 +3501,16 @@
                     "profile": {"profile": "0.9329439128716586", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "B"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "B"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [6.25, 9.75],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -2646,6 +3538,7 @@
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -2660,13 +3553,22 @@
                     "profile": {"profile": "0.3197124070852766", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Shift", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "Shift",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [13.25, 9.75],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -2679,13 +3581,22 @@
                     "profile": {"profile": "0.19338438710081762", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "End", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "End",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [15.25, 9.75],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -2698,13 +3609,22 @@
                     "profile": {"profile": "0.580112094457991", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Fn", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "Fn",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [16.25, 9.75],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -2719,13 +3639,22 @@
                     "profile": {"profile": "0.3296493223755095", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Shift", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "Shift",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [17.75, 9.75],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -2739,8 +3668,20 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
-                            [{"text": "<", "size": 0.80001}],
-                            [{"text": ">", "size": 0.80001}]
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": "<",
+                                    "size": 0.80001
+                                }
+                            ],
+                            [
+                                {
+                                    "color": "botanical-dark-green",
+                                    "text": ">",
+                                    "size": 0.80001
+                                }
+                            ]
                         ],
                         "keycodeAffinity": []
                     },
@@ -2748,6 +3689,7 @@
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -2766,13 +3708,22 @@
                     "profile": {"profile": "0.3543181179175656", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Enter", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "Enter",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [21.5, 9.75],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -2787,13 +3738,22 @@
                     "profile": {"profile": "0.3340015176399054", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Control", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "Control",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [0, 10.75],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -2806,13 +3766,22 @@
                     "profile": {"profile": "0.1516028838141057", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Super", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "Super",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [1.5, 10.75],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -2827,13 +3796,22 @@
                     "profile": {"profile": "0.31118264650284355", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Alt", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "Alt",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [2.5, 10.75],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -2859,6 +3837,7 @@
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 },
                 {
@@ -2873,13 +3852,22 @@
                     "profile": {"profile": "0.6128322985986856", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Alt", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "Alt",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [11, 10.75],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -2892,13 +3880,22 @@
                     "profile": {"profile": "0.7845441602600565", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Super", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "Super",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [12.5, 10.75],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -2913,13 +3910,22 @@
                     "profile": {"profile": "0.7182855474908711", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Control", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "Control",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [13.5, 10.75],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -2932,13 +3938,22 @@
                     "profile": {"profile": "0.46991384377557677", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Ctrl", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "Ctrl",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [15.25, 10.75],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -2951,13 +3966,22 @@
                     "profile": {"profile": "0.7220215161719985", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "Alt", "size": 0.70001}]],
+                        "topLegends": [
+                            [
+                                {
+                                    "color": "botanical-light-green",
+                                    "text": "Alt",
+                                    "size": 0.70001
+                                }
+                            ]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [16.25, 10.75],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "botanical-dark-green",
                     "keycodeAffinity": []
                 },
                 {
@@ -2970,13 +3994,16 @@
                     "profile": {"profile": "0.6798353710108838", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"text": "0"}]],
+                        "topLegends": [
+                            [{"color": "botanical-dark-green", "text": "0"}]
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [20.5, 10.75],
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
+                    "color": "WS1",
                     "keycodeAffinity": []
                 }
             ]
@@ -5225,7 +6252,7 @@
                             {
                                 "angle": [true, true],
                                 "length": 1,
-                                "offset": [0.5, 0.5]
+                                "offset": [0.625, 0.5]
                             }
                         ],
                         "stem": [0.625, 1]
@@ -5253,7 +6280,7 @@
                             {
                                 "angle": [true, true],
                                 "length": 1,
-                                "offset": [0.5, 0.5]
+                                "offset": [0.625, 0.5]
                             }
                         ],
                         "stem": [0.625, 1]

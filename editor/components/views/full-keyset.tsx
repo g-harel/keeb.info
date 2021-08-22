@@ -8,6 +8,7 @@ import {DEFAULT_KEY_COLOR, MIN_KEYSET_WIDTH_DISPLAY} from "../../cons";
 import {ReactProps} from "../../../internal/types/util";
 import {Plane, PlaneItem} from "../plane";
 import {Pair} from "polygon-clipping";
+import {resolveColor} from "../../../internal/colors";
 
 export interface FullKeysetProps extends ReactProps {
     width: number;
@@ -83,11 +84,14 @@ export const FullKeyset = (props: FullKeysetProps) => {
                         >
                             <Key
                                 blank={key.key}
-                                color={key.color || DEFAULT_KEY_COLOR}
+                                color={resolveColor(
+                                    key.color || DEFAULT_KEY_COLOR,
+                                )}
                                 shelf={(key as any).shelf || []}
                                 legend={key.legend}
                                 stem
                                 stabs
+                                noWire
                             />
                         </PlaneItem>
                     ));
