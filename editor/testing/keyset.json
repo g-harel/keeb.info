@@ -23,13 +23,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN20",
                                     "text": "Esc",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -51,13 +53,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN20",
                                     "text": "F1",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -79,13 +83,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN20",
                                     "text": "F2",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -107,13 +113,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN20",
                                     "text": "F3",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -135,13 +143,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN20",
                                     "text": "F4",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -163,13 +173,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "F5",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -191,13 +203,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "F6",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -219,13 +233,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "F7",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -247,13 +263,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "F8",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -275,13 +293,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN20",
                                     "text": "F9",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -303,13 +323,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN20",
                                     "text": "F10",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -331,13 +353,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN20",
                                     "text": "F11",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -359,13 +383,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN20",
                                     "text": "F12",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -387,13 +413,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Print",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -415,13 +443,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Scroll",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -443,13 +473,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Pause",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -896,13 +928,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN20",
                                     "text": "Backspace",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -924,13 +958,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Insert",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -952,13 +988,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Home",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -980,13 +1018,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "PgUp",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -1008,13 +1048,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Num",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -1035,7 +1077,11 @@
                     "profile": {"profile": "0.5153596964450764", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"color": "GN21", "text": "÷"}]],
+                        "topLegends": [
+                            [],
+                            [{"color": "GN21", "text": "÷"}],
+                            []
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [19.5, 1.25],
@@ -1055,7 +1101,11 @@
                     "profile": {"profile": "0.6910283909617185", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"color": "GN21", "text": "×"}]],
+                        "topLegends": [
+                            [],
+                            [{"color": "GN21", "text": "×"}],
+                            []
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [20.5, 1.25],
@@ -1075,7 +1125,11 @@
                     "profile": {"profile": "0.6058854647325702", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"color": "GN21", "text": "−"}]],
+                        "topLegends": [
+                            [],
+                            [{"color": "GN21", "text": "−"}],
+                            []
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [21.5, 1.25],
@@ -1098,13 +1152,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Tab",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -1433,13 +1489,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Delete",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -1461,13 +1519,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "End",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -1489,13 +1549,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "PgDn",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -1582,7 +1644,11 @@
                     "profile": {"profile": "0.3797152572990399", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
-                        "topLegends": [[{"color": "GN21", "text": "+"}]],
+                        "topLegends": [
+                            [],
+                            [{"color": "GN21", "text": "+"}],
+                            []
+                        ],
                         "keycodeAffinity": []
                     },
                     "position": [21.5, 2.25],
@@ -1605,13 +1671,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Caps",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -1891,13 +1959,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN20",
                                     "text": "Enter",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -1987,13 +2057,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Shift",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -2268,13 +2340,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Shift",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -2382,13 +2456,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN20",
                                     "text": "Enter",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -2412,13 +2488,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Control",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -2442,13 +2520,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Super",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -2472,13 +2552,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Alt",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -2530,13 +2612,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Alt",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -2560,13 +2644,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Super",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -2590,13 +2676,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Fn",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -2620,13 +2708,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Control",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -2761,13 +2851,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Esc",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -2859,13 +2951,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Delete",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -2887,13 +2981,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "End",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -2915,13 +3011,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "PgDn",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -2982,13 +3080,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Bksp",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -3010,13 +3110,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "PgUp",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -3047,13 +3149,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Enter",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -3084,13 +3188,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN20",
                                     "text": "Enter",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -3135,13 +3241,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Caps",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -3165,13 +3273,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Control",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -3241,13 +3351,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Enter",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -3269,13 +3381,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "PgDn",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -3456,13 +3570,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Shift",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -3484,13 +3600,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "End",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -3512,13 +3630,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Fn",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -3542,13 +3662,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Shift",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -3611,13 +3733,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Enter",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -3641,13 +3765,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Control",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -3669,13 +3795,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Super",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -3699,13 +3827,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Alt",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -3755,13 +3885,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Alt",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -3783,13 +3915,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Super",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -3813,13 +3947,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Control",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -3841,13 +3977,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Ctrl",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -3869,13 +4007,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Alt",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -3926,13 +4066,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "F13",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -3954,13 +4096,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "PgUp",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -3982,13 +4126,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Home",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -4013,13 +4159,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Ctrl",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -4043,13 +4191,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Function",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -4071,13 +4221,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "PgDn",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -4099,13 +4251,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Alt",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -4133,13 +4287,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Shift",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -4169,13 +4325,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Shift",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -4199,13 +4357,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Super",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -4229,13 +4389,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Super",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -4259,13 +4421,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Function",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -4536,13 +4700,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "M1",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -4564,13 +4730,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "M2",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -4592,13 +4760,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "M1",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -4620,13 +4790,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "M3",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -4648,13 +4820,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "M4",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -4676,13 +4850,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "M2",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -4704,13 +4880,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "M5",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -4732,13 +4910,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "M6",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -4760,13 +4940,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "M3",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -4788,13 +4970,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "M7",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -4816,13 +5000,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "M8",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -4844,13 +5030,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "M4",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -4872,13 +5060,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "M9",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -4900,13 +5090,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "M10",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -4928,13 +5120,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "M5",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -6338,13 +6532,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "AltGr",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -6368,13 +6564,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "AltGr",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -6398,13 +6596,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "AltGr",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -6722,13 +6922,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Esc",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -6750,13 +6952,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN20",
                                     "text": "Esc",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -6778,13 +6982,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Tab",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -6806,13 +7012,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Back",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -6836,13 +7044,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Backspace",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -6864,13 +7074,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Esc",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -6892,13 +7104,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN20",
                                     "text": "Esc",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -6955,13 +7169,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Tab",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -6985,13 +7201,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Tab",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -7013,13 +7231,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Enter",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -7041,13 +7261,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN20",
                                     "text": "Enter",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -7071,13 +7293,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Enter",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -7101,13 +7325,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN20",
                                     "text": "Enter",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -7131,13 +7357,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Fn",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -7159,13 +7387,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Shift",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -7187,13 +7417,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Hyper",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -7215,13 +7447,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Enter",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -7243,13 +7477,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN20",
                                     "text": "Enter",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -7271,13 +7507,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Lower",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -7299,13 +7537,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Raise",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -7329,13 +7569,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Lock",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -7492,13 +7734,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Command",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -7523,13 +7767,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Cmd",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -7551,13 +7797,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Opt",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -7579,13 +7827,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Opt",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -7609,13 +7859,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Option",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -7639,13 +7891,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Option",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -7672,13 +7926,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Option",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -7702,13 +7958,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Option",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -7730,13 +7988,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Cmd",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -7758,13 +8018,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Cmd",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -7788,13 +8050,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Cmd",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -7818,13 +8082,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Cmd",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -7848,13 +8114,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Command",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },
@@ -7878,13 +8146,15 @@
                     "legend": {
                         "frontLegends": [],
                         "topLegends": [
+                            [],
                             [
                                 {
                                     "color": "GN21",
                                     "text": "Command",
                                     "size": 0.70001
                                 }
-                            ]
+                            ],
+                            []
                         ],
                         "keycodeAffinity": []
                     },

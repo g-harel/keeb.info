@@ -200,10 +200,11 @@ export const Key = (props: KeyProps) => {
                     return (
                         <text
                             x={l.position[0] + legendOffsetX}
-                            y={l.position[1] + legendOffsetY + size}
+                            y={l.position[1] + legendOffsetY}
                             fontSize={size}
                             fontWeight="bold"
                             fill={resolveColor(l.element.color || backupColor)}
+                            dominant-baseline="hanging"
                         >
                             {l.element.text}
                         </text>
