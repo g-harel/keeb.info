@@ -150,34 +150,260 @@ export const Key = (props: KeyProps) => {
     const legendOffsetX = c.SHINE_PADDING_SIDE + c.LEGEND_PADDING;
     const legendOffsetY = c.SHINE_PADDING_TOP + c.LEGEND_PADDING;
 
+    const strokeColor = color(props.color).darken(c.STROKE_COLOR_DARKEN).hex();
+
+    // TODO match up corners in composite shapes.
+    const heightish = props.blank.shape[0].height;
+    const widthish = props.blank.shape[0].width;
+
     return (
         <g>
+            {/* Cap */}
             <StrokeShape
                 borderWidth={c.BORDER}
                 fillColor={props.notKey ? shineColor : props.color}
                 padding={[c.PAD, c.PAD, c.PAD, c.PAD]}
                 radius={c.KEY_RADIUS}
                 shape={props.blank.shape}
-                strokeColor={color(props.color)
-                    .darken(c.STROKE_COLOR_DARKEN)
-                    .hex()}
+                strokeColor={strokeColor}
             />
+            {/* Shine */}
             {!props.notKey && (
-                <StrokeShape
-                    borderWidth={c.BORDER}
-                    fillColor={shineColor}
-                    padding={[
-                        c.SHINE_PADDING_TOP,
-                        c.SHINE_PADDING_SIDE,
-                        c.SHINE_PADDING_BOTTOM,
-                        c.SHINE_PADDING_SIDE,
-                    ]}
-                    radius={c.KEY_RADIUS}
-                    shape={shineShape}
-                    strokeColor={color(props.color)
-                        .darken(c.SHINE_COLOR_DIFF)
-                        .hex()}
-                />
+                <>
+                    {/* Top-left */}
+                    <line
+                        x1={c.KEY_RADIUS * c.ARC_OFFSET + c.PAD + c.BORDER / 3}
+                        y1={c.KEY_RADIUS * c.ARC_OFFSET + c.PAD + c.BORDER / 3}
+                        x2={
+                            c.SHINE_PADDING_SIDE +
+                            c.SHINE_RADIUS * c.ARC_OFFSET +
+                            c.BORDER / 3
+                        }
+                        y2={
+                            c.SHINE_PADDING_TOP +
+                            c.SHINE_RADIUS * c.ARC_OFFSET +
+                            c.BORDER / 3
+                        }
+                        stroke={strokeColor}
+                        stroke-width={c.BORDER}
+                    />
+                    <line
+                        x1={c.KEY_RADIUS + c.PAD + c.BORDER / 3}
+                        y1={c.PAD + c.BORDER / 3}
+                        x2={
+                            c.SHINE_PADDING_SIDE + c.SHINE_RADIUS + c.BORDER / 3
+                        }
+                        y2={c.SHINE_PADDING_TOP + c.BORDER / 3}
+                        stroke={strokeColor}
+                        stroke-width={c.BORDER}
+                    />
+                    <line
+                        x1={c.PAD + c.BORDER / 3}
+                        y1={c.KEY_RADIUS + c.PAD + c.BORDER / 3}
+                        x2={c.SHINE_PADDING_SIDE + c.BORDER / 3}
+                        y2={c.SHINE_PADDING_TOP + c.SHINE_RADIUS + c.BORDER / 3}
+                        stroke={strokeColor}
+                        stroke-width={c.BORDER}
+                    />
+
+                    {/* Bottom-left */}
+                    <line
+                        x1={c.KEY_RADIUS * c.ARC_OFFSET + c.PAD + c.BORDER / 3}
+                        y1={
+                            heightish -
+                            c.PAD -
+                            (c.KEY_RADIUS * c.ARC_OFFSET + c.PAD - c.BORDER / 3)
+                        }
+                        x2={
+                            c.SHINE_PADDING_SIDE +
+                            c.SHINE_RADIUS * c.ARC_OFFSET +
+                            c.BORDER / 3
+                        }
+                        y2={
+                            heightish -
+                            c.PAD -
+                            (c.SHINE_PADDING_BOTTOM +
+                                c.SHINE_RADIUS * c.ARC_OFFSET -
+                                c.BORDER / 3)
+                        }
+                        stroke={strokeColor}
+                        stroke-width={c.BORDER}
+                    />
+                    <line
+                        x1={c.PAD + c.BORDER / 3}
+                        y1={
+                            heightish -
+                            c.PAD -
+                            (c.KEY_RADIUS + c.PAD - c.BORDER / 3)
+                        }
+                        x2={c.SHINE_PADDING_SIDE + c.BORDER / 3}
+                        y2={
+                            heightish -
+                            c.PAD -
+                            (c.SHINE_PADDING_BOTTOM +
+                                c.SHINE_RADIUS -
+                                c.BORDER / 3)
+                        }
+                        stroke={strokeColor}
+                        stroke-width={c.BORDER}
+                    />
+                    <line
+                        x1={c.KEY_RADIUS + c.PAD + c.BORDER / 3}
+                        y1={heightish - c.PAD - (c.PAD - c.BORDER / 3)}
+                        x2={
+                            c.SHINE_PADDING_SIDE + c.SHINE_RADIUS + c.BORDER / 3
+                        }
+                        y2={
+                            heightish -
+                            c.PAD -
+                            (c.SHINE_PADDING_BOTTOM - c.BORDER / 3)
+                        }
+                        stroke={strokeColor}
+                        stroke-width={c.BORDER}
+                    />
+
+                    {/* Top-right */}
+                    <line
+                        x1={
+                            widthish -
+                            c.PAD -
+                            (c.KEY_RADIUS * c.ARC_OFFSET + c.PAD - c.BORDER / 3)
+                        }
+                        y1={c.KEY_RADIUS * c.ARC_OFFSET + c.PAD + c.BORDER / 3}
+                        x2={
+                            widthish -
+                            c.PAD -
+                            (c.SHINE_PADDING_SIDE +
+                                c.SHINE_RADIUS * c.ARC_OFFSET -
+                                c.BORDER / 3)
+                        }
+                        y2={
+                            c.SHINE_PADDING_TOP +
+                            c.SHINE_RADIUS * c.ARC_OFFSET +
+                            c.BORDER / 3
+                        }
+                        stroke={strokeColor}
+                        stroke-width={c.BORDER}
+                    />
+                    <line
+                        x1={
+                            widthish -
+                            c.PAD -
+                            (c.KEY_RADIUS + c.PAD - c.BORDER / 3)
+                        }
+                        y1={c.PAD + c.BORDER / 3}
+                        x2={
+                            widthish -
+                            c.PAD -
+                            (c.SHINE_PADDING_SIDE +
+                                c.SHINE_RADIUS -
+                                c.BORDER / 3)
+                        }
+                        y2={c.SHINE_PADDING_TOP + c.BORDER / 3}
+                        stroke={strokeColor}
+                        stroke-width={c.BORDER}
+                    />
+                    <line
+                        x1={widthish - c.PAD - (c.PAD - c.BORDER / 3)}
+                        y1={c.KEY_RADIUS + c.PAD + c.BORDER / 3}
+                        x2={
+                            widthish -
+                            c.PAD -
+                            (c.SHINE_PADDING_SIDE - c.BORDER / 3)
+                        }
+                        y2={c.SHINE_PADDING_TOP + c.SHINE_RADIUS + c.BORDER / 3}
+                        stroke={strokeColor}
+                        stroke-width={c.BORDER}
+                    />
+
+                    {/* Bottom-right */}
+                    <line
+                        x1={
+                            widthish -
+                            c.PAD -
+                            (c.KEY_RADIUS * c.ARC_OFFSET + c.PAD - c.BORDER / 3)
+                        }
+                        y1={
+                            heightish -
+                            c.PAD -
+                            (c.KEY_RADIUS * c.ARC_OFFSET + c.PAD - c.BORDER / 3)
+                        }
+                        x2={
+                            widthish -
+                            c.PAD -
+                            (c.SHINE_PADDING_SIDE +
+                                c.SHINE_RADIUS * c.ARC_OFFSET -
+                                c.BORDER / 3)
+                        }
+                        y2={
+                            heightish -
+                            c.PAD -
+                            (c.SHINE_PADDING_BOTTOM +
+                                c.SHINE_RADIUS * c.ARC_OFFSET -
+                                c.BORDER / 3)
+                        }
+                        stroke={strokeColor}
+                        stroke-width={c.BORDER}
+                    />
+                    <line
+                        x1={widthish - c.PAD - (c.PAD - c.BORDER / 3)}
+                        y1={
+                            heightish -
+                            c.PAD -
+                            (c.KEY_RADIUS + c.PAD - c.BORDER / 3)
+                        }
+                        x2={
+                            widthish -
+                            c.PAD -
+                            (c.SHINE_PADDING_SIDE - c.BORDER / 3)
+                        }
+                        y2={
+                            heightish -
+                            c.PAD -
+                            (c.SHINE_PADDING_BOTTOM +
+                                c.SHINE_RADIUS -
+                                c.BORDER / 3)
+                        }
+                        stroke={strokeColor}
+                        stroke-width={c.BORDER}
+                    />
+                    <line
+                        x1={
+                            widthish -
+                            c.PAD -
+                            (c.KEY_RADIUS + c.PAD - c.BORDER / 3)
+                        }
+                        y1={heightish - c.PAD - (c.PAD - c.BORDER / 3)}
+                        x2={
+                            widthish -
+                            c.PAD -
+                            (c.SHINE_PADDING_SIDE +
+                                c.SHINE_RADIUS -
+                                c.BORDER / 3)
+                        }
+                        y2={
+                            heightish -
+                            c.PAD -
+                            (c.SHINE_PADDING_BOTTOM - c.BORDER / 3)
+                        }
+                        stroke={strokeColor}
+                        stroke-width={c.BORDER}
+                    />
+
+                    <StrokeShape
+                        borderWidth={c.BORDER}
+                        fillColor={shineColor}
+                        padding={[
+                            c.SHINE_PADDING_TOP,
+                            c.SHINE_PADDING_SIDE,
+                            c.SHINE_PADDING_BOTTOM,
+                            c.SHINE_PADDING_SIDE,
+                        ]}
+                        radius={c.SHINE_RADIUS}
+                        shape={shineShape}
+                        strokeColor={strokeColor}
+                    />
+                </>
             )}
             {!props.notKey && (
                 <Mounts

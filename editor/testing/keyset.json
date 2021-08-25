@@ -3144,7 +3144,7 @@
                         ],
                         "stem": [0.625, 1]
                     },
-                    "shelf": [{"height": 2, "width": 1.25, "offset": [0, 0]}],
+                    "shelf": [],
                     "profile": {"profile": "0.2328796639832178", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
@@ -3183,7 +3183,7 @@
                         ],
                         "stem": [0.625, 1]
                     },
-                    "shelf": [{"height": 2, "width": 1.25, "offset": [0, 0]}],
+                    "shelf": [],
                     "profile": {"profile": "0.5623714871453984", "row": "R1"},
                     "legend": {
                         "frontLegends": [],
