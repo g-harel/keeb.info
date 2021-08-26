@@ -41,4 +41,4 @@ export const NOT_KEY_FOOTPRINT_SIZE = 2 * CHERRY_MIDDLE_STEM_RADIUS;
 
 export const LEGEND_FONT_SIZE = 0.28;
 export const LEGEND_PADDING = 0.08;
-export const ARC_OFFSET = Math.sqrt(2) - 1.1; // Not sure why 1.1, should be exactly 1.
+export const ARC_OFFSET = 1 - Math.sin(Math.PI / 4);
