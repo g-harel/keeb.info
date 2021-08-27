@@ -112,8 +112,52 @@ const angleBetween = (a: Pair, b: Pair, center: Pair): number => {
     return Math.atan2(dAx * dBy - dAy * dBx, dAx * dBx + dAy * dBy);
 };
 
-const radius = 0.05;
-const stroke = 0.02;
+const calcRoundPoints = (shape: Pair[]): [Pair, Pair, Pair][] => {
+    const points: [Pair, Pair, Pair][] = [];
+    const safePoly = [...shape, shape[0], shape[1]];
+    for (let i = 1; i < safePoly.length - 1; i++) {
+        const before = safePoly[i - 1];
+        const current = safePoly[i];
+        const after = safePoly[i + 1];
+
+        const angle = angleBetween(before, after, current) / 2;
+        const chopLength = RADIUS / Math.cos(angle);
+
+        let beforeFraction = chopLength / distance(before, current);
+        if (beforeFraction > 0.5) beforeFraction = 0.5;
+        const start: Pair = [
+            before[0] + (1 - beforeFraction) * (current[0] - before[0]),
+            before[1] + (1 - beforeFraction) * (current[1] - before[1]),
+        ];
+
+        let afterFraction = chopLength / distance(after, current);
+        if (afterFraction > 0.5) afterFraction = 0.5;
+        const end: Pair = [
+            after[0] + (1 - afterFraction) * (current[0] - after[0]),
+            after[1] + (1 - afterFraction) * (current[1] - after[1]),
+        ];
+
+        points.push([start, current, end]);
+    }
+    return points;
+};
+
+const polyPath = (points: [Pair, Pair, Pair][]): string => {
+    let path = "";
+    for (let i = 0; i < points.length; i++) {
+        const [rStart, point, rEnd] = points[i];
+        path += `${i === 0 ? "M" : "L"} ${rStart[0]} ${rStart[1]} `;
+        path += `Q ${point[0]} ${point[1]} ${rEnd[0]} ${rEnd[1]} `;
+    }
+    path += "Z";
+    return path;
+};
+
+const RADIUS = 0.05;
+const STROKE = 0.02;
+const PAD_TOP = -1.65 * STROKE;
+const PAD_SIDE = 0.12;
+const PAD_BOTTOM = 2 * PAD_SIDE - PAD_TOP; // Keep top square.
 
 export const Demo = () => (
     <Plane pixelWidth={1200} unitSize={[10, 4]}>
@@ -140,55 +184,44 @@ export const Demo = () => (
         {keys.map((key, i) => {
             const p: Pair = [key.position[0] + 4, key.position[1]];
 
-            const multiPoly = unionShape(key.key.shape);
-            if (multiPoly.length > 1) throw "TODO split key";
-            if (multiPoly[0].length > 1) throw "TODO split key2";
-            const poly = multiPoly[0][0];
+            const baseMultiPoly = unionShape(key.key.shape);
+            if (baseMultiPoly.length > 1) throw "TODO split key";
+            if (baseMultiPoly[0].length > 1) throw "TODO split key2";
+            const basePoly = baseMultiPoly[0][0].slice(1);
+            const basePoints = calcRoundPoints(basePoly);
+            const basePath = polyPath(basePoints);
 
-            const safePoly = [...poly, poly[1]];
-            let path = "";
-            for (let i = 1; i < safePoly.length - 1; i++) {
-                const before = safePoly[i - 1];
-                const current = safePoly[i];
-                const after = safePoly[i + 1];
+            const sourceShineShape =
+                key.shelf && key.shelf.length > 0 ? key.shelf : key.key.shape;
+            const shineShape = sourceShineShape.map((box) => ({
+                width: box.width - 2 * PAD_SIDE,
+                height: box.height - PAD_TOP - PAD_BOTTOM,
+                offset: [
+                    box.offset[0] + PAD_SIDE,
+                    box.offset[1] + PAD_TOP,
+                ] as Pair,
+            }));
+            const shineMultiPoly = unionShape(shineShape);
+            if (shineMultiPoly.length > 1) throw "TODO split key";
+            if (shineMultiPoly[0].length > 1) throw "TODO split key2";
+            const shinePoly = shineMultiPoly[0][0].slice(1);
+            const shinePoints = calcRoundPoints(shinePoly);
+            const shinePath = polyPath(shinePoints);
 
-                const angle = angleBetween(before, after, current) / 2;
-                const chopLength = radius / Math.cos(angle);
-
-                let beforeFraction = chopLength / distance(before, current);
-                if (beforeFraction > 0.5) beforeFraction = 0.5;
-                const start = [
-                    before[0] + (1 - beforeFraction) * (current[0] - before[0]),
-                    before[1] + (1 - beforeFraction) * (current[1] - before[1]),
-                ];
-
-                let afterFraction = chopLength / distance(after, current);
-                if (afterFraction > 0.5) afterFraction = 0.5;
-                const end = [
-                    after[0] + (1 - afterFraction) * (current[0] - after[0]),
-                    after[1] + (1 - afterFraction) * (current[1] - after[1]),
-                ];
-
-                path += `${i === 1 ? "M" : "L"} ${start[0]} ${start[1]} `;
-                path += `Q ${current[0]} ${current[1]} ${end[0]} ${end[1]} `;
-            }
-            path += "Z";
-
-            const pathID = String(Math.random());
-            const clipID = String(Math.random());
             return (
                 <PlaneItem key={i} origin={[0, 0]} angle={0} position={p}>
                     <path
-                        id={pathID}
-                        d={path}
-                        clipPath={`url(#${clipID})`}
-                        stroke="red"
-                        strokeWidth={stroke * 2}
+                        d={basePath}
+                        stroke="orange"
+                        strokeWidth={STROKE}
                         fill="none"
                     />
-                    <clipPath id={clipID}>
-                        <use xlinkHref={`#${pathID}`} />
-                    </clipPath>
+                    <path
+                        d={shinePath}
+                        stroke="blue"
+                        strokeWidth={STROKE}
+                        fill="none"
+                    />
                 </PlaneItem>
             );
         })}
