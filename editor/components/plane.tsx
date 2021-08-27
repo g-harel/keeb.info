@@ -3,7 +3,7 @@ import React from "react";
 import {Pair} from "../../internal/types/base";
 import {ReactProps} from "../../internal/types/util";
 
-export interface BoardProps extends ReactProps {
+export interface PlaneProps extends ReactProps {
     unitSize: Pair;
     pixelWidth: number;
 }
@@ -29,7 +29,7 @@ export const PlaneItem = (props: PlaneItemProps) => (
     </g>
 );
 
-export const Plane = (props: BoardProps) => (
+export const Plane = (props: PlaneProps) => (
     <svg
         xmlnls="http://www.w3.org/2000/svg"
         viewBox={`0 0 ${props.unitSize[0]} ${props.unitSize[1]}`}

@@ -12,6 +12,7 @@ import {BACKGROUND_COLOR} from "./cons";
 import {FootprintLayout} from "./components/views/footprint-layout";
 import {Keyset, Layout} from "../internal/types/base";
 import {FullKeyset} from "./components/views/full-keyset";
+import {Demo} from "./testing/demo";
 
 // Global styles, similar to traditional css.
 const GlobalStyle = createGlobalStyle`
@@ -38,6 +39,7 @@ const LegacyTestContainer = styled.div`
 const App = () => (
     <Fragment>
         <GlobalStyle />
+        <Demo />
         <FullKeyset keyset={testKeyset as Keyset} width={2400} />
         <ExpolodedLayout layout={testLayout as Layout} width={1200} />
         <FootprintLayout layout={testLayout as Layout} width={1200} />

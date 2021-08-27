@@ -94,6 +94,14 @@ const unionKeys = (poly: MultiPolygon, ...keys: LayoutKey[]): MultiPolygon => {
     return union(poly, ...polys);
 };
 
+export const unionShape = (shapes: Shape[]): MultiPolygon => {
+    const polys: Polygon[] = [];
+    for (const shape of shapes) {
+        polys.push([[...shapeCorners([0, 0], shape).map(toPair)]]);
+    }
+    return union(...(polys as [Polygon]));
+};
+
 const deepCopy = <T>(o: T): T => {
     return JSON.parse(JSON.stringify(o));
 };
