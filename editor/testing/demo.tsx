@@ -1,6 +1,13 @@
 import React from "react";
 import {resolveColor} from "../../internal/colors";
-import {Polygon, MultiPolygon, union, intersection, xor} from "polygon-clipping";
+import {
+    Polygon,
+    MultiPolygon,
+    union,
+    intersection,
+    xor,
+    Geom,
+} from "polygon-clipping";
 
 import {KeysetKeycap, Pair, Shape} from "../../internal/types/base";
 import {Key} from "../components/key";
@@ -46,7 +53,7 @@ const keys: KeysetKeycap[] = [
             stabilizers: [],
             stem: [1.25, 1],
         },
-        shelf: [],
+        shelf: [{height: 0.75, width: 0.75, offset: [1,0.5]}],
         profile: {profile: "0.3359295944002527", row: "R1"},
         legend: {
             frontLegends: [],
@@ -75,7 +82,10 @@ const keys: KeysetKeycap[] = [
             stabilizers: [],
             stem: [0.5, 0.5],
         },
-        shelf: [{height: 1, width: 0.5, offset: [0.65, 0]}, {height: 0.5, width: 1.75, offset: [0, 0.25]}],
+        shelf: [
+            {height: 0.75, width: 1.25, offset: [0, 0]},
+            {height: 0.75, width: 1.25, offset: [0.5, 0.25]},
+        ],
         profile: {profile: "0.24463679921190185", row: "R1"},
         legend: {
             frontLegends: [],
@@ -117,7 +127,7 @@ type RoundedPoint = [Pair, Pair, Pair];
 
 const calcRoundPoints = (shape: Pair[], radius: number): RoundedPoint[] => {
     const points: RoundedPoint[] = [];
-    const safePoly = [...shape, shape[0], shape[1]];
+    const safePoly = [shape[shape.length - 1], ...shape, shape[0]];
     for (let i = 1; i < safePoly.length - 1; i++) {
         const before = safePoly[i - 1];
         const current = safePoly[i];
@@ -158,11 +168,13 @@ const approximate = (rounded: RoundedPoint[], resolution: number): Pair[] => {
     for (const point of rounded) {
         const [p0, p1, p2] = point;
         for (let p = 0; p <= 1; p += resolution) {
-            points.push(splitLine(p, splitLine(p, p0, p1), splitLine(p, p1, p2)));
+            points.push(
+                splitLine(p, splitLine(p, p0, p1), splitLine(p, p1, p2)),
+            );
         }
     }
     return points;
-}
+};
 
 const straightPath = (points: Pair[]): string => {
     let path = "";
@@ -171,7 +183,6 @@ const straightPath = (points: Pair[]): string => {
         path += `${i === 0 ? "M" : "L"} ${start} ${end} `;
     }
     path += "Z";
-    console.log(path)
     return path;
 };
 
@@ -195,12 +206,29 @@ const pad = (shapes: Shape[], padding: [number, number, number]): Shape[] => {
             box.offset[1] + padding[0],
         ] as Pair,
     }));
+};
+
+const removeConcave = (points: Pair[]): Pair[] => {
+    const concave: Record<number, boolean> = {};
+    for (let i = 0; i < points.length; i++) {
+        const current = points[i];
+        const before = points[(i+points.length-1)%points.length];
+        const after = points[(i+1)%points.length];
+        const angle = angleBetween(before, after, current);
+        console.log(angle);
+        if (angle < 0) {
+            concave[i] = true;
+        }
+    }
+    return points.filter((_, i) => !concave[i]);
 }
 
 const SHINE_RADIUS = 0.05;
 const BASE_RADIUS = 0.02;
 const RAISE_RATIO = 0.6;
-const RAISE_RADIUS = Math.min(BASE_RADIUS, SHINE_RADIUS) + Math.abs(BASE_RADIUS - SHINE_RADIUS) * RAISE_RATIO;
+const RAISE_RADIUS =
+    Math.min(BASE_RADIUS, SHINE_RADIUS) +
+    Math.abs(BASE_RADIUS - SHINE_RADIUS) * RAISE_RATIO;
 const RAISE_RESOLUTION = 1 / 10;
 const STROKE = 0.02;
 const PAD_TOP = -1.65 * STROKE;
@@ -232,22 +260,47 @@ export const Demo = () => (
         {keys.map((key, i) => {
             const p: Pair = [key.position[0] + 4, key.position[1]];
             const stepped = key.shelf && key.shelf.length > 0;
+            const debug: string[] = []; // TODO remove
 
-            const baseMultiPoly = unionShape(key.key.shape);
-            if (baseMultiPoly.length > 1) throw "TODO split key";
-            if (baseMultiPoly[0].length > 1) throw "TODO split key2";
-            const basePoly = baseMultiPoly[0][0].slice(1);
-            const basePoints = calcRoundPoints(basePoly, BASE_RADIUS);
-
+            // Calcualte shine points.
             const sourceShineShape = stepped ? key.shelf : key.key.shape;
-            const shineShape = pad(sourceShineShape, [PAD_TOP, PAD_SIDE, PAD_BOTTOM]);
+            const shineShape = pad(sourceShineShape, [
+                PAD_TOP,
+                PAD_SIDE,
+                PAD_BOTTOM,
+            ]);
             const shineMultiPoly = unionShape(shineShape);
             if (shineMultiPoly.length > 1) throw "TODO split key";
             if (shineMultiPoly[0].length > 1) throw "TODO split key2";
             const shinePoly = shineMultiPoly[0][0].slice(1);
             const shinePoints = calcRoundPoints(shinePoly, SHINE_RADIUS);
 
-            const raisedPadding: [number, number, number] = [PAD_TOP * RAISE_RATIO, PAD_SIDE * RAISE_RATIO, PAD_BOTTOM * RAISE_RATIO];
+            // Calculate initial base points.
+            const baseMultiPoly = unionShape(key.key.shape);
+            if (baseMultiPoly.length > 1) throw "TODO split key";
+            if (baseMultiPoly[0].length > 1) throw "TODO split key2";
+            const basePoly = baseMultiPoly[0][0].slice(1);
+            const basePoints = calcRoundPoints(basePoly, BASE_RADIUS);
+
+            // Extend base to capture shine and raised overlap.
+            // TODO raised overlap.
+            // console.log(basePoints.length, shinePoints.length)
+            // if (basePoints.length === shinePoints.length) {
+            //     for (let i = 0; i < shinePoints.length; i++) {
+            //         const currentOuter = basePoints[i][1];
+            //         const nextOuter = basePoints[(i+1)%basePoints.length][1];
+            //         const currentInner = shinePoints[i][1];
+            //         const nextInner = shinePoints[(i+1)%basePoints.length][1];
+            //         debug.push(straightPath([currentOuter, nextOuter, nextInner, currentInner]));
+            //     }
+            // }
+
+            // Calculate raised (non-shelft) portions.
+            const raisedPadding: [number, number, number] = [
+                PAD_TOP * RAISE_RATIO,
+                PAD_SIDE * RAISE_RATIO,
+                PAD_BOTTOM * RAISE_RATIO,
+            ];
             const raisedBase = pad(key.key.shape, raisedPadding);
             const raisedBaseMultiPoly = unionShape(raisedBase);
             if (raisedBaseMultiPoly.length > 1) throw "TODO split key";
@@ -259,17 +312,39 @@ export const Demo = () => (
             if (raisedShineMultiPoly.length > 1) throw "TODO split key";
             if (raisedShineMultiPoly[0].length > 1) throw "TODO split key2";
             const raisedShinePoly = raisedShineMultiPoly[0][0].slice(1);
-            const roundedRaisedShinePoints = approximate(calcRoundPoints(raisedShinePoly, RAISE_RADIUS), RAISE_RESOLUTION);
+            const roundedRaisedShinePoints = approximate(
+                calcRoundPoints(raisedShinePoly, RAISE_RADIUS),
+                RAISE_RESOLUTION,
+            );
 
-            const raisedMultiPoly = xor([raisedBasePoly], [roundedRaisedShinePoints]);
-            const raised = raisedMultiPoly.flat(1).map((ring) => calcRoundPoints(ring.slice(1), RAISE_RADIUS));
+            const raisedMultiPoly = xor(
+                [raisedBasePoly],
+                [roundedRaisedShinePoints],
+            );
+            const raised = raisedMultiPoly
+                .flat(1)
+                .map((ring) => calcRoundPoints(ring.slice(1), RAISE_RADIUS));
             // Remove conrer artifacts.
-            const filteredRaised = raised.filter((points) => points.length > (2 + 1 / RAISE_RESOLUTION));
+            const filteredRaised = raised.filter(
+                (points) => points.length != 2 + 1 / RAISE_RESOLUTION,
+            );
+
+            // Calculate actual base shape.
+            let finalBaseMultiPoly = union([shinePoly], [basePoly],
+                [raisedBasePoly],
+                [roundedRaisedShinePoints]);
+            finalBaseMultiPoly.forEach((a) => a.forEach((ring) => debug.push(straightPath(ring))));
+            if (finalBaseMultiPoly.length > 1) throw "TODO split key";
+            if (finalBaseMultiPoly[0].length > 1) throw "TODO split key2";
+            const finalBasePoly = finalBaseMultiPoly[0][0].slice(1);
+            const roundedFinalBasePoints = calcRoundPoints(removeConcave(finalBasePoly), BASE_RADIUS);
+
+            debug.push(straightPath(removeConcave(finalBasePoly)))
 
             return (
                 <PlaneItem key={i} origin={[0, 0]} angle={0} position={p}>
                     <path
-                        d={roundedPath(basePoints)}
+                        d={roundedPath(roundedFinalBasePoints)}
                         stroke="orange"
                         strokeWidth={STROKE}
                         fill="white"
@@ -289,6 +364,15 @@ export const Demo = () => (
                         strokeWidth={STROKE}
                         fill="white"
                     />
+                    {false && debug.map((side, i) => (
+                        <path
+                            key={i+1234234234}
+                            d={side}
+                            stroke="red"
+                            strokeWidth={STROKE/4}
+                            fill="transparent"
+                        />
+                    ))}
                 </PlaneItem>
             );
         })}
