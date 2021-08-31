@@ -7,6 +7,7 @@ import {
     intersection,
     xor,
     Geom,
+    difference,
 } from "polygon-clipping";
 
 import {KeysetKeycap, Pair, Shape} from "../../internal/types/base";
@@ -53,7 +54,7 @@ const keys: KeysetKeycap[] = [
             stabilizers: [],
             stem: [1.25, 1],
         },
-        shelf: [{height: 0.75, width: 0.75, offset: [1,0.5]}],
+        shelf: [{height: 0.75, width: 0.75, offset: [1, 0.5]}],
         profile: {profile: "0.3359295944002527", row: "R1"},
         legend: {
             frontLegends: [],
@@ -209,19 +210,24 @@ const pad = (shapes: Shape[], padding: [number, number, number]): Shape[] => {
 };
 
 const removeConcave = (points: Pair[]): Pair[] => {
-    const concave: Record<number, boolean> = {};
-    for (let i = 0; i < points.length; i++) {
-        const current = points[i];
-        const before = points[(i+points.length-1)%points.length];
-        const after = points[(i+1)%points.length];
-        const angle = angleBetween(before, after, current);
-        console.log(angle);
-        if (angle < 0) {
-            concave[i] = true;
+    while (true) {
+        let found = false;
+        const concave: Record<number, boolean> = {};
+        for (let i = 0; i < points.length; i++) {
+            const current = points[i];
+            const before = points[(i + points.length - 1) % points.length];
+            const after = points[(i + 1) % points.length];
+            const angle = angleBetween(before, after, current);
+            if (angle < 0) {
+                concave[i] = true;
+                found = true;
+            }
         }
+        points = points.filter((_, i) => !concave[i]);
+        if (!found) break;
     }
-    return points.filter((_, i) => !concave[i]);
-}
+    return points;
+};
 
 const SHINE_RADIUS = 0.05;
 const BASE_RADIUS = 0.02;
@@ -275,26 +281,6 @@ export const Demo = () => (
             const shinePoly = shineMultiPoly[0][0].slice(1);
             const shinePoints = calcRoundPoints(shinePoly, SHINE_RADIUS);
 
-            // Calculate initial base points.
-            const baseMultiPoly = unionShape(key.key.shape);
-            if (baseMultiPoly.length > 1) throw "TODO split key";
-            if (baseMultiPoly[0].length > 1) throw "TODO split key2";
-            const basePoly = baseMultiPoly[0][0].slice(1);
-            const basePoints = calcRoundPoints(basePoly, BASE_RADIUS);
-
-            // Extend base to capture shine and raised overlap.
-            // TODO raised overlap.
-            // console.log(basePoints.length, shinePoints.length)
-            // if (basePoints.length === shinePoints.length) {
-            //     for (let i = 0; i < shinePoints.length; i++) {
-            //         const currentOuter = basePoints[i][1];
-            //         const nextOuter = basePoints[(i+1)%basePoints.length][1];
-            //         const currentInner = shinePoints[i][1];
-            //         const nextInner = shinePoints[(i+1)%basePoints.length][1];
-            //         debug.push(straightPath([currentOuter, nextOuter, nextInner, currentInner]));
-            //     }
-            // }
-
             // Calculate raised (non-shelft) portions.
             const raisedPadding: [number, number, number] = [
                 PAD_TOP * RAISE_RATIO,
@@ -329,17 +315,32 @@ export const Demo = () => (
                 (points) => points.length != 2 + 1 / RAISE_RESOLUTION,
             );
 
-            // Calculate actual base shape.
-            let finalBaseMultiPoly = union([shinePoly], [basePoly],
+            // Calculate base shape.
+            const baseMultiPoly = unionShape(key.key.shape);
+            if (baseMultiPoly.length > 1) throw "TODO split key";
+            if (baseMultiPoly[0].length > 1) throw "TODO split key2";
+            const basePoly = baseMultiPoly[0][0].slice(1);
+
+            let finalBaseMultiPoly = union(
+                [shinePoly],
+                [basePoly],
                 [raisedBasePoly],
-                [roundedRaisedShinePoints]);
-            finalBaseMultiPoly.forEach((a) => a.forEach((ring) => debug.push(straightPath(ring))));
+                [roundedRaisedShinePoints],
+            );
             if (finalBaseMultiPoly.length > 1) throw "TODO split key";
             if (finalBaseMultiPoly[0].length > 1) throw "TODO split key2";
             const finalBasePoly = finalBaseMultiPoly[0][0].slice(1);
-            const roundedFinalBasePoints = calcRoundPoints(removeConcave(finalBasePoly), BASE_RADIUS);
+            const roundedFinalBasePoints = calcRoundPoints(
+                removeConcave(finalBasePoly),
+                BASE_RADIUS,
+            );
 
-            debug.push(straightPath(removeConcave(finalBasePoly)))
+            // Calculate actual raise shape.
+            let a =difference([shinePoly], [roundedRaisedShinePoints]);
+            let finalRaiseMultiPoly = union(a, [roundedRaisedShinePoints]);
+            debug.push(straightPath((roundedRaisedShinePoints)));
+            a.forEach((poly) => poly.forEach((ring) => debug.push(straightPath(ring))));
+            finalRaiseMultiPoly.forEach((poly) => poly.forEach((ring) => debug.push(roundedPath(calcRoundPoints(removeConcave(ring), RAISE_RADIUS)))));
 
             return (
                 <PlaneItem key={i} origin={[0, 0]} angle={0} position={p}>
@@ -364,15 +365,16 @@ export const Demo = () => (
                         strokeWidth={STROKE}
                         fill="white"
                     />
-                    {false && debug.map((side, i) => (
-                        <path
-                            key={i+1234234234}
-                            d={side}
-                            stroke="red"
-                            strokeWidth={STROKE/4}
-                            fill="transparent"
-                        />
-                    ))}
+                    {true &&
+                        debug.map((side, i) => (
+                            <path
+                                key={i + 1234234234}
+                                d={side}
+                                stroke="red"
+                                strokeWidth={STROKE / 4}
+                                fill="transparent"
+                            />
+                        ))}
                 </PlaneItem>
             );
         })}
