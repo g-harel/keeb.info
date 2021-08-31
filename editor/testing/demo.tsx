@@ -266,7 +266,7 @@ export const Demo = () => (
         {keys.map((key, i) => {
             const p: Pair = [key.position[0] + 4, key.position[1]];
             const stepped = key.shelf && key.shelf.length > 0;
-            const debug: string[] = []; // TODO remove
+            const debug: [string, string][] = []; // [path, color] TODO remove
 
             // Calcualte shine points.
             const sourceShineShape = stepped ? key.shelf : key.key.shape;
@@ -338,9 +338,9 @@ export const Demo = () => (
             // Calculate actual raise shape.
             let a =difference([shinePoly], [roundedRaisedShinePoints]);
             let finalRaiseMultiPoly = union(a, [roundedRaisedShinePoints]);
-            debug.push(straightPath((roundedRaisedShinePoints)));
-            a.forEach((poly) => poly.forEach((ring) => debug.push(straightPath(ring))));
-            finalRaiseMultiPoly.forEach((poly) => poly.forEach((ring) => debug.push(roundedPath(calcRoundPoints(removeConcave(ring), RAISE_RADIUS)))));
+            debug.push([straightPath((roundedRaisedShinePoints)), "red"]);
+            a.forEach((poly) => poly.forEach((ring) => debug.push([straightPath(ring), "red"])));
+            finalRaiseMultiPoly.forEach((poly) => poly.forEach((ring) => debug.push([roundedPath(calcRoundPoints(removeConcave(ring), RAISE_RADIUS)), "pink"])));
 
             return (
                 <PlaneItem key={i} origin={[0, 0]} angle={0} position={p}>
@@ -366,11 +366,11 @@ export const Demo = () => (
                         fill="white"
                     />
                     {true &&
-                        debug.map((side, i) => (
+                        debug.map(([side, color], i) => (
                             <path
                                 key={i + 1234234234}
                                 d={side}
-                                stroke="red"
+                                stroke={color}
                                 strokeWidth={STROKE / 4}
                                 fill="transparent"
                             />
