@@ -236,7 +236,7 @@ const RAISE_RADIUS =
     Math.min(BASE_RADIUS, SHINE_RADIUS) +
     Math.abs(BASE_RADIUS - SHINE_RADIUS) * RAISE_RATIO;
 const RAISE_RESOLUTION = 1 / 10;
-const STROKE = 0.02;
+const STROKE = 0.01;
 const PAD_TOP = -1.65 * STROKE;
 const PAD_SIDE = 0.12;
 const PAD_BOTTOM = 2 * PAD_SIDE - PAD_TOP; // Keep top square.
@@ -268,7 +268,7 @@ export const Demo = () => (
             const stepped = key.shelf && key.shelf.length > 0;
             const debug: [string, string][] = []; // [path, color] TODO remove
 
-            // Calcualte shine points.
+            // Calculate shine points.
             const sourceShineShape = stepped ? key.shelf : key.key.shape;
             const shineShape = pad(sourceShineShape, [
                 PAD_TOP,
@@ -281,7 +281,7 @@ export const Demo = () => (
             const shinePoly = shineMultiPoly[0][0].slice(1);
             const shinePoints = calcRoundPoints(shinePoly, SHINE_RADIUS);
 
-            // Calculate raised (non-shelft) portions.
+            // Calculate raised (non-shelf) portions.
             const raisedPadding: [number, number, number] = [
                 PAD_TOP * RAISE_RATIO,
                 PAD_SIDE * RAISE_RATIO,
@@ -310,7 +310,7 @@ export const Demo = () => (
             const raised = raisedMultiPoly
                 .flat(1)
                 .map((ring) => calcRoundPoints(ring.slice(1), RAISE_RADIUS));
-            // Remove conrer artifacts.
+            // Remove corner artifacts.
             const filteredRaised = raised.filter(
                 (points) => points.length != 2 + 1 / RAISE_RESOLUTION,
             );
@@ -340,7 +340,7 @@ export const Demo = () => (
             let finalRaiseMultiPoly = union(a, [roundedRaisedShinePoints]);
             debug.push([straightPath((roundedRaisedShinePoints)), "red"]);
             a.forEach((poly) => poly.forEach((ring) => debug.push([straightPath(ring), "red"])));
-            finalRaiseMultiPoly.forEach((poly) => poly.forEach((ring) => debug.push([roundedPath(calcRoundPoints(removeConcave(ring), RAISE_RADIUS)), "pink"])));
+            finalRaiseMultiPoly.forEach((poly) => poly.forEach((ring) => debug.push([roundedPath(calcRoundPoints(removeConcave(ring), RAISE_RADIUS)), "green"])));
 
             return (
                 <PlaneItem key={i} origin={[0, 0]} angle={0} position={p}>
@@ -365,7 +365,7 @@ export const Demo = () => (
                         strokeWidth={STROKE}
                         fill="white"
                     />
-                    {true &&
+                    {false &&
                         debug.map(([side, color], i) => (
                             <path
                                 key={i + 1234234234}
