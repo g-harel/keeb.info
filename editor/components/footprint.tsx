@@ -5,7 +5,7 @@ import {rotateCoord} from "../../internal/measure";
 import * as c from "../cons";
 import {ReactProps} from "../../internal/types/util";
 import {Angle, Blank, Cartesian, Pair} from "../../internal/types/base";
-import {convertCartesiantToAngle} from "../../internal/convert";
+import {convertCartesianToAngle} from "../../internal/convert";
 
 export interface FootprintProps extends ReactProps {
     blank: Blank;
@@ -19,7 +19,7 @@ export const Footprint = (props: FootprintProps) => {
         // .darken(c.FOOTPRINT_COLOR_DARKEN)
         // .darken(c.FOOTPRINT_COLOR_DARKEN)
         .hex();
-    const angle = convertCartesiantToAngle(props.orientation) + 90;
+    const angle = convertCartesianToAngle(props.orientation) + 90;
     const rotate = (p: Pair): {cx: number; cy: number} => {
         const [cx, cy] = rotateCoord(p, props.blank.stem, angle);
         return {cx, cy};
@@ -80,7 +80,7 @@ export const Footprint = (props: FootprintProps) => {
                 r={c.CHERRY_POLE_RADIUS}
             />
             {props.blank.stabilizers.map((stabilizer, i) => {
-                const stabilizerAngle = convertCartesiantToAngle(
+                const stabilizerAngle = convertCartesianToAngle(
                     stabilizer.angle,
                 );
                 const startStem = stabilizer.offset;

@@ -2,7 +2,7 @@ import * as color from "color";
 import React from "react";
 
 import {resolveColor} from "../../internal/colors";
-import {convertCartesiantToAngle} from "../../internal/convert";
+import {convertCartesianToAngle} from "../../internal/convert";
 import {rotateCoord} from "../../internal/measure";
 import {
     Blank,
@@ -68,7 +68,7 @@ export const Mounts = (props: MountProps) => (
         {props.stem && <Stem coord={props.blank.stem} color={props.color} />}
         {props.stabs &&
             props.blank.stabilizers.map((stabilizer, i) => {
-                const angle = convertCartesiantToAngle(stabilizer.angle);
+                const angle = convertCartesianToAngle(stabilizer.angle);
                 const startStem = stabilizer.offset;
                 const endStem = rotateCoord(
                     [startStem[0] + stabilizer.length, startStem[1]],

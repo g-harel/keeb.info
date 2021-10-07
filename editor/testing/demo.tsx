@@ -10,7 +10,7 @@ import {
     difference,
 } from "polygon-clipping";
 
-import {KeysetKeycap, Pair, Shape} from "../../internal/types/base";
+import {KeysetKeycap, Pair, QuadPoint, Shape} from "../../internal/types/base";
 import {Key} from "../components/key";
 import {Plane, PlaneItem} from "../components/plane";
 import {unionShape} from "../../internal/measure";
@@ -123,11 +123,8 @@ const angleBetween = (a: Pair, b: Pair, center: Pair): number => {
     return Math.atan2(dAx * dBy - dAy * dBx, dAx * dBx + dAy * dBy);
 };
 
-// Rounded corner using a quadratic bezier.
-type RoundedPoint = [Pair, Pair, Pair];
-
-const calcRoundPoints = (shape: Pair[], radius: number): RoundedPoint[] => {
-    const points: RoundedPoint[] = [];
+const calcRoundPoints = (shape: Pair[], radius: number): QuadPoint[] => {
+    const points: QuadPoint[] = [];
     const safePoly = [shape[shape.length - 1], ...shape, shape[0]];
     for (let i = 1; i < safePoly.length - 1; i++) {
         const before = safePoly[i - 1];
@@ -164,7 +161,7 @@ export const splitLine = (percentage: number, a: Pair, b: Pair): Pair => {
     return [split(percentage, a[0], b[0]), split(percentage, a[1], b[1])];
 };
 
-const approximate = (rounded: RoundedPoint[], resolution: number): Pair[] => {
+const approximate = (rounded: QuadPoint[], resolution: number): Pair[] => {
     const points: Pair[] = [];
     for (const point of rounded) {
         const [p0, p1, p2] = point;
@@ -187,7 +184,7 @@ const straightPath = (points: Pair[]): string => {
     return path;
 };
 
-const roundedPath = (points: RoundedPoint[]): string => {
+const roundedPath = (points: QuadPoint[]): string => {
     let path = "";
     for (let i = 0; i < points.length; i++) {
         const [rStart, point, rEnd] = points[i];
@@ -336,11 +333,22 @@ export const Demo = () => (
             );
 
             // Calculate actual raise shape.
-            let a =difference([shinePoly], [roundedRaisedShinePoints]);
+            let a = difference([shinePoly], [roundedRaisedShinePoints]);
             let finalRaiseMultiPoly = union(a, [roundedRaisedShinePoints]);
-            debug.push([straightPath((roundedRaisedShinePoints)), "red"]);
-            a.forEach((poly) => poly.forEach((ring) => debug.push([straightPath(ring), "red"])));
-            finalRaiseMultiPoly.forEach((poly) => poly.forEach((ring) => debug.push([roundedPath(calcRoundPoints(removeConcave(ring), RAISE_RADIUS)), "green"])));
+            debug.push([straightPath(roundedRaisedShinePoints), "red"]);
+            a.forEach((poly) =>
+                poly.forEach((ring) => debug.push([straightPath(ring), "red"])),
+            );
+            finalRaiseMultiPoly.forEach((poly) =>
+                poly.forEach((ring) =>
+                    debug.push([
+                        roundedPath(
+                            calcRoundPoints(removeConcave(ring), RAISE_RADIUS),
+                        ),
+                        "green",
+                    ]),
+                ),
+            );
 
             return (
                 <PlaneItem key={i} origin={[0, 0]} angle={0} position={p}>

@@ -115,7 +115,7 @@ export const convertKLEToKeysetKit = (raw: any): Keyset => {
     };
 };
 
-export const convertCartesiantToAngle = (c: Cartesian): Angle => {
+export const convertCartesianToAngle = (c: Cartesian): Angle => {
     let angle = 0;
     if (c[0]) angle -= 90;
     if (c[1]) angle += 180;
