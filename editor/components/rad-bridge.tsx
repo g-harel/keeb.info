@@ -26,6 +26,16 @@ export const split = (percentage: number, a: number, b: number): number => {
 export const splitLine = (percentage: number, a: Pair, b: Pair): Pair => {
     return [split(percentage, a[0], b[0]), split(percentage, a[1], b[1])];
 };
+const roundedPath = (points: QuadPoint[]): string => {
+    let path = "";
+    for (let i = 0; i < points.length; i++) {
+        const [rStart, point, rEnd] = points[i];
+        path += `${i === 0 ? "M" : "L"} ${rStart[0]} ${rStart[1]} `;
+        path += `Q ${point[0]} ${point[1]} ${rEnd[0]} ${rEnd[1]} `;
+    }
+    // path += "Z";
+    return path;
+};
 
 const splitQuadCurve = (point: QuadPoint, percentage: number): Pair => {
     const [p0, p1, p2] = point;
@@ -37,6 +47,15 @@ const splitQuadCurve = (point: QuadPoint, percentage: number): Pair => {
 };
 
 export const RadBridge = (props: RadBridgeProps) => {
+    const up = props.direction[0] ? 1 : -1;
+    const right = props.direction[1] ? 1 : -1;
+
+    const newProps: Partial<RadBridgeProps> = {};
+    newProps.color = "red";
+    newProps.quadA = [[props.a[0], props.a[1] + -up * props.aRadius], props.a, [props.a[0] + -right * props.aRadius, props.a[1]]];
+    newProps.quadB = [[props.b[0], props.b[1] + -up * props.bRadius], props.b, [props.b[0] + -right * props.bRadius, props.b[1]]];
+    props = Object.assign({}, props, newProps);
+
     if (props.quadA && props.quadB) {
         // TODO Return nothing if equal.
         const A = props.quadA;
@@ -61,12 +80,21 @@ export const RadBridge = (props: RadBridgeProps) => {
                         strokeWidth={props.width / 1.4}
                     />
                 ))}
+                <path
+                    d={roundedPath([props.quadA])}
+                    stroke="blue"
+                    strokeWidth={props.width / 1.4}
+                    fill="none"
+                />
+                <path
+                    d={roundedPath([props.quadB])}
+                    stroke="blue"
+                    strokeWidth={props.width / 1.4}
+                    fill="none"
+                />
             </>
         );
     }
-
-    const up = props.direction[0] ? 1 : -1;
-    const right = props.direction[1] ? 1 : -1;
     return (
         <>
             <line
