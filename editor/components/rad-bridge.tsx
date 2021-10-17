@@ -52,12 +52,27 @@ export const RadBridge = (props: RadBridgeProps) => {
 
     const newProps: Partial<RadBridgeProps> = {};
     newProps.color = "red";
-    newProps.quadA = [[props.a[0], props.a[1] + -up * props.aRadius], props.a, [props.a[0] + -right * props.aRadius, props.a[1]]];
-    newProps.quadB = [[props.b[0], props.b[1] + -up * props.bRadius], props.b, [props.b[0] + -right * props.bRadius, props.b[1]]];
+    newProps.quadA = [
+        [props.a[0], props.a[1] + -up * props.aRadius],
+        props.a,
+        [props.a[0] + -right * props.aRadius, props.a[1]],
+    ];
+    newProps.quadB = [
+        [props.b[0], props.b[1] + -up * props.bRadius],
+        props.b,
+        [props.b[0] + -right * props.bRadius, props.b[1]],
+    ];
     props = Object.assign({}, props, newProps);
 
     if (props.quadA && props.quadB) {
-        // TODO Return nothing if equal.
+        if (
+            props.quadA[0] === props.quadB[0] &&
+            props.quadA[1] === props.quadB[1] &&
+            props.quadA[2] === props.quadB[2]
+        ) {
+            return <></>;
+        }
+
         const A = props.quadA;
         const B = props.quadB;
         const lines: [Pair, Pair][] = [];
