@@ -14,6 +14,7 @@ import {KeysetKeycap, Pair, QuadPoint, Shape} from "../../internal/types/base";
 import {Key} from "../components/key";
 import {Plane, PlaneItem} from "../components/plane";
 import {unionShape} from "../../internal/measure";
+import {RadBridge} from "../components/rad-bridge";
 
 const keys: KeysetKeycap[] = [
     {
@@ -350,6 +351,7 @@ export const Demo = () => (
                 ),
             );
 
+            // TODO keep track of "original point" and make rad bridge between.
             return (
                 <PlaneItem key={i} origin={[0, 0]} angle={0} position={p}>
                     <path
@@ -367,6 +369,17 @@ export const Demo = () => (
                             fill="white"
                         />
                     ))}
+                    {roundedFinalBasePoints.length === shinePoints.length &&
+                        roundedFinalBasePoints.map((p, i) => (
+                            <RadBridge
+                                key={i}
+                                quadA={p}
+                                quadB={shinePoints[i]}
+                                color="red"
+                                width={STROKE}
+                                {...({} as any)}
+                            />
+                        ))}
                     <path
                         d={roundedPath(shinePoints)}
                         stroke="blue"

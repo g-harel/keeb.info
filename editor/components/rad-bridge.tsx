@@ -47,23 +47,6 @@ const splitQuadCurve = (point: QuadPoint, percentage: number): Pair => {
 };
 
 export const RadBridge = (props: RadBridgeProps) => {
-    const up = props.direction[0] ? 1 : -1;
-    const right = props.direction[1] ? 1 : -1;
-
-    const newProps: Partial<RadBridgeProps> = {};
-    newProps.color = "red";
-    newProps.quadA = [
-        [props.a[0], props.a[1] + -up * props.aRadius],
-        props.a,
-        [props.a[0] + -right * props.aRadius, props.a[1]],
-    ];
-    newProps.quadB = [
-        [props.b[0], props.b[1] + -up * props.bRadius],
-        props.b,
-        [props.b[0] + -right * props.bRadius, props.b[1]],
-    ];
-    props = Object.assign({}, props, newProps);
-
     if (props.quadA && props.quadB) {
         if (
             props.quadA[0] === props.quadB[0] &&
@@ -85,13 +68,14 @@ export const RadBridge = (props: RadBridgeProps) => {
         }
         return (
             <>
-                {lines.map((l) => (
+                {lines.map((l, i) => (
                     <line
+                        key={i}
                         x1={l[0][0]}
                         y1={l[0][1]}
                         x2={l[1][0]}
                         y2={l[1][1]}
-                        stroke={props.color}
+                        stroke="cyan"
                         strokeWidth={props.width / 1.4}
                     />
                 ))}
@@ -110,6 +94,24 @@ export const RadBridge = (props: RadBridgeProps) => {
             </>
         );
     }
+
+    const up = props.direction[0] ? 1 : -1;
+    const right = props.direction[1] ? 1 : -1;
+
+    const newProps: Partial<RadBridgeProps> = {};
+    newProps.color = "red";
+    newProps.quadA = [
+        [props.a[0], props.a[1] + -up * props.aRadius],
+        props.a,
+        [props.a[0] + -right * props.aRadius, props.a[1]],
+    ];
+    newProps.quadB = [
+        [props.b[0], props.b[1] + -up * props.bRadius],
+        props.b,
+        [props.b[0] + -right * props.bRadius, props.b[1]],
+    ];
+    props = Object.assign({}, props, newProps);
+
     return (
         <>
             <line
