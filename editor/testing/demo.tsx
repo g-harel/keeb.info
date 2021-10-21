@@ -207,12 +207,20 @@ const pad = (shapes: Shape[], padding: [number, number, number]): Shape[] => {
     }));
 };
 
-const removeConcave = (points: Pair[]): Pair[] => {
+const removeConcave = (points: Pair[], ignore: Pair[]): Pair[] => {
     while (true) {
         let found = false;
         const concave: Record<number, boolean> = {};
         for (let i = 0; i < points.length; i++) {
             const current = points[i];
+            let ignorePoint = false;
+            for (const ignored of ignore) {
+                if (current[0] === ignored[0] && current[1] === ignored[1]) {
+                    ignorePoint = true;
+                    continue;
+                }
+            }
+            if (ignorePoint) continue;
             const before = points[(i + points.length - 1) % points.length];
             const after = points[(i + 1) % points.length];
             const angle = angleBetween(before, after, current);
@@ -241,9 +249,9 @@ const STEP_RADIUS =
     Math.abs(BASE_RADIUS - SHINE_RADIUS) * STEP_RATIO;
 const STEP_RESOLUTION = 1 / 10;
 const STROKE = 0.01;
-const PAD_TOP = -3 * STROKE;
+const PAD_TOP = -0.2;
 const PAD_SIDE = 0.12;
-const PAD_BOTTOM = 2 * PAD_SIDE - PAD_TOP; // Keep shine square.
+const PAD_BOTTOM = 0.38;
 const STEP_PADDING: [number, number, number] = [
     PAD_TOP * STEP_RATIO,
     PAD_SIDE * STEP_RATIO,
@@ -282,56 +290,55 @@ export const Demo = () => (
             // Sharp key base.
             const rawBase = sh(unionAll(key.key.shape));
 
+            // Sharp shine outer edge.
+            const rawStep = sh(unionAll(pad(key.key.shape, STEP_PADDING)));
+
             // Sharp shine shape.
             const rawShine = sh(unionAll(pad(shineShape, SHINE_PADDING)));
 
-            // Sharp corner between step and shine.
+            // Sharp shine inner edge.
             const rawShineBase = sh(unionAll(pad(shineShape, STEP_PADDING)));
 
+            // Rounded border around the key.
+            const finalBase = removeConcave(
+                sh(
+                    union(
+                        [
+                            approximate(
+                                calcRoundPoints(rawBase, BASE_RADIUS),
+                                STEP_RESOLUTION,
+                            ),
+                        ],
+                        [
+                            approximate(
+                                calcRoundPoints(rawStep, STEP_RADIUS),
+                                STEP_RESOLUTION,
+                            ),
+                        ],
+                        [
+                            approximate(
+                                calcRoundPoints(rawShine, SHINE_RADIUS),
+                                STEP_RESOLUTION,
+                            ),
+                        ],
+                        [
+                            approximate(
+                                calcRoundPoints(rawShineBase, STEP_RADIUS),
+                                STEP_RESOLUTION,
+                            ),
+                        ],
+                    ),
+                ),
+                rawShineBase,
+            );
+
             debug.push([straightPath(rawBase), "hotpink"]);
+            debug.push([straightPath(rawStep), "hotpink"]);
             debug.push([straightPath(rawShine), "hotpink"]);
             debug.push([straightPath(rawShineBase), "hotpink"]);
 
             // TODO protect some corners when removing concave.
-            debug.push([
-                straightPath(
-                    removeConcave(
-                        sh(
-                            union(
-                                [
-                                    approximate(
-                                        calcRoundPoints(rawBase, STEP_RADIUS),
-                                        STEP_RESOLUTION,
-                                    ),
-                                ],
-                                [
-                                    approximate(
-                                        calcRoundPoints(rawShine, STEP_RADIUS),
-                                        STEP_RESOLUTION,
-                                    ),
-                                ],
-                                [
-                                    approximate(
-                                        calcRoundPoints(
-                                            rawShineBase,
-                                            STEP_RADIUS,
-                                        ),
-                                        STEP_RESOLUTION,
-                                    ),
-                                ],
-                            ),
-                        ),
-                    ),
-                ),
-                "cyan",
-            ]);
-
-            // debug.push([
-            //     roundedPath(
-            //         calcRoundPoints(removeConcave(ring), STEP_RADIUS),
-            //     ),
-            //     "hotpink",
-            // ]);
+            debug.push([straightPath(finalBase), "brown"]);
 
             const roundedStepShinePoints = approximate(
                 calcRoundPoints(rawShineBase, STEP_RADIUS),
@@ -358,7 +365,7 @@ export const Demo = () => (
             );
             // debug.push([straightPath(finalBasePoly), "cyan"]);
             const roundedFinalBasePoints = calcRoundPoints(
-                removeConcave(finalBasePoly),
+                removeConcave(finalBasePoly, []),
                 BASE_RADIUS,
             );
 
@@ -384,7 +391,7 @@ export const Demo = () => (
             return (
                 <PlaneItem key={i} origin={[0, 0]} angle={0} position={p}>
                     <path
-                        d={roundedPath(roundedFinalBasePoints)}
+                        d={straightPath(finalBase)}
                         stroke="orange"
                         strokeWidth={STROKE}
                         fill="white"
@@ -415,7 +422,7 @@ export const Demo = () => (
                         strokeWidth={STROKE}
                         fill="white"
                     />
-                    {true &&
+                    {false &&
                         debug.map(([side, color], i) => (
                             <path
                                 key={i + 1234234234}
