@@ -13,7 +13,7 @@ import {
 import {KeysetKeycap, Pair, QuadPoint, Shape} from "../../internal/types/base";
 import {Key} from "../components/key";
 import {Plane, PlaneItem} from "../components/plane";
-import {unionShape} from "../../internal/measure";
+import {unionAll} from "../../internal/measure";
 import {RadBridge} from "../components/rad-bridge";
 
 const keys: KeysetKeycap[] = [
@@ -227,17 +227,29 @@ const removeConcave = (points: Pair[]): Pair[] => {
     return points;
 };
 
+const sh = (m: MultiPolygon): Pair[] => {
+    if (m.length > 1) throw "TODO split";
+    if (m[0].length > 1) throw "TODO split";
+    return m[0][0].slice(1);
+};
+
 const SHINE_RADIUS = 0.05;
 const BASE_RADIUS = 0.02;
-const RAISE_RATIO = 0.6;
-const RAISE_RADIUS =
+const STEP_RATIO = 0.6;
+const STEP_RADIUS =
     Math.min(BASE_RADIUS, SHINE_RADIUS) +
-    Math.abs(BASE_RADIUS - SHINE_RADIUS) * RAISE_RATIO;
-const RAISE_RESOLUTION = 1 / 10;
+    Math.abs(BASE_RADIUS - SHINE_RADIUS) * STEP_RATIO;
+const STEP_RESOLUTION = 1 / 10;
 const STROKE = 0.01;
-const PAD_TOP = -1.65 * STROKE;
+const PAD_TOP = -3 * STROKE;
 const PAD_SIDE = 0.12;
-const PAD_BOTTOM = 2 * PAD_SIDE - PAD_TOP; // Keep top square.
+const PAD_BOTTOM = 2 * PAD_SIDE - PAD_TOP; // Keep shine square.
+const STEP_PADDING: [number, number, number] = [
+    PAD_TOP * STEP_RATIO,
+    PAD_SIDE * STEP_RATIO,
+    PAD_BOTTOM * STEP_RATIO,
+];
+const SHINE_PADDING: [number, number, number] = [PAD_TOP, PAD_SIDE, PAD_BOTTOM];
 
 export const Demo = () => (
     <Plane pixelWidth={1200} unitSize={[10, 4]}>
@@ -264,92 +276,109 @@ export const Demo = () => (
         {keys.map((key, i) => {
             const p: Pair = [key.position[0] + 4, key.position[1]];
             const stepped = key.shelf && key.shelf.length > 0;
+            const shineShape = stepped ? key.shelf : key.key.shape;
             const debug: [string, string][] = []; // [path, color] TODO remove
 
-            // Calculate shine points.
-            const sourceShineShape = stepped ? key.shelf : key.key.shape;
-            const shineShape = pad(sourceShineShape, [
-                PAD_TOP,
-                PAD_SIDE,
-                PAD_BOTTOM,
+            // Sharp key base.
+            const rawBase = sh(unionAll(key.key.shape));
+
+            // Sharp shine shape.
+            const rawShine = sh(unionAll(pad(shineShape, SHINE_PADDING)));
+
+            // Sharp corner between step and shine.
+            const rawShineBase = sh(unionAll(pad(shineShape, STEP_PADDING)));
+
+            debug.push([straightPath(rawBase), "hotpink"]);
+            debug.push([straightPath(rawShine), "hotpink"]);
+            debug.push([straightPath(rawShineBase), "hotpink"]);
+
+            // TODO protect some corners when removing concave.
+            debug.push([
+                straightPath(
+                    removeConcave(
+                        sh(
+                            union(
+                                [
+                                    approximate(
+                                        calcRoundPoints(rawBase, STEP_RADIUS),
+                                        STEP_RESOLUTION,
+                                    ),
+                                ],
+                                [
+                                    approximate(
+                                        calcRoundPoints(rawShine, STEP_RADIUS),
+                                        STEP_RESOLUTION,
+                                    ),
+                                ],
+                                [
+                                    approximate(
+                                        calcRoundPoints(
+                                            rawShineBase,
+                                            STEP_RADIUS,
+                                        ),
+                                        STEP_RESOLUTION,
+                                    ),
+                                ],
+                            ),
+                        ),
+                    ),
+                ),
+                "cyan",
             ]);
-            const shineMultiPoly = unionShape(shineShape);
-            if (shineMultiPoly.length > 1) throw "TODO split key";
-            if (shineMultiPoly[0].length > 1) throw "TODO split key2";
-            const shinePoly = shineMultiPoly[0][0].slice(1);
-            const shinePoints = calcRoundPoints(shinePoly, SHINE_RADIUS);
 
-            // Calculate raised (non-shelf) portions.
-            const raisedPadding: [number, number, number] = [
-                PAD_TOP * RAISE_RATIO,
-                PAD_SIDE * RAISE_RATIO,
-                PAD_BOTTOM * RAISE_RATIO,
-            ];
-            const raisedBase = pad(key.key.shape, raisedPadding);
-            const raisedBaseMultiPoly = unionShape(raisedBase);
-            if (raisedBaseMultiPoly.length > 1) throw "TODO split key";
-            if (raisedBaseMultiPoly[0].length > 1) throw "TODO split key2";
-            const raisedBasePoly = raisedBaseMultiPoly[0][0].slice(1);
+            // debug.push([
+            //     roundedPath(
+            //         calcRoundPoints(removeConcave(ring), STEP_RADIUS),
+            //     ),
+            //     "hotpink",
+            // ]);
 
-            const raisedShine = pad(sourceShineShape, raisedPadding);
-            const raisedShineMultiPoly = unionShape(raisedShine);
-            if (raisedShineMultiPoly.length > 1) throw "TODO split key";
-            if (raisedShineMultiPoly[0].length > 1) throw "TODO split key2";
-            const raisedShinePoly = raisedShineMultiPoly[0][0].slice(1);
-            const roundedRaisedShinePoints = approximate(
-                calcRoundPoints(raisedShinePoly, RAISE_RADIUS),
-                RAISE_RESOLUTION,
+            const roundedStepShinePoints = approximate(
+                calcRoundPoints(rawShineBase, STEP_RADIUS),
+                STEP_RESOLUTION,
             );
-
-            const raisedMultiPoly = xor(
-                [raisedBasePoly],
-                [roundedRaisedShinePoints],
-            );
-            const raised = raisedMultiPoly
+            const stepBasePoly = sh(unionAll(pad(key.key.shape, STEP_PADDING)));
+            const stepMultiPoly = xor([stepBasePoly], [roundedStepShinePoints]);
+            const step = stepMultiPoly
                 .flat(1)
-                .map((ring) => calcRoundPoints(ring.slice(1), RAISE_RADIUS));
+                .map((ring) => calcRoundPoints(ring.slice(1), STEP_RADIUS));
             // Remove corner artifacts.
-            const filteredRaised = raised.filter(
-                (points) => points.length != 2 + 1 / RAISE_RESOLUTION,
+            const filteredStep = step.filter(
+                (points) => points.length != 2 + 1 / STEP_RESOLUTION,
             );
 
-            // Calculate base shape.
-            const baseMultiPoly = unionShape(key.key.shape);
-            if (baseMultiPoly.length > 1) throw "TODO split key";
-            if (baseMultiPoly[0].length > 1) throw "TODO split key2";
-            const basePoly = baseMultiPoly[0][0].slice(1);
-
-            let finalBaseMultiPoly = union(
-                [shinePoly],
-                [basePoly],
-                [raisedBasePoly],
-                [roundedRaisedShinePoints],
+            const shinePoints = calcRoundPoints(rawShine, SHINE_RADIUS);
+            const finalBasePoly = sh(
+                union(
+                    [approximate(shinePoints, STEP_RESOLUTION)],
+                    [rawBase],
+                    [stepBasePoly],
+                    [roundedStepShinePoints],
+                ),
             );
-            if (finalBaseMultiPoly.length > 1) throw "TODO split key";
-            if (finalBaseMultiPoly[0].length > 1) throw "TODO split key2";
-            const finalBasePoly = finalBaseMultiPoly[0][0].slice(1);
+            // debug.push([straightPath(finalBasePoly), "cyan"]);
             const roundedFinalBasePoints = calcRoundPoints(
                 removeConcave(finalBasePoly),
                 BASE_RADIUS,
             );
 
-            // Calculate actual raise shape.
-            let a = difference([shinePoly], [roundedRaisedShinePoints]);
-            let finalRaiseMultiPoly = union(a, [roundedRaisedShinePoints]);
-            debug.push([straightPath(roundedRaisedShinePoints), "red"]);
-            a.forEach((poly) =>
-                poly.forEach((ring) => debug.push([straightPath(ring), "red"])),
-            );
-            finalRaiseMultiPoly.forEach((poly) =>
-                poly.forEach((ring) =>
-                    debug.push([
-                        roundedPath(
-                            calcRoundPoints(removeConcave(ring), RAISE_RADIUS),
-                        ),
-                        "green",
-                    ]),
-                ),
-            );
+            // Calculate actual step shape.
+            // let a = difference([shinePoly], [roundedStepShinePoints]);
+            // let finalStepMultiPoly = union(a, [roundedStepShinePoints]);
+            // debug.push([straightPath(roundedStepShinePoints), "red"]);
+            // a.forEach((poly) =>
+            //     poly.forEach((ring) => debug.push([straightPath(ring), "red"])),
+            // );
+            // finalStepMultiPoly.forEach((poly) =>
+            //     poly.forEach((ring) =>
+            //         debug.push([
+            //             roundedPath(
+            //                 calcRoundPoints(removeConcave(ring), STEP_RADIUS),
+            //             ),
+            //             "green",
+            //         ]),
+            //     ),
+            // );
 
             // TODO keep track of "original point" and make rad bridge between.
             return (
@@ -360,7 +389,7 @@ export const Demo = () => (
                         strokeWidth={STROKE}
                         fill="white"
                     />
-                    {filteredRaised.map((points, i) => (
+                    {filteredStep.map((points, i) => (
                         <path
                             key={i}
                             d={roundedPath(points)}
@@ -369,7 +398,7 @@ export const Demo = () => (
                             fill="white"
                         />
                     ))}
-                    {roundedFinalBasePoints.length === shinePoints.length &&
+                    {roundedFinalBasePoints.length <= shinePoints.length &&
                         roundedFinalBasePoints.map((p, i) => (
                             <RadBridge
                                 key={i}
@@ -386,7 +415,7 @@ export const Demo = () => (
                         strokeWidth={STROKE}
                         fill="white"
                     />
-                    {false &&
+                    {true &&
                         debug.map(([side, color], i) => (
                             <path
                                 key={i + 1234234234}
