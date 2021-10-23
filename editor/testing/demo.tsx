@@ -124,7 +124,7 @@ const angleBetween = (a: Pair, b: Pair, center: Pair): number => {
     return Math.atan2(dAx * dBy - dAy * dBx, dAx * dBx + dAy * dBy);
 };
 
-const calcRoundPoints = (shape: Pair[], radius: number): QuadPoint[] => {
+const round = (shape: Pair[], radius: number): QuadPoint[] => {
     const points: QuadPoint[] = [];
     const safePoly = [shape[shape.length - 1], ...shape, shape[0]];
     for (let i = 1; i < safePoly.length - 1; i++) {
@@ -162,7 +162,7 @@ export const splitLine = (percentage: number, a: Pair, b: Pair): Pair => {
     return [split(percentage, a[0], b[0]), split(percentage, a[1], b[1])];
 };
 
-const approximate = (rounded: QuadPoint[], resolution: number): Pair[] => {
+const approx = (rounded: QuadPoint[], resolution: number): Pair[] => {
     const points: Pair[] = [];
     for (const point of rounded) {
         const [p0, p1, p2] = point;
@@ -236,18 +236,18 @@ const removeConcave = (points: Pair[], ignore: Pair[]): Pair[] => {
 };
 
 const sh = (m: MultiPolygon): Pair[] => {
+    if (m.length === 0) return [];
     if (m.length > 1) throw "TODO split";
     if (m[0].length > 1) throw "TODO split";
     return m[0][0].slice(1);
 };
 
-const SHINE_RADIUS = 0.05;
-const BASE_RADIUS = 0.02;
-const STEP_RATIO = 0.6;
-const STEP_RADIUS =
-    Math.min(BASE_RADIUS, SHINE_RADIUS) +
-    Math.abs(BASE_RADIUS - SHINE_RADIUS) * STEP_RATIO;
-const STEP_RESOLUTION = 1 / 10;
+const STEP_RATIO = 0.5;
+const R_SHINE = 0.05;
+const R_BASE = 0.02;
+const R_STEP =
+    Math.min(R_BASE, R_SHINE) + Math.abs(R_BASE - R_SHINE) * STEP_RATIO;
+const RES = 1 / 5;
 const STROKE = 0.01;
 const PAD_TOP = -0.2;
 const PAD_SIDE = 0.12;
@@ -258,6 +258,7 @@ const STEP_PADDING: [number, number, number] = [
     PAD_BOTTOM * STEP_RATIO,
 ];
 const SHINE_PADDING: [number, number, number] = [PAD_TOP, PAD_SIDE, PAD_BOTTOM];
+const DEBUG = true;
 
 export const Demo = () => (
     <Plane pixelWidth={1200} unitSize={[10, 4]}>
@@ -290,89 +291,63 @@ export const Demo = () => (
             // Sharp key base.
             const rawBase = sh(unionAll(key.key.shape));
 
-            // Sharp shine outer edge.
+            // Shine outer edge.
             const rawStep = sh(unionAll(pad(key.key.shape, STEP_PADDING)));
+            const roundStep = round(rawStep, R_STEP);
+            const approxStep = approx(roundStep, RES);
 
             // Sharp shine shape.
             const rawShine = sh(unionAll(pad(shineShape, SHINE_PADDING)));
+            const roundShine = round(rawShine, R_SHINE);
 
-            // Sharp shine inner edge.
+            // Shine inner edge.
             const rawShineBase = sh(unionAll(pad(shineShape, STEP_PADDING)));
+            const roundShineBase = round(rawShineBase, R_STEP);
+            const approxShineBase = approx(roundShineBase, RES);
 
             // Rounded border around the key.
+            // TODO handle intersecting shine base.
             const finalBase = removeConcave(
                 sh(
                     union(
-                        [
-                            approximate(
-                                calcRoundPoints(rawBase, BASE_RADIUS),
-                                STEP_RESOLUTION,
-                            ),
-                        ],
-                        [
-                            approximate(
-                                calcRoundPoints(rawStep, STEP_RADIUS),
-                                STEP_RESOLUTION,
-                            ),
-                        ],
-                        [
-                            approximate(
-                                calcRoundPoints(rawShine, SHINE_RADIUS),
-                                STEP_RESOLUTION,
-                            ),
-                        ],
-                        [
-                            approximate(
-                                calcRoundPoints(rawShineBase, STEP_RADIUS),
-                                STEP_RESOLUTION,
-                            ),
-                        ],
+                        [approx(round(rawBase, R_BASE), RES)],
+                        [approxStep],
+                        [approx(round(rawShine, R_SHINE), RES)],
+                        [approxShineBase],
                     ),
                 ),
                 rawShineBase,
             );
 
-            debug.push([straightPath(rawBase), "hotpink"]);
-            debug.push([straightPath(rawStep), "hotpink"]);
-            debug.push([straightPath(rawShine), "hotpink"]);
-            debug.push([straightPath(rawShineBase), "hotpink"]);
+            // debug.push([straightPath(rawBase), "red"]);
+            // debug.push([straightPath(rawStep), "red"]);
+            // debug.push([straightPath(rawShine), "red"]);
+            // debug.push([straightPath(rawShineBase), "red"]);
+            // debug.push([straightPath(approxStep), "blue"]);
+            // debug.push([straightPath(approxShineBase), "blue"]);
+            // debug.push([straightPath(finalBase), "blue"]);
 
-            // TODO protect some corners when removing concave.
-            debug.push([straightPath(finalBase), "brown"]);
-
-            const roundedStepShinePoints = approximate(
-                calcRoundPoints(rawShineBase, STEP_RADIUS),
-                STEP_RESOLUTION,
-            );
-            const stepBasePoly = sh(unionAll(pad(key.key.shape, STEP_PADDING)));
-            const stepMultiPoly = xor([stepBasePoly], [roundedStepShinePoints]);
-            const step = stepMultiPoly
+            // TODO expand shine base to avoid artifacts.
+            const stepMultiPoly = xor([approxStep], [approxShineBase])
                 .flat(1)
-                .map((ring) => calcRoundPoints(ring.slice(1), STEP_RADIUS));
-            // Remove corner artifacts.
-            const filteredStep = step.filter(
-                (points) => points.length != 2 + 1 / STEP_RESOLUTION,
+                .map((r) => r.slice(1));
+            stepMultiPoly.forEach((m) =>
+                debug.push([straightPath(m), "green"]),
             );
-
-            const shinePoints = calcRoundPoints(rawShine, SHINE_RADIUS);
-            const finalBasePoly = sh(
-                union(
-                    [approximate(shinePoints, STEP_RESOLUTION)],
-                    [rawBase],
-                    [stepBasePoly],
-                    [roundedStepShinePoints],
-                ),
-            );
-            // debug.push([straightPath(finalBasePoly), "cyan"]);
-            const roundedFinalBasePoints = calcRoundPoints(
-                removeConcave(finalBasePoly, []),
-                BASE_RADIUS,
-            );
+            // console.log(stepMultiPoly);
+            // // debug.push([straightPath(sh(stepMultiPoly)), "purple"]);
+            // const step = stepMultiPoly
+            //     .flat(1)
+            //     .map((ring) => round(ring.slice(1), R_STEP));
+            // // Remove corner artifacts.
+            // const filteredStep = step.filter(
+            //     (points) => points.length != 2 + 1 / RES,
+            // );
 
             // Calculate actual step shape.
-            // let a = difference([shinePoly], [roundedStepShinePoints]);
-            // let finalStepMultiPoly = union(a, [roundedStepShinePoints]);
-            // debug.push([straightPath(roundedStepShinePoints), "red"]);
+            // let a = difference([shinePoly], [approxShineBase]);
+            // let finalStepMultiPoly = union(a, [approxShineBase]);
+            // debug.push([straightPath(approxShineBase), "red"]);
             // a.forEach((poly) =>
             //     poly.forEach((ring) => debug.push([straightPath(ring), "red"])),
             // );
@@ -392,37 +367,37 @@ export const Demo = () => (
                 <PlaneItem key={i} origin={[0, 0]} angle={0} position={p}>
                     <path
                         d={straightPath(finalBase)}
-                        stroke="orange"
+                        stroke="lightgrey"
                         strokeWidth={STROKE}
                         fill="white"
                     />
-                    {filteredStep.map((points, i) => (
+                    {/* {filteredStep.map((points, i) => (
                         <path
                             key={i}
                             d={roundedPath(points)}
-                            stroke="green"
+                            stroke="darkgrey"
                             strokeWidth={STROKE}
                             fill="white"
                         />
-                    ))}
-                    {roundedFinalBasePoints.length <= shinePoints.length &&
+                    ))} */}
+                    {/* {roundedFinalBasePoints.length <= roundShine.length &&
                         roundedFinalBasePoints.map((p, i) => (
                             <RadBridge
                                 key={i}
                                 quadA={p}
-                                quadB={shinePoints[i]}
+                                quadB={roundShine[i]}
                                 color="red"
                                 width={STROKE}
                                 {...({} as any)}
                             />
-                        ))}
+                        ))} */}
                     <path
-                        d={roundedPath(shinePoints)}
-                        stroke="blue"
+                        d={roundedPath(roundShine)}
+                        stroke="grey"
                         strokeWidth={STROKE}
                         fill="white"
                     />
-                    {false &&
+                    {DEBUG &&
                         debug.map(([side, color], i) => (
                             <path
                                 key={i + 1234234234}
@@ -430,6 +405,7 @@ export const Demo = () => (
                                 stroke={color}
                                 strokeWidth={STROKE / 4}
                                 fill="transparent"
+                                strokeOpacity="0.7"
                             />
                         ))}
                 </PlaneItem>
