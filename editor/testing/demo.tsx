@@ -242,6 +242,30 @@ const sh = (m: MultiPolygon): Pair[] => {
     return m[0][0].slice(1);
 };
 
+const expand = (points: Pair[], amount: number): Pair[] => {
+    const a: Pair[] = [];
+    const b: Pair[] = [];
+
+    // Instead of calculating the direction of the points ring, expand in both
+    // directions and union the resulting shapes.
+    for (let i = 0; i < points.length; i++) {
+        const point = points[i];
+        const next = points[(i + 1) % points.length];
+        // TODO is this the smallest one?
+        const perpendicularOffset = angleBetween(
+            points[(i + points.length - 1) % points.length],
+            point,
+            next,
+        ) / 2;
+        const outSegmentLength = distance(point, next);
+        const outAbsoluteAngle = Math.asin(outSegmentLength / (next[1] - point[1]));
+
+        // TODO
+    }
+
+    return sh(union([a], [b]));
+};
+
 const STEP_RATIO = 0.5;
 const R_SHINE = 0.05;
 const R_BASE = 0.02;
