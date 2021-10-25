@@ -15,9 +15,8 @@ interface RadBridgeProps extends ReactProps {
 
     quadA?: QuadPoint;
     quadB?: QuadPoint;
+    sideCount?: number;
 }
-
-const lineCount = 3; // TODO move to consts.
 
 // TODO consolidate with utils in demo component.
 export const split = (percentage: number, a: number, b: number): number => {
@@ -55,12 +54,15 @@ export const RadBridge = (props: RadBridgeProps) => {
         ) {
             return <></>;
         }
+        if (props.sideCount === 0) {
+            return <></>;
+        }
 
         const A = props.quadA;
         const B = props.quadB;
         const lines: [Pair, Pair][] = [];
-        for (let i = 0; i <= lineCount; i++) {
-            const percentage = (i / lineCount) * lineCount;
+        for (let i = 0; i <= props.sideCount; i++) {
+            const percentage = i / props.sideCount ;
             lines.push([
                 splitQuadCurve(A, percentage),
                 splitQuadCurve(B, percentage),
@@ -75,43 +77,16 @@ export const RadBridge = (props: RadBridgeProps) => {
                         y1={l[0][1]}
                         x2={l[1][0]}
                         y2={l[1][1]}
-                        stroke="cyan"
+                        stroke={props.color}
                         strokeWidth={props.width / 1.4}
                     />
                 ))}
-                <path
-                    d={roundedPath([props.quadA])}
-                    stroke="blue"
-                    strokeWidth={props.width / 1.4}
-                    fill="none"
-                />
-                <path
-                    d={roundedPath([props.quadB])}
-                    stroke="blue"
-                    strokeWidth={props.width / 1.4}
-                    fill="none"
-                />
             </>
         );
     }
 
     const up = props.direction[0] ? 1 : -1;
     const right = props.direction[1] ? 1 : -1;
-
-    const newProps: Partial<RadBridgeProps> = {};
-    newProps.color = "red";
-    newProps.quadA = [
-        [props.a[0], props.a[1] + -up * props.aRadius],
-        props.a,
-        [props.a[0] + -right * props.aRadius, props.a[1]],
-    ];
-    newProps.quadB = [
-        [props.b[0], props.b[1] + -up * props.bRadius],
-        props.b,
-        [props.b[0] + -right * props.bRadius, props.b[1]],
-    ];
-    props = Object.assign({}, props, newProps);
-
     return (
         <>
             <line

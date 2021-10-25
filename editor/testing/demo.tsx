@@ -251,7 +251,7 @@ const RES = 1 / 5;
 const STROKE = 0.01;
 const PAD_TOP = -0.2;
 const PAD_SIDE = 0.12;
-const PAD_BOTTOM = 0.38;
+const PAD_BOTTOM = -PAD_TOP + (2 * PAD_SIDE); // Keeps shine square.
 const STEP_PADDING: [number, number, number] = [
     PAD_TOP * STEP_RATIO,
     PAD_SIDE * STEP_RATIO,
@@ -290,6 +290,7 @@ export const Demo = () => (
 
             // Sharp key base.
             const rawBase = sh(unionAll(key.key.shape));
+            const roundBase = round(rawBase, R_BASE);
 
             // Shine outer edge.
             const rawStep = sh(unionAll(pad(key.key.shape, STEP_PADDING)));
@@ -310,9 +311,9 @@ export const Demo = () => (
             const finalBase = removeConcave(
                 sh(
                     union(
-                        [approx(round(rawBase, R_BASE), RES)],
+                        [approx(roundBase, RES)],
                         [approxStep],
-                        [approx(round(rawShine, R_SHINE), RES)],
+                        [approx(roundShine, RES)],
                         [approxShineBase],
                     ),
                 ),
@@ -338,7 +339,7 @@ export const Demo = () => (
                 <PlaneItem key={i} origin={[0, 0]} angle={0} position={p}>
                     <path
                         d={straightPath(finalBase)}
-                        stroke="lightgrey"
+                        stroke="grey"
                         strokeWidth={STROKE}
                         fill="white"
                     />
@@ -346,22 +347,33 @@ export const Demo = () => (
                         <path
                             key={i}
                             d={straightPath(points)}
-                            stroke="darkgrey"
+                            stroke="grey"
                             strokeWidth={STROKE}
                             fill="white"
                         />
                     ))}
-                    {/* {roundedFinalBasePoints.length <= roundShine.length &&
-                        roundedFinalBasePoints.map((p, i) => (
-                            <RadBridge
-                                key={i}
-                                quadA={p}
-                                quadB={roundShine[i]}
-                                color="red"
-                                width={STROKE}
-                                {...({} as any)}
-                            />
-                        ))} */}
+                    {roundBase.map((p, i) => (
+                        <RadBridge
+                            key={i}
+                            quadA={p}
+                            quadB={roundStep[i]}
+                            color="grey"
+                            width={STROKE/1.2}
+                            sideCount={1/RES}
+                            {...({} as any)}
+                        />
+                    ))}
+                    {roundShineBase.map((p, i) => (
+                        <RadBridge
+                            key={i}
+                            quadA={p}
+                            quadB={roundShine[i]}
+                            color="grey"
+                            width={STROKE/1.2}
+                            sideCount={1/RES}
+                            {...({} as any)}
+                        />
+                    ))}
                     <path
                         d={roundedPath(roundShine)}
                         stroke="grey"
