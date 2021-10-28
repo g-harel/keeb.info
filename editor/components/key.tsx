@@ -47,7 +47,7 @@ export const Stem = (props: StemProps) => (
             y1={props.coord[1] - c.STEM_SIZE}
             x2={props.coord[0]}
             y2={props.coord[1] + c.STEM_SIZE}
-            stroke={color(props.color).darken(c.STEM_COLOR_DARKEN)}
+            stroke={color(props.color).darken(c.STEM_COLOR_DARKEN).hex()}
             strokeWidth={c.STEM_WIDTH}
             strokeLinecap="round"
         />
@@ -56,7 +56,7 @@ export const Stem = (props: StemProps) => (
             y1={props.coord[1]}
             x2={props.coord[0] + c.STEM_SIZE}
             y2={props.coord[1]}
-            stroke={color(props.color).darken(c.STEM_COLOR_DARKEN)}
+            stroke={color(props.color).darken(c.STEM_COLOR_DARKEN).hex()}
             strokeWidth={c.STEM_WIDTH}
             strokeLinecap="round"
         />
@@ -95,9 +95,9 @@ export const Mounts = (props: MountProps) => (
                                 y1={startWire[1]}
                                 x2={endWire[0]}
                                 y2={endWire[1]}
-                                stroke={color(props.color).darken(
-                                    c.WIRE_COLOR_DARKEN,
-                                )}
+                                stroke={color(props.color)
+                                    .darken(c.WIRE_COLOR_DARKEN)
+                                    .hex()}
                                 strokeWidth={c.WIRE_WIDTH}
                                 strokeLinecap="round"
                             />
@@ -108,7 +108,7 @@ export const Mounts = (props: MountProps) => (
     </g>
 );
 
-interface PositionnedElement<T> {
+interface PositionedElement<T> {
     position: Pair;
     element: T;
 }
@@ -116,7 +116,7 @@ interface PositionnedElement<T> {
 export const calcLayout = <T extends any>(
     layout: SpaceBetweenLayout<T>,
     size: Pair,
-): PositionnedElement<T>[] => {
+): PositionedElement<T>[] => {
     const rowHeight = size[1] / layout.length;
     return layout
         .map((row, i) => {
@@ -128,7 +128,7 @@ export const calcLayout = <T extends any>(
                 };
             });
         })
-        .flat() as PositionnedElement<T>[];
+        .flat() as PositionedElement<T>[];
 };
 
 export const Key = (props: KeyProps) => {

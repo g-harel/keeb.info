@@ -1,0 +1,113 @@
+import {Pair, QuadPoint} from "./types/base";
+
+export const distance = (a: Pair, b: Pair): number => {
+    return Math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2);
+};
+
+export const angleBetween = (a: Pair, b: Pair, center: Pair): number => {
+    const dAx = center[0] - a[0];
+    const dAy = center[1] - a[1];
+    const dBx = b[0] - center[0];
+    const dBy = b[1] - center[1];
+    return Math.atan2(dAx * dBy - dAy * dBx, dAx * dBx + dAy * dBy);
+};
+
+export const round = (shape: Pair[], radius: number): QuadPoint[] => {
+    const points: QuadPoint[] = [];
+    const safePoly = [shape[shape.length - 1], ...shape, shape[0]];
+    for (let i = 1; i < safePoly.length - 1; i++) {
+        const before = safePoly[i - 1];
+        const current = safePoly[i];
+        const after = safePoly[i + 1];
+
+        const angle = angleBetween(before, after, current) / 2;
+        const chopLength = radius / Math.cos(angle);
+
+        let beforeFraction = chopLength / distance(before, current);
+        if (beforeFraction > 0.5) beforeFraction = 0.5;
+        const start: Pair = [
+            before[0] + (1 - beforeFraction) * (current[0] - before[0]),
+            before[1] + (1 - beforeFraction) * (current[1] - before[1]),
+        ];
+
+        let afterFraction = chopLength / distance(after, current);
+        if (afterFraction > 0.5) afterFraction = 0.5;
+        const end: Pair = [
+            after[0] + (1 - afterFraction) * (current[0] - after[0]),
+            after[1] + (1 - afterFraction) * (current[1] - after[1]),
+        ];
+
+        points.push([start, current, end]);
+    }
+    return points;
+};
+
+export const split = (percentage: number, a: number, b: number): number => {
+    return a + percentage * (b - a);
+};
+
+export const splitLine = (percentage: number, a: Pair, b: Pair): Pair => {
+    return [split(percentage, a[0], b[0]), split(percentage, a[1], b[1])];
+};
+
+export const approx = (rounded: QuadPoint[], resolution: number): Pair[] => {
+    const points: Pair[] = [];
+    for (const point of rounded) {
+        const [p0, p1, p2] = point;
+        for (let p = 0; p <= 1; p += resolution) {
+            points.push(
+                splitLine(p, splitLine(p, p0, p1), splitLine(p, p1, p2)),
+            );
+        }
+    }
+    return points;
+};
+
+export const removeConcave = (points: Pair[], ignore: Pair[]): Pair[] => {
+    while (true) {
+        let found = false;
+        const concave: Record<number, boolean> = {};
+        for (let i = 0; i < points.length; i++) {
+            const current = points[i];
+            let ignorePoint = false;
+            for (const ignored of ignore) {
+                if (current[0] === ignored[0] && current[1] === ignored[1]) {
+                    ignorePoint = true;
+                    continue;
+                }
+            }
+            if (ignorePoint) continue;
+            const before = points[(i + points.length - 1) % points.length];
+            const after = points[(i + 1) % points.length];
+            const angle = angleBetween(before, after, current);
+            if (angle < 0) {
+                concave[i] = true;
+                found = true;
+            }
+        }
+        points = points.filter((_, i) => !concave[i]);
+        if (!found) break;
+    }
+    return points;
+};
+
+export const straightPath = (points: Pair[]): string => {
+    let path = "";
+    for (let i = 0; i < points.length; i++) {
+        const [start, end] = points[i];
+        path += `${i === 0 ? "M" : "L"} ${start} ${end} `;
+    }
+    path += "Z";
+    return path;
+};
+
+export const roundedPath = (points: QuadPoint[]): string => {
+    let path = "";
+    for (let i = 0; i < points.length; i++) {
+        const [rStart, point, rEnd] = points[i];
+        path += `${i === 0 ? "M" : "L"} ${rStart[0]} ${rStart[1]} `;
+        path += `Q ${point[0]} ${point[1]} ${rEnd[0]} ${rEnd[1]} `;
+    }
+    path += "Z";
+    return path;
+};
