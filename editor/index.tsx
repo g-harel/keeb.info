@@ -16,17 +16,15 @@ import {Demo} from "./testing/demo";
 
 // Global styles, similar to traditional css.
 const GlobalStyle = createGlobalStyle`
-    html, body, #root {
-        align-items: center;
+    html, body {
         background-color: ${BACKGROUND_COLOR};
-        justify-content: center;
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         margin: 0;
-        min-height: 100%;
-        width: 100%;
+    }
+
+    #root {
+        display: flex;
+        flex-direction: column;
     }
 `;
 

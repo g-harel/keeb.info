@@ -62,7 +62,7 @@ export const RadBridge = (props: RadBridgeProps) => {
         const B = props.quadB;
         const lines: [Pair, Pair][] = [];
         for (let i = 0; i <= props.sideCount; i++) {
-            const percentage = i / props.sideCount ;
+            const percentage = i / props.sideCount;
             lines.push([
                 splitQuadCurve(A, percentage),
                 splitQuadCurve(B, percentage),

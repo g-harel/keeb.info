@@ -1,3 +1,5 @@
+export const DEBUG = true;
+
 export const BACKGROUND_COLOR = "#ffffff";
 export const DEFAULT_KEY_COLOR = "#eeeeee";
 export const START_SECTION_COLOR = "#e2a8a8";
@@ -6,9 +8,14 @@ export const STROKE_COLOR_DARKEN = 0.06;
 export const SHINE_COLOR_DIFF = 0.1;
 export const BORDER = 0.02;
 export const PAD = 0.01;
-export const KEY_RADIUS = 0.05;
-export const SHINE_RADIUS = 0.1;
-export const SHINE_PADDING_TOP = -1.65 * (BORDER + PAD);
+export const KEY_RADIUS = 0.02;
+export const SHINE_RADIUS = 0.08;
+export const STEP_RATIO = 0.5;
+export const STEP_RADIUS =
+    Math.min(KEY_RADIUS, SHINE_RADIUS) +
+    Math.abs(KEY_RADIUS - SHINE_RADIUS) * STEP_RATIO;
+export const ROUND_RESOLUTION = 1 / 5;
+export const SHINE_PADDING_TOP = -0.1;
 export const SHINE_PADDING_SIDE = 0.12;
 export const SHINE_PADDING_BOTTOM = 2 * SHINE_PADDING_SIDE - SHINE_PADDING_TOP; // Keep top square.
 export const STEM_WIDTH = 0.03;

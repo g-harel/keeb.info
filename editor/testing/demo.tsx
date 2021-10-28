@@ -14,7 +14,18 @@ import {Key} from "../components/key";
 import {Plane, PlaneItem} from "../components/plane";
 import {unionAll} from "../../internal/measure";
 import {RadBridge} from "../components/rad-bridge";
-import {BORDER} from "../cons";
+import {
+    BORDER,
+    DEBUG,
+    KEY_RADIUS,
+    ROUND_RESOLUTION,
+    SHINE_PADDING_BOTTOM,
+    SHINE_PADDING_SIDE,
+    SHINE_PADDING_TOP,
+    SHINE_RADIUS,
+    STEP_RADIUS,
+    STEP_RATIO,
+} from "../cons";
 
 const keys: KeysetKeycap[] = [
     {
@@ -242,23 +253,16 @@ const sh = (m: MultiPolygon): Pair[] => {
     return m[0][0].slice(1);
 };
 
-const STEP_RATIO = 0.5;
-const R_SHINE = 0.05;
-const R_BASE = 0.02;
-const R_STEP =
-    Math.min(R_BASE, R_SHINE) + Math.abs(R_BASE - R_SHINE) * STEP_RATIO;
-const RES = 1 / 5;
-const STROKE = 0.01;
-const PAD_TOP = -0.2;
-const PAD_SIDE = 0.12;
-const PAD_BOTTOM = -PAD_TOP + (2 * PAD_SIDE); // Keeps shine square.
 const STEP_PADDING: [number, number, number] = [
-    PAD_TOP * STEP_RATIO,
-    PAD_SIDE * STEP_RATIO,
-    PAD_BOTTOM * STEP_RATIO,
+    SHINE_PADDING_TOP * STEP_RATIO,
+    SHINE_PADDING_SIDE * STEP_RATIO,
+    SHINE_PADDING_BOTTOM * STEP_RATIO,
 ];
-const SHINE_PADDING: [number, number, number] = [PAD_TOP, PAD_SIDE, PAD_BOTTOM];
-const DEBUG = true;
+const SHINE_PADDING: [number, number, number] = [
+    SHINE_PADDING_TOP,
+    SHINE_PADDING_SIDE,
+    SHINE_PADDING_BOTTOM,
+];
 
 export const Demo = () => (
     <Plane pixelWidth={1200} unitSize={[10, 4]}>
@@ -290,30 +294,30 @@ export const Demo = () => (
 
             // Sharp key base.
             const rawBase = sh(unionAll(key.key.shape));
-            const roundBase = round(rawBase, R_BASE);
+            const roundBase = round(rawBase, KEY_RADIUS);
 
             // Shine outer edge.
             const rawStep = sh(unionAll(pad(key.key.shape, STEP_PADDING)));
-            const roundStep = round(rawStep, R_STEP);
-            const approxStep = approx(roundStep, RES);
+            const roundStep = round(rawStep, STEP_RADIUS);
+            const approxStep = approx(roundStep, ROUND_RESOLUTION);
 
             // Shine shape.
             const rawShine = sh(unionAll(pad(shineShape, SHINE_PADDING)));
-            const roundShine = round(rawShine, R_SHINE);
+            const roundShine = round(rawShine, SHINE_RADIUS);
 
             // Shine inner edge.
             const rawShineBase = sh(unionAll(pad(shineShape, STEP_PADDING)));
-            const roundShineBase = round(rawShineBase, R_STEP);
-            const approxShineBase = approx(roundShineBase, RES);
+            const roundShineBase = round(rawShineBase, STEP_RADIUS);
+            const approxShineBase = approx(roundShineBase, ROUND_RESOLUTION);
 
             // Rounded border around the key.
             // TODO handle intersecting shine base.
             const finalBase = removeConcave(
                 sh(
                     union(
-                        [approx(roundBase, RES)],
+                        [approx(roundBase, ROUND_RESOLUTION)],
                         [approxStep],
-                        [approx(roundShine, RES)],
+                        [approx(roundShine, ROUND_RESOLUTION)],
                         [approxShineBase],
                     ),
                 ),
@@ -324,8 +328,11 @@ export const Demo = () => (
                 (n) => n - BORDER / 1000,
             ) as any;
             const approxInflatedShineBase = approx(
-                round(sh(unionAll(pad(shineShape, inflatePadding))), R_STEP),
-                RES,
+                round(
+                    sh(unionAll(pad(shineShape, inflatePadding))),
+                    STEP_RADIUS,
+                ),
+                ROUND_RESOLUTION,
             );
             const approxStepOnly = difference(
                 [approxStep],
@@ -340,27 +347,27 @@ export const Demo = () => (
                     <path
                         d={straightPath(finalBase)}
                         stroke="grey"
-                        strokeWidth={STROKE}
+                        strokeWidth={BORDER}
                         fill="white"
                     />
-                    {approxStepOnly.map((points, i) => (
-                        <path
-                            key={i}
-                            d={straightPath(points)}
-                            stroke="grey"
-                            strokeWidth={STROKE}
-                            fill="white"
-                        />
-                    ))}
                     {roundBase.map((p, i) => (
                         <RadBridge
                             key={i}
                             quadA={p}
                             quadB={roundStep[i]}
                             color="grey"
-                            width={STROKE/1.2}
-                            sideCount={1/RES}
+                            width={BORDER / 1.2}
+                            sideCount={1 / ROUND_RESOLUTION}
                             {...({} as any)}
+                        />
+                    ))}
+                    {approxStepOnly.map((points, i) => (
+                        <path
+                            key={i}
+                            d={straightPath(points)}
+                            stroke="grey"
+                            strokeWidth={BORDER}
+                            fill="white"
                         />
                     ))}
                     {roundShineBase.map((p, i) => (
@@ -369,15 +376,15 @@ export const Demo = () => (
                             quadA={p}
                             quadB={roundShine[i]}
                             color="grey"
-                            width={STROKE/1.2}
-                            sideCount={1/RES}
+                            width={BORDER / 1.2}
+                            sideCount={1 / ROUND_RESOLUTION}
                             {...({} as any)}
                         />
                     ))}
                     <path
                         d={roundedPath(roundShine)}
                         stroke="grey"
-                        strokeWidth={STROKE}
+                        strokeWidth={BORDER}
                         fill="white"
                     />
                     {DEBUG &&
@@ -386,7 +393,7 @@ export const Demo = () => (
                                 key={i + 1234234234}
                                 d={side}
                                 stroke={color}
-                                strokeWidth={STROKE / 4}
+                                strokeWidth={BORDER / 4}
                                 fill="transparent"
                                 strokeOpacity="0.7"
                             />
