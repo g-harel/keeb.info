@@ -3,7 +3,7 @@ import * as color from "color";
 
 import {minmaxKeysetKit} from "../../../internal/measure";
 import {Keyset, KeysetKit} from "../../../internal/types/base";
-import {Key} from "../key";
+import {Key2 as Key} from "../key2";
 import {DEFAULT_KEY_COLOR, MIN_KEYSET_WIDTH_DISPLAY} from "../../cons";
 import {ReactProps} from "../../../internal/types/util";
 import {Plane, PlaneItem} from "../plane";
