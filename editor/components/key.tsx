@@ -1,9 +1,7 @@
 import * as color from "color";
 import React from "react";
+import {MultiPolygon, union, difference} from "polygon-clipping";
 
-import {resolveColor} from "../../internal/colors";
-import {convertCartesianToAngle} from "../../internal/convert";
-import {rotateCoord} from "../../internal/measure";
 import {
     Blank,
     KeysetKeycapLegends,
@@ -11,10 +9,19 @@ import {
     Shape,
     SpaceBetweenLayout,
 } from "../../internal/types/base";
-import {ReactProps} from "../../internal/types/util";
-import * as c from "../cons";
-import {StrokeShape} from "./stroke-shape";
+import {rotateCoord, unionAll} from "../../internal/measure";
 import {RadBridge} from "./rad-bridge";
+import * as c from "../cons";
+import {
+    approx,
+    removeConcave,
+    round,
+    roundedPath,
+    straightPath,
+} from "../../internal/geometry";
+import {convertCartesianToAngle} from "../../internal/convert";
+import {ReactProps} from "../../internal/types/util";
+import {resolveColor} from "../../internal/colors";
 
 export interface KeyProps extends ReactProps {
     color: string;
@@ -35,6 +42,7 @@ export interface StemProps extends ReactProps {
 export interface MountProps extends ReactProps {
     blank: Blank;
     color: string;
+    offset: number;
     stem?: boolean;
     stabs?: boolean;
     noWire?: boolean;
@@ -65,7 +73,15 @@ export const Stem = (props: StemProps) => (
 
 export const Mounts = (props: MountProps) => (
     <g>
-        {props.stem && <Stem coord={props.blank.stem} color={props.color} />}
+        {props.stem && (
+            <Stem
+                coord={[
+                    props.blank.stem[0],
+                    props.blank.stem[1] + props.offset,
+                ]}
+                color={props.color}
+            />
+        )}
         {props.stabs &&
             props.blank.stabilizers.map((stabilizer, i) => {
                 const angle = convertCartesianToAngle(stabilizer.angle);
@@ -87,14 +103,20 @@ export const Mounts = (props: MountProps) => (
                 );
                 return (
                     <g key={i}>
-                        <Stem coord={startStem} color={props.color} />
-                        <Stem coord={endStem} color={props.color} />
+                        <Stem
+                            coord={[startStem[0], startStem[1] + props.offset]}
+                            color={props.color}
+                        />
+                        <Stem
+                            coord={[endStem[0], endStem[1] + props.offset]}
+                            color={props.color}
+                        />
                         {!props.noWire && (
                             <line
                                 x1={startWire[0]}
-                                y1={startWire[1]}
+                                y1={startWire[1] + props.offset}
                                 x2={endWire[0]}
-                                y2={endWire[1]}
+                                y2={endWire[1] + props.offset}
                                 stroke={color(props.color)
                                     .darken(c.WIRE_COLOR_DARKEN)
                                     .hex()}
@@ -131,12 +153,83 @@ export const calcLayout = <T extends any>(
         .flat() as PositionedElement<T>[];
 };
 
+const pad = (shapes: Shape[], padding: [number, number, number]): Shape[] => {
+    return shapes.map((box) => ({
+        width: box.width - 2 * padding[1],
+        height: box.height - padding[0] - padding[2],
+        offset: [
+            box.offset[0] + padding[1],
+            box.offset[1] + padding[0],
+        ] as Pair,
+    }));
+};
+
+const sh = (m: MultiPolygon): Pair[] => {
+    if (m.length === 0) return [];
+    if (m.length > 1) throw "TODO split";
+    if (m[0].length > 1) throw "TODO split";
+    return m[0][0].slice(1);
+};
+
+const STEP_PADDING: [number, number, number] = [
+    c.SHINE_PADDING_TOP * c.STEP_RATIO,
+    c.SHINE_PADDING_SIDE * c.STEP_RATIO,
+    c.SHINE_PADDING_BOTTOM * c.STEP_RATIO,
+];
+const SHINE_PADDING: [number, number, number] = [
+    c.SHINE_PADDING_TOP,
+    c.SHINE_PADDING_SIDE,
+    c.SHINE_PADDING_BOTTOM,
+];
+
 export const Key = (props: KeyProps) => {
-    let shineShape = props.blank.shape;
-    if (props.shelf && props.shelf.length > 0) {
-        shineShape = props.shelf;
-    }
+    const stepped = props.shelf && props.shelf.length > 0;
+    const shineShape = stepped ? props.shelf : props.blank.shape;
+    const debug: [string, string][] = []; // [path, color] TODO remove
+
+    // Sharp key base.
+    const rawBase = sh(unionAll(props.blank.shape));
+    const roundBase = round(rawBase, c.KEY_RADIUS);
+
+    // Shine outer edge.
+    const rawStep = sh(unionAll(pad(props.blank.shape, STEP_PADDING)));
+    const roundStep = round(rawStep, c.STEP_RADIUS);
+    const approxStep = approx(roundStep, c.ROUND_RESOLUTION);
+
+    // Shine shape.
+    const rawShine = sh(unionAll(pad(shineShape, SHINE_PADDING)));
+    const roundShine = round(rawShine, c.SHINE_RADIUS);
+
+    // Shine inner edge.
+    const rawShineBase = sh(unionAll(pad(shineShape, STEP_PADDING)));
+    const roundShineBase = round(rawShineBase, c.STEP_RADIUS);
+    const approxShineBase = approx(roundShineBase, c.ROUND_RESOLUTION);
+
+    // Rounded border around the key.
+    // TODO handle intersecting shine base.
+    const finalBase = removeConcave(
+        sh(
+            union(
+                [approx(roundBase, c.ROUND_RESOLUTION)],
+                [approxStep],
+                [approx(roundShine, c.ROUND_RESOLUTION)],
+                [approxShineBase],
+            ),
+        ),
+        rawShineBase,
+    );
+
+    const inflatePadding = STEP_PADDING.map((n) => n - c.BORDER / 1000) as any;
+    const approxInflatedShineBase = approx(
+        round(sh(unionAll(pad(shineShape, inflatePadding))), c.STEP_RADIUS),
+        c.ROUND_RESOLUTION,
+    );
+    const approxStepOnly = difference([approxStep], [approxInflatedShineBase])
+        .flat(1)
+        .map((r) => r.slice(1));
+
     const shineColor = color(props.color).lighten(c.SHINE_COLOR_DIFF).hex();
+    const strokeColor = color(props.color).darken(c.STROKE_COLOR_DARKEN).hex();
 
     const legendContainer = shineShape[0];
     const legendSpaceHeight =
@@ -149,90 +242,64 @@ export const Key = (props: KeyProps) => {
     const legendOffsetX = c.SHINE_PADDING_SIDE + c.LEGEND_PADDING;
     const legendOffsetY = c.SHINE_PADDING_TOP + c.LEGEND_PADDING;
 
-    const strokeColor = color(props.color).darken(c.STROKE_COLOR_DARKEN).hex();
-
-    // TODO match up corners in composite shapes.
-    // TODO half-shelf in stepped keys.
-    const heightish = props.blank.shape[0].height;
-    const widthish = props.blank.shape[0].width;
-
     return (
         <g>
-            {/* Cap */}
-            <StrokeShape
-                borderWidth={c.BORDER}
-                fillColor={props.notKey ? shineColor : props.color}
-                padding={[c.PAD, c.PAD, c.PAD, c.PAD]}
-                radius={c.KEY_RADIUS}
-                shape={props.blank.shape}
-                strokeColor={strokeColor}
+            <path
+                d={straightPath(finalBase)}
+                stroke={strokeColor}
+                strokeWidth={c.BORDER}
+                fill={props.color}
             />
-            {/* Shine */}
-            {!props.notKey && (
-                <>
-                    <RadBridge
-                        a={[c.PAD, c.PAD]}
-                        aRadius={c.KEY_RADIUS}
-                        b={[c.SHINE_PADDING_SIDE, c.SHINE_PADDING_TOP]}
-                        bRadius={c.SHINE_RADIUS}
-                        color={strokeColor}
-                        width={c.BORDER}
-                        direction={[true, true]}
+            {roundBase.map((p, i) => (
+                <RadBridge
+                    key={i}
+                    quadA={p}
+                    quadB={roundStep[i]}
+                    color={strokeColor}
+                    width={c.BORDER / 1.2}
+                    sideCount={1 / c.ROUND_RESOLUTION}
+                />
+            ))}
+            {approxStepOnly.map((points, i) => (
+                <path
+                    key={i}
+                    d={straightPath(points)}
+                    stroke={strokeColor}
+                    strokeWidth={c.BORDER}
+                    fill={props.color}
+                />
+            ))}
+            {roundShineBase.map((p, i) => (
+                <RadBridge
+                    key={i}
+                    quadA={p}
+                    quadB={roundShine[i]}
+                    color={strokeColor}
+                    width={c.BORDER / 1.2}
+                    sideCount={1 / c.ROUND_RESOLUTION}
+                />
+            ))}
+            <path
+                d={roundedPath(roundShine)}
+                stroke={strokeColor}
+                strokeWidth={c.BORDER}
+                fill={shineColor}
+            />
+            {c.DEBUG &&
+                debug.map(([side, color], i) => (
+                    <path
+                        key={i + 1234234234}
+                        d={side}
+                        stroke={color}
+                        strokeWidth={c.BORDER / 4}
+                        fill="transparent"
+                        strokeOpacity="0.7"
                     />
-                    <RadBridge
-                        a={[widthish - c.PAD, c.PAD]}
-                        aRadius={c.KEY_RADIUS}
-                        b={[
-                            widthish - c.SHINE_PADDING_SIDE,
-                            c.SHINE_PADDING_TOP,
-                        ]}
-                        bRadius={c.SHINE_RADIUS}
-                        color={strokeColor}
-                        width={c.BORDER}
-                        direction={[false, true]}
-                    />
-                    <RadBridge
-                        a={[widthish - c.PAD, heightish - c.PAD]}
-                        aRadius={c.KEY_RADIUS}
-                        b={[
-                            widthish - c.SHINE_PADDING_SIDE,
-                            heightish - c.SHINE_PADDING_BOTTOM,
-                        ]}
-                        bRadius={c.SHINE_RADIUS}
-                        color={strokeColor}
-                        width={c.BORDER}
-                        direction={[false, false]}
-                    />
-                    <RadBridge
-                        a={[c.PAD, heightish - c.PAD]}
-                        aRadius={c.KEY_RADIUS}
-                        b={[
-                            c.SHINE_PADDING_SIDE,
-                            heightish - c.SHINE_PADDING_BOTTOM,
-                        ]}
-                        bRadius={c.SHINE_RADIUS}
-                        color={strokeColor}
-                        width={c.BORDER}
-                        direction={[true, false]}
-                    />
-                    <StrokeShape
-                        borderWidth={c.BORDER}
-                        fillColor={shineColor}
-                        padding={[
-                            c.SHINE_PADDING_TOP,
-                            c.SHINE_PADDING_SIDE,
-                            c.SHINE_PADDING_BOTTOM,
-                            c.SHINE_PADDING_SIDE,
-                        ]}
-                        radius={c.SHINE_RADIUS}
-                        shape={shineShape}
-                        strokeColor={strokeColor}
-                    />
-                </>
-            )}
+                ))}
             {!props.notKey && (
                 <Mounts
                     blank={props.blank}
+                    offset={c.SHINE_PADDING_TOP} // TODO center
                     color={props.color}
                     stem={props.stem}
                     stabs={props.stabs}

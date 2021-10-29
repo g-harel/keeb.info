@@ -2,7 +2,7 @@ import React, {Fragment} from "react";
 import ReactDOM from "react-dom";
 import styled, {createGlobalStyle} from "styled-components";
 
-import {ExpolodedLayout} from "./components/views/exploded-layout";
+import {ExplodedLayout} from "./components/views/exploded-layout";
 import kleLayout from "./testing/kle-layout.json";
 import kleKeyset from "./testing/kle-keyset.json";
 import testLayout from "./testing/layout.json";
@@ -39,14 +39,14 @@ const App = () => (
         <GlobalStyle />
         <Demo />
         <FullKeyset keyset={testKeyset as Keyset} width={2400} />
-        <ExpolodedLayout layout={testLayout as Layout} width={1200} />
+        <ExplodedLayout layout={testLayout as Layout} width={1200} />
         <FootprintLayout layout={testLayout as Layout} width={1200} />
         <LegacyTestContainer>
-            <ExpolodedLayout
+            <ExplodedLayout
                 layout={convertKLEToLayout(kleLayout)}
                 width={600}
             />
-            <ExpolodedLayout
+            <ExplodedLayout
                 layout={convertKLEToLayout(kleKeyset)}
                 width={600}
             />

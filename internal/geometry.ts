@@ -50,14 +50,20 @@ export const splitLine = (percentage: number, a: Pair, b: Pair): Pair => {
     return [split(percentage, a[0], b[0]), split(percentage, a[1], b[1])];
 };
 
+export const splitQuadCurve = (point: QuadPoint, percentage: number): Pair => {
+    const [p0, p1, p2] = point;
+    return splitLine(
+        percentage,
+        splitLine(percentage, p0, p1),
+        splitLine(percentage, p1, p2),
+    );
+};
+
 export const approx = (rounded: QuadPoint[], resolution: number): Pair[] => {
     const points: Pair[] = [];
     for (const point of rounded) {
-        const [p0, p1, p2] = point;
         for (let p = 0; p <= 1; p += resolution) {
-            points.push(
-                splitLine(p, splitLine(p, p0, p1), splitLine(p, p1, p2)),
-            );
+            points.push(splitQuadCurve(point, p));
         }
     }
     return points;

@@ -9,7 +9,7 @@ export const SHINE_COLOR_DIFF = 0.1;
 export const BORDER = 0.02;
 export const PAD = 0.01;
 export const KEY_RADIUS = 0.02;
-export const SHINE_RADIUS = 0.08;
+export const SHINE_RADIUS = 0.06;
 export const STEP_RATIO = 0.5;
 export const STEP_RADIUS =
     Math.min(KEY_RADIUS, SHINE_RADIUS) +
