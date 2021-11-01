@@ -3,14 +3,14 @@ import * as fs from "fs";
 import {Serial} from "@ijprest/kle-serial";
 import * as glob from "glob";
 
-import {render} from "../internal/svg";
+import {renderSvg} from "../internal/kle-renderer/svg";
 
 const paths = glob.sync("files/kle/**/*.json");
 
 const svgPaths: string[] = [];
 for (const path of paths) {
     console.log(path);
-    const rendered = render(Serial.parse(fs.readFileSync(path).toString()));
+    const rendered = renderSvg(Serial.parse(fs.readFileSync(path).toString()));
     const svgPath = path
         .replace(/\.json$/g, ".svg")
         .replace("kle/", "kle/images/");

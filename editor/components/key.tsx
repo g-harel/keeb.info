@@ -17,9 +17,9 @@ import {
     removeConcave,
     round,
     roundedPath,
+    convertCartesianToAngle,
     straightPath,
 } from "../../internal/geometry";
-import {convertCartesianToAngle} from "../../internal/convert";
 import {ReactProps} from "../../internal/types/util";
 import {resolveColor} from "../../internal/colors";
 
@@ -299,7 +299,7 @@ export const Key = (props: KeyProps) => {
             {!props.notKey && (
                 <Mounts
                     blank={props.blank}
-                    offset={c.SHINE_PADDING_TOP} // TODO center
+                    offset={(c.SHINE_PADDING_TOP - c.SHINE_PADDING_BOTTOM) / 2}
                     color={props.color}
                     stem={props.stem}
                     stabs={props.stabs}

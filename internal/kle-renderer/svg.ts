@@ -60,7 +60,7 @@ const sanitizeLabel = (label: string) => {
     });
 };
 
-export const render = (keyboard: Keyboard): string => {
+export const renderSvg = (keyboard: Keyboard): string => {
     let max: Coord = {x: 0, y: 0};
     let min: Coord = {x: Infinity, y: Infinity};
     for (const k of keyboard.keys) {

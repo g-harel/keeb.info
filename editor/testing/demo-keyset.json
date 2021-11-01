@@ -1,0 +1,123 @@
+{
+    "id": {
+        "vendorID": "0.2345",
+        "productID": "0.5243"
+    },
+    "name": "demo",
+    "kits": [
+        {
+            "id": {
+                "vendorID": "0.3456",
+                "productID": "0.7465"
+            },
+            "name": "demo",
+            "keys": [
+                {
+                    "key": {
+                        "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
+                        "stabilizers": [],
+                        "stem": [0.5, 0.5]
+                    },
+                    "shelf": [],
+                    "profile": {"profile": "0.24463679921190185", "row": "R1"},
+                    "legend": {
+                        "frontLegends": [],
+                        "topLegends": []
+                    },
+                    "position": [-0.5, 0.5],
+                    "barred": false,
+                    "scooped": false,
+                    "stem": "Cherry",
+                    "color": "white",
+                    "keycodeAffinity": []
+                },
+                {
+                    "key": {
+                        "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
+                        "stabilizers": [],
+                        "stem": [0.5, 0.5]
+                    },
+                    "shelf": [],
+                    "profile": {"profile": "0.24463679921190185", "row": "R1"},
+                    "legend": {
+                        "frontLegends": [],
+                        "topLegends": []
+                    },
+                    "position": [-0.5, 2.5],
+                    "barred": false,
+                    "scooped": false,
+                    "stem": "Cherry",
+                    "color": "white",
+                    "keycodeAffinity": []
+                },
+                {
+                    "key": {
+                        "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
+                        "stabilizers": [],
+                        "stem": [0.5, 0.5]
+                    },
+                    "shelf": [],
+                    "profile": {"profile": "0.24463679921190185", "row": "R1"},
+                    "legend": {
+                        "frontLegends": [],
+                        "topLegends": []
+                    },
+                    "position": [1, 1],
+                    "barred": false,
+                    "scooped": false,
+                    "stem": "Cherry",
+                    "color": "lightgray",
+                    "keycodeAffinity": []
+                },
+                {
+                    "key": {
+                        "shape": [
+                            {"height": 2, "width": 1.25, "offset": [0.75, 0]},
+                            {"height": 1, "width": 2, "offset": [0, 0]}
+                        ],
+                        "stabilizers": [],
+                        "stem": [1.375, 0.875]
+                    },
+                    "shelf": [
+                        {"height": 0.75, "width": 0.75, "offset": [1, 0.5]}
+                    ],
+                    "profile": {"profile": "0.3359295944002527", "row": "R1"},
+                    "legend": {
+                        "frontLegends": [],
+                        "topLegends": []
+                    },
+                    "position": [2, 1],
+                    "barred": false,
+                    "scooped": false,
+                    "stem": "Cherry",
+                    "color": "lightgray",
+                    "keycodeAffinity": []
+                },
+                {
+                    "key": {
+                        "shape": [
+                            {"height": 1, "width": 1.75, "offset": [0, 0]}
+                        ],
+                        "stabilizers": [],
+                        "stem": [0.925, 0.5]
+                    },
+                    "shelf": [
+                        {"height": 0.75, "width": 1.25, "offset": [0, 0]},
+                        {"height": 0.75, "width": 1.25, "offset": [0.5, 0.25]}
+                    ],
+                    "profile": {"profile": "0.24463679921190185", "row": "R1"},
+                    "legend": {
+                        "frontLegends": [],
+                        "topLegends": []
+                    },
+                    "position": [1, 2],
+                    "barred": false,
+                    "scooped": false,
+                    "stem": "Cherry",
+                    "color": "lightgray",
+                    "keycodeAffinity": []
+                }
+            ]
+        }
+    ]
+}

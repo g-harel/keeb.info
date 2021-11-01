@@ -1,4 +1,4 @@
-import {Pair, QuadPoint} from "./types/base";
+import {Angle, Cartesian, Pair, QuadPoint} from "./types/base";
 
 export const distance = (a: Pair, b: Pair): number => {
     return Math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2);
@@ -116,4 +116,23 @@ export const roundedPath = (points: QuadPoint[]): string => {
     }
     path += "Z";
     return path;
+};
+
+export const convertCartesianToAngle = (c: Cartesian): Angle => {
+    let angle = 0;
+    if (c[0]) angle -= 90;
+    if (c[1]) angle += 180;
+    return angle;
+};
+
+export const bridgeArcs = (count: number, a: QuadPoint, b: QuadPoint) => {
+    const lines: [Pair, Pair][] = [];
+    for (let i = 0; i <= count; i++) {
+        const percentage = i / count;
+        lines.push([
+            splitQuadCurve(a, percentage),
+            splitQuadCurve(b, percentage),
+        ]);
+    }
+    return lines;
 };

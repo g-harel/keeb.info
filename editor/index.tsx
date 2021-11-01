@@ -5,14 +5,14 @@ import styled, {createGlobalStyle} from "styled-components";
 import {ExplodedLayout} from "./components/views/exploded-layout";
 import kleLayout from "./testing/kle-layout.json";
 import kleKeyset from "./testing/kle-keyset.json";
-import testLayout from "./testing/layout.json";
-import testKeyset from "./testing/keyset.json";
+import demoLayout from "./testing/demo-layout.json";
+import botanicalKeyset from "./testing/botanical-keyset.json";
+import demoKeyset from "./testing/demo-keyset.json";
 import {convertKLEToKeysetKit, convertKLEToLayout} from "../internal/convert";
 import {BACKGROUND_COLOR} from "./cons";
 import {FootprintLayout} from "./components/views/footprint-layout";
 import {Keyset, Layout} from "../internal/types/base";
 import {FullKeyset} from "./components/views/full-keyset";
-import {Demo} from "./testing/demo";
 
 // Global styles, similar to traditional css.
 const GlobalStyle = createGlobalStyle`
@@ -37,10 +37,10 @@ const LegacyTestContainer = styled.div`
 const App = () => (
     <Fragment>
         <GlobalStyle />
-        <Demo />
-        <FullKeyset keyset={testKeyset as Keyset} width={2400} />
-        <ExplodedLayout layout={testLayout as Layout} width={1200} />
-        <FootprintLayout layout={testLayout as Layout} width={1200} />
+        <FullKeyset keyset={demoKeyset as Keyset} width={1200} />
+        <FullKeyset keyset={botanicalKeyset as Keyset} width={2400} />
+        <ExplodedLayout layout={demoLayout as Layout} width={1200} />
+        <FootprintLayout layout={demoLayout as Layout} width={1200} />
         <LegacyTestContainer>
             <ExplodedLayout
                 layout={convertKLEToLayout(kleLayout)}

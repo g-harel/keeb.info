@@ -1,5 +1,5 @@
 import React from "react";
-import {splitQuadCurve} from "../../internal/geometry";
+import {bridgeArcs, splitQuadCurve} from "../../internal/geometry";
 
 import {Pair, QuadPoint} from "../../internal/types/base";
 import {ReactProps} from "../../internal/types/util";
@@ -14,27 +14,7 @@ interface RadBridgeProps extends ReactProps {
 
 // TODO make geometry util and move rendering into key.
 export const RadBridge = (props: RadBridgeProps) => {
-    if (
-        props.quadA[0] === props.quadB[0] &&
-        props.quadA[1] === props.quadB[1] &&
-        props.quadA[2] === props.quadB[2]
-    ) {
-        return <></>;
-    }
-    if (props.sideCount === 0) {
-        return <></>;
-    }
-
-    const A = props.quadA;
-    const B = props.quadB;
-    const lines: [Pair, Pair][] = [];
-    for (let i = 0; i <= props.sideCount; i++) {
-        const percentage = i / props.sideCount;
-        lines.push([
-            splitQuadCurve(A, percentage),
-            splitQuadCurve(B, percentage),
-        ]);
-    }
+    const lines = bridgeArcs(props.sideCount, props.quadA, props.quadB);
     return (
         <>
             {lines.map((l, i) => (
