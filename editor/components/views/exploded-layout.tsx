@@ -13,7 +13,7 @@ export interface ExplodedLayoutProps extends ReactProps {
     layout: Layout;
 }
 
-// TODO draw in rows to preserve overlap.
+// TODO draw in descending order to preserve overlap.
 export const ExplodedLayout = (props: ExplodedLayoutProps) => {
     console.time("spread");
     const spreadLayout = spreadSections(props.layout);

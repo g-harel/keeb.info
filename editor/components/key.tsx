@@ -171,6 +171,8 @@ const sh = (m: MultiPolygon): Pair[] => {
     return m[0][0].slice(1);
 };
 
+const KEY_PADDING: [number, number, number] = [c.KEY_PAD, c.KEY_PAD, c.KEY_PAD];
+
 const STEP_PADDING: [number, number, number] = [
     c.SHINE_PADDING_TOP * c.STEP_RATIO,
     c.SHINE_PADDING_SIDE * c.STEP_RATIO,
@@ -184,15 +186,19 @@ const SHINE_PADDING: [number, number, number] = [
 
 export const Key = (props: KeyProps) => {
     const stepped = props.shelf && props.shelf.length > 0;
-    const shineShape = stepped ? props.shelf : props.blank.shape;
+    const shape = pad(props.blank.shape, KEY_PADDING);
+    const shineShape = pad(
+        stepped ? props.shelf : props.blank.shape,
+        KEY_PADDING,
+    );
     const debug: [string, string][] = []; // [path, color] TODO remove
 
     // Sharp key base.
-    const rawBase = sh(unionAll(props.blank.shape));
+    const rawBase = sh(unionAll(shape));
     const roundBase = round(rawBase, c.KEY_RADIUS);
 
     // Shine outer edge.
-    const rawStep = sh(unionAll(pad(props.blank.shape, STEP_PADDING)));
+    const rawStep = sh(unionAll(pad(shape, STEP_PADDING)));
     const roundStep = round(rawStep, c.STEP_RADIUS);
     const approxStep = approx(roundStep, c.ROUND_RESOLUTION);
 

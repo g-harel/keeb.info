@@ -1,7 +1,7 @@
 import React from "react";
-import {bridgeArcs, splitQuadCurve} from "../../internal/geometry";
+import {bridgeArcs} from "../../internal/geometry";
 
-import {Pair, QuadPoint} from "../../internal/types/base";
+import {QuadPoint} from "../../internal/types/base";
 import {ReactProps} from "../../internal/types/util";
 
 interface RadBridgeProps extends ReactProps {
@@ -25,7 +25,7 @@ export const RadBridge = (props: RadBridgeProps) => {
                     x2={l[1][0]}
                     y2={l[1][1]}
                     stroke={props.color}
-                    strokeWidth={props.width / 1.4}
+                    strokeWidth={props.width / 2}
                 />
             ))}
         </>
