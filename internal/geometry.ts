@@ -69,34 +69,6 @@ export const approx = (rounded: QuadPoint[], resolution: number): Pair[] => {
     return points;
 };
 
-export const removeConcave = (points: Pair[], ignore: Pair[]): Pair[] => {
-    while (true) {
-        let found = false;
-        const concave: Record<number, boolean> = {};
-        for (let i = 0; i < points.length; i++) {
-            const current = points[i];
-            let ignorePoint = false;
-            for (const ignored of ignore) {
-                if (current[0] === ignored[0] && current[1] === ignored[1]) {
-                    ignorePoint = true;
-                    continue;
-                }
-            }
-            if (ignorePoint) continue;
-            const before = points[(i + points.length - 1) % points.length];
-            const after = points[(i + 1) % points.length];
-            const angle = angleBetween(before, after, current);
-            if (angle < 0) {
-                concave[i] = true;
-                found = true;
-            }
-        }
-        points = points.filter((_, i) => !concave[i]);
-        if (!found) break;
-    }
-    return points;
-};
-
 export const straightPath = (points: Pair[]): string => {
     let path = "";
     for (let i = 0; i < points.length; i++) {

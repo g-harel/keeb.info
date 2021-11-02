@@ -278,5 +278,6 @@ export interface LayoutKey {
 
     // Whether the key position should be rendered as a key.
     // This can be used to block out spots for elements like encoders and screens.
+    // TODO make separate layout construct for not keys.
     notKey?: boolean;
 }

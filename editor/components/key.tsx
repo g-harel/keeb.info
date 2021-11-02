@@ -6,19 +6,19 @@ import {
     Blank,
     KeysetKeycapLegends,
     Pair,
+    QuadPoint,
     Shape,
     SpaceBetweenLayout,
 } from "../../internal/types/base";
-import {rotateCoord, unionAll} from "../../internal/measure";
-import {RadBridge} from "./rad-bridge";
+import {rotateCoord, unionShape} from "../../internal/measure";
 import * as c from "../cons";
 import {
     approx,
-    removeConcave,
     round,
     roundedPath,
     convertCartesianToAngle,
     straightPath,
+    bridgeArcs,
 } from "../../internal/geometry";
 import {ReactProps} from "../../internal/types/util";
 import {resolveColor} from "../../internal/colors";
@@ -29,7 +29,6 @@ export interface KeyProps extends ReactProps {
     shelf?: Shape[];
     stem?: boolean;
     stabs?: boolean;
-    notKey?: boolean;
     legend?: KeysetKeycapLegends;
     noWire?: boolean;
 }
@@ -171,6 +170,19 @@ const sh = (m: MultiPolygon): Pair[] => {
     return m[0][0].slice(1);
 };
 
+const multiUnion = (...shapes: Pair[][]): Pair[][] => {
+    const roundFactor = 10000000; // TODO tweak if breaking.
+    const roundedShapes: typeof shapes = shapes.map((shape) =>
+        shape.map((pair) => [
+            Math.round(pair[0] * roundFactor) / roundFactor,
+            Math.round(pair[1] * roundFactor) / roundFactor,
+        ]),
+    );
+
+    const mp: MultiPolygon = union([], ...roundedShapes.map((lc) => [[lc]]));
+    return mp.flat(1).map((poly) => poly.slice(1));
+};
+
 const KEY_PADDING: [number, number, number] = [c.KEY_PAD, c.KEY_PAD, c.KEY_PAD];
 
 const STEP_PADDING: [number, number, number] = [
@@ -194,40 +206,63 @@ export const Key = (props: KeyProps) => {
     const debug: [string, string][] = []; // [path, color] TODO remove
 
     // Sharp key base.
-    const rawBase = sh(unionAll(shape));
+    const rawBase = sh(unionShape(shape));
     const roundBase = round(rawBase, c.KEY_RADIUS);
 
     // Shine outer edge.
-    const rawStep = sh(unionAll(pad(shape, STEP_PADDING)));
+    const rawStep = sh(unionShape(pad(shape, STEP_PADDING)));
     const roundStep = round(rawStep, c.STEP_RADIUS);
     const approxStep = approx(roundStep, c.ROUND_RESOLUTION);
 
     // Shine shape.
-    const rawShine = sh(unionAll(pad(shineShape, SHINE_PADDING)));
+    const rawShine = sh(unionShape(pad(shineShape, SHINE_PADDING)));
     const roundShine = round(rawShine, c.SHINE_RADIUS);
 
     // Shine inner edge.
-    const rawShineBase = sh(unionAll(pad(shineShape, STEP_PADDING)));
+    const rawShineBase = sh(unionShape(pad(shineShape, STEP_PADDING)));
     const roundShineBase = round(rawShineBase, c.STEP_RADIUS);
     const approxShineBase = approx(roundShineBase, c.ROUND_RESOLUTION);
 
-    // Rounded border around the key.
-    // TODO handle intersecting shine base.
-    const finalBase = removeConcave(
-        sh(
-            union(
-                [approx(roundBase, c.ROUND_RESOLUTION)],
-                [approxStep],
-                [approx(roundShine, c.ROUND_RESOLUTION)],
-                [approxShineBase],
-            ),
-        ),
-        rawShineBase,
-    );
+    // Calculate corner bridge lines and shapes.
+    const arcCorners: Pair[][] = [];
+    const arcBridges: [Pair, Pair][] = [];
+    const addArcs = (count: number, a: QuadPoint[], b: QuadPoint[]) => {
+        a.forEach((p, i) => {
+            const lines = bridgeArcs(count, p, b[i]);
+            arcBridges.push(...lines);
+
+            const localCorners: Pair[][] = [];
+            for (let i = 0; i < lines.length - 2; i++) {
+                const first = lines[i];
+                const second = lines[i + 1];
+                const third = lines[i + 2];
+                localCorners.push([
+                    first[0],
+                    first[1],
+                    second[1],
+                    third[1],
+                    third[0],
+                    second[0],
+                ]);
+            }
+            arcCorners.push(...multiUnion(...localCorners));
+        });
+    };
+    addArcs(1 / c.ROUND_RESOLUTION, roundBase, roundStep);
+    addArcs(1 / c.ROUND_RESOLUTION, roundShineBase, roundShine);
+
+    // Combine all shapes into footprint.
+    const finalBase = multiUnion(
+        approx(roundBase, c.ROUND_RESOLUTION),
+        approxStep,
+        approx(roundShine, c.ROUND_RESOLUTION),
+        approxShineBase,
+        ...arcCorners,
+    )[0];
 
     const inflatePadding = STEP_PADDING.map((n) => n - c.BORDER / 1000) as any;
     const approxInflatedShineBase = approx(
-        round(sh(unionAll(pad(shineShape, inflatePadding))), c.STEP_RADIUS),
+        round(sh(unionShape(pad(shineShape, inflatePadding))), c.STEP_RADIUS),
         c.ROUND_RESOLUTION,
     );
     const approxStepOnly = difference([approxStep], [approxInflatedShineBase])
@@ -248,24 +283,16 @@ export const Key = (props: KeyProps) => {
     const legendOffsetX = c.SHINE_PADDING_SIDE + c.LEGEND_PADDING;
     const legendOffsetY = c.SHINE_PADDING_TOP + c.LEGEND_PADDING;
 
+    // TODO cache shape calculations according to key shape.
     return (
         <g>
+            {/* Keycap */}
             <path
                 d={straightPath(finalBase)}
                 stroke={strokeColor}
                 strokeWidth={c.BORDER}
                 fill={props.color}
             />
-            {roundBase.map((p, i) => (
-                <RadBridge
-                    key={i}
-                    quadA={p}
-                    quadB={roundStep[i]}
-                    color={strokeColor}
-                    width={c.BORDER / 1.2}
-                    sideCount={1 / c.ROUND_RESOLUTION}
-                />
-            ))}
             {approxStepOnly.map((points, i) => (
                 <path
                     key={i}
@@ -273,16 +300,18 @@ export const Key = (props: KeyProps) => {
                     stroke={strokeColor}
                     strokeWidth={c.BORDER}
                     fill={props.color}
+                    strokeLinejoin="round"
                 />
             ))}
-            {roundShineBase.map((p, i) => (
-                <RadBridge
+            {arcBridges.map((l, i) => (
+                <line
                     key={i}
-                    quadA={p}
-                    quadB={roundShine[i]}
-                    color={strokeColor}
-                    width={c.BORDER / 1.2}
-                    sideCount={1 / c.ROUND_RESOLUTION}
+                    x1={l[0][0]}
+                    y1={l[0][1]}
+                    x2={l[1][0]}
+                    y2={l[1][1]}
+                    stroke={strokeColor}
+                    strokeWidth={c.BORDER / 2}
                 />
             ))}
             <path
@@ -291,27 +320,17 @@ export const Key = (props: KeyProps) => {
                 strokeWidth={c.BORDER}
                 fill={shineColor}
             />
-            {c.DEBUG &&
-                debug.map(([side, color], i) => (
-                    <path
-                        key={i + 1234234234}
-                        d={side}
-                        stroke={color}
-                        strokeWidth={c.BORDER / 4}
-                        fill="transparent"
-                        strokeOpacity="0.7"
-                    />
-                ))}
-            {!props.notKey && (
-                <Mounts
-                    blank={props.blank}
-                    offset={(c.SHINE_PADDING_TOP - c.SHINE_PADDING_BOTTOM) / 2}
-                    color={props.color}
-                    stem={props.stem}
-                    stabs={props.stabs}
-                    noWire={props.noWire}
-                />
-            )}
+
+            {/* Mounts */}
+            <Mounts
+                blank={props.blank}
+                offset={(c.SHINE_PADDING_TOP - c.SHINE_PADDING_BOTTOM) / 2}
+                color={props.color}
+                stem={props.stem}
+                stabs={props.stabs}
+                noWire={props.noWire}
+            />
+
             {props.legend &&
                 calcLayout(props.legend.topLegends, [
                     legendSpaceWidth,
@@ -335,6 +354,18 @@ export const Key = (props: KeyProps) => {
                         </text>
                     );
                 })}
+
+            {c.DEBUG &&
+                debug.map(([side, color], i) => (
+                    <path
+                        key={i + 1234234234}
+                        d={side}
+                        stroke={color}
+                        strokeWidth={c.BORDER / 10}
+                        fill="transparent"
+                        strokeOpacity="0.2"
+                    />
+                ))}
         </g>
     );
 };
