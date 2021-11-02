@@ -196,14 +196,26 @@ const SHINE_PADDING: [number, number, number] = [
     c.SHINE_PADDING_BOTTOM,
 ];
 
-export const Key = (props: KeyProps) => {
-    const stepped = props.shelf && props.shelf.length > 0;
-    const shape = pad(props.blank.shape, KEY_PADDING);
-    const shineShape = pad(
-        stepped ? props.shelf : props.blank.shape,
-        KEY_PADDING,
-    );
-    const debug: [string, string][] = []; // [path, color] TODO remove
+interface CalculatedKeycap {
+    basePath: string;
+    stepPaths: string[];
+    arcBridgeLines: [Pair, Pair][];
+    shinePath: string;
+}
+
+const keycapCache: Record<string, CalculatedKeycap> = {};
+const calcKeycap = (key: KeyProps): CalculatedKeycap => {
+    const id = [...key.blank.shape, ...(key.shelf ? key.shelf : [])]
+        .map((shape) => [shape.height, shape.width, shape.offset])
+        .flat(Infinity)
+        .join("/");
+    if (keycapCache[id] !== undefined) {
+        return keycapCache[id];
+    }
+
+    const stepped = key.shelf && key.shelf.length > 0;
+    const shape = pad(key.blank.shape, KEY_PADDING);
+    const shineShape = pad(stepped ? key.shelf : key.blank.shape, KEY_PADDING);
 
     // Sharp key base.
     const rawBase = sh(unionShape(shape));
@@ -269,9 +281,22 @@ export const Key = (props: KeyProps) => {
         .flat(1)
         .map((r) => r.slice(1));
 
+    const calculatedKeycap: CalculatedKeycap = {
+        basePath: straightPath(finalBase),
+        stepPaths: approxStepOnly.map(straightPath),
+        arcBridgeLines: arcBridges,
+        shinePath: roundedPath(roundShine),
+    };
+    keycapCache[id] = calculatedKeycap;
+    return calculatedKeycap;
+};
+
+export const Key = (props: KeyProps) => {
     const shineColor = color(props.color).lighten(c.SHINE_COLOR_DIFF).hex();
     const strokeColor = color(props.color).darken(c.STROKE_COLOR_DARKEN).hex();
 
+    const shineShape =
+        props.shelf && props.shelf.length > 0 ? props.shelf : props.blank.shape;
     const legendContainer = shineShape[0];
     const legendSpaceHeight =
         legendContainer.height -
@@ -283,27 +308,28 @@ export const Key = (props: KeyProps) => {
     const legendOffsetX = c.SHINE_PADDING_SIDE + c.LEGEND_PADDING;
     const legendOffsetY = c.SHINE_PADDING_TOP + c.LEGEND_PADDING;
 
-    // TODO cache shape calculations according to key shape.
+    const calculatedKeycap = calcKeycap(props);
+
     return (
         <g>
             {/* Keycap */}
             <path
-                d={straightPath(finalBase)}
+                d={calculatedKeycap.basePath}
                 stroke={strokeColor}
                 strokeWidth={c.BORDER}
                 fill={props.color}
             />
-            {approxStepOnly.map((points, i) => (
+            {calculatedKeycap.stepPaths.map((path, i) => (
                 <path
                     key={i}
-                    d={straightPath(points)}
+                    d={path}
                     stroke={strokeColor}
                     strokeWidth={c.BORDER}
                     fill={props.color}
                     strokeLinejoin="round"
                 />
             ))}
-            {arcBridges.map((l, i) => (
+            {calculatedKeycap.arcBridgeLines.map((l, i) => (
                 <line
                     key={i}
                     x1={l[0][0]}
@@ -311,11 +337,11 @@ export const Key = (props: KeyProps) => {
                     x2={l[1][0]}
                     y2={l[1][1]}
                     stroke={strokeColor}
-                    strokeWidth={c.BORDER / 2}
+                    strokeWidth={c.DETAIL_BORDER}
                 />
             ))}
             <path
-                d={roundedPath(roundShine)}
+                d={calculatedKeycap.shinePath}
                 stroke={strokeColor}
                 strokeWidth={c.BORDER}
                 fill={shineColor}
@@ -354,18 +380,6 @@ export const Key = (props: KeyProps) => {
                         </text>
                     );
                 })}
-
-            {c.DEBUG &&
-                debug.map(([side, color], i) => (
-                    <path
-                        key={i + 1234234234}
-                        d={side}
-                        stroke={color}
-                        strokeWidth={c.BORDER / 10}
-                        fill="transparent"
-                        strokeOpacity="0.2"
-                    />
-                ))}
         </g>
     );
 };

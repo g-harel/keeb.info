@@ -1,4 +1,4 @@
-import React, {Fragment} from "react";
+import React, {Fragment, Profiler} from "react";
 import ReactDOM from "react-dom";
 import styled, {createGlobalStyle} from "styled-components";
 
@@ -34,13 +34,23 @@ const LegacyTestContainer = styled.div`
     width: 1200;
 `;
 
+const profilerLogger = (id, _, duration) => console.log(id, duration);
+
 const App = () => (
     <Fragment>
         <GlobalStyle />
-        <FullKeyset keyset={demoKeyset as Keyset} width={1200} />
-        <FullKeyset keyset={botanicalKeyset as Keyset} width={2400} />
-        <ExplodedLayout layout={demoLayout as Layout} width={1200} />
-        <FootprintLayout layout={demoLayout as Layout} width={1200} />
+        <Profiler id="demo-keyset" onRender={profilerLogger}>
+            <FullKeyset keyset={demoKeyset as Keyset} width={1200} />
+        </Profiler>
+        <Profiler id="botanical-keyset" onRender={profilerLogger}>
+            <FullKeyset keyset={botanicalKeyset as Keyset} width={2400} />
+        </Profiler>
+        <Profiler id="demo-layout-exploded" onRender={profilerLogger}>
+            <ExplodedLayout layout={demoLayout as Layout} width={1200} />
+        </Profiler>
+        <Profiler id="demo-layout-footprint" onRender={profilerLogger}>
+            <FootprintLayout layout={demoLayout as Layout} width={1200} />
+        </Profiler>
         <LegacyTestContainer>
             <ExplodedLayout
                 layout={convertKLEToLayout(kleLayout)}
