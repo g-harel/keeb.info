@@ -5,5 +5,5 @@
         "noEmit": true,
         "strict": true
     },
-    "include": ["internal/**/*.ts"]
+    "include": ["internal/**/*.ts", "scripts/**/*.ts"]
 }

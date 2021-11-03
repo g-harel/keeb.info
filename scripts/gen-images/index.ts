@@ -3,7 +3,7 @@ import * as fs from "fs";
 import {Serial} from "@ijprest/kle-serial";
 import * as glob from "glob";
 
-import {renderSvg} from "../internal/kle-renderer/svg";
+import {renderSvg} from "./svg";
 
 const paths = glob.sync("files/kle/**/*.json");
 
@@ -29,8 +29,8 @@ const outContents = `<html>
     </head>
     <body style="padding:100px;">
         <div style="max-width:1000px;margin:0 auto;display:flex;flex-direction:column;align-items:center;">
-${images}            <a href="https://github.com/g-harel/kbd" style="padding:40px;">
-                github.com/g-harel/kbd
+${images}            <a href="https://github.com/g-harel/keeb.info" style="padding:40px;">
+                github.com/g-harel/keeb.info
             </a>
         </div>
     </body>
