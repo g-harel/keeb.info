@@ -4,7 +4,11 @@ import * as color from "color";
 import {minmaxKeysetKit} from "../../../internal/measure";
 import {Keyset, KeysetKit} from "../../../internal/types/base";
 import {Key} from "../key";
-import {DEFAULT_KEY_COLOR, MIN_KEYSET_WIDTH_DISPLAY} from "../../cons";
+import {
+    DEFAULT_KEY_COLOR,
+    MIN_KEYSET_WIDTH_DISPLAY,
+    SHINE_PADDING_TOP,
+} from "../../cons";
 import {ReactProps} from "../../../internal/types/util";
 import {Plane, PlaneItem, Pool} from "../plane";
 import {Pair} from "polygon-clipping";
@@ -72,6 +76,7 @@ export const FullKeyset = (props: FullKeysetProps) => {
             pixelWidth={props.width}
             unitSize={[maxWidth, sum(rowHeights)]}
             pool={pool}
+            padTop={-Math.min(0, SHINE_PADDING_TOP)}
         >
             {kitRows.map((row, i) => {
                 const startY = sum(rowHeights.slice(0, i));

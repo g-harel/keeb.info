@@ -7,6 +7,7 @@ export interface PlaneProps extends ReactProps {
     unitSize: Pair;
     pixelWidth: number;
     pool: Pool;
+    padTop: number;
 }
 
 interface PlaneItemProps extends ReactProps {
@@ -65,7 +66,9 @@ export const PlaneItem = (props: PlaneItemProps) => (
 export const Plane = (props: PlaneProps) => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        viewBox={`0 0 ${props.unitSize[0]} ${props.unitSize[1]}`}
+        viewBox={`0 ${-props.padTop} ${props.unitSize[0]} ${
+            props.unitSize[1] + props.padTop
+        }`}
         width={props.pixelWidth}
         style={{border: "1px solid red"}}
     >

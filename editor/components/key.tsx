@@ -283,7 +283,11 @@ const calcKeycap = (key: KeyProps): CalculatedKeycap => {
     // Create step shape with the shine stamped out.
     const inflatePadding = STEP_PADDING.map((n) => n - c.BORDER / 1000) as any;
     const approxInflatedShineBase = approx(
-        round(sh(unionShape(pad(shineShape, inflatePadding))), c.STEP_RADIUS, c.KEY_RADIUS),
+        round(
+            sh(unionShape(pad(shineShape, inflatePadding))),
+            c.STEP_RADIUS,
+            c.KEY_RADIUS,
+        ),
         c.ROUND_RESOLUTION,
     );
     const approxStepOnly = difference([approxStep], [approxInflatedShineBase])
@@ -348,6 +352,7 @@ export const Key = (props: KeyProps) => {
                         y2={l[1][1]}
                         stroke={strokeColor}
                         strokeWidth={c.DETAIL_BORDER}
+                        strokeLinecap="round"
                     />
                 ))}
                 <path

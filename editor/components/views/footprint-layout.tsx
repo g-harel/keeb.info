@@ -33,6 +33,7 @@ export const FootprintLayout = (props: FootprintLayoutProps) => {
             pixelWidth={props.width}
             unitSize={[unitWidth, unitHeight]}
             pool={pool}
+            padTop={0}
         >
             {props.layout.fixedKeys.map((key) => (
                 <PlaneItem

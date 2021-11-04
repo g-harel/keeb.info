@@ -4,7 +4,11 @@ import * as color from "color";
 import {minmaxLayout, spreadSections} from "../../../internal/measure";
 import {Layout} from "../../../internal/types/base";
 import {Key} from "../key";
-import {DEFAULT_KEY_COLOR, START_SECTION_COLOR} from "../../cons";
+import {
+    DEFAULT_KEY_COLOR,
+    SHINE_PADDING_TOP,
+    START_SECTION_COLOR,
+} from "../../cons";
 import {ReactProps} from "../../../internal/types/util";
 import {Pool, Plane, PlaneItem} from "../plane";
 
@@ -25,6 +29,7 @@ export const ExplodedLayout = (props: ExplodedLayoutProps) => {
         <Plane
             pixelWidth={props.width}
             unitSize={[unitWidth, unitHeight]}
+            padTop={-Math.min(0, SHINE_PADDING_TOP)}
             pool={pool}
         >
             {spreadLayout.fixedKeys.map((key) => (
