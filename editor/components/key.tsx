@@ -22,10 +22,12 @@ import {
 } from "../../internal/geometry";
 import {ReactProps} from "../../internal/types/util";
 import {resolveColor} from "../../internal/colors";
+import {Pool} from "./plane";
 
 export interface KeyProps extends ReactProps {
     color: string;
     blank: Blank;
+    pool: Pool;
     shelf?: Shape[];
     stem?: boolean;
     stabs?: boolean;
@@ -47,6 +49,7 @@ export interface MountProps extends ReactProps {
     noWire?: boolean;
 }
 
+// TODO Add to pool.
 export const Stem = (props: StemProps) => (
     <>
         <line
@@ -203,12 +206,17 @@ interface CalculatedKeycap {
     shinePath: string;
 }
 
-const keycapCache: Record<string, CalculatedKeycap> = {};
-const calcKeycap = (key: KeyProps): CalculatedKeycap => {
-    const id = [...key.blank.shape, ...(key.shelf ? key.shelf : [])]
+const genKeyID = (blank: Blank, shelf: Shape[], color?: string): string => {
+    return [...blank.shape, ...(shelf ? shelf : [])]
         .map((shape) => [shape.height, shape.width, shape.offset])
         .flat(Infinity)
+        .concat((color ? [color] : []) as any)
         .join("/");
+};
+
+const keycapCache: Record<string, CalculatedKeycap> = {};
+const calcKeycap = (key: KeyProps): CalculatedKeycap => {
+    const id = genKeyID(key.blank, key.shelf || []);
     if (keycapCache[id] !== undefined) {
         return keycapCache[id];
     }
@@ -219,20 +227,20 @@ const calcKeycap = (key: KeyProps): CalculatedKeycap => {
 
     // Sharp key base.
     const rawBase = sh(unionShape(shape));
-    const roundBase = round(rawBase, c.KEY_RADIUS);
+    const roundBase = round(rawBase, c.KEY_RADIUS, c.KEY_RADIUS);
 
     // Shine outer edge.
     const rawStep = sh(unionShape(pad(shape, STEP_PADDING)));
-    const roundStep = round(rawStep, c.STEP_RADIUS);
+    const roundStep = round(rawStep, c.STEP_RADIUS, c.KEY_RADIUS);
     const approxStep = approx(roundStep, c.ROUND_RESOLUTION);
 
     // Shine shape.
     const rawShine = sh(unionShape(pad(shineShape, SHINE_PADDING)));
-    const roundShine = round(rawShine, c.SHINE_RADIUS);
+    const roundShine = round(rawShine, c.SHINE_RADIUS, c.KEY_RADIUS);
 
     // Shine inner edge.
     const rawShineBase = sh(unionShape(pad(shineShape, STEP_PADDING)));
-    const roundShineBase = round(rawShineBase, c.STEP_RADIUS);
+    const roundShineBase = round(rawShineBase, c.STEP_RADIUS, c.KEY_RADIUS);
     const approxShineBase = approx(roundShineBase, c.ROUND_RESOLUTION);
 
     // Calculate corner bridge lines and shapes.
@@ -272,9 +280,10 @@ const calcKeycap = (key: KeyProps): CalculatedKeycap => {
         ...arcCorners,
     )[0];
 
+    // Create step shape with the shine stamped out.
     const inflatePadding = STEP_PADDING.map((n) => n - c.BORDER / 1000) as any;
     const approxInflatedShineBase = approx(
-        round(sh(unionShape(pad(shineShape, inflatePadding))), c.STEP_RADIUS),
+        round(sh(unionShape(pad(shineShape, inflatePadding))), c.STEP_RADIUS, c.KEY_RADIUS),
         c.ROUND_RESOLUTION,
     );
     const approxStepOnly = difference([approxStep], [approxInflatedShineBase])
@@ -308,44 +317,53 @@ export const Key = (props: KeyProps) => {
     const legendOffsetX = c.SHINE_PADDING_SIDE + c.LEGEND_PADDING;
     const legendOffsetY = c.SHINE_PADDING_TOP + c.LEGEND_PADDING;
 
-    const calculatedKeycap = calcKeycap(props);
+    const refID = genKeyID(props.blank, props.shelf || [], props.color);
+    if (!props.pool.hasRef(refID)) {
+        const calculatedKeycap = calcKeycap(props);
+        props.pool.add(
+            refID,
+            <g>
+                <path
+                    d={calculatedKeycap.basePath}
+                    stroke={strokeColor}
+                    strokeWidth={c.BORDER}
+                    fill={props.color}
+                />
+                {calculatedKeycap.stepPaths.map((path, i) => (
+                    <path
+                        key={i}
+                        d={path}
+                        stroke={strokeColor}
+                        strokeWidth={c.BORDER}
+                        fill={props.color}
+                        strokeLinejoin="round"
+                    />
+                ))}
+                {calculatedKeycap.arcBridgeLines.map((l, i) => (
+                    <line
+                        key={i}
+                        x1={l[0][0]}
+                        y1={l[0][1]}
+                        x2={l[1][0]}
+                        y2={l[1][1]}
+                        stroke={strokeColor}
+                        strokeWidth={c.DETAIL_BORDER}
+                    />
+                ))}
+                <path
+                    d={calculatedKeycap.shinePath}
+                    stroke={strokeColor}
+                    strokeWidth={c.BORDER}
+                    fill={shineColor}
+                />
+            </g>,
+        );
+    }
 
     return (
         <g>
             {/* Keycap */}
-            <path
-                d={calculatedKeycap.basePath}
-                stroke={strokeColor}
-                strokeWidth={c.BORDER}
-                fill={props.color}
-            />
-            {calculatedKeycap.stepPaths.map((path, i) => (
-                <path
-                    key={i}
-                    d={path}
-                    stroke={strokeColor}
-                    strokeWidth={c.BORDER}
-                    fill={props.color}
-                    strokeLinejoin="round"
-                />
-            ))}
-            {calculatedKeycap.arcBridgeLines.map((l, i) => (
-                <line
-                    key={i}
-                    x1={l[0][0]}
-                    y1={l[0][1]}
-                    x2={l[1][0]}
-                    y2={l[1][1]}
-                    stroke={strokeColor}
-                    strokeWidth={c.DETAIL_BORDER}
-                />
-            ))}
-            <path
-                d={calculatedKeycap.shinePath}
-                stroke={strokeColor}
-                strokeWidth={c.BORDER}
-                fill={shineColor}
-            />
+            {props.pool.ref(refID)}
 
             {/* Mounts */}
             <Mounts

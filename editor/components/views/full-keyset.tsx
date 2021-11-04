@@ -6,7 +6,7 @@ import {Keyset, KeysetKit} from "../../../internal/types/base";
 import {Key} from "../key";
 import {DEFAULT_KEY_COLOR, MIN_KEYSET_WIDTH_DISPLAY} from "../../cons";
 import {ReactProps} from "../../../internal/types/util";
-import {Plane, PlaneItem} from "../plane";
+import {Plane, PlaneItem, Pool} from "../plane";
 import {Pair} from "polygon-clipping";
 import {resolveColor} from "../../../internal/colors";
 
@@ -66,8 +66,13 @@ export const FullKeyset = (props: FullKeysetProps) => {
         rowHeights.push(max);
     }
 
+    const pool = new Pool();
     return (
-        <Plane pixelWidth={props.width} unitSize={[maxWidth, sum(rowHeights)]}>
+        <Plane
+            pixelWidth={props.width}
+            unitSize={[maxWidth, sum(rowHeights)]}
+            pool={pool}
+        >
             {kitRows.map((row, i) => {
                 const startY = sum(rowHeights.slice(0, i));
                 return row.map((kit, j) => {
@@ -83,6 +88,7 @@ export const FullKeyset = (props: FullKeysetProps) => {
                             ]}
                         >
                             <Key
+                                pool={pool}
                                 blank={key.key}
                                 color={resolveColor(
                                     key.color || DEFAULT_KEY_COLOR,

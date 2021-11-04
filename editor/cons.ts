@@ -10,7 +10,7 @@ export const BORDER = 0.02;
 export const DETAIL_BORDER = BORDER / 2;
 export const KEY_PAD = BORDER / 2;
 export const KEY_RADIUS = 0.01;
-export const SHINE_RADIUS = 0.06;
+export const SHINE_RADIUS = 0.05;
 export const STEP_RATIO = 0.5;
 export const STEP_RADIUS =
     Math.min(KEY_RADIUS, SHINE_RADIUS) +

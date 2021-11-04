@@ -29,5 +29,3 @@
         "arrowParens": "always"
     }
 }
-git config --global user.email "gabrielj.harel@gmail.com"
-git config --global user.name "Gabriel Harel"

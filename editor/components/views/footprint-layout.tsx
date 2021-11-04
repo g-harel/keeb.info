@@ -5,7 +5,7 @@ import {minmaxLayout} from "../../../internal/measure";
 import {Layout} from "../../../internal/types/base";
 import * as c from "../../cons";
 import {ReactProps} from "../../../internal/types/util";
-import {Plane, PlaneItem} from "../plane";
+import {Plane, PlaneItem, Pool} from "../plane";
 import {Footprint} from "../footprint";
 
 export interface FootprintLayoutProps extends ReactProps {
@@ -27,8 +27,13 @@ export const FootprintLayout = (props: FootprintLayoutProps) => {
             .hex();
     };
 
+    const pool = new Pool();
     return (
-        <Plane pixelWidth={props.width} unitSize={[unitWidth, unitHeight]}>
+        <Plane
+            pixelWidth={props.width}
+            unitSize={[unitWidth, unitHeight]}
+            pool={pool}
+        >
             {props.layout.fixedKeys.map((key) => (
                 <PlaneItem
                     key={key.ref}

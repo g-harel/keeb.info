@@ -6,7 +6,7 @@ import {Layout} from "../../../internal/types/base";
 import {Key} from "../key";
 import {DEFAULT_KEY_COLOR, START_SECTION_COLOR} from "../../cons";
 import {ReactProps} from "../../../internal/types/util";
-import {Plane, PlaneItem} from "../plane";
+import {Pool, Plane, PlaneItem} from "../plane";
 
 export interface ExplodedLayoutProps extends ReactProps {
     width: number;
@@ -20,8 +20,13 @@ export const ExplodedLayout = (props: ExplodedLayoutProps) => {
     const unitWidth = max[0] - min[0];
     const unitHeight = max[1] - min[1];
 
+    const pool = new Pool();
     return (
-        <Plane pixelWidth={props.width} unitSize={[unitWidth, unitHeight]}>
+        <Plane
+            pixelWidth={props.width}
+            unitSize={[unitWidth, unitHeight]}
+            pool={pool}
+        >
             {spreadLayout.fixedKeys.map((key) => (
                 <PlaneItem
                     key={key.ref}
@@ -30,6 +35,7 @@ export const ExplodedLayout = (props: ExplodedLayoutProps) => {
                     position={key.position}
                 >
                     <Key
+                        pool={pool}
                         blank={key.key}
                         color={DEFAULT_KEY_COLOR}
                         shelf={(key as any).shelf || []}
@@ -51,6 +57,7 @@ export const ExplodedLayout = (props: ExplodedLayoutProps) => {
                             position={key.position}
                         >
                             <Key
+                                pool={pool}
                                 blank={key.key}
                                 color={sectionColor}
                                 shelf={(key as any).shelf || []}

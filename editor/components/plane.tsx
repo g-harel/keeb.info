@@ -1,17 +1,50 @@
 import React from "react";
 
 import {Pair} from "../../internal/types/base";
-import {ReactProps} from "../../internal/types/util";
+import {ReactElement, ReactProps} from "../../internal/types/util";
 
 export interface PlaneProps extends ReactProps {
     unitSize: Pair;
     pixelWidth: number;
+    pool: Pool;
 }
 
 interface PlaneItemProps extends ReactProps {
     origin: Pair;
     position: Pair;
     angle: number;
+}
+
+export class Pool {
+    private components: ReactElement[];
+    private ids: Record<string, boolean>;
+
+    constructor() {
+        this.components = [];
+        this.ids = {};
+    }
+
+    hasRef(id: string): boolean {
+        return !!this.ids[id];
+    }
+
+    add(id: string, component: ReactElement) {
+        if (this.ids[id]) return;
+        this.components.push(
+            <g id={id} key={id}>
+                {component}
+            </g>,
+        );
+        this.ids[id] = true;
+    }
+
+    ref(id: string): ReactElement {
+        return <use xlinkHref={`#${id}`} />;
+    }
+
+    defs(): ReactElement {
+        return <defs>{this.components}</defs>;
+    }
 }
 
 export const PlaneItem = (props: PlaneItemProps) => (
@@ -37,5 +70,6 @@ export const Plane = (props: PlaneProps) => (
         style={{border: "1px solid red"}}
     >
         {props.children}
+        {props.pool.defs()}
     </svg>
 );
