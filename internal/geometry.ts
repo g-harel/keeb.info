@@ -12,7 +12,11 @@ export const angleBetween = (a: Pair, b: Pair, center: Pair): number => {
     return Math.atan2(dAx * dBy - dAy * dBx, dAx * dBx + dAy * dBy);
 };
 
-export const round = (shape: Pair[], radius: number): QuadPoint[] => {
+export const round = (
+    shape: Pair[],
+    radius: number,
+    concaveRadius: number,
+): QuadPoint[] => {
     const points: QuadPoint[] = [];
     const safePoly = [shape[shape.length - 1], ...shape, shape[0]];
     for (let i = 1; i < safePoly.length - 1; i++) {
@@ -21,7 +25,8 @@ export const round = (shape: Pair[], radius: number): QuadPoint[] => {
         const after = safePoly[i + 1];
 
         const angle = angleBetween(before, after, current) / 2;
-        const chopLength = radius / Math.cos(angle);
+        const chopLength =
+            (angle > 0 ? radius : concaveRadius) / Math.cos(angle);
 
         let beforeFraction = chopLength / distance(before, current);
         if (beforeFraction > 0.5) beforeFraction = 0.5;
