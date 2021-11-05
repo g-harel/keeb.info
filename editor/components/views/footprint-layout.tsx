@@ -46,7 +46,6 @@ export const FootprintLayout = (props: FootprintLayoutProps) => {
                         blank={key.key}
                         orientation={key.orientation}
                         color={getColor()}
-                        notKey={key.notKey}
                     />
                 </PlaneItem>
             ))}
@@ -63,7 +62,6 @@ export const FootprintLayout = (props: FootprintLayoutProps) => {
                                 blank={key.key}
                                 orientation={key.orientation}
                                 color={getColor()}
-                                notKey={key.notKey}
                             />
                         </PlaneItem>
                     )),

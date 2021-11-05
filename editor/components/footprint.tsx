@@ -11,7 +11,6 @@ export interface FootprintProps extends ReactProps {
     blank: Blank;
     color: string;
     orientation: Cartesian;
-    notKey?: boolean;
 }
 
 export const Footprint = (props: FootprintProps) => {
@@ -24,20 +23,6 @@ export const Footprint = (props: FootprintProps) => {
         const [cx, cy] = rotateCoord(p, props.blank.stem, angle);
         return {cx, cy};
     };
-
-    if (props.notKey) {
-        return (
-            <g>
-                <rect
-                    fill={props.color}
-                    x={props.blank.stem[0] - c.NOT_KEY_FOOTPRINT_SIZE / 2}
-                    y={props.blank.stem[1] - c.NOT_KEY_FOOTPRINT_SIZE / 2}
-                    width={c.NOT_KEY_FOOTPRINT_SIZE}
-                    height={c.NOT_KEY_FOOTPRINT_SIZE}
-                />
-            </g>
-        );
-    }
 
     return (
         <g>

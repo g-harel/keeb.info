@@ -18,6 +18,7 @@ export interface ExplodedLayoutProps extends ReactProps {
 }
 
 // TODO draw in descending order to preserve overlap.
+// TODO render blockers differently.
 export const ExplodedLayout = (props: ExplodedLayoutProps) => {
     const spreadLayout = spreadSections(props.layout);
     const [min, max] = minmaxLayout(spreadLayout);

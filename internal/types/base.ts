@@ -233,7 +233,10 @@ export interface Layout {
     // Unique identifier to refer to the layout.
     ref: UUID;
 
-    // Keys that do not overlap and not part of an option.
+    // Blockers that do not overlap and are not part of a section.
+    fixedBlockers: LayoutBlocker[];
+
+    // Keys that do not overlap and not part of a section.
     fixedKeys: LayoutKey[];
 
     // Sections of layout where multiple options can be used.
@@ -254,8 +257,30 @@ export interface LayoutOption {
     // Unique identifier to refer to the option.
     ref: UUID;
 
-    // Key positions when layout is selected.
+    // Blocker positions when layout option is selected.
+    blockers: LayoutBlocker[];
+
+    // Key positions when layout option is selected.
     keys: LayoutKey[];
+}
+
+// Blocker for for non-key elements like encoders and screens.
+// TODO rename (blocker has a meaning already)
+export interface LayoutBlocker {
+    // Unique identifier to refer to the blocker.
+    ref: UUID;
+
+    // Hint to indicate the purpose of the blocker.
+    label: string;
+
+    // Shape of the blocker.
+    shape: Shape[];
+
+    // Position of the blocker in the layout.
+    position: Pair;
+
+    // Angle of rotation of the blocker.
+    angle: Angle;
 }
 
 // Location in the layout where a key can be populated.
@@ -275,9 +300,4 @@ export interface LayoutKey {
 
     // Orientation of the switch in the footprint.
     orientation: Cartesian;
-
-    // Whether the key position should be rendered as a key.
-    // This can be used to block out spots for elements like encoders and screens.
-    // TODO make separate layout construct for not keys.
-    notKey?: boolean;
 }
