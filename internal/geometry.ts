@@ -1,4 +1,7 @@
-import {Angle, Cartesian, Pair, QuadPoint} from "./types/base";
+import { MultiPolygon, Polygon, union } from "polygon-clipping";
+import { shapeCorners, toPair } from "./measure";
+
+import {Angle, Cartesian, Pair, QuadPoint, Shape} from "./types/base";
 
 export const distance = (a: Pair, b: Pair): number => {
     return Math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2);
@@ -112,4 +115,29 @@ export const bridgeArcs = (count: number, a: QuadPoint, b: QuadPoint) => {
         ]);
     }
     return lines;
+};
+
+export const multiUnion = (...shapes: Pair[][]): Pair[][] => {
+    const roundFactor = 10000000; // TODO tweak if breaking.
+    const roundedShapes: typeof shapes = shapes.map((shape) =>
+        shape.map((pair) => [
+            Math.round(pair[0] * roundFactor) / roundFactor,
+            Math.round(pair[1] * roundFactor) / roundFactor,
+        ]),
+    );
+
+    const mp: MultiPolygon = union([], ...roundedShapes.map((lc) => [[lc]]));
+    return mp.flat(1).map((poly) => poly.slice(1));
+};
+
+export const joinShapes = (shapes: Shape[]): Pair[] => {
+    const polys: Polygon[] = [];
+    for (const shape of shapes) {
+        polys.push([[...shapeCorners([0, 0], shape).map(toPair)]]);
+    }
+    const m = union(...(polys as [Polygon]));
+    if (m.length === 0) return [];
+    if (m.length > 1) throw "TODO split";
+    if (m[0].length > 1) throw "TODO split";
+    return m[0][0].slice(1);
 };

@@ -19,7 +19,7 @@ export const rotateCoord = (p: Pair, r: Pair, a: number): Pair => {
 };
 
 // Corners in ring order.
-const shapeCorners = (offset: Pair, shape: Shape): Pair[] => {
+export const shapeCorners = (offset: Pair, shape: Shape): Pair[] => {
     const x = shape.offset[0] + offset[0];
     const y = shape.offset[1] + offset[1];
     const width = shape.width;
@@ -80,7 +80,7 @@ export const minmaxLayout = (layout: Layout): [Pair, Pair] => {
     return [min, max];
 };
 
-const toPair = (c: Pair): Pair => {
+export const toPair = (c: Pair): Pair => {
     return [c[0], c[1]];
 };
 
@@ -92,14 +92,6 @@ const unionKeys = (poly: MultiPolygon, ...keys: LayoutKey[]): MultiPolygon => {
         }
     }
     return union(poly, ...polys);
-};
-
-export const unionShape = (shapes: Shape[]): MultiPolygon => {
-    const polys: Polygon[] = [];
-    for (const shape of shapes) {
-        polys.push([[...shapeCorners([0, 0], shape).map(toPair)]]);
-    }
-    return union(...(polys as [Polygon]));
 };
 
 const deepCopy = <T>(o: T): T => {

@@ -1,6 +1,6 @@
 import * as color from "color";
 import React from "react";
-import {MultiPolygon, union, difference} from "polygon-clipping";
+import {difference} from "polygon-clipping";
 
 import {
     Blank,
@@ -10,7 +10,7 @@ import {
     Shape,
     SpaceBetweenLayout,
 } from "../../internal/types/base";
-import {rotateCoord, unionShape} from "../../internal/measure";
+import {rotateCoord} from "../../internal/measure";
 import * as c from "../cons";
 import {
     approx,
@@ -19,6 +19,8 @@ import {
     convertCartesianToAngle,
     straightPath,
     bridgeArcs,
+    multiUnion,
+    joinShapes,
 } from "../../internal/geometry";
 import {ReactProps} from "../../internal/types/util";
 import {resolveColor} from "../../internal/colors";
@@ -166,26 +168,6 @@ const pad = (shapes: Shape[], padding: [number, number, number]): Shape[] => {
     }));
 };
 
-const sh = (m: MultiPolygon): Pair[] => {
-    if (m.length === 0) return [];
-    if (m.length > 1) throw "TODO split";
-    if (m[0].length > 1) throw "TODO split";
-    return m[0][0].slice(1);
-};
-
-const multiUnion = (...shapes: Pair[][]): Pair[][] => {
-    const roundFactor = 10000000; // TODO tweak if breaking.
-    const roundedShapes: typeof shapes = shapes.map((shape) =>
-        shape.map((pair) => [
-            Math.round(pair[0] * roundFactor) / roundFactor,
-            Math.round(pair[1] * roundFactor) / roundFactor,
-        ]),
-    );
-
-    const mp: MultiPolygon = union([], ...roundedShapes.map((lc) => [[lc]]));
-    return mp.flat(1).map((poly) => poly.slice(1));
-};
-
 const KEY_PADDING: [number, number, number] = [c.KEY_PAD, c.KEY_PAD, c.KEY_PAD];
 
 const STEP_PADDING: [number, number, number] = [
@@ -226,20 +208,20 @@ const calcKeycap = (key: KeyProps): CalculatedKeycap => {
     const shineShape = pad(stepped ? key.shelf : key.blank.shape, KEY_PADDING);
 
     // Sharp key base.
-    const rawBase = sh(unionShape(shape));
+    const rawBase = joinShapes(shape);
     const roundBase = round(rawBase, c.KEY_RADIUS, c.KEY_RADIUS);
 
     // Shine outer edge.
-    const rawStep = sh(unionShape(pad(shape, STEP_PADDING)));
+    const rawStep = joinShapes(pad(shape, STEP_PADDING));
     const roundStep = round(rawStep, c.STEP_RADIUS, c.KEY_RADIUS);
     const approxStep = approx(roundStep, c.ROUND_RESOLUTION);
 
     // Shine shape.
-    const rawShine = sh(unionShape(pad(shineShape, SHINE_PADDING)));
+    const rawShine = joinShapes(pad(shineShape, SHINE_PADDING));
     const roundShine = round(rawShine, c.SHINE_RADIUS, c.KEY_RADIUS);
 
     // Shine inner edge.
-    const rawShineBase = sh(unionShape(pad(shineShape, STEP_PADDING)));
+    const rawShineBase = joinShapes(pad(shineShape, STEP_PADDING));
     const roundShineBase = round(rawShineBase, c.STEP_RADIUS, c.KEY_RADIUS);
     const approxShineBase = approx(roundShineBase, c.ROUND_RESOLUTION);
 
@@ -284,7 +266,7 @@ const calcKeycap = (key: KeyProps): CalculatedKeycap => {
     const inflatePadding = STEP_PADDING.map((n) => n - c.BORDER / 1000) as any;
     const approxInflatedShineBase = approx(
         round(
-            sh(unionShape(pad(shineShape, inflatePadding))),
+            joinShapes(pad(shineShape, inflatePadding)),
             c.STEP_RADIUS,
             c.KEY_RADIUS,
         ),
