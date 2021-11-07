@@ -1,5 +1,5 @@
-import { MultiPolygon, Polygon, union } from "polygon-clipping";
-import { shapeCorners, toPair } from "./measure";
+import {MultiPolygon, Polygon, union} from "polygon-clipping";
+import {shapeCorners, toPair} from "./measure";
 
 import {Angle, Cartesian, Pair, QuadPoint, Shape} from "./types/base";
 

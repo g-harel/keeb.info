@@ -166,3 +166,21 @@ export const spreadSections = (layout: Layout): Layout => {
 
     return out;
 };
+
+export const genID = (
+    namespace: string,
+    info: {
+        base?: Shape[];
+        shelf?: Shape[];
+        color?: string;
+    },
+): string => {
+    let components: any[] = [namespace];
+    components = components.concat(
+        [...(info.base || []), ...(info.shelf || [])]
+            .map((shape) => [shape.height, shape.width, shape.offset])
+            .flat(Infinity),
+    );
+    components = components.concat((info.color ? [info.color] : []) as any);
+    return components.join("/").toUpperCase();
+};

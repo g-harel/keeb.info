@@ -10,7 +10,7 @@ import {
     Shape,
     SpaceBetweenLayout,
 } from "../../internal/types/base";
-import {rotateCoord} from "../../internal/measure";
+import {genID, rotateCoord} from "../../internal/measure";
 import * as c from "../cons";
 import {
     approx,
@@ -188,17 +188,9 @@ interface CalculatedKeycap {
     shinePath: string;
 }
 
-const genKeyID = (blank: Blank, shelf: Shape[], color?: string): string => {
-    return [...blank.shape, ...(shelf ? shelf : [])]
-        .map((shape) => [shape.height, shape.width, shape.offset])
-        .flat(Infinity)
-        .concat((color ? [color] : []) as any)
-        .join("/");
-};
-
 const keycapCache: Record<string, CalculatedKeycap> = {};
 const calcKeycap = (key: KeyProps): CalculatedKeycap => {
-    const id = genKeyID(key.blank, key.shelf || []);
+    const id = genID("cache-key", {base: key.blank.shape, shelf: key.shelf});
     if (keycapCache[id] !== undefined) {
         return keycapCache[id];
     }
@@ -303,7 +295,11 @@ export const Key = (props: KeyProps) => {
     const legendOffsetX = c.SHINE_PADDING_SIDE + c.LEGEND_PADDING;
     const legendOffsetY = c.SHINE_PADDING_TOP + c.LEGEND_PADDING;
 
-    const refID = genKeyID(props.blank, props.shelf || [], props.color);
+    const refID = genID("key", {
+        base: props.blank.shape,
+        shelf: props.shelf,
+        color: props.color,
+    });
     if (!props.pool.hasRef(refID)) {
         const calculatedKeycap = calcKeycap(props);
         props.pool.add(
