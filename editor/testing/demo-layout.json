@@ -602,12 +602,14 @@
             "orientation": [true, false]
         }
     ],
+    "fixedBLockers": [],
     "variableKeys": [
         {
             "ref": "left shift",
             "options": [
                 {
                     "ref": "ansi",
+                    "blockers": [],
                     "keys": [
                         {
                             "ref": "0.43349254278083094",
@@ -636,6 +638,7 @@
                 },
                 {
                     "ref": "iso",
+                    "blockers": [],
                     "keys": [
                         {
                             "ref": "0.43349254278083094-1",
@@ -680,6 +683,7 @@
             "options": [
                 {
                     "ref": "normal",
+                    "blockers": [],
                     "keys": [
                         {
                             "ref": "0.23940420239527116",
@@ -702,6 +706,7 @@
                 },
                 {
                     "ref": "stepped",
+                    "blockers": [],
                     "keys": [
                         {
                             "ref": "0.23940420239527116-1",
@@ -736,6 +741,7 @@
             "options": [
                 {
                     "ref": "2u backspace",
+                    "blockers": [],
                     "keys": [
                         {
                             "ref": "0.5496543810863703",
@@ -764,6 +770,7 @@
                 },
                 {
                     "ref": "split backspace",
+                    "blockers": [],
                     "keys": [
                         {
                             "ref": "0.5496543810863703-1",
@@ -808,6 +815,7 @@
             "options": [
                 {
                     "ref": "full space",
+                    "blockers": [],
                     "keys": [
                         {
                             "ref": "0.9705071904967628",
@@ -836,6 +844,7 @@
                 },
                 {
                     "ref": "split backspace",
+                    "blockers": [],
                     "keys": [
                         {
                             "ref": "0.9705071904967628-1",
@@ -880,6 +889,7 @@
             "options": [
                 {
                     "ref": "vertical",
+                    "blockers": [],
                     "keys": [
                         {
                             "ref": "0.21420400616735935-1",
@@ -942,6 +952,7 @@
                 },
                 {
                     "ref": "chonk",
+                    "blockers": [],
                     "keys": [
                         {
                             "ref": "0.21420400616735935-4",
@@ -980,6 +991,7 @@
             "options": [
                 {
                     "ref": "standard",
+                    "blockers": [],
                     "keys": [
                         {
                             "ref": "0.9589218535220114",
@@ -1053,6 +1065,21 @@
                 },
                 {
                     "ref": "double",
+                    "blockers": [
+                        {
+                            "ref": "0.9189168611427863-2",
+                            "label": "screen",
+                            "shape": [
+                                {
+                                    "height": 1,
+                                    "width": 2,
+                                    "offset": [0, 0]
+                                }
+                            ],
+                            "position": [10.35, 5.15],
+                            "angle": -10
+                        }
+                    ],
                     "keys": [
                         {
                             "ref": "0.9589218535220114-1",
@@ -1076,29 +1103,12 @@
                             "position": [8.35, 5.15],
                             "angle": -10,
                             "orientation": [true, false]
-                        },
-                        {
-                            "ref": "0.9189168611427863-2",
-                            "key": {
-                                "shape": [
-                                    {
-                                        "height": 1,
-                                        "width": 2,
-                                        "offset": [0, 0]
-                                    }
-                                ],
-                                "stabilizers": [],
-                                "stem": [1, 0.5]
-                            },
-                            "position": [10.35, 5.15],
-                            "angle": -10,
-                            "orientation": [true, false],
-                            "notKey TODO": true
                         }
                     ]
                 },
                 {
                     "ref": "single",
+                    "blockers": [],
                     "keys": [
                         {
                             "ref": "0.9589218535220114-3",
@@ -1132,6 +1142,7 @@
             "options": [
                 {
                     "ref": "ansi",
+                    "blockers": [],
                     "keys": [
                         {
                             "ref": "0.1440995011945414",
@@ -1177,6 +1188,7 @@
                 },
                 {
                     "ref": "iso",
+                    "blockers": [],
                     "keys": [
                         {
                             "ref": "0.1440995011945414-1",

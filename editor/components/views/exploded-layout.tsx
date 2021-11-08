@@ -1,5 +1,4 @@
 import React from "react";
-import * as color from "color";
 
 import {minmaxLayout, spreadSections} from "../../../internal/measure";
 import {Layout} from "../../../internal/types/base";
@@ -11,6 +10,8 @@ import {
 } from "../../cons";
 import {ReactProps} from "../../../internal/types/util";
 import {Pool, Plane, PlaneItem} from "../plane";
+import { colorSeries } from "../../../internal/colors";
+import {Blocker} from "../blocker";
 
 export interface ExplodedLayoutProps extends ReactProps {
     width: number;
@@ -24,6 +25,7 @@ export const ExplodedLayout = (props: ExplodedLayoutProps) => {
     const [min, max] = minmaxLayout(spreadLayout);
     const unitWidth = max[0] - min[0];
     const unitHeight = max[1] - min[1];
+    const sectionColors = colorSeries(START_SECTION_COLOR, spreadLayout.variableKeys.length);
 
     const pool = new Pool();
     return (
@@ -51,28 +53,41 @@ export const ExplodedLayout = (props: ExplodedLayoutProps) => {
                 </PlaneItem>
             ))}
             {spreadLayout.variableKeys.map((section, i, sections) => {
-                const sectionColor = color(START_SECTION_COLOR)
-                    .rotate((i / sections.length) * 360)
-                    .hex();
-                return section.options.map((option) =>
-                    option.keys.map((key) => (
-                        <PlaneItem
-                            key={key.ref}
-                            origin={min}
-                            angle={key.angle}
-                            position={key.position}
-                        >
-                            <Key
-                                pool={pool}
-                                blank={key.key}
-                                color={sectionColor}
-                                shelf={(key as any).shelf || []}
-                                stem
-                                stabs
-                            />
-                        </PlaneItem>
-                    )),
-                );
+                return section.options.map((option) => (
+                    <>
+                        {option.blockers.map((blocker) => (
+                            <PlaneItem
+                                key={blocker.ref}
+                                origin={min}
+                                angle={blocker.angle}
+                                position={blocker.position}
+                            >
+                                <Blocker
+                                    pool={pool}
+                                    shape={blocker.shape}
+                                    color={sectionColors[i]}
+                                />
+                            </PlaneItem>
+                        ))}
+                        {option.keys.map((key) => (
+                            <PlaneItem
+                                key={key.ref}
+                                origin={min}
+                                angle={key.angle}
+                                position={key.position}
+                            >
+                                <Key
+                                    pool={pool}
+                                    blank={key.key}
+                                    color={sectionColors[i]}
+                                    shelf={(key as any).shelf || []}
+                                    stem
+                                    stabs
+                                />
+                            </PlaneItem>
+                        ))}
+                    </>
+                ));
             })}
         </Plane>
     );
