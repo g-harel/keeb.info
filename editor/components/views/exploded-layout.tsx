@@ -10,7 +10,7 @@ import {
 } from "../../cons";
 import {ReactProps} from "../../../internal/types/util";
 import {Pool, Plane, PlaneItem} from "../plane";
-import { colorSeries } from "../../../internal/colors";
+import {colorSeries} from "../../../internal/colors";
 import {Blocker} from "../blocker";
 
 export interface ExplodedLayoutProps extends ReactProps {
@@ -19,13 +19,15 @@ export interface ExplodedLayoutProps extends ReactProps {
 }
 
 // TODO draw in descending order to preserve overlap.
-// TODO render blockers differently.
 export const ExplodedLayout = (props: ExplodedLayoutProps) => {
     const spreadLayout = spreadSections(props.layout);
     const [min, max] = minmaxLayout(spreadLayout);
     const unitWidth = max[0] - min[0];
     const unitHeight = max[1] - min[1];
-    const sectionColors = colorSeries(START_SECTION_COLOR, spreadLayout.variableKeys.length);
+    const sectionColors = colorSeries(
+        START_SECTION_COLOR,
+        spreadLayout.variableKeys.length,
+    );
 
     const pool = new Pool();
     return (
@@ -52,7 +54,7 @@ export const ExplodedLayout = (props: ExplodedLayoutProps) => {
                     />
                 </PlaneItem>
             ))}
-            {spreadLayout.variableKeys.map((section, i, sections) => {
+            {spreadLayout.variableKeys.map((section, i) => {
                 return section.options.map((option) => (
                     <>
                         {option.blockers.map((blocker) => (

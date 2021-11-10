@@ -30,5 +30,5 @@ export const Blocker = (props: BlockerProps) => {
         );
     }
 
-    return props.pool.ref(refID);
+    return <>{props.pool.ref(refID)}</>;
 };

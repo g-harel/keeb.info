@@ -284,6 +284,7 @@ export interface LayoutBlocker {
 }
 
 // Location in the layout where a key can be populated.
+// TODO add option for a graphic.
 export interface LayoutKey {
     // Unique identifier to refer to key.
     ref: UUID;

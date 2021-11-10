@@ -17,9 +17,11 @@ export const resolveColor = (hexOrCode: string): string => {
 export const colorSeries = (startColor: string, count: number): string[] => {
     const colors = [];
     for (let i = 0; i < count; i++) {
-        colors.push(color(startColor)
-            .rotate((i / count) * 360)
-            .hex());
+        colors.push(
+            color(startColor)
+                .rotate((i / count) * 360)
+                .hex(),
+        );
     }
     return colors;
 };

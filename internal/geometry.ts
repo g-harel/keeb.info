@@ -130,14 +130,18 @@ export const multiUnion = (...shapes: Pair[][]): Pair[][] => {
     return mp.flat(1).map((poly) => poly.slice(1));
 };
 
-export const joinShapes = (shapes: Shape[]): Pair[] => {
+export const joinShapes = (shapes: Shape[]): Pair[][] => {
     const polys: Polygon[] = [];
     for (const shape of shapes) {
         polys.push([[...shapeCorners([0, 0], shape).map(toPair)]]);
     }
     const m = union(...(polys as [Polygon]));
+    return m.map((poly) => poly.map((ring) => ring.slice(1))).flat(1);
+};
+
+export const joinShape = (shapes: Shape[]): Pair[] => {
+    const m = joinShapes(shapes);
     if (m.length === 0) return [];
     if (m.length > 1) throw "TODO split";
-    if (m[0].length > 1) throw "TODO split";
-    return m[0][0].slice(1);
+    return m[0];
 };
