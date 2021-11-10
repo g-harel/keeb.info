@@ -9,7 +9,7 @@ import {
     START_SECTION_COLOR,
 } from "../../cons";
 import {ReactProps} from "../../../internal/types/util";
-import {Pool, Plane, PlaneItem} from "../plane";
+import {RefPool, Plane, PlaneItem} from "../plane";
 import {colorSeries} from "../../../internal/colors";
 import {Blocker} from "../blocker";
 
@@ -29,13 +29,13 @@ export const ExplodedLayout = (props: ExplodedLayoutProps) => {
         spreadLayout.variableKeys.length,
     );
 
-    const pool = new Pool();
+    const refPool = new RefPool();
     return (
         <Plane
             pixelWidth={props.width}
             unitSize={[unitWidth, unitHeight]}
             padTop={-Math.min(0, SHINE_PADDING_TOP)}
-            pool={pool}
+            pool={refPool}
         >
             {spreadLayout.fixedKeys.map((key) => (
                 <PlaneItem
@@ -45,7 +45,7 @@ export const ExplodedLayout = (props: ExplodedLayoutProps) => {
                     position={key.position}
                 >
                     <Key
-                        pool={pool}
+                        pool={refPool.add.bind(refPool)}
                         blank={key.key}
                         color={DEFAULT_KEY_COLOR}
                         shelf={(key as any).shelf || []}
@@ -65,7 +65,7 @@ export const ExplodedLayout = (props: ExplodedLayoutProps) => {
                                 position={blocker.position}
                             >
                                 <Blocker
-                                    pool={pool}
+                                    pool={refPool.add.bind(refPool)}
                                     shape={blocker.shape}
                                     color={sectionColors[i]}
                                 />
@@ -79,7 +79,7 @@ export const ExplodedLayout = (props: ExplodedLayoutProps) => {
                                 position={key.position}
                             >
                                 <Key
-                                    pool={pool}
+                                    pool={refPool.add.bind(refPool)}
                                     blank={key.key}
                                     color={sectionColors[i]}
                                     shelf={(key as any).shelf || []}

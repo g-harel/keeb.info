@@ -10,7 +10,7 @@ import {
     SHINE_PADDING_TOP,
 } from "../../cons";
 import {ReactProps} from "../../../internal/types/util";
-import {Plane, PlaneItem, Pool} from "../plane";
+import {Plane, PlaneItem, RefPool} from "../plane";
 import {Pair} from "polygon-clipping";
 import {resolveColor} from "../../../internal/colors";
 
@@ -70,12 +70,12 @@ export const FullKeyset = (props: FullKeysetProps) => {
         rowHeights.push(max);
     }
 
-    const pool = new Pool();
+    const refPool = new RefPool();
     return (
         <Plane
             pixelWidth={props.width}
             unitSize={[maxWidth, sum(rowHeights)]}
-            pool={pool}
+            pool={refPool}
             padTop={-Math.min(0, SHINE_PADDING_TOP)}
         >
             {kitRows.map((row, i) => {
@@ -93,7 +93,7 @@ export const FullKeyset = (props: FullKeysetProps) => {
                             ]}
                         >
                             <Key
-                                pool={pool}
+                                pool={refPool.add.bind(refPool)}
                                 blank={key.key}
                                 color={resolveColor(
                                     key.color || DEFAULT_KEY_COLOR,

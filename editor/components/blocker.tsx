@@ -1,7 +1,7 @@
 import React from "react";
 
 import * as c from "../cons";
-import {joinShapes, straightPath} from "../../internal/geometry";
+import {joinShape, straightPath} from "../../internal/geometry";
 import {Shape} from "../../internal/types/base";
 import {ReactProps} from "../../internal/types/util";
 import {Pool} from "./plane";
@@ -14,21 +14,20 @@ export interface BlockerProps extends ReactProps {
 }
 
 export const Blocker = (props: BlockerProps) => {
-    const rawBase = joinShapes(props.shape);
+    const rawBase = joinShape(props.shape);
     const refID = genID("blocker", {base: props.shape, color: props.color});
 
-    if (!props.pool.hasRef(refID)) {
-        props.pool.add(
-            refID,
-            <path
-                d={straightPath(rawBase)}
-                stroke={props.color}
-                strokeWidth={c.BORDER}
-                fill={props.color}
-                strokeLinejoin="round"
-            />,
-        );
-    }
-
-    return <>{props.pool.ref(refID)}</>;
+    return (
+        <>
+            {props.pool(refID, () => (
+                <path
+                    d={straightPath(rawBase)}
+                    stroke={props.color}
+                    strokeWidth={c.BORDER}
+                    fill={props.color}
+                    strokeLinejoin="round"
+                />
+            ))}
+        </>
+    );
 };

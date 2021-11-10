@@ -5,7 +5,7 @@ import {minmaxLayout} from "../../../internal/measure";
 import {Layout} from "../../../internal/types/base";
 import * as c from "../../cons";
 import {ReactProps} from "../../../internal/types/util";
-import {Plane, PlaneItem, Pool} from "../plane";
+import {Plane, PlaneItem, RefPool} from "../plane";
 import {Footprint} from "../footprint";
 
 export interface FootprintLayoutProps extends ReactProps {
@@ -27,12 +27,13 @@ export const FootprintLayout = (props: FootprintLayoutProps) => {
             .hex();
     };
 
-    const pool = new Pool();
+    const refPool = new RefPool();
+    // TODO render all blockers below.
     return (
         <Plane
             pixelWidth={props.width}
             unitSize={[unitWidth, unitHeight]}
-            pool={pool}
+            pool={refPool}
             padTop={0}
         >
             {props.layout.fixedKeys.map((key) => (

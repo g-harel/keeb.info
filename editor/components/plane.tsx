@@ -6,7 +6,7 @@ import {ReactElement, ReactProps} from "../../internal/types/util";
 export interface PlaneProps extends ReactProps {
     unitSize: Pair;
     pixelWidth: number;
-    pool: Pool;
+    pool: RefPool;
     padTop: number;
 }
 
@@ -16,7 +16,12 @@ interface PlaneItemProps extends ReactProps {
     angle: number;
 }
 
-export class Pool {
+export interface Pool {
+    (id: string, generator: () => ReactElement): ReactElement;
+}
+
+// TODO make this private.
+export class RefPool {
     private components: ReactElement[];
     private ids: Record<string, boolean>;
 
@@ -25,21 +30,15 @@ export class Pool {
         this.ids = {};
     }
 
-    hasRef(id: string): boolean {
-        return !!this.ids[id];
-    }
-
-    add(id: string, component: ReactElement) {
-        if (this.ids[id]) return;
-        this.components.push(
-            <g id={id} key={id}>
-                {component}
-            </g>,
-        );
-        this.ids[id] = true;
-    }
-
-    ref(id: string): ReactElement {
+    add(id: string, generator: () => ReactElement): ReactElement {
+        if (!this.ids[id]) {
+            this.components.push(
+                <g id={id} key={id}>
+                    {generator()}
+                </g>,
+            );
+            this.ids[id] = true;
+        }
         return <use xlinkHref={`#${id}`} />;
     }
 

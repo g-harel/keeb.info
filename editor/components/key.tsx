@@ -20,7 +20,7 @@ import {
     straightPath,
     bridgeArcs,
     multiUnion,
-    joinShapes,
+    joinShape,
 } from "../../internal/geometry";
 import {ReactProps} from "../../internal/types/util";
 import {resolveColor} from "../../internal/colors";
@@ -200,20 +200,20 @@ const calcKeycap = (key: KeyProps): CalculatedKeycap => {
     const shineShape = pad(stepped ? key.shelf : key.blank.shape, KEY_PADDING);
 
     // Sharp key base.
-    const rawBase = joinShapes(shape);
+    const rawBase = joinShape(shape);
     const roundBase = round(rawBase, c.KEY_RADIUS, c.KEY_RADIUS);
 
     // Shine outer edge.
-    const rawStep = joinShapes(pad(shape, STEP_PADDING));
+    const rawStep = joinShape(pad(shape, STEP_PADDING));
     const roundStep = round(rawStep, c.STEP_RADIUS, c.KEY_RADIUS);
     const approxStep = approx(roundStep, c.ROUND_RESOLUTION);
 
     // Shine shape.
-    const rawShine = joinShapes(pad(shineShape, SHINE_PADDING));
+    const rawShine = joinShape(pad(shineShape, SHINE_PADDING));
     const roundShine = round(rawShine, c.SHINE_RADIUS, c.KEY_RADIUS);
 
     // Shine inner edge.
-    const rawShineBase = joinShapes(pad(shineShape, STEP_PADDING));
+    const rawShineBase = joinShape(pad(shineShape, STEP_PADDING));
     const roundShineBase = round(rawShineBase, c.STEP_RADIUS, c.KEY_RADIUS);
     const approxShineBase = approx(roundShineBase, c.ROUND_RESOLUTION);
 
@@ -258,7 +258,7 @@ const calcKeycap = (key: KeyProps): CalculatedKeycap => {
     const inflatePadding = STEP_PADDING.map((n) => n - c.BORDER / 1000) as any;
     const approxInflatedShineBase = approx(
         round(
-            joinShapes(pad(shineShape, inflatePadding)),
+            joinShape(pad(shineShape, inflatePadding)),
             c.STEP_RADIUS,
             c.KEY_RADIUS,
         ),
@@ -300,53 +300,49 @@ export const Key = (props: KeyProps) => {
         shelf: props.shelf,
         color: props.color,
     });
-    if (!props.pool.hasRef(refID)) {
-        const calculatedKeycap = calcKeycap(props);
-        props.pool.add(
-            refID,
-            <g>
-                <path
-                    d={calculatedKeycap.basePath}
-                    stroke={strokeColor}
-                    strokeWidth={c.BORDER}
-                    fill={props.color}
-                />
-                {calculatedKeycap.stepPaths.map((path, i) => (
-                    <path
-                        key={i}
-                        d={path}
-                        stroke={strokeColor}
-                        strokeWidth={c.BORDER}
-                        fill={props.color}
-                        strokeLinejoin="round"
-                    />
-                ))}
-                {calculatedKeycap.arcBridgeLines.map((l, i) => (
-                    <line
-                        key={i}
-                        x1={l[0][0]}
-                        y1={l[0][1]}
-                        x2={l[1][0]}
-                        y2={l[1][1]}
-                        stroke={strokeColor}
-                        strokeWidth={c.DETAIL_BORDER}
-                        strokeLinecap="round"
-                    />
-                ))}
-                <path
-                    d={calculatedKeycap.shinePath}
-                    stroke={strokeColor}
-                    strokeWidth={c.BORDER}
-                    fill={shineColor}
-                />
-            </g>,
-        );
-    }
 
+    const calculatedKeycap = calcKeycap(props);
     return (
         <g>
             {/* Keycap */}
-            {props.pool.ref(refID)}
+            {props.pool(refID, () => (
+                <g>
+                    <path
+                        d={calculatedKeycap.basePath}
+                        stroke={strokeColor}
+                        strokeWidth={c.BORDER}
+                        fill={props.color}
+                    />
+                    {calculatedKeycap.stepPaths.map((path, i) => (
+                        <path
+                            key={i}
+                            d={path}
+                            stroke={strokeColor}
+                            strokeWidth={c.BORDER}
+                            fill={props.color}
+                            strokeLinejoin="round"
+                        />
+                    ))}
+                    {calculatedKeycap.arcBridgeLines.map((l, i) => (
+                        <line
+                            key={i}
+                            x1={l[0][0]}
+                            y1={l[0][1]}
+                            x2={l[1][0]}
+                            y2={l[1][1]}
+                            stroke={strokeColor}
+                            strokeWidth={c.DETAIL_BORDER}
+                            strokeLinecap="round"
+                        />
+                    ))}
+                    <path
+                        d={calculatedKeycap.shinePath}
+                        stroke={strokeColor}
+                        strokeWidth={c.BORDER}
+                        fill={shineColor}
+                    />
+                </g>
+            ))}
 
             {/* Mounts */}
             <Mounts
