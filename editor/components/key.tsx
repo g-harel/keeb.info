@@ -9,6 +9,7 @@ import {
     QuadPoint,
     Shape,
     SpaceBetweenLayout,
+    UUID,
 } from "../../internal/types/base";
 import {genID, rotateCoord} from "../../internal/measure";
 import * as c from "../cons";
@@ -27,6 +28,7 @@ import {resolveColor} from "../../internal/colors";
 import {Pool} from "./plane";
 
 export interface KeyProps extends ReactProps {
+    uuid: UUID;
     color: string;
     blank: Blank;
     pool: Pool;
@@ -303,7 +305,7 @@ export const Key = (props: KeyProps) => {
 
     const calculatedKeycap = calcKeycap(props);
     return (
-        <g>
+        <g id={props.uuid}>
             {/* Keycap */}
             {props.pool(refID, () => (
                 <g>

@@ -28,6 +28,7 @@ export const WIRE_OFFSET = 2 * (STEM_SIZE + WIRE_WIDTH / 2);
 export const WIRE_ANGLE = 105;
 export const LAYOUT_OPTIONS_PADDING = 0.45;
 export const LAYOUT_SPREAD_INCREMENT = 0.5;
+export const LAYOUT_SPREAD_ATTEMPTS = 50;
 export const FOOTPRINT_COLOR_DARKEN = 0.3;
 export const MIN_KEYSET_WIDTH_DISPLAY = 10;
 

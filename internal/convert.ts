@@ -60,6 +60,7 @@ export const convertKLEToLayout = (raw: any): Layout => {
 
     return {
         ref: String(Math.random()),
+        fixedBlockers: [],
         fixedKeys: kle.keys.map((key) => {
             return {
                 ref: String(Math.random()),

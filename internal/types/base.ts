@@ -100,6 +100,8 @@ export interface KeysetKit {
 
 // Individual keycap placed on an example layout.
 export interface KeysetKeycap {
+    // TODO add ref.
+
     // Profile of the keycap.
     profile: KeysetKeycapProfile;
 
@@ -136,7 +138,7 @@ export interface KeysetKeycap {
 //     centered: [[], ["", "x", ""], []]
 export type SpaceBetweenLayout<T> = T[][];
 
-// Inidividual character/glyph/label.
+// Individual character/glyph/label.
 export interface KeysetKeycapLegend {
     // Color of the entire legend item.
     color?: Color;

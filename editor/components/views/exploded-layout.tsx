@@ -37,6 +37,20 @@ export const ExplodedLayout = (props: ExplodedLayoutProps) => {
             padTop={-Math.min(0, SHINE_PADDING_TOP)}
             pool={refPool}
         >
+            {spreadLayout.fixedBlockers.map((blocker) => (
+                <PlaneItem
+                    key={blocker.ref}
+                    origin={min}
+                    angle={blocker.angle}
+                    position={blocker.position}
+                >
+                    <Blocker
+                        pool={refPool.add.bind(refPool)}
+                        shape={blocker.shape}
+                        color={DEFAULT_KEY_COLOR}
+                    />
+                </PlaneItem>
+            ))}
             {spreadLayout.fixedKeys.map((key) => (
                 <PlaneItem
                     key={key.ref}
@@ -45,6 +59,7 @@ export const ExplodedLayout = (props: ExplodedLayoutProps) => {
                     position={key.position}
                 >
                     <Key
+                        uuid={key.ref}
                         pool={refPool.add.bind(refPool)}
                         blank={key.key}
                         color={DEFAULT_KEY_COLOR}
@@ -79,6 +94,7 @@ export const ExplodedLayout = (props: ExplodedLayoutProps) => {
                                 position={key.position}
                             >
                                 <Key
+                                    uuid={key.ref}
                                     pool={refPool.add.bind(refPool)}
                                     blank={key.key}
                                     color={sectionColors[i]}

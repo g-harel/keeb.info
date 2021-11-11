@@ -93,6 +93,7 @@ export const FullKeyset = (props: FullKeysetProps) => {
                             ]}
                         >
                             <Key
+                                uuid={String(Math.random())}
                                 pool={refPool.add.bind(refPool)}
                                 blank={key.key}
                                 color={resolveColor(
