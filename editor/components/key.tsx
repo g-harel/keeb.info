@@ -40,11 +40,13 @@ export interface KeyProps extends ReactProps {
 }
 
 export interface StemProps extends ReactProps {
+    pool: Pool;
     coord: Pair;
     color: string;
 }
 
 export interface MountProps extends ReactProps {
+    pool: Pool;
     blank: Blank;
     color: string;
     offset: number;
@@ -53,34 +55,39 @@ export interface MountProps extends ReactProps {
     noWire?: boolean;
 }
 
-// TODO Add to pool.
-export const Stem = (props: StemProps) => (
-    <>
-        <line
-            x1={props.coord[0]}
-            y1={props.coord[1] - c.STEM_SIZE}
-            x2={props.coord[0]}
-            y2={props.coord[1] + c.STEM_SIZE}
-            stroke={color(props.color).darken(c.STEM_COLOR_DARKEN).hex()}
-            strokeWidth={c.STEM_WIDTH}
-            strokeLinecap="round"
-        />
-        <line
-            x1={props.coord[0] - c.STEM_SIZE}
-            y1={props.coord[1]}
-            x2={props.coord[0] + c.STEM_SIZE}
-            y2={props.coord[1]}
-            stroke={color(props.color).darken(c.STEM_COLOR_DARKEN).hex()}
-            strokeWidth={c.STEM_WIDTH}
-            strokeLinecap="round"
-        />
-    </>
-);
+export const Stem = (props: StemProps) => {
+    return props.pool(
+        genID("stem", {color: props.color, position: props.coord}),
+        () => (
+            <>
+                <line
+                    x1={props.coord[0]}
+                    y1={props.coord[1] - c.STEM_SIZE}
+                    x2={props.coord[0]}
+                    y2={props.coord[1] + c.STEM_SIZE}
+                    stroke={color(props.color).darken(c.STEM_COLOR_DARKEN).hex()}
+                    strokeWidth={c.STEM_WIDTH}
+                    strokeLinecap="round"
+                />
+                <line
+                    x1={props.coord[0] - c.STEM_SIZE}
+                    y1={props.coord[1]}
+                    x2={props.coord[0] + c.STEM_SIZE}
+                    y2={props.coord[1]}
+                    stroke={color(props.color).darken(c.STEM_COLOR_DARKEN).hex()}
+                    strokeWidth={c.STEM_WIDTH}
+                    strokeLinecap="round"
+                />
+            </>
+        ),
+    );
+};
 
 export const Mounts = (props: MountProps) => (
     <g>
         {props.stem && (
             <Stem
+                pool={props.pool}
                 coord={[
                     props.blank.stem[0],
                     props.blank.stem[1] + props.offset,
@@ -110,10 +117,12 @@ export const Mounts = (props: MountProps) => (
                 return (
                     <g key={i}>
                         <Stem
+                            pool={props.pool}
                             coord={[startStem[0], startStem[1] + props.offset]}
                             color={props.color}
                         />
                         <Stem
+                            pool={props.pool}
                             coord={[endStem[0], endStem[1] + props.offset]}
                             color={props.color}
                         />
@@ -192,7 +201,7 @@ interface CalculatedKeycap {
 
 const keycapCache: Record<string, CalculatedKeycap> = {};
 const calcKeycap = (key: KeyProps): CalculatedKeycap => {
-    const id = genID("cache-key", {base: key.blank.shape, shelf: key.shelf});
+    const id = genID("cache-key", { base: key.blank.shape, shelf: key.shelf });
     if (keycapCache[id] !== undefined) {
         return keycapCache[id];
     }
@@ -348,6 +357,7 @@ export const Key = (props: KeyProps) => {
 
             {/* Mounts */}
             <Mounts
+                pool={props.pool}
                 blank={props.blank}
                 offset={(c.SHINE_PADDING_TOP - c.SHINE_PADDING_BOTTOM) / 2}
                 color={props.color}

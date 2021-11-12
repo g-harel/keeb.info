@@ -5,6 +5,8 @@ import * as glob from "glob";
 
 import {renderSvg} from "./svg";
 
+// TODO replace with new key rendering.
+
 const paths = glob.sync("files/kle/**/*.json");
 
 const svgPaths: string[] = [];

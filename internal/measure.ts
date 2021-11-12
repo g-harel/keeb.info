@@ -220,6 +220,7 @@ export const genID = (
         base?: Shape[];
         shelf?: Shape[];
         color?: string;
+        position?: Pair;
     },
 ): string => {
     let components: any[] = [namespace];
@@ -229,5 +230,6 @@ export const genID = (
             .flat(Infinity),
     );
     components = components.concat((info.color ? [info.color] : []) as any);
+    components = components.concat(info.position ? [info.position] : []);
     return components.join("/").toUpperCase();
 };
