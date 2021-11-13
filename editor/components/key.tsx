@@ -65,7 +65,9 @@ export const Stem = (props: StemProps) => {
                     y1={props.coord[1] - c.STEM_SIZE}
                     x2={props.coord[0]}
                     y2={props.coord[1] + c.STEM_SIZE}
-                    stroke={color(props.color).darken(c.STEM_COLOR_DARKEN).hex()}
+                    stroke={color(props.color)
+                        .darken(c.STEM_COLOR_DARKEN)
+                        .hex()}
                     strokeWidth={c.STEM_WIDTH}
                     strokeLinecap="round"
                 />
@@ -74,7 +76,9 @@ export const Stem = (props: StemProps) => {
                     y1={props.coord[1]}
                     x2={props.coord[0] + c.STEM_SIZE}
                     y2={props.coord[1]}
-                    stroke={color(props.color).darken(c.STEM_COLOR_DARKEN).hex()}
+                    stroke={color(props.color)
+                        .darken(c.STEM_COLOR_DARKEN)
+                        .hex()}
                     strokeWidth={c.STEM_WIDTH}
                     strokeLinecap="round"
                 />
@@ -84,7 +88,7 @@ export const Stem = (props: StemProps) => {
 };
 
 export const Mounts = (props: MountProps) => (
-    <g>
+    <>
         {props.stem && (
             <Stem
                 pool={props.pool}
@@ -142,7 +146,7 @@ export const Mounts = (props: MountProps) => (
                     </g>
                 );
             })}
-    </g>
+    </>
 );
 
 interface PositionedElement<T> {
@@ -201,7 +205,7 @@ interface CalculatedKeycap {
 
 const keycapCache: Record<string, CalculatedKeycap> = {};
 const calcKeycap = (key: KeyProps): CalculatedKeycap => {
-    const id = genID("cache-key", { base: key.blank.shape, shelf: key.shelf });
+    const id = genID("cache-key", {base: key.blank.shape, shelf: key.shelf});
     if (keycapCache[id] !== undefined) {
         return keycapCache[id];
     }

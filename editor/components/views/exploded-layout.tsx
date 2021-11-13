@@ -70,42 +70,44 @@ export const ExplodedLayout = (props: ExplodedLayoutProps) => {
                 </PlaneItem>
             ))}
             {spreadLayout.variableKeys.map((section, i) => {
-                return section.options.map((option) => (
-                    <>
-                        {option.blockers.map((blocker) => (
-                            <PlaneItem
-                                key={blocker.ref}
-                                origin={min}
-                                angle={blocker.angle}
-                                position={blocker.position}
-                            >
-                                <Blocker
-                                    pool={refPool.add.bind(refPool)}
-                                    shape={blocker.shape}
-                                    color={sectionColors[i]}
-                                />
-                            </PlaneItem>
-                        ))}
-                        {option.keys.map((key) => (
-                            <PlaneItem
-                                key={key.ref}
-                                origin={min}
-                                angle={key.angle}
-                                position={key.position}
-                            >
-                                <Key
-                                    uuid={key.ref}
-                                    pool={refPool.add.bind(refPool)}
-                                    blank={key.key}
-                                    color={sectionColors[i]}
-                                    shelf={(key as any).shelf || []}
-                                    stem
-                                    stabs
-                                />
-                            </PlaneItem>
-                        ))}
-                    </>
-                ));
+                return section.options.map((option) => {
+                    return option.blockers.map((blocker) => (
+                        <PlaneItem
+                            key={blocker.ref}
+                            origin={min}
+                            angle={blocker.angle}
+                            position={blocker.position}
+                        >
+                            <Blocker
+                                pool={refPool.add.bind(refPool)}
+                                shape={blocker.shape}
+                                color={sectionColors[i]}
+                            />
+                        </PlaneItem>
+                    ));
+                });
+            })}
+            {spreadLayout.variableKeys.map((section, i) => {
+                return section.options.map((option) => {
+                    return option.keys.map((key) => (
+                        <PlaneItem
+                            key={key.ref}
+                            origin={min}
+                            angle={key.angle}
+                            position={key.position}
+                        >
+                            <Key
+                                uuid={key.ref}
+                                pool={refPool.add.bind(refPool)}
+                                blank={key.key}
+                                color={sectionColors[i]}
+                                shelf={(key as any).shelf || []}
+                                stem
+                                stabs
+                            />
+                        </PlaneItem>
+                    ));
+                });
             })}
         </Plane>
     );

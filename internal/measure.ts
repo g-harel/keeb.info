@@ -185,7 +185,12 @@ export const spreadSections = (layout: Layout): Layout => {
                 ] as Pair[]) {
                     let intersects = false;
                     for (const key of option.keys) {
-                        if (doesIntersect(avoid, ringsFromKey()(offsetKey(key, offset)))) {
+                        if (
+                            doesIntersect(
+                                avoid,
+                                ringsFromKey()(offsetKey(key, offset)),
+                            )
+                        ) {
                             intersects = true;
                             break;
                         }
@@ -202,7 +207,7 @@ export const spreadSections = (layout: Layout): Layout => {
                             ...option.keys.map(ringsFromKey()).flat(1),
                             ...option.blockers.map(ringsFromBlocker()).flat(1),
                         );
-                        console.log(avoid, option.ref)
+                        console.log(avoid, option.ref);
                         break;
                     }
                 }
