@@ -152,6 +152,8 @@ export const Mounts = (props: MountProps) => (
 interface PositionedElement<T> {
     position: Pair;
     element: T;
+    anchor: "start" | "middle" | "end";
+    baseline: "auto" | "middle" | "hanging";
 }
 
 export const calcLayout = <T extends any>(
@@ -163,9 +165,22 @@ export const calcLayout = <T extends any>(
         .map((row, i) => {
             const cellWidth = size[0] / row.length;
             return row.map((cell, j) => {
+                const cFirst = i === 0;
+                const cLast = !cFirst && i === layout.length - 1;
+                const cMiddle = !cFirst && !cLast;
+                const rFirst = j === 0;
+                const rLast = !rFirst && j === row.length - 1;
+                const rMiddle = !rFirst && !rLast;
                 return {
-                    position: [cellWidth * j, rowHeight * i],
+                    position: [
+                        cellWidth * j +
+                            (rMiddle ? cellWidth / 2 : rLast ? cellWidth : 0),
+                        rowHeight * i +
+                            (cMiddle ? rowHeight / 2 : cLast ? rowHeight : 0),
+                    ],
                     element: cell,
+                    anchor: rFirst ? "start" : rLast ? "end" : "middle",
+                    baseline: cFirst ? "hanging" : cLast ? "auto" : "middle",
                 };
             });
         })
@@ -372,6 +387,7 @@ export const Key = (props: KeyProps) => {
                 noWire={props.noWire}
             />
 
+            {/* TODO front legend */}
             {props.legend &&
                 calcLayout(props.legend.topLegends, [
                     legendSpaceWidth,
@@ -389,7 +405,8 @@ export const Key = (props: KeyProps) => {
                             fontSize={size}
                             fontWeight="bold"
                             fill={resolveColor(l.element.color || backupColor)}
-                            dominantBaseline="hanging"
+                            dominantBaseline={l.baseline}
+                            textAnchor={l.anchor}
                         >
                             {l.element.text}
                         </text>

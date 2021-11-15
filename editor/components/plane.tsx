@@ -70,7 +70,7 @@ export const Plane = (props: PlaneProps) => (
             props.unitSize[1] + props.padTop
         }`}
         width={props.pixelWidth}
-        style={{border: "1px solid red"}}
+        style={{fontFamily: `"Helvetica Neue",Helvetica,Arial,sans-serif`}}
     >
         {props.children}
         {props.pool.defs()}

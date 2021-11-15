@@ -209,6 +209,10 @@ export interface LayoutKeymap {
 
 export interface KeymapKeycode {
     keycode: any; // TODO
+
+    // TEMP
+    legends: KeysetKeycapLegends;
+    color: Color;
 }
 
 // Implementation of a layout on a board

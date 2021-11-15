@@ -1,4 +1,6 @@
 import {Serial, Key as KLEKey} from "@ijprest/kle-serial";
+import color from "color";
+import {DEFAULT_KEY_COLOR} from "../editor/cons";
 
 import {
     Blank,
@@ -6,10 +8,13 @@ import {
     Stabilizer,
     Keyset,
     Layout,
-    Cartesian,
-    Angle,
+    LayoutKeymap,
+    UUID,
+    KeymapKeycode,
+    KeysetKeycapLegend,
 } from "./types/base";
 
+// TODO support decals
 export const convertKLEKey = (key: KLEKey): Blank => {
     const shapes: Shape[] = [];
     shapes.push({
@@ -57,8 +62,82 @@ export const convertKLEKey = (key: KLEKey): Blank => {
     };
 };
 
+export const convertKLEToLayoutKeymap = (raw: any): [Layout, LayoutKeymap] => {
+    const kle = Serial.deserialize(raw);
+    const layoutRef = String(Math.random());
+
+    const keymap: Record<UUID, KeymapKeycode> = {};
+    const legend = (
+        key: KLEKey,
+        index: number,
+        size: number,
+    ): KeysetKeycapLegend => {
+        return {
+            text: key.labels[index] || "",
+            size: size,
+            color: color(key.textColor[index] || key.default.textColor)
+                .lighten(0.4)
+                .hex(),
+        };
+    };
+    return [
+        {
+            ref: layoutRef,
+            fixedBlockers: [],
+            fixedKeys: kle.keys.map((key) => {
+                const keyRef = String(Math.random());
+                if (key.width !== 1) {
+                    key.labels[8] = String(key.width);
+                    key.textColor[8] = "#444444";
+                }
+                if (key.color === "#cccccc") {
+                    key.color = "#ededed";
+                }
+                keymap[keyRef] = {
+                    keycode: null,
+                    color: key.color,
+                    legends: {
+                        topLegends: [
+                            [
+                                legend(key, 0, 0.61),
+                                legend(key, 1, 0.61),
+                                legend(key, 2, 0.61),
+                            ],
+                            [
+                                legend(key, 3, 0.61),
+                                legend(key, 4, 0.83),
+                                legend(key, 5, 0.61),
+                            ],
+                            [
+                                legend(key, 6, 0.61),
+                                legend(key, 7, 0.61),
+                                legend(key, 8, 0.61),
+                            ],
+                        ],
+                        // TODO move width once implemented in key
+                        frontLegends: [],
+                    },
+                };
+                return {
+                    ref: keyRef,
+                    key: convertKLEKey(key),
+                    position: [key.x, key.y],
+                    angle: key.rotation_angle,
+                    orientation: [true, false],
+                };
+            }),
+            variableKeys: [],
+        },
+        {
+            layout: layoutRef,
+            layers: [keymap],
+            optionSelection: [],
+        },
+    ];
+};
+
 export const convertKLEToLayout = (raw: any): Layout => {
-    const kle = Serial.deserialize(JSON.parse(raw));
+    const kle = Serial.deserialize(raw);
 
     return {
         ref: String(Math.random()),
