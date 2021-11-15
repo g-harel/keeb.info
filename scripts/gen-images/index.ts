@@ -4,15 +4,19 @@ import {Serial} from "@ijprest/kle-serial";
 import * as glob from "glob";
 
 import {renderSvg} from "./svg";
+import {renderKeyboard} from "./react";
 
-// TODO replace with new key rendering.
+const USE_LEGACY = true;
 
 const paths = glob.sync("files/kle/**/*.json");
 
 const svgPaths: string[] = [];
 for (const path of paths) {
     console.log(path);
-    const rendered = renderSvg(Serial.parse(fs.readFileSync(path).toString()));
+    const file = fs.readFileSync(path).toString();
+    const rendered = USE_LEGACY
+        ? renderSvg(Serial.parse(file))
+        : renderKeyboard(file);
     const svgPath = path
         .replace(/\.json$/g, ".svg")
         .replace("kle/", "kle/images/");

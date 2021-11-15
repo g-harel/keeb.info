@@ -65,6 +65,7 @@ export const PlaneItem = (props: PlaneItemProps) => (
 export const Plane = (props: PlaneProps) => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
+        xmlnsXlink="http://www.w3.org/1999/xlink"
         viewBox={`0 ${-props.padTop} ${props.unitSize[0]} ${
             props.unitSize[1] + props.padTop
         }`}

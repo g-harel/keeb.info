@@ -1,5 +1,5 @@
 import {Keyboard} from "@ijprest/kle-serial";
-import * as c from "color";
+import c from "color";
 
 import {Element} from "./xml";
 

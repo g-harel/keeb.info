@@ -1,4 +1,4 @@
-import * as color from "color";
+import color from "color";
 import React from "react";
 import {difference} from "polygon-clipping";
 
@@ -210,9 +210,11 @@ const calcKeycap = (key: KeyProps): CalculatedKeycap => {
         return keycapCache[id];
     }
 
-    const stepped = key.shelf && key.shelf.length > 0;
     const shape = pad(key.blank.shape, KEY_PADDING);
-    const shineShape = pad(stepped ? key.shelf : key.blank.shape, KEY_PADDING);
+    const shineShape = pad(
+        key.shelf && key.shelf.length ? key.shelf : key.blank.shape,
+        KEY_PADDING,
+    );
 
     // Sharp key base.
     const rawBase = joinShape(shape);

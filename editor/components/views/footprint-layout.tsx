@@ -1,5 +1,5 @@
 import React from "react";
-import * as color from "color";
+import color from "color";
 
 import {minmaxLayout} from "../../../internal/measure";
 import {Layout} from "../../../internal/types/base";

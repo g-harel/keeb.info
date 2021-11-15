@@ -10,7 +10,7 @@ import {
     Angle,
 } from "./types/base";
 
-export const converKLEKey = (key: KLEKey): Blank => {
+export const convertKLEKey = (key: KLEKey): Blank => {
     const shapes: Shape[] = [];
     shapes.push({
         height: key.height,
@@ -47,6 +47,8 @@ export const converKLEKey = (key: KLEKey): Blank => {
         });
     }
 
+    // TODO legends.
+
     return {
         shape: shapes,
         stabilizers,
@@ -56,7 +58,7 @@ export const converKLEKey = (key: KLEKey): Blank => {
 };
 
 export const convertKLEToLayout = (raw: any): Layout => {
-    const kle = Serial.deserialize(raw);
+    const kle = Serial.deserialize(JSON.parse(raw));
 
     return {
         ref: String(Math.random()),
@@ -64,7 +66,7 @@ export const convertKLEToLayout = (raw: any): Layout => {
         fixedKeys: kle.keys.map((key) => {
             return {
                 ref: String(Math.random()),
-                key: converKLEKey(key),
+                key: convertKLEKey(key),
                 position: [key.x, key.y],
                 angle: key.rotation_angle,
                 orientation: [true, false],
@@ -91,7 +93,7 @@ export const convertKLEToKeysetKit = (raw: any): Keyset => {
                 },
                 name: String(Math.random()),
                 keys: kle.keys.map((key) => {
-                    const blank = converKLEKey(key);
+                    const blank = convertKLEKey(key);
                     return {
                         key: blank,
                         shelf: blank.shape.length > 1 ? [blank.shape[0]] : [],

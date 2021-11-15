@@ -1,4 +1,4 @@
-import * as color from "color";
+import color from "color";
 
 export const resolveColor = (hexOrCode: string): string => {
     switch (hexOrCode) {

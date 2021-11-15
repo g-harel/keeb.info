@@ -1,5 +1,5 @@
 import React from "react";
-import * as color from "color";
+import color from "color";
 
 import {rotateCoord} from "../../internal/measure";
 import * as c from "../cons";
