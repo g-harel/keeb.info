@@ -16,12 +16,11 @@ interface PlaneItemProps extends ReactProps {
     angle: number;
 }
 
-export interface Pool {
+export interface Pooler {
     (id: string, generator: () => ReactElement): ReactElement;
 }
 
-// TODO make this private.
-export class RefPool {
+class RefPool {
     private components: ReactElement[];
     private ids: Record<string, boolean>;
 
@@ -45,6 +44,11 @@ export class RefPool {
     defs(): ReactElement {
         return <defs>{this.components}</defs>;
     }
+}
+
+export const createPool = (): [RefPool, Pooler] => {
+    const refPool = new RefPool();
+    return [refPool, refPool.add.bind(refPool)];
 }
 
 export const PlaneItem = (props: PlaneItemProps) => (

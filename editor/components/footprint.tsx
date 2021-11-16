@@ -13,6 +13,7 @@ export interface FootprintProps extends ReactProps {
     orientation: Cartesian;
 }
 
+// TODO add to pool
 export const Footprint = (props: FootprintProps) => {
     const contactColor = color(props.color)
         // .darken(c.FOOTPRINT_COLOR_DARKEN)

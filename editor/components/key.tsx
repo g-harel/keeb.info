@@ -25,13 +25,13 @@ import {
 } from "../../internal/geometry";
 import {ReactProps} from "../../internal/types/util";
 import {resolveColor} from "../../internal/colors";
-import {Pool} from "./plane";
+import {Pooler} from "./plane";
 
 export interface KeyProps extends ReactProps {
     uuid: UUID;
     color: string;
     blank: Blank;
-    pool: Pool;
+    pooler: Pooler;
     shelf?: Shape[];
     stem?: boolean;
     stabs?: boolean;
@@ -40,13 +40,13 @@ export interface KeyProps extends ReactProps {
 }
 
 export interface StemProps extends ReactProps {
-    pool: Pool;
+    pooler: Pooler;
     coord: Pair;
     color: string;
 }
 
 export interface MountProps extends ReactProps {
-    pool: Pool;
+    pooler: Pooler;
     blank: Blank;
     color: string;
     offset: number;
@@ -56,7 +56,7 @@ export interface MountProps extends ReactProps {
 }
 
 export const Stem = (props: StemProps) => {
-    return props.pool(
+    return props.pooler(
         genID("stem", {color: props.color, position: props.coord}),
         () => (
             <>
@@ -91,7 +91,7 @@ export const Mounts = (props: MountProps) => (
     <>
         {props.stem && (
             <Stem
-                pool={props.pool}
+                pooler={props.pooler}
                 coord={[
                     props.blank.stem[0],
                     props.blank.stem[1] + props.offset,
@@ -121,12 +121,12 @@ export const Mounts = (props: MountProps) => (
                 return (
                     <g key={i}>
                         <Stem
-                            pool={props.pool}
+                            pooler={props.pooler}
                             coord={[startStem[0], startStem[1] + props.offset]}
                             color={props.color}
                         />
                         <Stem
-                            pool={props.pool}
+                            pooler={props.pooler}
                             coord={[endStem[0], endStem[1] + props.offset]}
                             color={props.color}
                         />
@@ -337,7 +337,7 @@ export const Key = (props: KeyProps) => {
     return (
         <g id={props.uuid}>
             {/* Keycap */}
-            {props.pool(refID, () => (
+            {props.pooler(refID, () => (
                 <g>
                     <path
                         d={calculatedKeycap.basePath}
@@ -378,7 +378,7 @@ export const Key = (props: KeyProps) => {
 
             {/* Mounts */}
             <Mounts
-                pool={props.pool}
+                pooler={props.pooler}
                 blank={props.blank}
                 offset={(c.SHINE_PADDING_TOP - c.SHINE_PADDING_BOTTOM) / 2}
                 color={props.color}

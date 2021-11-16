@@ -9,7 +9,7 @@ import {
     START_SECTION_COLOR,
 } from "../../cons";
 import {ReactProps} from "../../../internal/types/util";
-import {RefPool, Plane, PlaneItem} from "../plane";
+import {createPool, Plane, PlaneItem} from "../plane";
 import {colorSeries} from "../../../internal/colors";
 import {Blocker} from "../blocker";
 
@@ -29,13 +29,13 @@ export const ExplodedLayout = (props: ExplodedLayoutProps) => {
         spreadLayout.variableKeys.length,
     );
 
-    const refPool = new RefPool();
+    const [pool, pooler] = createPool();
     return (
         <Plane
             pixelWidth={props.width}
             unitSize={[unitWidth, unitHeight]}
             padTop={-Math.min(0, SHINE_PADDING_TOP)}
-            pool={refPool}
+            pool={pool}
         >
             {spreadLayout.fixedBlockers.map((blocker) => (
                 <PlaneItem
@@ -45,7 +45,7 @@ export const ExplodedLayout = (props: ExplodedLayoutProps) => {
                     position={blocker.position}
                 >
                     <Blocker
-                        pool={refPool.add.bind(refPool)}
+                        pooler={pooler}
                         shape={blocker.shape}
                         color={DEFAULT_KEY_COLOR}
                     />
@@ -60,7 +60,7 @@ export const ExplodedLayout = (props: ExplodedLayoutProps) => {
                 >
                     <Key
                         uuid={key.ref}
-                        pool={refPool.add.bind(refPool)}
+                        pooler={pooler}
                         blank={key.key}
                         color={DEFAULT_KEY_COLOR}
                         shelf={(key as any).shelf || []}
@@ -79,7 +79,7 @@ export const ExplodedLayout = (props: ExplodedLayoutProps) => {
                             position={blocker.position}
                         >
                             <Blocker
-                                pool={refPool.add.bind(refPool)}
+                                pooler={pooler}
                                 shape={blocker.shape}
                                 color={sectionColors[i]}
                             />
@@ -98,7 +98,7 @@ export const ExplodedLayout = (props: ExplodedLayoutProps) => {
                         >
                             <Key
                                 uuid={key.ref}
-                                pool={refPool.add.bind(refPool)}
+                                pooler={pooler}
                                 blank={key.key}
                                 color={sectionColors[i]}
                                 shelf={(key as any).shelf || []}

@@ -4,11 +4,11 @@ import * as c from "../cons";
 import {joinShape, straightPath} from "../../internal/geometry";
 import {Shape} from "../../internal/types/base";
 import {ReactProps} from "../../internal/types/util";
-import {Pool} from "./plane";
+import {Pooler} from "./plane";
 import {genID} from "../../internal/measure";
 
 export interface BlockerProps extends ReactProps {
-    pool: Pool;
+    pooler: Pooler;
     shape: Shape[];
     color: string;
 }
@@ -19,7 +19,7 @@ export const Blocker = (props: BlockerProps) => {
 
     return (
         <>
-            {props.pool(refID, () => (
+            {props.pooler(refID, () => (
                 <path
                     d={straightPath(rawBase)}
                     stroke={props.color}
