@@ -1,8 +1,11 @@
 import * as fs from "fs";
-
 import * as glob from "glob";
+import React from "react";
+import ReactDOMServer from "react-dom/server";
 
-import {renderKeyboard} from "./react";
+import {LayoutKeymap} from "../../editor/components/views/layout-keymap";
+import {convertKLEToLayoutKeymap} from "../../internal/convert";
+import {Layout} from "../../internal/types/base";
 
 const paths = glob.sync("files/kle/**/*.json");
 
@@ -11,16 +14,23 @@ for (const path of paths) {
     console.log(path);
 
     const file = fs.readFileSync(path).toString();
-    const rendered = renderKeyboard(file);
+    const [layout, keymap] = convertKLEToLayoutKeymap(JSON.parse(file));
+    const svg = ReactDOMServer.renderToStaticMarkup(
+        <LayoutKeymap
+            layout={layout as Layout}
+            keymap={keymap}
+            width={838}
+        />,
+    );
 
     const svgPath = path
         .replace(/\.json$/g, ".svg")
         .replace("kle/", "kle/images/");
-    fs.writeFileSync(svgPath, rendered.svg);
+    fs.writeFileSync(svgPath, svg);
 
     const name = (/.*\/(\w+)\.svg$/g.exec(svgPath) || [null, "error"])[1];
-    generatedContents += `<h2>${name}</h2><h4>${rendered.keyCount} keys</h4>\n`;
-    generatedContents += `<img id="${name}" src="${svgPath}"/>\n`;
+    generatedContents += `<h2>${name}</h2><h4>${layout.fixedKeys.length} keys</h4>\n`;
+    generatedContents += `<img id="${name}" src="${svgPath}" style="min-height:200px;" />\n`;
 }
 
 const outContents = `<html>
