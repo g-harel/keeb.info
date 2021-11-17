@@ -16,11 +16,7 @@ for (const path of paths) {
     const file = fs.readFileSync(path).toString();
     const [layout, keymap] = convertKLEToLayoutKeymap(JSON.parse(file));
     const svg = ReactDOMServer.renderToStaticMarkup(
-        <LayoutKeymap
-            layout={layout as Layout}
-            keymap={keymap}
-            width={838}
-        />,
+        <LayoutKeymap layout={layout as Layout} keymap={keymap} width={838} />,
     );
 
     const svgPath = path

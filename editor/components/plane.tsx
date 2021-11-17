@@ -49,7 +49,7 @@ class RefPool {
 export const createPool = (): [RefPool, Pooler] => {
     const refPool = new RefPool();
     return [refPool, refPool.add.bind(refPool)];
-}
+};
 
 export const PlaneItem = (props: PlaneItemProps) => (
     <g

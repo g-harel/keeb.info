@@ -226,6 +226,7 @@ export const genID = (
         shelf?: Shape[];
         color?: string;
         position?: Pair;
+        angle?: number;
     },
 ): string => {
     let components: any[] = [namespace];
@@ -236,5 +237,6 @@ export const genID = (
     );
     components = components.concat((info.color ? [info.color] : []) as any);
     components = components.concat(info.position ? [info.position] : []);
+    components = components.concat(info.angle ? [info.angle] : []);
     return components.join("/").toUpperCase();
 };
