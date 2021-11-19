@@ -25,7 +25,7 @@ import {
 } from "../../internal/geometry";
 import {ReactProps} from "../../internal/types/util";
 import {resolveColor} from "../../internal/colors";
-import {Pooler} from "./plane";
+import {Pooler} from "./view";
 
 export interface KeyProps extends ReactProps {
     uuid: UUID;

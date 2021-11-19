@@ -4,7 +4,7 @@ import * as c from "../cons";
 import {joinShape, straightPath} from "../../internal/geometry";
 import {Shape} from "../../internal/types/base";
 import {ReactProps} from "../../internal/types/util";
-import {Pooler} from "./plane";
+import {Pooler} from "./view";
 import {genID} from "../../internal/measure";
 
 export interface BlockerProps extends ReactProps {

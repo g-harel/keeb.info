@@ -6,7 +6,7 @@ import * as c from "../cons";
 import {ReactProps} from "../../internal/types/util";
 import {Angle, Blank, Cartesian, Pair} from "../../internal/types/base";
 import {convertCartesianToAngle} from "../../internal/geometry";
-import {Pooler} from "./plane";
+import {Pooler} from "./view";
 
 export interface FootprintProps extends ReactProps {
     pooler: Pooler;

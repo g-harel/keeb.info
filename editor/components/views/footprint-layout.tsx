@@ -5,7 +5,7 @@ import {minmaxLayout} from "../../../internal/measure";
 import {Layout} from "../../../internal/types/base";
 import * as c from "../../cons";
 import {ReactProps} from "../../../internal/types/util";
-import {Plane, PlaneItem, createPool} from "../plane";
+import {View, ViewItem, createPool} from "../view";
 import {Footprint} from "../footprint";
 
 export interface FootprintLayoutProps extends ReactProps {
@@ -30,14 +30,14 @@ export const FootprintLayout = (props: FootprintLayoutProps) => {
     const [pool, pooler] = createPool();
     // TODO render all blockers below.
     return (
-        <Plane
+        <View
             pixelWidth={props.width}
             unitSize={[unitWidth, unitHeight]}
             pool={pool}
             padTop={0}
         >
             {props.layout.fixedKeys.map((key) => (
-                <PlaneItem
+                <ViewItem
                     key={key.ref}
                     origin={min}
                     angle={key.angle}
@@ -49,12 +49,12 @@ export const FootprintLayout = (props: FootprintLayoutProps) => {
                         orientation={key.orientation}
                         color={getColor()}
                     />
-                </PlaneItem>
+                </ViewItem>
             ))}
             {props.layout.variableKeys.map((section) => {
                 return section.options.map((option) =>
                     option.keys.map((key) => (
-                        <PlaneItem
+                        <ViewItem
                             key={key.ref}
                             origin={min}
                             angle={key.angle}
@@ -66,10 +66,10 @@ export const FootprintLayout = (props: FootprintLayoutProps) => {
                                 orientation={key.orientation}
                                 color={getColor()}
                             />
-                        </PlaneItem>
+                        </ViewItem>
                     )),
                 );
             })}
-        </Plane>
+        </View>
     );
 };

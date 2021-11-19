@@ -8,7 +8,7 @@ import {
 import {Key} from "../key";
 import {SHINE_PADDING_TOP} from "../../cons";
 import {ReactProps} from "../../../internal/types/util";
-import {createPool, Plane, PlaneItem} from "../plane";
+import {createPool, View, ViewItem} from "../view";
 
 export interface LayoutKeymapProps extends ReactProps {
     width: number;
@@ -26,7 +26,7 @@ export const LayoutKeymap = (props: LayoutKeymapProps) => {
 
     const [pool, pooler] = createPool();
     return (
-        <Plane
+        <View
             pixelWidth={props.width}
             unitSize={[unitWidth, unitHeight]}
             padTop={-Math.min(0, SHINE_PADDING_TOP)}
@@ -35,7 +35,7 @@ export const LayoutKeymap = (props: LayoutKeymapProps) => {
             {props.layout.fixedKeys.map((key) => {
                 const {color, legends} = props.keymap.layers[0][key.ref];
                 return (
-                    <PlaneItem
+                    <ViewItem
                         key={key.ref}
                         origin={min}
                         angle={key.angle}
@@ -51,9 +51,9 @@ export const LayoutKeymap = (props: LayoutKeymapProps) => {
                             stem
                             stabs
                         />
-                    </PlaneItem>
+                    </ViewItem>
                 );
             })}
-        </Plane>
+        </View>
     );
 };

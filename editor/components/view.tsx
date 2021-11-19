@@ -3,14 +3,14 @@ import React from "react";
 import {Pair} from "../../internal/types/base";
 import {ReactElement, ReactProps} from "../../internal/types/util";
 
-export interface PlaneProps extends ReactProps {
+export interface ViewProps extends ReactProps {
     unitSize: Pair;
     pixelWidth: number;
     pool: RefPool;
     padTop: number;
 }
 
-interface PlaneItemProps extends ReactProps {
+interface ViewItemProps extends ReactProps {
     origin: Pair;
     position: Pair;
     angle: number;
@@ -51,7 +51,7 @@ export const createPool = (): [RefPool, Pooler] => {
     return [refPool, refPool.add.bind(refPool)];
 };
 
-export const PlaneItem = (props: PlaneItemProps) => (
+export const ViewItem = (props: ViewItemProps) => (
     <g
         style={{
             transform:
@@ -66,7 +66,7 @@ export const PlaneItem = (props: PlaneItemProps) => (
     </g>
 );
 
-export const Plane = (props: PlaneProps) => (
+export const View = (props: ViewProps) => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
         xmlnsXlink="http://www.w3.org/1999/xlink"

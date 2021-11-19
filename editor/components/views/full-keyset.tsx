@@ -10,7 +10,7 @@ import {
     SHINE_PADDING_TOP,
 } from "../../cons";
 import {ReactProps} from "../../../internal/types/util";
-import {Plane, PlaneItem, createPool} from "../plane";
+import {View, ViewItem, createPool} from "../view";
 import {Pair} from "polygon-clipping";
 import {resolveColor} from "../../../internal/colors";
 
@@ -72,7 +72,7 @@ export const FullKeyset = (props: FullKeysetProps) => {
 
     const [pool, pooler] = createPool();
     return (
-        <Plane
+        <View
             pixelWidth={props.width}
             unitSize={[maxWidth, sum(rowHeights)]}
             pool={pool}
@@ -83,7 +83,7 @@ export const FullKeyset = (props: FullKeysetProps) => {
                 return row.map((kit, j) => {
                     const startX = sum(row.slice(0, j).map(({width}) => width));
                     return kit.kit.keys.map((key, k) => (
-                        <PlaneItem
+                        <ViewItem
                             key={`${props.keyset.name}-${i}-${j}-${k}`}
                             origin={[kit.min[0] + startX, kit.min[1] + startY]}
                             angle={0}
@@ -105,10 +105,10 @@ export const FullKeyset = (props: FullKeysetProps) => {
                                 stabs
                                 noWire
                             />
-                        </PlaneItem>
+                        </ViewItem>
                     ));
                 });
             })}
-        </Plane>
+        </View>
     );
 };

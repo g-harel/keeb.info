@@ -1,7 +1,7 @@
 import React from "react";
 
 import {minmaxLayout, spreadSections} from "../../../internal/measure";
-import {Layout} from "../../../internal/types/base";
+import {Color, Layout, LayoutKey} from "../../../internal/types/base";
 import {Key} from "../key";
 import {
     DEFAULT_KEY_COLOR,
@@ -9,13 +9,24 @@ import {
     START_SECTION_COLOR,
 } from "../../cons";
 import {ReactProps} from "../../../internal/types/util";
-import {createPool, Plane, PlaneItem} from "../plane";
+import {createPool, View, ViewItem} from "../view";
 import {colorSeries} from "../../../internal/colors";
 import {Blocker} from "../blocker";
 
 export interface ExplodedLayoutProps extends ReactProps {
     width: number;
     layout: Layout;
+}
+
+// TODO make usable in other views
+export interface OrderedKey {
+    key: LayoutKey;
+    color: Color;
+}
+
+const reorderKeys = (keys: OrderedKey[]): OrderedKey[] => {
+    // TODO implement.
+    return keys;
 }
 
 // TODO draw in descending order to preserve overlap.
@@ -29,16 +40,32 @@ export const ExplodedLayout = (props: ExplodedLayoutProps) => {
         spreadLayout.variableKeys.length,
     );
 
+    // Reorder the keys so they overlap correctly.
+    const keys: OrderedKey[] = spreadLayout.fixedKeys
+        .map((key) => ({
+            key,
+            color: DEFAULT_KEY_COLOR,
+        }))
+        .concat(spreadLayout.variableKeys.map((section, i) => {
+            return section.options.map((option) => {
+                return option.keys.map((key) => ({
+                    key,
+                    color: sectionColors[i],
+                }));
+            });
+        }).flat(3));
+    const orderedKeys = reorderKeys(keys);
+
     const [pool, pooler] = createPool();
     return (
-        <Plane
+        <View
             pixelWidth={props.width}
             unitSize={[unitWidth, unitHeight]}
             padTop={-Math.min(0, SHINE_PADDING_TOP)}
             pool={pool}
         >
             {spreadLayout.fixedBlockers.map((blocker) => (
-                <PlaneItem
+                <ViewItem
                     key={blocker.ref}
                     origin={min}
                     angle={blocker.angle}
@@ -49,30 +76,12 @@ export const ExplodedLayout = (props: ExplodedLayoutProps) => {
                         shape={blocker.shape}
                         color={DEFAULT_KEY_COLOR}
                     />
-                </PlaneItem>
-            ))}
-            {spreadLayout.fixedKeys.map((key) => (
-                <PlaneItem
-                    key={key.ref}
-                    origin={min}
-                    angle={key.angle}
-                    position={key.position}
-                >
-                    <Key
-                        uuid={key.ref}
-                        pooler={pooler}
-                        blank={key.key}
-                        color={DEFAULT_KEY_COLOR}
-                        shelf={(key as any).shelf || []}
-                        stem
-                        stabs
-                    />
-                </PlaneItem>
+                </ViewItem>
             ))}
             {spreadLayout.variableKeys.map((section, i) => {
                 return section.options.map((option) => {
                     return option.blockers.map((blocker) => (
-                        <PlaneItem
+                        <ViewItem
                             key={blocker.ref}
                             origin={min}
                             angle={blocker.angle}
@@ -83,32 +92,28 @@ export const ExplodedLayout = (props: ExplodedLayoutProps) => {
                                 shape={blocker.shape}
                                 color={sectionColors[i]}
                             />
-                        </PlaneItem>
+                        </ViewItem>
                     ));
                 });
             })}
-            {spreadLayout.variableKeys.map((section, i) => {
-                return section.options.map((option) => {
-                    return option.keys.map((key) => (
-                        <PlaneItem
-                            key={key.ref}
-                            origin={min}
-                            angle={key.angle}
-                            position={key.position}
-                        >
-                            <Key
-                                uuid={key.ref}
-                                pooler={pooler}
-                                blank={key.key}
-                                color={sectionColors[i]}
-                                shelf={(key as any).shelf || []}
-                                stem
-                                stabs
-                            />
-                        </PlaneItem>
-                    ));
-                });
-            })}
-        </Plane>
+            {orderedKeys.map((key) => (
+                <ViewItem
+                    key={key.key.ref}
+                    origin={min}
+                    angle={key.key.angle}
+                    position={key.key.position}
+                >
+                    <Key
+                        uuid={key.key.ref}
+                        pooler={pooler}
+                        blank={key.key.key}
+                        color={key.color}
+                        shelf={(key.key as any).shelf || []}
+                        stem
+                        stabs
+                    />
+                </ViewItem>
+            ))}
+        </View>
     );
 };
