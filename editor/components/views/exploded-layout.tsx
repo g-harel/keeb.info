@@ -18,15 +18,9 @@ export interface ExplodedLayoutProps extends ReactProps {
     layout: Layout;
 }
 
-// TODO make usable in other views
-export interface OrderedKey {
+interface OrderedKey {
     key: LayoutKey;
     color: Color;
-}
-
-const reorderKeys = (keys: OrderedKey[]): OrderedKey[] => {
-    // TODO implement.
-    return keys;
 }
 
 // TODO draw in descending order to preserve overlap.
@@ -46,15 +40,19 @@ export const ExplodedLayout = (props: ExplodedLayoutProps) => {
             key,
             color: DEFAULT_KEY_COLOR,
         }))
-        .concat(spreadLayout.variableKeys.map((section, i) => {
-            return section.options.map((option) => {
-                return option.keys.map((key) => ({
-                    key,
-                    color: sectionColors[i],
-                }));
-            });
-        }).flat(3));
-    const orderedKeys = reorderKeys(keys);
+        .concat(
+            spreadLayout.variableKeys
+                .map((section, i) => {
+                    return section.options.map((option) => {
+                        return option.keys.map((key) => ({
+                            key,
+                            color: sectionColors[i],
+                        }));
+                    });
+                })
+                .flat(3),
+        );
+    keys.sort((a, b) => a.key.position[1] - b.key.position[1]);
 
     const [pool, pooler] = createPool();
     return (
@@ -96,7 +94,7 @@ export const ExplodedLayout = (props: ExplodedLayoutProps) => {
                     ));
                 });
             })}
-            {orderedKeys.map((key) => (
+            {keys.map((key) => (
                 <ViewItem
                     key={key.key.ref}
                     origin={min}
