@@ -10,7 +10,7 @@ import {
     Layout,
     LayoutKeymap,
     UUID,
-    KeymapKeycode,
+    KeymapKey,
     KeysetKeycapLegend,
 } from "./types/base";
 
@@ -66,7 +66,7 @@ export const convertKLEToLayoutKeymap = (raw: any): [Layout, LayoutKeymap] => {
     const kle = Serial.deserialize(raw);
     const layoutRef = String(Math.random());
 
-    const keymap: Record<UUID, KeymapKeycode> = {};
+    const keymap: Record<UUID, KeymapKey> = {};
     const legend = (
         key: KLEKey,
         index: number,
@@ -94,7 +94,7 @@ export const convertKLEToLayoutKeymap = (raw: any): [Layout, LayoutKeymap] => {
                     key.color = "#ededed";
                 }
                 keymap[keyRef] = {
-                    keycode: null,
+                    tapKeycode: null,
                     color: key.color,
                     legends: {
                         topLegends: [

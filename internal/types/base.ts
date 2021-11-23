@@ -201,14 +201,19 @@ export interface LayoutKeymap {
     layout: UUID;
 
     // Layer definitions mapping key refs to keycodes.
-    layers: Record<UUID, KeymapKeycode>[];
+    layers: Record<UUID, KeymapKey>[];
 
     // Selected layout options for the keymap.
     optionSelection: UUID[];
 }
 
 export interface KeymapKeycode {
-    keycode: any; // TODO
+    // TODO
+}
+
+export interface KeymapKey {
+    tapKeycode: KeymapKeycode;
+    holdKeycode: KeymapKeycode;
 
     // TEMP
     legends: KeysetKeycapLegends;
