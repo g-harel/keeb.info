@@ -94,7 +94,8 @@ export const convertKLEToLayoutKeymap = (raw: any): [Layout, LayoutKeymap] => {
                     key.color = "#ededed";
                 }
                 keymap[keyRef] = {
-                    tapKeycode: null,
+                    tapKeycode: {},
+                    holdKeycode: {},
                     color: key.color,
                     legends: {
                         topLegends: [
@@ -114,7 +115,7 @@ export const convertKLEToLayoutKeymap = (raw: any): [Layout, LayoutKeymap] => {
                                 legend(key, 8, 0.61),
                             ],
                         ],
-                        // TODO move width once implemented in key
+                        // TODO front legends
                         frontLegends: [],
                     },
                 };

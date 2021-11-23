@@ -388,6 +388,7 @@ export const Key = (props: KeyProps) => {
             />
 
             {/* TODO front legend */}
+            {/* TODO wrap legends when overflow */}
             {props.legend &&
                 calcLayout(props.legend.topLegends, [
                     legendSpaceWidth,
