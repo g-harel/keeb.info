@@ -2,7 +2,7 @@
     "scripts": {
         "gen": "ts-node scripts/gen-images",
         "gen-watch": "nodemon --exec ts-node scripts/gen-images",
-        "fmt": "prettier --list-different --write --ignore-path .gitignore *.{ts,tsx,md} editor/**/*.{ts,tsx,html,json} internal/**/*.{ts,tsx} scripts/**/*.{ts,tsx}",
+        "fmt": "prettier --list-different --write --ignore-path '.gitignore' '*.{ts,tsx,md}' 'editor/**/*.{ts,tsx,html,json}' 'internal/**/*.{ts,tsx}' 'scripts/**/*.{ts,tsx}'",
         "editor": "parcel editor/index.html --open",
         "test": "tsc --noEmit"
     },
