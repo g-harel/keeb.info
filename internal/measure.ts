@@ -240,3 +240,13 @@ export const genID = (
     components = components.concat(info.angle ? [info.angle] : []);
     return components.join("/").toUpperCase();
 };
+
+export type Orderable<T> = {
+    [k in keyof T]: T[k];
+} & {
+    key: {position: Pair};
+};
+
+export const orderKeys = <T>(...items: Orderable<T>[][]): Orderable<T>[] => {
+    return items.flat(1).sort((a, b) => a.key.position[1] - b.key.position[1]);
+};

@@ -1,6 +1,6 @@
 import React from "react";
 
-import {minmaxLayout} from "../../../internal/measure";
+import {minmaxLayout, orderKeys} from "../../../internal/measure";
 import {
     Layout,
     LayoutKeymap as LayoutKeymapType,
@@ -24,6 +24,13 @@ export const LayoutKeymap = (props: LayoutKeymapProps) => {
     const unitWidth = max[0] - min[0];
     const unitHeight = max[1] - min[1];
 
+    const keys = orderKeys(
+        props.layout.fixedKeys.map((key) => ({
+            key,
+            ...props.keymap.layers[0][key.ref],
+        })),
+    );
+
     const [pool, pooler] = createPool();
     return (
         <View
@@ -32,22 +39,21 @@ export const LayoutKeymap = (props: LayoutKeymapProps) => {
             padTop={-Math.min(0, SHINE_PADDING_TOP)}
             pool={pool}
         >
-            {props.layout.fixedKeys.map((key) => {
-                const {color, legends} = props.keymap.layers[0][key.ref];
+            {keys.map((key) => {
                 return (
                     <ViewItem
-                        key={key.ref}
+                        key={key.key.ref}
                         origin={min}
-                        angle={key.angle}
-                        position={key.position}
+                        angle={key.key.angle}
+                        position={key.key.position}
                     >
                         <Key
-                            uuid={key.ref}
+                            uuid={key.key.ref}
                             pooler={pooler}
-                            blank={key.key}
-                            color={color}
+                            blank={key.key.key}
+                            color={key.color}
                             shelf={(key as any).shelf || []}
-                            legend={legends}
+                            legend={key.legends}
                             stem
                             stabs
                         />

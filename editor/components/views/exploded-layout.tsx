@@ -1,6 +1,10 @@
 import React from "react";
 
-import {minmaxLayout, spreadSections} from "../../../internal/measure";
+import {
+    minmaxLayout,
+    orderKeys,
+    spreadSections,
+} from "../../../internal/measure";
 import {Color, Layout, LayoutKey} from "../../../internal/types/base";
 import {Key} from "../key";
 import {
@@ -18,12 +22,11 @@ export interface ExplodedLayoutProps extends ReactProps {
     layout: Layout;
 }
 
-interface OrderedKey {
+interface ExplodedLayoutKey {
     key: LayoutKey;
     color: Color;
 }
 
-// TODO draw in descending order to preserve overlap.
 export const ExplodedLayout = (props: ExplodedLayoutProps) => {
     const spreadLayout = spreadSections(props.layout);
     const [min, max] = minmaxLayout(spreadLayout);
@@ -35,24 +38,23 @@ export const ExplodedLayout = (props: ExplodedLayoutProps) => {
     );
 
     // Reorder the keys so they overlap correctly.
-    const keys: OrderedKey[] = spreadLayout.fixedKeys
-        .map((key) => ({
+
+    const keys = orderKeys(
+        spreadLayout.fixedKeys.map((key) => ({
             key,
             color: DEFAULT_KEY_COLOR,
-        }))
-        .concat(
-            spreadLayout.variableKeys
-                .map((section, i) => {
-                    return section.options.map((option) => {
-                        return option.keys.map((key) => ({
-                            key,
-                            color: sectionColors[i],
-                        }));
-                    });
-                })
-                .flat(3),
-        );
-    keys.sort((a, b) => a.key.position[1] - b.key.position[1]);
+        })),
+        spreadLayout.variableKeys
+            .map((section, i) => {
+                return section.options.map((option) => {
+                    return option.keys.map((key) => ({
+                        key,
+                        color: sectionColors[i],
+                    }));
+                });
+            })
+            .flat(3),
+    );
 
     const [pool, pooler] = createPool();
     return (
