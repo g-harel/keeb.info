@@ -34,7 +34,6 @@ const outContents = `<html>
         <title>Keyboard Layouts</title>
         <style>
             * {font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;}
-            htsml {background-color: #a1a189;}
             h2, h4 {margin: 0;}
             img {margin: 10px 0 70px;}
         </style>
