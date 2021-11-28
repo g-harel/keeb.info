@@ -7,6 +7,7 @@ import {Login, logout, useAuthState} from "../firebase";
 const StyledWrapper = styled.div`
     display: flex;
     flex-direction: column;
+    padding: 2rem;
 `;
 
 export const Account = () => {

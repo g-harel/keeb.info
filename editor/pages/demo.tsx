@@ -21,7 +21,7 @@ const LegacyTestContainer = styled.div`
 const profilerLogger = (id, _, duration) => console.log(id, duration);
 
 export const Demo = () => (
-    <>
+    <div>
         <Profiler id="demo-keyset" onRender={profilerLogger}>
             <FullKeyset keyset={demoKeyset as Keyset} width={1200} />
         </Profiler>
@@ -44,5 +44,5 @@ export const Demo = () => (
                 width={600}
             />
         </LegacyTestContainer>
-    </>
+    </div>
 );

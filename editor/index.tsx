@@ -24,6 +24,13 @@ const GlobalStyle = createGlobalStyle`
     body {
         display: flex;
         flex-grow: 1;
+        overflow: scroll;
+
+        // Dots background.
+        background-color: #f4ffdf;
+        background-image: radial-gradient(#ffe2e8 0.95px, transparent 0.95px), radial-gradient(#ffe2e8 0.95px, #fff3f5 0.95px);
+        background-size: 18px 18px;
+        background-position: 0 0, 9px 9px;
     }
 
     #root {
@@ -41,7 +48,8 @@ const App = () => (
             <Routes>
                 {/* TODO path variables */}
                 <Route path="account" element={<Account />} />
-                <Route path="demo" element={<Demo />} />
+                <Route path="/" element={<Demo />} />
+                {/* TODO demo path */}
                 {/* TODO 404 */}
             </Routes>
         </BrowserRouter>
