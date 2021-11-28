@@ -3,7 +3,7 @@ import {User} from "firebase/auth";
 import "firebase/compat/auth";
 import firebase from "firebase/compat/app";
 import {StyledFirebaseAuth} from "react-firebaseui";
-import {useAuthState as uas, AuthStateHook} from "react-firebase-hooks/auth";
+import {useAuthState as uas} from "react-firebase-hooks/auth";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDXm0AEHF4KhhOrradeieM3aAa2axQGf1c",

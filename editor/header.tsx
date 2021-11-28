@@ -1,31 +1,19 @@
 import React from "react";
+import styled from "styled-components";
+import {Link} from "react-router-dom";
 
-import {Login, logout, useAuthState} from "./firebase";
+const StyledHeader = styled.header`
+    display: flex;
+    flex-direction: row;
+    height: 2rem;
+    border-bottom: 1px solid pink;
+`;
 
 export const Header = () => {
-    const [user, loading, error] = useAuthState();
-
-    if (loading) {
-        return <>loading</>;
-    }
-
-    if (error) {
-        return <>{error}</>;
-    }
-
     return (
-        <div>
-            {user ? (
-                <>
-                    <button onClick={logout}>logout</button>
-                </>
-            ) : (
-                <>
-                    <h1>My App</h1>
-                    <p>Please sign-in:</p>
-                    <Login />
-                </>
-            )}
-        </div>
+        <StyledHeader>
+            <Link to="/">Home</Link>
+            <Link to="/account">Account</Link>
+        </StyledHeader>
     );
 };

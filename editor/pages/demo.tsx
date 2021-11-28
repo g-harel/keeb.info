@@ -1,16 +1,16 @@
 import React, {Profiler} from "react";
 import styled from "styled-components";
 
-import {ExplodedLayout} from "./components/views/exploded-layout";
-import kleLayout from "./testing/kle-layout.json";
-import kleKeyset from "./testing/kle-keyset.json";
-import demoLayout from "./testing/demo-layout.json";
-import botanicalKeyset from "./testing/botanical-keyset.json";
-import demoKeyset from "./testing/demo-keyset.json";
-import {convertKLEToLayout} from "../internal/convert";
-import {FootprintLayout} from "./components/views/footprint-layout";
-import {Keyset, Layout} from "../internal/types/base";
-import {FullKeyset} from "./components/views/full-keyset";
+import {ExplodedLayout} from "../components/views/exploded-layout";
+import kleLayout from "../testing/kle-layout.json";
+import kleKeyset from "../testing/kle-keyset.json";
+import demoLayout from "../testing/demo-layout.json";
+import botanicalKeyset from "../testing/botanical-keyset.json";
+import demoKeyset from "../testing/demo-keyset.json";
+import {convertKLEToLayout} from "../../internal/convert";
+import {FootprintLayout} from "../components/views/footprint-layout";
+import {Keyset, Layout} from "../../internal/types/base";
+import {FullKeyset} from "../components/views/full-keyset";
 
 const LegacyTestContainer = styled.div`
     display: flex;
