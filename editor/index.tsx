@@ -10,21 +10,16 @@ import {Account} from "./pages/account";
 
 // Global styles, similar to traditional css.
 const GlobalStyle = createGlobalStyle`
-    html, body {
+    html {
         background-color: ${BACKGROUND_COLOR};
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         margin: 0;
-    }
-
-    html {
         height: 100%;
-        display: flex;
     }
 
     body {
-        display: flex;
-        flex-grow: 1;
-        overflow: scroll;
+        margin: 0;
+        min-height: 100%;
 
         // Dots background.
         background-color: #f4ffdf;

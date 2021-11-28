@@ -26,7 +26,7 @@ export const Demo = () => (
             <FullKeyset keyset={demoKeyset as Keyset} width={1200} />
         </Profiler>
         <Profiler id="botanical-keyset" onRender={profilerLogger}>
-            <FullKeyset keyset={botanicalKeyset as Keyset} width={2400} />
+            <FullKeyset keyset={botanicalKeyset as Keyset} width={1200} />
         </Profiler>
         <Profiler id="demo-layout-exploded" onRender={profilerLogger}>
             <ExplodedLayout layout={demoLayout as Layout} width={1200} />

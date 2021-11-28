@@ -4,7 +4,7 @@ import {ReactProps} from "../../internal/types/util";
 
 export interface LogoProps extends ReactProps {
     size: string;
-	color: string;
+    color: string;
 }
 
 export const Logo = (props: LogoProps) => (
@@ -19,7 +19,7 @@ export const Logo = (props: LogoProps) => (
             width={props.size}
             height={`calc(${props.size} * 0.78)`}
             viewBox="0 0 1000 780"
-            enable-background="new 0 0 1000 780"
+            enableBackground="new 0 0 1000 780"
             xmlSpace="preserve"
         >
             <g>
