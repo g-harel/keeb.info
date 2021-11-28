@@ -22,11 +22,6 @@ export interface ExplodedLayoutProps extends ReactProps {
     layout: Layout;
 }
 
-interface ExplodedLayoutKey {
-    key: LayoutKey;
-    color: Color;
-}
-
 export const ExplodedLayout = (props: ExplodedLayoutProps) => {
     const spreadLayout = spreadSections(props.layout);
     const [min, max] = minmaxLayout(spreadLayout);

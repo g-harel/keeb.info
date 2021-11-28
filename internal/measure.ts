@@ -63,8 +63,8 @@ export const minmaxLayout = (layout: Layout): [Pair, Pair] => {
     for (const key of keys) {
         for (const shape of key.key.shape) {
             coords.push(
-                ...shapeCorners(key.position, shape).map((c) =>
-                    rotateCoord(c, [0, 0], key.angle),
+                ...shapeCorners(key.position, shape).map((corner) =>
+                    rotateCoord(corner, c.ROTATION_ORIGIN, key.angle),
                 ),
             );
         }
@@ -113,7 +113,7 @@ const computeRings = (
 ): Pair[][] => {
     return shapes.map((shape) =>
         shapeCorners(position, padShape(shape, pad)).map((corner) =>
-            rotateCoord(corner, [0, 0], angle),
+            rotateCoord(corner, c.ROTATION_ORIGIN, angle),
         ),
     );
 };
@@ -244,9 +244,30 @@ export const genID = (
 export type Orderable<T> = {
     [k in keyof T]: T[k];
 } & {
-    key: {position: Pair};
+    key: {
+        position: Pair;
+        angle?: Angle;
+    };
 };
 
+interface AngledOrderable<T> {
+    position: Pair;
+    original: Orderable<T>;
+}
+
 export const orderKeys = <T>(...items: Orderable<T>[][]): Orderable<T>[] => {
-    return items.flat(1).sort((a, b) => a.key.position[1] - b.key.position[1]);
+    const angled: AngledOrderable<T>[] = items.flat(1).map((item) => {
+        if (!item.key.angle) {
+            return {position: item.key.position, original: item};
+        }
+        return {
+            position: rotateCoord(
+                item.key.position,
+                c.ROTATION_ORIGIN,
+                item.key.angle,
+            ),
+            original: item,
+        };
+    });
+    return angled.sort((a, b) => a.position[1] - b.position[1]).map((a) => a.original);
 };

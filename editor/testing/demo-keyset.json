@@ -66,7 +66,7 @@
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
-                    "color": "lightpink",
+                    "color": "pink",
                     "keycodeAffinity": []
                 },
                 {
@@ -90,7 +90,7 @@
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
-                    "color": "lightpink",
+                    "color": "pink",
                     "keycodeAffinity": []
                 },
                 {
@@ -114,7 +114,7 @@
                     "barred": false,
                     "scooped": false,
                     "stem": "Cherry",
-                    "color": "lightpink",
+                    "color": "pink",
                     "keycodeAffinity": []
                 }
             ]
