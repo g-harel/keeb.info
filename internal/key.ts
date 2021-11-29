@@ -12,12 +12,13 @@ import {
     joinShape,
 } from "./geometry";
 
-export interface Input {
+export interface KeycapInput {
     base: Shape[];
     shelf?: Shape[];
 }
 
 interface CalculatedKeycap {
+    basePathPoints: Pair[];
     basePath: string;
     stepPaths: string[];
     arcBridgeLines: [Pair, Pair][];
@@ -48,7 +49,7 @@ const pad = (shapes: Shape[], padding: [number, number, number]): Shape[] => {
     }));
 };
 
-export const calcKeycap = (key: Input): CalculatedKeycap => {
+export const calcKeycap = (key: KeycapInput): CalculatedKeycap => {
     const shape = pad(key.base, KEY_PADDING);
     const shineShape = pad(
         key.shelf && key.shelf.length ? key.shelf : key.base,
@@ -125,6 +126,7 @@ export const calcKeycap = (key: Input): CalculatedKeycap => {
         .map((r) => r.slice(1));
 
     const calculatedKeycap: CalculatedKeycap = {
+        basePathPoints: finalBase,
         basePath: straightPath(finalBase),
         stepPaths: approxStepOnly.map(straightPath),
         arcBridgeLines: arcBridges,

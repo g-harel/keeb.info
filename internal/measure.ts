@@ -269,5 +269,7 @@ export const orderKeys = <T>(...items: Orderable<T>[][]): Orderable<T>[] => {
             original: item,
         };
     });
-    return angled.sort((a, b) => a.position[1] - b.position[1]).map((a) => a.original);
+    return angled
+        .sort((a, b) => a.position[1] - b.position[1])
+        .map((a) => a.original);
 };
