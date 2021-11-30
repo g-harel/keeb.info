@@ -7,6 +7,7 @@ import {BACKGROUND_COLOR} from "./cons";
 import {Demo} from "./pages/demo";
 import {Header} from "./header";
 import {Account} from "./pages/account";
+import {Layouts} from "./pages/layouts";
 
 // Global styles, similar to traditional css.
 const GlobalStyle = createGlobalStyle`
@@ -42,9 +43,9 @@ const App = () => (
             <Header />
             <Routes>
                 {/* TODO path variables */}
+                <Route path="/" element={<Layouts />} />
                 <Route path="account" element={<Account />} />
-                <Route path="/" element={<Demo />} />
-                {/* TODO demo path */}
+                <Route path="/demo" element={<Demo />} />
                 {/* TODO 404 */}
             </Routes>
         </BrowserRouter>
