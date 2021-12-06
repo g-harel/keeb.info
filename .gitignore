@@ -1,4 +1,7 @@
 .*
 !.*ignore
-node_modules/
+!.github/
+
 dist/
+node_modules/
+reader/
