@@ -33,6 +33,7 @@ const GlobalStyle = createGlobalStyle`
         display: flex;
         flex-direction: column;
         flex-grow: 1;
+        padding-bottom: 5rem;
     }
 `;
 

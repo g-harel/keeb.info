@@ -22,9 +22,28 @@ import saturn60 from "../../files/kle/saturn60.json";
 import tkc1800 from "../../files/kle/tkc1800.json";
 import tkl from "../../files/kle/tkl.json";
 
-// TODO better styling.
+const StyledWrapper = styled.div`
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding-top: 2rem;
+`;
+
 const StyledItem = styled.div`
-    margin: 2rem 0;
+    background-color: white;
+    color: lightcoral;
+    margin-bottom: 1rem;
+    padding: 1.5rem 2rem 2rem;
+
+    h2 {
+        margin: 0;
+        padding-left: 1rem;
+    }
+
+    h4 {
+        margin: 0 0 1rem;
+        padding-left: 1rem;
+    }
 `;
 
 // TODO make downloadable.
@@ -46,7 +65,7 @@ export const LayoutItem = (props: {raw: any}) => {
 
 // TODO serve bundle to web.
 export const Layouts = () => (
-    <div>
+    <StyledWrapper>
         <LayoutItem raw={alix40} />
         <LayoutItem raw={bear65} />
         <LayoutItem raw={candybar} />
@@ -63,5 +82,5 @@ export const Layouts = () => (
         <LayoutItem raw={saturn60} />
         <LayoutItem raw={tkc1800} />
         <LayoutItem raw={tkl} />
-    </div>
+    </StyledWrapper>
 );
