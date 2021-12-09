@@ -26,7 +26,7 @@ const StyledWrapper = styled.div`
     align-items: center;
     display: flex;
     flex-direction: column;
-    padding-top: 2rem;
+    padding: 2rem 1rem 0;
 `;
 
 const StyledItem = styled.div`
@@ -43,6 +43,11 @@ const StyledItem = styled.div`
     h4 {
         margin: 0 0 1rem;
         padding-left: 1rem;
+    }
+
+    svg { 
+        width: 100%;
+        height: auto;
     }
 `;
 
@@ -63,7 +68,6 @@ export const LayoutItem = (props: {raw: any}) => {
     );
 };
 
-// TODO serve bundle to web.
 export const Layouts = () => (
     <StyledWrapper>
         <LayoutItem raw={alix40} />
