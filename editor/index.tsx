@@ -5,7 +5,7 @@ import {Routes, Route, BrowserRouter} from "react-router-dom";
 
 import {BACKGROUND_COLOR} from "./cons";
 import {Demo} from "./pages/demo";
-import {Header} from "./header";
+import {Header} from "./components/header";
 import {Account} from "./pages/account";
 import {Layouts} from "./pages/layouts";
 
