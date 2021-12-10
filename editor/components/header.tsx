@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import {Link} from "react-router-dom";
 
-import {Logo} from "./components/logo";
+import {Logo} from "./logo";
 
 const StyledHeader = styled.header`
     align-items: center;
@@ -15,10 +15,12 @@ const StyledHeader = styled.header`
     background-color: pink;
 `;
 
-const StyledLogoLink = styled(Link)`
-    padding: 0.2rem;
+const StyledLink = styled(Link)`
     border-radius: 0.2rem;
-    margin-left: 0.5rem;
+    height: 2rem;
+    margin: 0 0.5rem;
+    padding: 0.2rem;
+    text-decoration: none;
 
     :hover {
         background-color: lightpink;
@@ -29,13 +31,24 @@ const StyledLogoLink = styled(Link)`
     }
 `;
 
+const StyledLinkText = styled.div`
+    color: lightcoral;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 0.5rem;
+`;
+
 export const Header = () => {
     return (
         <StyledHeader>
-            <StyledLogoLink to="/">
+            <StyledLink to="/">
                 <Logo color="lightcoral" size="2rem" />
-            </StyledLogoLink>
-            <Link to="/account">Account</Link>
+            </StyledLink>
+            <StyledLink to="/account">
+                <StyledLinkText>
+                    Account
+                </StyledLinkText>
+            </StyledLink>
         </StyledHeader>
     );
 };

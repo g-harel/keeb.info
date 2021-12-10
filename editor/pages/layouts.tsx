@@ -45,7 +45,7 @@ const StyledItem = styled.div`
         padding-left: 1rem;
     }
 
-    svg { 
+    svg {
         width: 100%;
         height: auto;
     }
