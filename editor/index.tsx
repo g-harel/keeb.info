@@ -1,13 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import {createGlobalStyle} from "styled-components";
-import {Routes, Route, BrowserRouter} from "react-router-dom";
+import {BrowserRouter, useRoutes} from "react-router-dom";
 
 import {BACKGROUND_COLOR} from "./cons";
-import {Demo} from "./pages/demo";
 import {Header} from "./components/header";
-import {Account} from "./pages/account";
-import {Layouts} from "./pages/layouts";
+import {sitemap} from "./sitemap";
 
 // Global styles, similar to traditional css.
 const GlobalStyle = createGlobalStyle`
@@ -37,18 +35,16 @@ const GlobalStyle = createGlobalStyle`
     }
 `;
 
+const Routes = () => {
+    return useRoutes(Object.values(sitemap));
+};
+
 const App = () => (
     <>
         <GlobalStyle />
         <BrowserRouter>
             <Header />
-            <Routes>
-                {/* TODO path variables */}
-                <Route path="/" element={<Layouts />} />
-                <Route path="account" element={<Account />} />
-                <Route path="/demo" element={<Demo />} />
-                {/* TODO 404 */}
-            </Routes>
+            <Routes />
         </BrowserRouter>
     </>
 );

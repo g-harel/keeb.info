@@ -3,6 +3,7 @@ import styled from "styled-components";
 import {useNavigate} from "react-router-dom";
 
 import {Login, logout, useAuthState} from "../firebase";
+import {sitemap} from "../sitemap";
 
 const StyledWrapper = styled.div`
     display: flex;
@@ -16,7 +17,7 @@ export const Account = () => {
 
     if (error) {
         console.error(error);
-        navigate("/"); // TODO variable.
+        navigate(sitemap.home.path);
     }
 
     if (loading) {

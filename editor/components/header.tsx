@@ -45,9 +45,7 @@ export const Header = () => {
                 <Logo color="lightcoral" size="2rem" />
             </StyledLink>
             <StyledLink to="/account">
-                <StyledLinkText>
-                    Account
-                </StyledLinkText>
+                <StyledLinkText>Account</StyledLinkText>
             </StyledLink>
         </StyledHeader>
     );
