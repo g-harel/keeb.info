@@ -17,6 +17,7 @@ const GlobalStyle = createGlobalStyle`
     }
 
     body {
+        display: flex;
         margin: 0;
         min-height: 100%;
 

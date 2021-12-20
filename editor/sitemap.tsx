@@ -4,6 +4,7 @@ import {RouteObject} from "react-router-dom";
 import {Layouts} from "./pages/layouts";
 import {Account} from "./pages/account";
 import {Demo} from "./pages/demo";
+import {Message} from "./pages/message";
 
 export const sitemap = {
     home: {
@@ -18,7 +19,10 @@ export const sitemap = {
         path: "/demo",
         element: <Demo />,
     },
-    // TODO 404
+    missing: {
+        path: "*",
+        element: <Message banner="404" message="Not Found" />,
+    },
 };
 
 // Type assertion.
