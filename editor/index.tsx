@@ -20,12 +20,6 @@ const GlobalStyle = createGlobalStyle`
         display: flex;
         margin: 0;
         min-height: 100%;
-
-        // Dots background.
-        background-color: #f4ffdf;
-        background-image: radial-gradient(#ffe2e8 0.95px, transparent 0.95px), radial-gradient(#ffe2e8 0.95px, #fff3f5 0.95px);
-        background-size: 18px 18px;
-        background-position: 0 0, 9px 9px;
     }
 
     #root {
