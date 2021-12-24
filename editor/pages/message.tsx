@@ -20,7 +20,8 @@ const StyledTextWrapper = styled.div`
         font-size: 1rem;
     }
 
-    h1, p {
+    h1,
+    p {
         margin: 0;
         text-align: center;
     }

@@ -12,7 +12,7 @@ import {
 import {ReactProps} from "../../../internal/types/util";
 import {View, ViewItem, createPool} from "../view";
 import {Pair} from "polygon-clipping";
-import {resolveColor} from "../../../internal/colors";
+import {resolveColor} from "../../../internal/color";
 
 export interface FullKeysetProps extends ReactProps {
     width: number;

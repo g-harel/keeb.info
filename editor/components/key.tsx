@@ -13,7 +13,7 @@ import {genID, rotateCoord} from "../../internal/measure";
 import * as c from "../cons";
 import {convertCartesianToAngle} from "../../internal/geometry";
 import {ReactProps} from "../../internal/types/util";
-import {resolveColor} from "../../internal/colors";
+import {resolveColor} from "../../internal/color";
 import {Pooler} from "./view";
 import {cache} from "../../internal/cache";
 

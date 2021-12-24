@@ -7,7 +7,7 @@ import kleKeyset from "../testing/kle-keyset.json";
 import demoLayout from "../testing/demo-layout.json";
 import botanicalKeyset from "../testing/botanical-keyset.json";
 import demoKeyset from "../testing/demo-keyset.json";
-import {convertKLEToLayout} from "../../internal/convert";
+import {convertKLEToLayout} from "../../internal/kle";
 import {FootprintLayout} from "../components/views/footprint-layout";
 import {Keyset, Layout} from "../../internal/types/base";
 import {FullKeyset} from "../components/views/full-keyset";

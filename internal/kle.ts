@@ -15,7 +15,7 @@ import {
 } from "./types/base";
 
 // TODO support decals
-export const convertKLEKey = (key: KLEKey): Blank => {
+const convertKLEKey = (key: KLEKey): Blank => {
     const shapes: Shape[] = [];
     shapes.push({
         height: key.height,

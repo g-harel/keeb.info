@@ -14,7 +14,7 @@ import {
 } from "../../cons";
 import {ReactProps} from "../../../internal/types/util";
 import {createPool, View, ViewItem} from "../view";
-import {colorSeries} from "../../../internal/colors";
+import {colorSeries} from "../../../internal/color";
 import {Blocker} from "../blocker";
 
 export interface ExplodedLayoutProps extends ReactProps {

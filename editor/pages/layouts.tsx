@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import {convertKLEToLayoutKeymap} from "../../internal/convert";
+import {convertKLEToLayoutKeymap} from "../../internal/kle";
 import {Layout} from "../../internal/types/base";
 import {LayoutKeymap} from "../components/views/layout-keymap";
 
