@@ -9,9 +9,12 @@ import {
     SpaceBetweenLayout,
     UUID,
 } from "../../internal/types/base";
-import {genID, rotateCoord} from "../../internal/measure";
+import {
+    genID,
+    rotateCoord,
+    convertCartesianToAngle,
+} from "../../internal/measure";
 import * as c from "../cons";
-import {convertCartesianToAngle} from "../../internal/geometry";
 import {ReactProps} from "../../internal/types/util";
 import {resolveColor} from "../../internal/color";
 import {Pooler} from "./view";

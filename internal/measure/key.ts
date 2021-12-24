@@ -10,7 +10,7 @@ import {
     bridgeArcs,
     multiUnion,
     joinShape,
-} from "../geometry";
+} from ".";
 
 export interface KeycapInput {
     base: Shape[];

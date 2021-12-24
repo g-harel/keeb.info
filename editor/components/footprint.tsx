@@ -1,11 +1,14 @@
 import React from "react";
 import color from "color";
 
-import {genID, rotateCoord} from "../../internal/measure";
+import {
+    genID,
+    rotateCoord,
+    convertCartesianToAngle,
+} from "../../internal/measure";
 import * as c from "../cons";
 import {ReactProps} from "../../internal/types/util";
-import {Angle, Blank, Cartesian, Pair} from "../../internal/types/base";
-import {convertCartesianToAngle} from "../../internal/geometry";
+import {Blank, Cartesian, Pair} from "../../internal/types/base";
 import {Pooler} from "./view";
 
 export interface FootprintProps extends ReactProps {

@@ -29,6 +29,7 @@ export type Pair = [number, number];
 // Rounded corner using a quadratic bezier.
 export type QuadPoint = [Pair, Pair, Pair];
 
+// TODO remove this type.
 // First bool indicates vertical/horizontal and second is direction on that axis.
 // Up:    true,false   -90deg
 // Down:  true,true     90deg

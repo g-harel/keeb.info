@@ -2,11 +2,11 @@ import React, {Profiler} from "react";
 import styled from "styled-components";
 
 import {ExplodedLayout} from "../components/views/exploded-layout";
-import kleLayout from "../testing/kle-layout.json";
-import kleKeyset from "../testing/kle-keyset.json";
-import demoLayout from "../testing/demo-layout.json";
-import botanicalKeyset from "../testing/botanical-keyset.json";
-import demoKeyset from "../testing/demo-keyset.json";
+import kleLayout from "../testdata/kle-layout.json";
+import kleKeyset from "../testdata/kle-keyset.json";
+import demoLayout from "../testdata/demo-layout.json";
+import botanicalKeyset from "../testdata/botanical-keyset.json";
+import demoKeyset from "../testdata/demo-keyset.json";
 import {convertKLEToLayout} from "../../internal/kle";
 import {FootprintLayout} from "../components/views/footprint-layout";
 import {Keyset, Layout} from "../../internal/types/base";

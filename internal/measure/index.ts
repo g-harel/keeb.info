@@ -1,22 +1,117 @@
-import {intersection} from "polygon-clipping";
-import * as c from "../editor/cons";
-import {multiUnion} from "./geometry";
+import {intersection, MultiPolygon, union} from "polygon-clipping";
+import * as c from "../../editor/cons";
 
-import {KeysetKit, Pair, Shape, Angle} from "./types/base";
-import {Layout, LayoutKey, LayoutBlocker} from "./types/base";
+import {
+    KeysetKit,
+    Pair,
+    Shape,
+    Angle,
+    Cartesian,
+    QuadPoint,
+} from "../types/base";
+import {Layout, LayoutKey, LayoutBlocker} from "../types/base";
+import {angleBetween, distance, rotateCoord, splitLine} from "./math";
 
-// Position is P and the rotation origin is R.
-export const rotateCoord = (p: Pair, r: Pair, a: number): Pair => {
-    const angleRads = a * (Math.PI / 180);
-    const rotatedX =
-        Math.cos(angleRads) * (p[0] - r[0]) -
-        Math.sin(angleRads) * (p[1] - r[1]) +
-        r[0];
-    const rotatedY =
-        Math.sin(angleRads) * (p[0] - r[0]) +
-        Math.cos(angleRads) * (p[1] - r[1]) +
-        r[1];
-    return [rotatedX, rotatedY];
+export const round = (
+    shape: Pair[],
+    radius: number,
+    concaveRadius: number,
+): QuadPoint[] => {
+    const points: QuadPoint[] = [];
+    const safePoly = [shape[shape.length - 1], ...shape, shape[0]];
+    for (let i = 1; i < safePoly.length - 1; i++) {
+        const before = safePoly[i - 1];
+        const current = safePoly[i];
+        const after = safePoly[i + 1];
+
+        const angle = angleBetween(before, after, current) / 2;
+        const chopLength =
+            (angle > 0 ? radius : concaveRadius) / Math.cos(angle);
+
+        let beforeFraction = chopLength / distance(before, current);
+        if (beforeFraction > 0.5) beforeFraction = 0.5;
+        const start: Pair = [
+            before[0] + (1 - beforeFraction) * (current[0] - before[0]),
+            before[1] + (1 - beforeFraction) * (current[1] - before[1]),
+        ];
+
+        let afterFraction = chopLength / distance(after, current);
+        if (afterFraction > 0.5) afterFraction = 0.5;
+        const end: Pair = [
+            after[0] + (1 - afterFraction) * (current[0] - after[0]),
+            after[1] + (1 - afterFraction) * (current[1] - after[1]),
+        ];
+
+        points.push([start, current, end]);
+    }
+    return points;
+};
+
+export const splitQuadCurve = (point: QuadPoint, percentage: number): Pair => {
+    const [p0, p1, p2] = point;
+    return splitLine(
+        percentage,
+        splitLine(percentage, p0, p1),
+        splitLine(percentage, p1, p2),
+    );
+};
+
+export const approx = (rounded: QuadPoint[], resolution: number): Pair[] => {
+    const points: Pair[] = [];
+    for (const point of rounded) {
+        for (let p = 0; p <= 1; p += resolution) {
+            points.push(splitQuadCurve(point, p));
+        }
+    }
+    return points;
+};
+
+// TODO remove this type.
+export const convertCartesianToAngle = (c: Cartesian): Angle => {
+    let angle = 0;
+    if (c[0]) angle -= 90;
+    if (c[1]) angle += 180;
+    return angle;
+};
+
+export const bridgeArcs = (count: number, a: QuadPoint, b: QuadPoint) => {
+    const lines: [Pair, Pair][] = [];
+    for (let i = 0; i <= count; i++) {
+        const percentage = i / count;
+        lines.push([
+            splitQuadCurve(a, percentage),
+            splitQuadCurve(b, percentage),
+        ]);
+    }
+    return lines;
+};
+
+export const multiUnion = (...shapes: Pair[][]): Pair[][] => {
+    const roundFactor = 10000000; // TODO tweak if breaking.
+    shapes = shapes.map((shape) =>
+        shape.map((pair) => [
+            Math.round(pair[0] * roundFactor) / roundFactor,
+            Math.round(pair[1] * roundFactor) / roundFactor,
+        ]),
+    );
+
+    const mp: MultiPolygon = union([], ...shapes.map((lc) => [[lc]]));
+    return mp.flat(1).map((poly) => poly.slice(1));
+};
+
+export const joinShapes = (shapes: Shape[]): Pair[][] => {
+    const polys: Pair[][] = [];
+    for (const shape of shapes) {
+        polys.push(shapeCorners([0, 0], shape));
+    }
+    return multiUnion(...polys);
+};
+
+export const joinShape = (shapes: Shape[]): Pair[] => {
+    const m = joinShapes(shapes);
+    if (m.length === 0) return [];
+    if (m.length > 1) throw "TODO split";
+    return m[0];
 };
 
 // Corners in ring order.
