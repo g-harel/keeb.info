@@ -1,14 +1,7 @@
 import {intersection, MultiPolygon, union} from "polygon-clipping";
 import * as c from "../../editor/cons";
 
-import {
-    KeysetKit,
-    Pair,
-    Shape,
-    Angle,
-    Cartesian,
-    QuadPoint,
-} from "../types/base";
+import {KeysetKit, Pair, Shape, Angle, QuadPoint} from "../types/base";
 import {Layout, LayoutKey, LayoutBlocker} from "../types/base";
 import {angleBetween, distance, rotateCoord, splitLine} from "./math";
 
@@ -64,14 +57,6 @@ export const approx = (rounded: QuadPoint[], resolution: number): Pair[] => {
         }
     }
     return points;
-};
-
-// TODO remove this type.
-export const convertCartesianToAngle = (c: Cartesian): Angle => {
-    let angle = 0;
-    if (c[0]) angle -= 90;
-    if (c[1]) angle += 180;
-    return angle;
 };
 
 export const bridgeArcs = (count: number, a: QuadPoint, b: QuadPoint) => {

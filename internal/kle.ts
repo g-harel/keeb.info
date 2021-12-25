@@ -40,13 +40,13 @@ const convertKLEKey = (key: KLEKey): Blank => {
     const stabilizers: Stabilizer[] = [];
     if (shapes[0].width >= 2) {
         stabilizers.push({
-            angle: [false, false],
+            angle: 0,
             length: shapes[0].width - 1,
             offset: [0.5, 0.5],
         });
     } else if (shapes[0].height >= 2) {
         stabilizers.push({
-            angle: [true, true],
+            angle: 90,
             length: shapes[0].height - 1,
             offset: [0.5, 0.5],
         });
@@ -124,7 +124,7 @@ export const convertKLEToLayoutKeymap = (raw: any): [Layout, LayoutKeymap] => {
                     key: convertKLEKey(key),
                     position: [key.x, key.y],
                     angle: key.rotation_angle,
-                    orientation: [true, false],
+                    orientation: 270,
                 };
             }),
             variableKeys: [],
@@ -149,7 +149,7 @@ export const convertKLEToLayout = (raw: any): Layout => {
                 key: convertKLEKey(key),
                 position: [key.x, key.y],
                 angle: key.rotation_angle,
-                orientation: [true, false],
+                orientation: 270,
             };
         }),
         variableKeys: [],

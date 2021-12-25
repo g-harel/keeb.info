@@ -1,21 +1,18 @@
 import React from "react";
 import color from "color";
 
-import {
-    genID,
-    rotateCoord,
-    convertCartesianToAngle,
-} from "../../internal/measure";
+import {genID} from "../../internal/measure";
+import {rotateCoord} from "../../internal/measure/math";
 import * as c from "../cons";
 import {ReactProps} from "../../internal/types/util";
-import {Blank, Cartesian, Pair} from "../../internal/types/base";
+import {Blank, SquareAngle, Pair} from "../../internal/types/base";
 import {Pooler} from "./view";
 
 export interface FootprintProps extends ReactProps {
     pooler: Pooler;
     blank: Blank;
     color: string;
-    orientation: Cartesian;
+    orientation: SquareAngle;
 }
 
 export const Footprint = (props: FootprintProps) => {
@@ -23,7 +20,7 @@ export const Footprint = (props: FootprintProps) => {
         // .darken(c.FOOTPRINT_COLOR_DARKEN)
         // .darken(c.FOOTPRINT_COLOR_DARKEN)
         .hex();
-    const angle = convertCartesianToAngle(props.orientation) + 90;
+    const angle = props.orientation + 90;
     const rotate = (p: Pair): {cx: number; cy: number} => {
         const [cx, cy] = rotateCoord(p, props.blank.stem, angle);
         return {cx, cy};
@@ -76,14 +73,11 @@ export const Footprint = (props: FootprintProps) => {
                     r={c.CHERRY_POLE_RADIUS}
                 />
                 {props.blank.stabilizers.map((stabilizer, i) => {
-                    const stabilizerAngle = convertCartesianToAngle(
-                        stabilizer.angle,
-                    );
                     const startStem = stabilizer.offset;
                     const endStem = rotateCoord(
                         [startStem[0] + stabilizer.length, startStem[1]],
                         startStem,
-                        stabilizerAngle,
+                        stabilizer.angle,
                     );
                     const startBottom = rotateCoord(
                         [
@@ -91,7 +85,7 @@ export const Footprint = (props: FootprintProps) => {
                             startStem[1],
                         ],
                         startStem,
-                        stabilizerAngle + 90,
+                        stabilizer.angle + 90,
                     );
                     const endBottom = rotateCoord(
                         [
@@ -99,7 +93,7 @@ export const Footprint = (props: FootprintProps) => {
                             endStem[1],
                         ],
                         endStem,
-                        stabilizerAngle + 90,
+                        stabilizer.angle + 90,
                     );
                     const startTop = rotateCoord(
                         [
@@ -107,7 +101,7 @@ export const Footprint = (props: FootprintProps) => {
                             startStem[1],
                         ],
                         startStem,
-                        stabilizerAngle - 90,
+                        stabilizer.angle - 90,
                     );
                     const endTop = rotateCoord(
                         [
@@ -115,7 +109,7 @@ export const Footprint = (props: FootprintProps) => {
                             endStem[1],
                         ],
                         endStem,
-                        stabilizerAngle - 90,
+                        stabilizer.angle - 90,
                     );
                     return (
                         <g key={i}>

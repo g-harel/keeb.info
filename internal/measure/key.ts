@@ -2,15 +2,9 @@ import {difference} from "polygon-clipping";
 
 import {Pair, QuadPoint, Shape} from "../types/base";
 import * as c from "../../editor/cons";
-import {
-    approx,
-    round,
-    roundedPath,
-    straightPath,
-    bridgeArcs,
-    multiUnion,
-    joinShape,
-} from ".";
+import {approx, round, bridgeArcs, multiUnion, joinShape} from ".";
+
+import {roundedPath, straightPath} from "./svg";
 
 export interface KeycapInput {
     base: Shape[];

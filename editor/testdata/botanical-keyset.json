@@ -916,7 +916,7 @@
                         "shape": [{"height": 1, "width": 2, "offset": [0, 0]}],
                         "stabilizers": [
                             {
-                                "angle": [false, false],
+                                "angle": 0,
                                 "length": 1,
                                 "offset": [0.5, 0.5]
                             }
@@ -1633,7 +1633,7 @@
                         "shape": [{"height": 2, "width": 1, "offset": [0, 0]}],
                         "stabilizers": [
                             {
-                                "angle": [true, true],
+                                "angle": 0,
                                 "length": 1,
                                 "offset": [0.5, 0.5]
                             }
@@ -1947,7 +1947,7 @@
                         ],
                         "stabilizers": [
                             {
-                                "angle": [false, false],
+                                "angle": 0,
                                 "length": 1.25,
                                 "offset": [0.5, 0.5]
                             }
@@ -2045,7 +2045,7 @@
                         ],
                         "stabilizers": [
                             {
-                                "angle": [false, false],
+                                "angle": 0,
                                 "length": 1.25,
                                 "offset": [0.5, 0.5]
                             }
@@ -2328,7 +2328,7 @@
                         ],
                         "stabilizers": [
                             {
-                                "angle": [false, false],
+                                "angle": 0,
                                 "length": 1.75,
                                 "offset": [0.5, 0.5]
                             }
@@ -2444,7 +2444,7 @@
                         "shape": [{"height": 2, "width": 1, "offset": [0, 0]}],
                         "stabilizers": [
                             {
-                                "angle": [true, true],
+                                "angle": 90,
                                 "length": 1,
                                 "offset": [0.5, 0.5]
                             }
@@ -2578,7 +2578,7 @@
                         ],
                         "stabilizers": [
                             {
-                                "angle": [false, false],
+                                "angle": 0,
                                 "length": 5.25,
                                 "offset": [0.5, 0.5]
                             }
@@ -2799,7 +2799,7 @@
                         "shape": [{"height": 1, "width": 2, "offset": [0, 0]}],
                         "stabilizers": [
                             {
-                                "angle": [false, false],
+                                "angle": 0,
                                 "length": 1,
                                 "offset": [0.5, 0.5]
                             }
@@ -3137,7 +3137,7 @@
                         ],
                         "stabilizers": [
                             {
-                                "angle": [true, true],
+                                "angle": 90,
                                 "length": 1,
                                 "offset": [0.625, 0.5]
                             }
@@ -3176,7 +3176,7 @@
                         ],
                         "stabilizers": [
                             {
-                                "angle": [true, true],
+                                "angle": 90,
                                 "length": 1,
                                 "offset": [0.625, 0.5]
                             }
@@ -3339,7 +3339,7 @@
                         ],
                         "stabilizers": [
                             {
-                                "angle": [false, false],
+                                "angle": 0,
                                 "length": 1.25,
                                 "offset": [0.5, 0.5]
                             }
@@ -3460,7 +3460,7 @@
                         "shape": [{"height": 1, "width": 2, "offset": [0, 0]}],
                         "stabilizers": [
                             {
-                                "angle": [false, false],
+                                "angle": 0,
                                 "length": 1,
                                 "offset": [0.5, 0.5]
                             }
@@ -3488,7 +3488,7 @@
                         ],
                         "stabilizers": [
                             {
-                                "angle": [false, false],
+                                "angle": 0,
                                 "length": 1.25,
                                 "offset": [0.5, 0.5]
                             }
@@ -3536,7 +3536,7 @@
                         ],
                         "stabilizers": [
                             {
-                                "angle": [false, false],
+                                "angle": 0,
                                 "length": 1.75,
                                 "offset": [0.5, 0.5]
                             }
@@ -3721,7 +3721,7 @@
                         "shape": [{"height": 2, "width": 1, "offset": [0, 0]}],
                         "stabilizers": [
                             {
-                                "angle": [true, true],
+                                "angle": 90,
                                 "length": 1,
                                 "offset": [0.5, 0.5]
                             }
@@ -3851,7 +3851,7 @@
                         "shape": [{"height": 1, "width": 7, "offset": [0, 0]}],
                         "stabilizers": [
                             {
-                                "angle": [false, false],
+                                "angle": 0,
                                 "length": 6,
                                 "offset": [0.5, 0.5]
                             }
@@ -4275,7 +4275,7 @@
                         "shape": [{"height": 1, "width": 2, "offset": [0, 0]}],
                         "stabilizers": [
                             {
-                                "angle": [false, false],
+                                "angle": 0,
                                 "length": 1,
                                 "offset": [0.5, 0.5]
                             }
@@ -4313,7 +4313,7 @@
                         ],
                         "stabilizers": [
                             {
-                                "angle": [false, false],
+                                "angle": 0,
                                 "length": 1.25,
                                 "offset": [0.5, 0.5]
                             }
@@ -4529,7 +4529,7 @@
                         "shape": [{"height": 1, "width": 3, "offset": [0, 0]}],
                         "stabilizers": [
                             {
-                                "angle": [false, false],
+                                "angle": 0,
                                 "length": 2,
                                 "offset": [0.5, 0.5]
                             }
@@ -4555,7 +4555,7 @@
                         "shape": [{"height": 1, "width": 3, "offset": [0, 0]}],
                         "stabilizers": [
                             {
-                                "angle": [false, false],
+                                "angle": 0,
                                 "length": 2,
                                 "offset": [0.5, 0.5]
                             }
@@ -4581,7 +4581,7 @@
                         "shape": [{"height": 1, "width": 6, "offset": [0, 0]}],
                         "stabilizers": [
                             {
-                                "angle": [false, false],
+                                "angle": 0,
                                 "length": 5,
                                 "offset": [0.5, 0.5]
                             }
@@ -4607,7 +4607,7 @@
                         "shape": [{"height": 1, "width": 3, "offset": [0, 0]}],
                         "stabilizers": [
                             {
-                                "angle": [false, false],
+                                "angle": 0,
                                 "length": 2,
                                 "offset": [0.5, 0.5]
                             }
@@ -4633,7 +4633,7 @@
                         "shape": [{"height": 1, "width": 3, "offset": [0, 0]}],
                         "stabilizers": [
                             {
-                                "angle": [false, false],
+                                "angle": 0,
                                 "length": 2,
                                 "offset": [0.5, 0.5]
                             }
@@ -4659,7 +4659,7 @@
                         "shape": [{"height": 1, "width": 6, "offset": [0, 0]}],
                         "stabilizers": [
                             {
-                                "angle": [false, false],
+                                "angle": 0,
                                 "length": 5,
                                 "offset": [0.5, 0.5]
                             }
@@ -5335,7 +5335,7 @@
                         ],
                         "stabilizers": [
                             {
-                                "angle": [false, false],
+                                "angle": 0,
                                 "length": 1.25,
                                 "offset": [0.5, 0.5]
                             }
@@ -5363,7 +5363,7 @@
                         ],
                         "stabilizers": [
                             {
-                                "angle": [false, false],
+                                "angle": 0,
                                 "length": 1.25,
                                 "offset": [0.5, 0.5]
                             }
@@ -6631,7 +6631,7 @@
                         ],
                         "stabilizers": [
                             {
-                                "angle": [false, false],
+                                "angle": 0,
                                 "length": 5.25,
                                 "offset": [0.5, 0.5]
                             }
@@ -6657,7 +6657,7 @@
                         "shape": [{"height": 1, "width": 7, "offset": [0, 0]}],
                         "stabilizers": [
                             {
-                                "angle": [false, false],
+                                "angle": 0,
                                 "length": 6,
                                 "offset": [0.5, 0.5]
                             }
@@ -6683,7 +6683,7 @@
                         "shape": [{"height": 1, "width": 2, "offset": [0, 0]}],
                         "stabilizers": [
                             {
-                                "angle": [false, false],
+                                "angle": 0,
                                 "length": 1,
                                 "offset": [0.5, 0.5]
                             }
@@ -6711,7 +6711,7 @@
                         ],
                         "stabilizers": [
                             {
-                                "angle": [false, false],
+                                "angle": 0,
                                 "length": 1.25,
                                 "offset": [0.5, 0.5]
                             }
@@ -6739,7 +6739,7 @@
                         ],
                         "stabilizers": [
                             {
-                                "angle": [false, false],
+                                "angle": 0,
                                 "length": 1.75,
                                 "offset": [0.5, 0.5]
                             }

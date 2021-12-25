@@ -29,13 +29,9 @@ export type Pair = [number, number];
 // Rounded corner using a quadratic bezier.
 export type QuadPoint = [Pair, Pair, Pair];
 
-// TODO remove this type.
-// First bool indicates vertical/horizontal and second is direction on that axis.
-// Up:    true,false   -90deg
-// Down:  true,true     90deg
-// Right: false,false    0deg
-// Left:  false,true   180deg
-export type Cartesian = [boolean, boolean];
+// Angle with limited possible values in degrees clockwise from the horizontal.
+// TODO validation required.
+export type SquareAngle = 0 | 90 | 180 | 270;
 
 // Shared layout footprint and keycap attributes.
 export interface Blank {
@@ -72,7 +68,7 @@ export interface Stabilizer {
 
     // Angle from first stem to second.
     // +180deg for inverted (wire on top).
-    angle: Cartesian;
+    angle: SquareAngle;
 }
 
 // Group of keycap kits with matching theme.
@@ -312,5 +308,5 @@ export interface LayoutKey {
     angle: Angle;
 
     // Orientation of the switch in the footprint.
-    orientation: Cartesian;
+    orientation: SquareAngle;
 }

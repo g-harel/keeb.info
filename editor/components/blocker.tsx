@@ -5,7 +5,7 @@ import {Shape} from "../../internal/types/base";
 import {ReactProps} from "../../internal/types/util";
 import {Pooler} from "./view";
 import {genID, joinShape} from "../../internal/measure";
-import {straightPath} from "../../internal/measure/math";
+import {straightPath} from "../../internal/measure/svg";
 
 export interface BlockerProps extends ReactProps {
     pooler: Pooler;
