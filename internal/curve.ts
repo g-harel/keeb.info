@@ -1,4 +1,4 @@
-import {Pair, QuadSegment} from "./types/base";
+import {Pair, QuadSegment} from "./units";
 import {angleBetween, distance, splitLine} from "./math";
 
 export const round = (

@@ -4,7 +4,7 @@ import {DEFAULT_KEY_COLOR} from "../editor/cons";
 
 import {
     Blank,
-    Shape,
+    Box,
     Stabilizer,
     Keyset,
     Layout,
@@ -12,11 +12,11 @@ import {
     UUID,
     KeymapKey,
     KeysetKeycapLegend,
-} from "./types/base";
+} from "./units";
 
 // TODO support decals
 const convertKLEKey = (key: KLEKey): Blank => {
-    const shapes: Shape[] = [];
+    const shapes: Box[] = [];
     shapes.push({
         height: key.height,
         width: key.width,

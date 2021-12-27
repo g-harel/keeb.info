@@ -1,10 +1,11 @@
-import {Pair, Shape} from "./types/base";
+import {Box} from "./measure";
+import {Pair} from "./units";
 
 export const genID = (
     namespace: string,
     info: {
-        base?: Shape[];
-        shelf?: Shape[];
+        base?: Box[];
+        shelf?: Box[];
         color?: string;
         position?: Pair;
         angle?: number;

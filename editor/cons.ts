@@ -1,4 +1,4 @@
-import {Pair} from "../internal/types/base";
+import {Pair} from "../internal/units";
 
 export const DEBUG = true;
 

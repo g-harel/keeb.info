@@ -1,28 +1,24 @@
 import color from "color";
 import React from "react";
 
-import {
-    Blank,
-    KeysetKeycapLegends,
-    Pair,
-    Shape,
-    SpaceBetweenLayout,
-    UUID,
-} from "../../internal/types/base";
+import {Pair, UUID} from "../../internal/units";
+import {KeysetKeycapLegends, SpaceBetweenLayout} from "../../internal/keyset";
 import {genID} from "../../internal/util";
 import {rotateCoord} from "../../internal/math";
 import * as c from "../cons";
-import {ReactProps} from "../../internal/types/util";
+import {ReactProps} from "../../internal/react";
 import {resolveColor} from "../../internal/color";
 import {Pooler} from "./view";
 import {calcKeycap} from "../../internal/key";
+import {Blank} from "../../internal/blank";
+import {Box} from "../../internal/measure";
 
 export interface KeyProps extends ReactProps {
     uuid: UUID;
     color: string;
     blank: Blank;
     pooler: Pooler;
-    shelf?: Shape[];
+    shelf?: Box[];
     stem?: boolean;
     stabs?: boolean;
     legend?: KeysetKeycapLegends;

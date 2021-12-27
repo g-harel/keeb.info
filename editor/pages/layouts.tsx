@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import {convertKLEToLayoutKeymap} from "../../internal/kle";
-import {Layout} from "../../internal/types/base";
+import {Layout} from "../../internal/layout";
 import {LayoutKeymap} from "../components/views/layout-keymap";
 
 import alix40 from "../../files/kle/alix40.json";

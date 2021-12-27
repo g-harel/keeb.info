@@ -1,15 +1,9 @@
 import {doesIntersect, multiUnion} from "./polygon";
-import {
-    Angle,
-    Layout,
-    LayoutBlocker,
-    LayoutKey,
-    Pair,
-    Shape,
-} from "./types/base";
+import {Angle, Pair} from "./units";
 import {rotateCoord} from "./math";
 import * as c from "../editor/cons";
-import {shapeCorners} from "./measure";
+import {Box, shapeCorners} from "./measure";
+import {Layout, LayoutBlocker, LayoutKey} from "./layout";
 
 const deepCopy = <T>(o: T): T => {
     return JSON.parse(JSON.stringify(o));
@@ -22,7 +16,7 @@ const offsetKey = (key: LayoutKey, offset: Pair): LayoutKey => {
     return oKey;
 };
 
-const padShape = (shape: Shape, pad: number): Shape => {
+const padShape = (shape: Box, pad: number): Box => {
     return {
         width: shape.width + 2 * pad,
         height: shape.height + 2 * pad,
@@ -31,7 +25,7 @@ const padShape = (shape: Shape, pad: number): Shape => {
 };
 
 const computeRings = (
-    shapes: Shape[],
+    shapes: Box[],
     position: Pair,
     angle: Angle,
     pad = 0,

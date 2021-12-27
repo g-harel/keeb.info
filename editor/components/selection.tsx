@@ -1,16 +1,18 @@
 import color from "color";
 import React from "react";
 
-import {Angle, Blank, Pair, Shape, UUID} from "../../internal/types/base";
+import {Angle, Pair, UUID} from "../../internal/units";
 import {rotateCoord} from "../../internal/math";
 import * as c from "../cons";
-import {ReactProps} from "../../internal/types/util";
+import {ReactProps} from "../../internal/react";
 import {Pooler} from "./view";
 import {calcKeycap} from "../../internal/key";
+import {Blank} from "../../internal/blank";
+import {Box} from "../../internal/measure";
 
 export interface SelectionItem {
     blank: Blank;
-    shelf?: Shape[];
+    shelf?: Box[];
     position: Pair;
     angle: Angle;
 }

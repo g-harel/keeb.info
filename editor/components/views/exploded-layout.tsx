@@ -2,7 +2,7 @@ import React from "react";
 
 import {minmaxLayout} from "../../../internal/measure";
 import {spreadSections} from "../../../internal/spread";
-import {Layout} from "../../../internal/types/base";
+import {Layout} from "../../../internal/layout";
 import {Key} from "../key";
 import {
     DEFAULT_KEY_COLOR,
@@ -10,7 +10,7 @@ import {
     ROTATION_ORIGIN,
     START_SECTION_COLOR,
 } from "../../cons";
-import {ReactProps} from "../../../internal/types/util";
+import {ReactProps} from "../../../internal/react";
 import {createPool, View, ViewItem} from "../view";
 import {colorSeries} from "../../../internal/color";
 import {Blocker} from "../blocker";

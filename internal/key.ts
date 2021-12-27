@@ -1,7 +1,7 @@
 import {difference} from "polygon-clipping";
 
 import * as c from "../editor/cons";
-import {Pair, QuadSegment, Shape} from "./types/base";
+import {Pair, QuadSegment, Box} from "./units";
 import {roundedPath, straightPath} from "./svg";
 import {joinShape, multiUnion} from "./polygon";
 import {approx, bridgeArcs, round} from "./curve";
@@ -9,8 +9,8 @@ import {memCache} from "./cache";
 import {genID} from "./util";
 
 export interface KeycapInput {
-    base: Shape[];
-    shelf?: Shape[];
+    base: Box[];
+    shelf?: Box[];
 }
 
 interface CalculatedKeycap {
@@ -34,7 +34,7 @@ const SHINE_PADDING: [number, number, number] = [
     c.SHINE_PADDING_BOTTOM,
 ];
 
-const pad = (shapes: Shape[], padding: [number, number, number]): Shape[] => {
+const pad = (shapes: Box[], padding: [number, number, number]): Box[] => {
     return shapes.map((box) => ({
         width: box.width - 2 * padding[1],
         height: box.height - padding[0] - padding[2],

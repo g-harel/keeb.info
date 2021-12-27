@@ -1,13 +1,11 @@
 import React from "react";
 
 import {minmaxLayout} from "../../../internal/measure";
-import {
-    Layout,
-    LayoutKeymap as LayoutKeymapType,
-} from "../../../internal/types/base";
+import {Layout} from "../../../internal/layout";
+import {LayoutKeymap as LayoutKeymapType} from "../../../internal/keymap";
 import {Key} from "../key";
 import {SHINE_PADDING_TOP, ROTATION_ORIGIN} from "../../cons";
-import {ReactProps} from "../../../internal/types/util";
+import {ReactProps} from "../../../internal/react";
 import {createPool, View, ViewItem} from "../view";
 import {orderVertically} from "../../../internal/math";
 

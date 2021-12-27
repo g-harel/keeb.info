@@ -1,4 +1,4 @@
-import {Pair, QuadSegment} from "./types/base";
+import {Pair, QuadSegment} from "./units";
 
 export const straightPath = (points: Pair[]): string => {
     let path = "";

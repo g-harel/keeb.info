@@ -1,10 +1,23 @@
 import * as c from "../editor/cons";
-import {KeysetKit, Pair, Shape} from "./types/base";
-import {Layout, LayoutKey} from "./types/base";
+import {Pair} from "./units";
 import {rotateCoord} from "./math";
+import {KeysetKit} from "./keyset";
+import {Layout, LayoutKey} from "./layout";
+
+// Generic rectangular shape.
+export interface Box {
+    // Width of shape.
+    width: number;
+
+    // Height of shape.
+    height: number;
+
+    // Relative location for composite shapes.
+    offset: Pair;
+}
 
 // Corners in ring order.
-export const shapeCorners = (offset: Pair, shape: Shape): Pair[] => {
+export const shapeCorners = (offset: Pair, shape: Box): Pair[] => {
     const x = shape.offset[0] + offset[0];
     const y = shape.offset[1] + offset[1];
     const width = shape.width;
@@ -64,5 +77,3 @@ export const minmaxLayout = (layout: Layout): [Pair, Pair] => {
 
     return [min, max];
 };
-
-// TODO tests

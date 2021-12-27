@@ -4,15 +4,16 @@ import color from "color";
 import {genID} from "../../internal/util";
 import {rotateCoord} from "../../internal/math";
 import * as c from "../cons";
-import {ReactProps} from "../../internal/types/util";
-import {Blank, SquareAngle, Pair} from "../../internal/types/base";
+import {ReactProps} from "../../internal/react";
+import {RightAngle, Pair} from "../../internal/units";
 import {Pooler} from "./view";
+import {Blank} from "../../internal/blank";
 
 export interface FootprintProps extends ReactProps {
     pooler: Pooler;
     blank: Blank;
     color: string;
-    orientation: SquareAngle;
+    orientation: RightAngle;
 }
 
 export const Footprint = (props: FootprintProps) => {

@@ -2,9 +2,9 @@ import React from "react";
 import color from "color";
 
 import {minmaxLayout} from "../../../internal/measure";
-import {Layout} from "../../../internal/types/base";
+import {Layout} from "../../../internal/layout";
 import * as c from "../../cons";
-import {ReactProps} from "../../../internal/types/util";
+import {ReactProps} from "../../../internal/react";
 import {View, ViewItem, createPool} from "../view";
 import {Footprint} from "../footprint";
 

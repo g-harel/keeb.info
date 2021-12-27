@@ -1,14 +1,14 @@
 import React from "react";
 
 import {minmaxKeysetKit} from "../../../internal/measure";
-import {Keyset, KeysetKit} from "../../../internal/types/base";
+import {Keyset, KeysetKit} from "../../../internal/keyset";
 import {Key} from "../key";
 import {
     DEFAULT_KEY_COLOR,
     MIN_KEYSET_WIDTH_DISPLAY,
     SHINE_PADDING_TOP,
 } from "../../cons";
-import {ReactProps} from "../../../internal/types/util";
+import {ReactProps} from "../../../internal/react";
 import {View, ViewItem, createPool} from "../view";
 import {Pair} from "polygon-clipping";
 import {resolveColor} from "../../../internal/color";

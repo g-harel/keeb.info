@@ -9,7 +9,8 @@ import botanicalKeyset from "../testdata/botanical-keyset.json";
 import demoKeyset from "../testdata/demo-keyset.json";
 import {convertKLEToLayout} from "../../internal/kle";
 import {FootprintLayout} from "../components/views/footprint-layout";
-import {Keyset, Layout} from "../../internal/types/base";
+import {Keyset} from "../../internal/keyset";
+import {Layout} from "../../internal/layout";
 import {FullKeyset} from "../components/views/full-keyset";
 
 const LegacyTestContainer = styled.div`

@@ -1,8 +1,8 @@
 import React from "react";
 
 import * as c from "../cons";
-import {Shape} from "../../internal/types/base";
-import {ReactProps} from "../../internal/types/util";
+import {Box} from "../../internal/measure";
+import {ReactProps} from "../../internal/react";
 import {Pooler} from "./view";
 import {straightPath} from "../../internal/svg";
 import {genID} from "../../internal/util";
@@ -10,7 +10,7 @@ import {joinShape} from "../../internal/polygon";
 
 export interface BlockerProps extends ReactProps {
     pooler: Pooler;
-    shape: Shape[];
+    shape: Box[];
     color: string;
 }
 
