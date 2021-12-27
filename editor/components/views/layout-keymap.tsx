@@ -1,14 +1,15 @@
 import React from "react";
 
-import {minmaxLayout, orderKeys} from "../../../internal/measure";
+import {minmaxLayout} from "../../../internal/measure";
 import {
     Layout,
     LayoutKeymap as LayoutKeymapType,
 } from "../../../internal/types/base";
 import {Key} from "../key";
-import {SHINE_PADDING_TOP} from "../../cons";
+import {SHINE_PADDING_TOP, ROTATION_ORIGIN} from "../../cons";
 import {ReactProps} from "../../../internal/types/util";
 import {createPool, View, ViewItem} from "../view";
+import {orderVertically} from "../../../internal/measure/math";
 
 export interface LayoutKeymapProps extends ReactProps {
     width: number;
@@ -24,7 +25,9 @@ export const LayoutKeymap = (props: LayoutKeymapProps) => {
     const unitWidth = max[0] - min[0];
     const unitHeight = max[1] - min[1];
 
-    const keys = orderKeys(
+    const keys = orderVertically(
+        (item) => [item.key.position, item.key.angle],
+        ROTATION_ORIGIN,
         props.layout.fixedKeys.map((key) => ({
             key,
             ...props.keymap.layers[0][key.ref],

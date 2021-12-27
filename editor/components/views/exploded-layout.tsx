@@ -1,21 +1,19 @@
 import React from "react";
 
-import {
-    minmaxLayout,
-    orderKeys,
-    spreadSections,
-} from "../../../internal/measure";
+import {minmaxLayout, spreadSections} from "../../../internal/measure";
 import {Color, Layout, LayoutKey} from "../../../internal/types/base";
 import {Key} from "../key";
 import {
     DEFAULT_KEY_COLOR,
     SHINE_PADDING_TOP,
+    ROTATION_ORIGIN,
     START_SECTION_COLOR,
 } from "../../cons";
 import {ReactProps} from "../../../internal/types/util";
 import {createPool, View, ViewItem} from "../view";
 import {colorSeries} from "../../../internal/color";
 import {Blocker} from "../blocker";
+import {orderVertically} from "../../../internal/measure/math";
 
 export interface ExplodedLayoutProps extends ReactProps {
     width: number;
@@ -34,7 +32,9 @@ export const ExplodedLayout = (props: ExplodedLayoutProps) => {
 
     // Reorder the keys so they overlap correctly.
 
-    const keys = orderKeys(
+    const keys = orderVertically(
+        (item) => [item.key.position, item.key.angle],
+        ROTATION_ORIGIN,
         spreadLayout.fixedKeys.map((key) => ({
             key,
             color: DEFAULT_KEY_COLOR,

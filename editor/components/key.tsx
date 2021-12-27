@@ -91,7 +91,6 @@ export const Mounts = (props: MountProps) => (
         )}
         {props.stabs &&
             props.blank.stabilizers.map((stabilizer, i) => {
-                console.log(stabilizer.angle);
                 const startStem = stabilizer.offset;
                 const endStem = rotateCoord(
                     [startStem[0] + stabilizer.length, startStem[1]],

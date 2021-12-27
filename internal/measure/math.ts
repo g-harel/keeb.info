@@ -1,4 +1,4 @@
-import {Pair} from "../types/base";
+import {Angle, Pair} from "../types/base";
 
 export const distance = (a: Pair, b: Pair): number => {
     return Math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2);
@@ -32,4 +32,29 @@ export const rotateCoord = (p: Pair, r: Pair, a: number): Pair => {
         Math.cos(angleRads) * (p[1] - r[1]) +
         r[1];
     return [rotatedX, rotatedY];
+};
+
+interface AngledPosition<T> {
+    position: Pair;
+    original: T;
+}
+
+export const orderVertically = <T>(
+    getter: (item: T) => [Pair, Angle?],
+    origin: Pair,
+    ...items: T[][]
+) => {
+    const angled: AngledPosition<T>[] = items.flat(1).map((item) => {
+        const [position, angle] = getter(item);
+        if (!angle) {
+            return {position: position, original: item};
+        }
+        return {
+            position: rotateCoord(position, origin, angle),
+            original: item,
+        };
+    });
+    return angled
+        .sort((a, b) => a.position[1] - b.position[1])
+        .map((a) => a.original);
 };

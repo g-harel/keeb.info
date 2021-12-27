@@ -287,7 +287,6 @@ export const spreadSections = (layout: Layout): Layout => {
                             ...option.keys.map(ringsFromKey()).flat(1),
                             ...option.blockers.map(ringsFromBlocker()).flat(1),
                         );
-                        console.log(avoid, option.ref);
                         break;
                     }
                 }
@@ -321,35 +320,4 @@ export const genID = (
     return components.join("/").toUpperCase();
 };
 
-export type Orderable<T> = {
-    [k in keyof T]: T[k];
-} & {
-    key: {
-        position: Pair;
-        angle?: Angle;
-    };
-};
-
-interface AngledOrderable<T> {
-    position: Pair;
-    original: Orderable<T>;
-}
-
-export const orderKeys = <T>(...items: Orderable<T>[][]): Orderable<T>[] => {
-    const angled: AngledOrderable<T>[] = items.flat(1).map((item) => {
-        if (!item.key.angle) {
-            return {position: item.key.position, original: item};
-        }
-        return {
-            position: rotateCoord(
-                item.key.position,
-                c.ROTATION_ORIGIN,
-                item.key.angle,
-            ),
-            original: item,
-        };
-    });
-    return angled
-        .sort((a, b) => a.position[1] - b.position[1])
-        .map((a) => a.original);
-};
+// TODO tests
