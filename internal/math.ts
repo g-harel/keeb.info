@@ -1,4 +1,4 @@
-import {Angle, Pair} from "../types/base";
+import {Angle, Pair} from "./types/base";
 
 export const distance = (a: Pair, b: Pair): number => {
     return Math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2);

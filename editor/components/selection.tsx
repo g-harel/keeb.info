@@ -2,7 +2,7 @@ import color from "color";
 import React from "react";
 
 import {Angle, Blank, Pair, Shape, UUID} from "../../internal/types/base";
-import {rotateCoord} from "../../internal/measure/math";
+import {rotateCoord} from "../../internal/math";
 import * as c from "../cons";
 import {ReactProps} from "../../internal/types/util";
 import {Pooler} from "./view";

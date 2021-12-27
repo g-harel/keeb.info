@@ -1,7 +1,8 @@
 import React from "react";
 
-import {minmaxLayout, spreadSections} from "../../../internal/measure";
-import {Color, Layout, LayoutKey} from "../../../internal/types/base";
+import {minmaxLayout} from "../../../internal/measure";
+import {spreadSections} from "../../../internal/spread";
+import {Layout} from "../../../internal/types/base";
 import {Key} from "../key";
 import {
     DEFAULT_KEY_COLOR,
@@ -13,7 +14,7 @@ import {ReactProps} from "../../../internal/types/util";
 import {createPool, View, ViewItem} from "../view";
 import {colorSeries} from "../../../internal/color";
 import {Blocker} from "../blocker";
-import {orderVertically} from "../../../internal/measure/math";
+import {orderVertically} from "../../../internal/math";
 
 export interface ExplodedLayoutProps extends ReactProps {
     width: number;

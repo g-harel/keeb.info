@@ -4,8 +4,9 @@ import * as c from "../cons";
 import {Shape} from "../../internal/types/base";
 import {ReactProps} from "../../internal/types/util";
 import {Pooler} from "./view";
-import {genID, joinShape} from "../../internal/measure";
-import {straightPath} from "../../internal/measure/svg";
+import {straightPath} from "../../internal/svg";
+import {genID} from "../../internal/util";
+import {joinShape} from "../../internal/polygon";
 
 export interface BlockerProps extends ReactProps {
     pooler: Pooler;

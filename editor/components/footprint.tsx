@@ -1,8 +1,8 @@
 import React from "react";
 import color from "color";
 
-import {genID} from "../../internal/measure";
-import {rotateCoord} from "../../internal/measure/math";
+import {genID} from "../../internal/util";
+import {rotateCoord} from "../../internal/math";
 import * as c from "../cons";
 import {ReactProps} from "../../internal/types/util";
 import {Blank, SquareAngle, Pair} from "../../internal/types/base";

@@ -27,7 +27,7 @@ export interface ID {
 export type Pair = [number, number];
 
 // Rounded corner using a quadratic bezier.
-export type QuadPoint = [Pair, Pair, Pair];
+export type QuadSegment = [Pair, Pair, Pair];
 
 // Angle with limited possible values in degrees clockwise from the horizontal.
 // TODO validation required.

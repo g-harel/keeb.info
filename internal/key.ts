@@ -1,10 +1,10 @@
 import {difference} from "polygon-clipping";
 
-import {Pair, QuadPoint, Shape} from "../types/base";
-import * as c from "../../editor/cons";
-import {approx, round, bridgeArcs, multiUnion, joinShape} from ".";
-
+import * as c from "../editor/cons";
+import {Pair, QuadSegment, Shape} from "./types/base";
 import {roundedPath, straightPath} from "./svg";
+import {joinShape, multiUnion} from "./polygon";
+import {approx, bridgeArcs, round} from "./curve";
 
 export interface KeycapInput {
     base: Shape[];
@@ -71,7 +71,7 @@ export const calcKeycap = (key: KeycapInput): CalculatedKeycap => {
     // Calculate corner bridge lines and shapes.
     const arcCorners: Pair[][] = [];
     const arcBridges: [Pair, Pair][] = [];
-    const addArcs = (count: number, a: QuadPoint[], b: QuadPoint[]) => {
+    const addArcs = (count: number, a: QuadSegment[], b: QuadSegment[]) => {
         a.forEach((p, i) => {
             const lines = bridgeArcs(count, p, b[i]);
             arcBridges.push(...lines);

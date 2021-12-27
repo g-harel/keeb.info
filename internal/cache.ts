@@ -1,5 +1,5 @@
-import {genID} from "./measure";
-import {calcKeycap} from "./measure/key";
+import {genID} from "./util";
+import {calcKeycap} from "./key";
 
 interface Calc<I, O> {
     (input: I): O;

@@ -9,8 +9,8 @@ import {
     SpaceBetweenLayout,
     UUID,
 } from "../../internal/types/base";
-import {genID} from "../../internal/measure";
-import {rotateCoord} from "../../internal/measure/math";
+import {genID} from "../../internal/util";
+import {rotateCoord} from "../../internal/math";
 import * as c from "../cons";
 import {ReactProps} from "../../internal/types/util";
 import {resolveColor} from "../../internal/color";

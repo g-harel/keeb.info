@@ -9,7 +9,7 @@ import {Key} from "../key";
 import {SHINE_PADDING_TOP, ROTATION_ORIGIN} from "../../cons";
 import {ReactProps} from "../../../internal/types/util";
 import {createPool, View, ViewItem} from "../view";
-import {orderVertically} from "../../../internal/measure/math";
+import {orderVertically} from "../../../internal/math";
 
 export interface LayoutKeymapProps extends ReactProps {
     width: number;

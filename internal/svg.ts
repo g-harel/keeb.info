@@ -1,4 +1,4 @@
-import {Pair, QuadPoint} from "../types/base";
+import {Pair, QuadSegment} from "./types/base";
 
 export const straightPath = (points: Pair[]): string => {
     let path = "";
@@ -10,7 +10,7 @@ export const straightPath = (points: Pair[]): string => {
     return path;
 };
 
-export const roundedPath = (points: QuadPoint[]): string => {
+export const roundedPath = (points: QuadSegment[]): string => {
     let path = "";
     for (let i = 0; i < points.length; i++) {
         const [rStart, point, rEnd] = points[i];

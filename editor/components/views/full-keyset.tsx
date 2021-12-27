@@ -1,5 +1,4 @@
 import React from "react";
-import color from "color";
 
 import {minmaxKeysetKit} from "../../../internal/measure";
 import {Keyset, KeysetKit} from "../../../internal/types/base";
