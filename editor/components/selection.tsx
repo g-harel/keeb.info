@@ -6,7 +6,7 @@ import {rotateCoord} from "../../internal/math";
 import * as c from "../cons";
 import {ReactProps} from "../../internal/types/util";
 import {Pooler} from "./view";
-import {cache} from "../../internal/cache";
+import {calcKeycap} from "../../internal/key";
 
 export interface SelectionItem {
     blank: Blank;
@@ -23,8 +23,9 @@ export interface SelectionProps extends ReactProps {
 }
 
 export const Selection = (props: SelectionProps) => {
+    // TODO finish implementing.
     const keycapBases: Pair[][] = props.selection.map((key) => {
-        const {basePathPoints} = cache.keycapShape({
+        const {basePathPoints} = calcKeycap({
             base: key.blank.shape,
             shelf: key.shelf,
         });

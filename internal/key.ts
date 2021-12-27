@@ -5,6 +5,8 @@ import {Pair, QuadSegment, Shape} from "./types/base";
 import {roundedPath, straightPath} from "./svg";
 import {joinShape, multiUnion} from "./polygon";
 import {approx, bridgeArcs, round} from "./curve";
+import {memCache} from "./cache";
+import {genID} from "./util";
 
 export interface KeycapInput {
     base: Shape[];
@@ -43,7 +45,7 @@ const pad = (shapes: Shape[], padding: [number, number, number]): Shape[] => {
     }));
 };
 
-export const calcKeycap = (key: KeycapInput): CalculatedKeycap => {
+const internalCalcKeycap = (key: KeycapInput): CalculatedKeycap => {
     const shape = pad(key.base, KEY_PADDING);
     const shineShape = pad(
         key.shelf && key.shelf.length ? key.shelf : key.base,
@@ -128,3 +130,8 @@ export const calcKeycap = (key: KeycapInput): CalculatedKeycap => {
     };
     return calculatedKeycap;
 };
+
+export const calcKeycap = memCache(
+    (input) => genID("keycap-shape", input),
+    internalCalcKeycap,
+);

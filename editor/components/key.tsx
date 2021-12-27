@@ -15,7 +15,7 @@ import * as c from "../cons";
 import {ReactProps} from "../../internal/types/util";
 import {resolveColor} from "../../internal/color";
 import {Pooler} from "./view";
-import {cache} from "../../internal/cache";
+import {calcKeycap} from "../../internal/key";
 
 export interface KeyProps extends ReactProps {
     uuid: UUID;
@@ -199,7 +199,7 @@ export const Key = (props: KeyProps) => {
         color: props.color,
     });
 
-    const calculatedKeycap = cache.keycapShape({
+    const calculatedKeycap = calcKeycap({
         base: props.blank.shape,
         shelf: props.shelf,
     });

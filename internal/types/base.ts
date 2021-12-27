@@ -2,6 +2,8 @@
 // TODO non-english.
 // TODO keycode/row preference.
 
+// TODO move types to internal files.
+
 // Unit measurement, scaled for 1.0 = 1u.
 export type Unit = number;
 
