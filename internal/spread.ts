@@ -1,9 +1,10 @@
 import * as c from "../editor/cons";
+import {Box} from "./box";
 import {Layout, LayoutBlocker, LayoutKey} from "./layout";
 import {rotateCoord} from "./math";
-import {Box, corners} from "./measure";
-import {doesIntersect, multiUnion} from "./polygon";
+import {corners} from "./measure";
 import {Angle, Point} from "./primitives";
+import {doesIntersect, multiUnion} from "./shape";
 
 // TODO standardize naming of geometry constructs
 

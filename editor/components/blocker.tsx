@@ -1,9 +1,8 @@
 import React from "react";
 
-import {Box} from "../../internal/measure";
-import {toSingleShape} from "../../internal/polygon";
+import {Box, toSingleShape} from "../../internal/box";
 import {ReactProps} from "../../internal/react";
-import {straightPath} from "../../internal/svg";
+import {toSVGPath} from "../../internal/shape";
 import {genID} from "../../internal/util";
 import * as c from "../cons";
 import {Pooler} from "./view";
@@ -22,7 +21,7 @@ export const Blocker = (props: BlockerProps) => {
         <>
             {props.pooler(refID, () => (
                 <path
-                    d={straightPath(rawBase)}
+                    d={toSVGPath(rawBase)}
                     stroke={props.color}
                     strokeWidth={c.BORDER}
                     fill={props.color}

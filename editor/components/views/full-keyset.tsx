@@ -98,7 +98,7 @@ export const FullKeyset = (props: FullKeysetProps) => {
                                 color={resolveColor(
                                     key.color || DEFAULT_KEY_COLOR,
                                 )}
-                                shelf={(key as any).shelf || []}
+                                boxes={(key as any).shelf || []}
                                 legend={key.legend}
                                 stem
                                 stabs

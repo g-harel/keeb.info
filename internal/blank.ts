@@ -1,6 +1,6 @@
 import {Pair} from "polygon-clipping";
 
-import {Box} from "./measure";
+import {Box} from "./box";
 import {RightAngle} from "./primitives";
 
 // Shared layout footprint and keycap attributes.

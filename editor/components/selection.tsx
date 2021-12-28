@@ -2,18 +2,19 @@ import color from "color";
 import React from "react";
 
 import {Blank} from "../../internal/blank";
+import {Box} from "../../internal/box";
 import {calcKeycap} from "../../internal/key";
 import {rotateCoord} from "../../internal/math";
-import {Box} from "../../internal/measure";
-import {Angle, Pair, Shape, UUID} from "../../internal/primitives";
+import {Angle, Point, UUID} from "../../internal/primitives";
 import {ReactProps} from "../../internal/react";
+import {Shape} from "../../internal/shape";
 import * as c from "../cons";
 import {Pooler} from "./view";
 
 export interface SelectionItem {
     blank: Blank;
     shelf?: Box[];
-    position: Pair;
+    position: Point;
     angle: Angle;
 }
 

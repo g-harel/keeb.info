@@ -1,12 +1,11 @@
 import {difference} from "polygon-clipping";
 
 import * as c from "../editor/cons";
+import {Box, toSingleShape} from "./box";
 import {memCache} from "./cache";
-import {approx, bridgeArcs, round} from "./curve";
-import {Box} from "./measure";
-import {multiUnion, toSingleShape} from "./polygon";
-import {Point, RoundShape, Shape} from "./primitives";
-import {roundedPath, straightPath} from "./svg";
+import {CurveShape, approx, bridgeArcs, toSVGPath as curvedPath} from "./curve";
+import {Point} from "./primitives";
+import {Shape, multiUnion, round, toSVGPath as straightPath} from "./shape";
 import {genID} from "./util";
 
 export interface KeycapInput {
@@ -74,7 +73,7 @@ const internalCalcKeycap = (key: KeycapInput): CalculatedKeycap => {
     // Calculate corner bridge lines and shapes.
     const arcCorners: Shape[] = [];
     const arcBridges: [Point, Point][] = [];
-    const addArcs = (count: number, a: RoundShape, b: RoundShape) => {
+    const addArcs = (count: number, a: CurveShape, b: CurveShape) => {
         a.forEach((p, i) => {
             const lines = bridgeArcs(count, p, b[i]);
             arcBridges.push(...lines);
@@ -118,7 +117,10 @@ const internalCalcKeycap = (key: KeycapInput): CalculatedKeycap => {
         ),
         c.ROUND_RESOLUTION,
     );
-    const approxStepOnly = difference([approxStep], [approxInflatedShineBase])
+    const approxStepOnly: Shape[] = difference(
+        [approxStep],
+        [approxInflatedShineBase],
+    )
         .flat(1)
         .map((r) => r.slice(1));
 
@@ -127,7 +129,7 @@ const internalCalcKeycap = (key: KeycapInput): CalculatedKeycap => {
         basePath: straightPath(finalBase),
         stepPaths: approxStepOnly.map(straightPath),
         arcBridgeLines: arcBridges,
-        shinePath: roundedPath(roundShine),
+        shinePath: curvedPath(roundShine),
     };
     return calculatedKeycap;
 };

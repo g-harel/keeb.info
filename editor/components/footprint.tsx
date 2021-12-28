@@ -3,8 +3,8 @@ import React from "react";
 
 import {Blank} from "../../internal/blank";
 import {rotateCoord} from "../../internal/math";
+import {Point, RightAngle} from "../../internal/primitives";
 import {ReactProps} from "../../internal/react";
-import {Pair, RightAngle} from "../../internal/units";
 import {genID} from "../../internal/util";
 import * as c from "../cons";
 import {Pooler} from "./view";
@@ -22,7 +22,7 @@ export const Footprint = (props: FootprintProps) => {
         // .darken(c.FOOTPRINT_COLOR_DARKEN)
         .hex();
     const angle = props.orientation + 90;
-    const rotate = (p: Pair): {cx: number; cy: number} => {
+    const rotate = (p: Point): {cx: number; cy: number} => {
         const [cx, cy] = rotateCoord(p, props.blank.stem, angle);
         return {cx, cy};
     };

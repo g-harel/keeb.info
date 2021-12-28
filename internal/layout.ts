@@ -1,5 +1,5 @@
 import {Blank} from "./blank";
-import {Box} from "./measure";
+import {Box} from "./box";
 import {Angle, Point, RightAngle, UUID} from "./primitives";
 
 // Keyboard layout.

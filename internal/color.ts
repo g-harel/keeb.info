@@ -1,15 +1,22 @@
 import color from "color";
 
-export const resolveColor = (hexOrCode: string): string => {
-    switch (hexOrCode) {
-        case "GR21": // Botanical white.
-            return "#ebeded";
-        case "GN21": // Botanical light green.
-            return "#9fb5ab";
-        case "GN20": // Botanical dark green.
-            return "#4a6056";
-        case "botanical-beige":
-            return "#e6e2da";
+// HEX color in #AARRGGBB format.
+export type HexColor = string;
+
+// TODO validation,
+export type GMKColor = keyof typeof gmkColors;
+
+const gmkColors = {
+    GR21: "#ebeded", // Botanical white.
+    GN21: "#9fb5ab", // Botanical light green.
+    GN20: "#4a6056", // Botanical dark green.
+    "botanical-beige": "#e6e2da",
+};
+
+const _gmkColors: Record<string, string> = gmkColors;
+export const resolveColor = (hexOrCode: HexColor | GMKColor): string => {
+    if (_gmkColors[hexOrCode] !== undefined) {
+        return _gmkColors[hexOrCode];
     }
     return hexOrCode;
 };

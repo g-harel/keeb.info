@@ -53,7 +53,7 @@ export const LayoutKeymap = (props: LayoutKeymapProps) => {
                             pooler={pooler}
                             blank={key.key.key}
                             color={key.color}
-                            shelf={(key as any).shelf || []}
+                            boxes={(key as any).shelf || []}
                             legend={key.legends}
                             stem
                             stabs

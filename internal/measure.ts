@@ -1,20 +1,10 @@
 import * as c from "../editor/cons";
+import {Box} from "./box";
 import {KeysetKit} from "./keyset";
 import {Layout, LayoutKey} from "./layout";
 import {rotateCoord} from "./math";
-import {Point, Shape} from "./primitives";
-
-// Generic rectangular shape.
-export interface Box {
-    // Width of shape.
-    width: number;
-
-    // Height of shape.
-    height: number;
-
-    // Relative location for composite shapes.
-    offset: Point;
-}
+import {Point} from "./primitives";
+import {Shape} from "./shape";
 
 // Corners in ring order.
 export const corners = (offset: Point, box: Box): Shape => {

@@ -2,10 +2,10 @@ import {Key, Serial} from "@ijprest/kle-serial";
 import color from "color";
 
 import {Blank, Stabilizer} from "./blank";
+import {Box} from "./box";
 import {KeymapKey, LayoutKeymap} from "./keymap";
 import {Keyset, KeysetKeycapLegend} from "./keyset";
 import {Layout} from "./layout";
-import {Box} from "./measure";
 import {UUID} from "./primitives";
 
 // TODO support decals

@@ -104,7 +104,7 @@ export const ExplodedLayout = (props: ExplodedLayoutProps) => {
                         pooler={pooler}
                         blank={key.key.key}
                         color={key.color}
-                        shelf={(key.key as any).shelf || []}
+                        boxes={(key.key as any).shelf || []}
                         stem
                         stabs
                     />

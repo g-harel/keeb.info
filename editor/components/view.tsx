@@ -1,18 +1,18 @@
 import React from "react";
 
+import {Point} from "../../internal/primitives";
 import {ReactElement, ReactProps} from "../../internal/react";
-import {Pair} from "../../internal/units";
 
 export interface ViewProps extends ReactProps {
-    unitSize: Pair;
+    unitSize: Point;
     pixelWidth: number;
     pool: RefPool;
     padTop: number;
 }
 
 interface ViewItemProps extends ReactProps {
-    origin: Pair;
-    position: Pair;
+    origin: Point;
+    position: Point;
     angle: number;
 }
 

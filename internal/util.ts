@@ -1,4 +1,4 @@
-import {Box} from "./measure";
+import {Box} from "./box";
 import {Point} from "./primitives";
 
 export const genID = (

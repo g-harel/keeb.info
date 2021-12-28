@@ -2,13 +2,13 @@ import color from "color";
 import React from "react";
 
 import {Blank} from "../../internal/blank";
+import {Box} from "../../internal/box";
 import {resolveColor} from "../../internal/color";
 import {calcKeycap} from "../../internal/key";
 import {KeysetKeycapLegends, SpaceBetweenLayout} from "../../internal/keyset";
 import {rotateCoord} from "../../internal/math";
-import {Box} from "../../internal/measure";
+import {Point, UUID} from "../../internal/primitives";
 import {ReactProps} from "../../internal/react";
-import {Pair, UUID} from "../../internal/units";
 import {genID} from "../../internal/util";
 import * as c from "../cons";
 import {Pooler} from "./view";
@@ -27,7 +27,7 @@ export interface KeyProps extends ReactProps {
 
 export interface StemProps extends ReactProps {
     pooler: Pooler;
-    coord: Pair;
+    coord: Point;
     color: string;
 }
 
@@ -135,7 +135,7 @@ export const Mounts = (props: MountProps) => (
 );
 
 interface PositionedElement<T> {
-    position: Pair;
+    position: Point;
     element: T;
     anchor: "start" | "middle" | "end";
     baseline: "auto" | "middle" | "hanging";
@@ -143,7 +143,7 @@ interface PositionedElement<T> {
 
 export const calcLayout = <T extends any>(
     layout: SpaceBetweenLayout<T>,
-    size: Pair,
+    size: Point,
 ): PositionedElement<T>[] => {
     const rowHeight = size[1] / layout.length;
     return layout
