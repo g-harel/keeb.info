@@ -1,4 +1,4 @@
-import {Pair} from "../internal/units";
+import {Point} from "../internal/primitives";
 
 export const DEBUG = true;
 
@@ -33,7 +33,7 @@ export const LAYOUT_SPREAD_INCREMENT = 0.5;
 export const LAYOUT_SPREAD_ATTEMPTS = 50;
 export const FOOTPRINT_COLOR_DARKEN = 0.3;
 export const MIN_KEYSET_WIDTH_DISPLAY = 10;
-export const ROTATION_ORIGIN: Pair = [0, 0];
+export const ROTATION_ORIGIN: Point = [0, 0];
 
 // https://github.com/mohitg11/GH-CAD-Resources/blob/master/MX%20Series.pdf
 // https://github.com/mohitg11/GH-CAD-Resources/blob/master/MXSpec.pdf

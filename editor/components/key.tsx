@@ -18,7 +18,7 @@ export interface KeyProps extends ReactProps {
     color: string;
     blank: Blank;
     pooler: Pooler;
-    shelf?: Box[];
+    boxes?: Box[];
     stem?: boolean;
     stabs?: boolean;
     legend?: KeysetKeycapLegends;
@@ -177,7 +177,7 @@ export const Key = (props: KeyProps) => {
     const strokeColor = color(props.color).darken(c.STROKE_COLOR_DARKEN).hex();
 
     const shineShape =
-        props.shelf && props.shelf.length > 0 ? props.shelf : props.blank.shape;
+        props.boxes && props.boxes.length > 0 ? props.boxes : props.blank.boxes;
     const legendContainer = shineShape[0];
     const legendSpaceHeight =
         legendContainer.height -
@@ -190,14 +190,14 @@ export const Key = (props: KeyProps) => {
     const legendOffsetY = c.SHINE_PADDING_TOP + c.LEGEND_PADDING;
 
     const refID = genID("key", {
-        base: props.blank.shape,
-        shelf: props.shelf,
+        base: props.blank.boxes,
+        shelf: props.boxes,
         color: props.color,
     });
 
     const calculatedKeycap = calcKeycap({
-        base: props.blank.shape,
-        shelf: props.shelf,
+        base: props.blank.boxes,
+        shelf: props.boxes,
     });
     return (
         <g id={props.uuid}>

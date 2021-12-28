@@ -1,6 +1,6 @@
 import {Blank} from "./blank";
 import {Box} from "./measure";
-import {Angle, Pair, RightAngle, UUID} from "./units";
+import {Angle, Point, RightAngle, UUID} from "./primitives";
 
 // Keyboard layout.
 export interface Layout {
@@ -48,10 +48,10 @@ export interface LayoutBlocker {
     label: string;
 
     // Shape of the blocker.
-    shape: Box[];
+    boxes: Box[];
 
     // Position of the blocker in the layout.
-    position: Pair;
+    position: Point;
 
     // Angle of rotation of the blocker.
     angle: Angle;
@@ -67,7 +67,7 @@ export interface LayoutKey {
     key: Blank;
 
     // Position of the key on the layout.
-    position: Pair;
+    position: Point;
 
     // Angle of the footprint (rotated around 0,0).
     // +180deg for inverted switches.

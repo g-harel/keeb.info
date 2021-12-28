@@ -14,7 +14,7 @@
             "keys": [
                 {
                     "key": {
-                        "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
+                        "boxes": [{"height": 1, "width": 1, "offset": [0, 0]}],
                         "stabilizers": [],
                         "stem": [0.5, 0.5]
                     },
@@ -33,7 +33,7 @@
                 },
                 {
                     "key": {
-                        "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
+                        "boxes": [{"height": 1, "width": 1, "offset": [0, 0]}],
                         "stabilizers": [],
                         "stem": [0.5, 0.5]
                     },
@@ -52,7 +52,7 @@
                 },
                 {
                     "key": {
-                        "shape": [{"height": 1, "width": 1, "offset": [0, 0]}],
+                        "boxes": [{"height": 1, "width": 1, "offset": [0, 0]}],
                         "stabilizers": [],
                         "stem": [0.5, 0.5]
                     },
@@ -71,7 +71,7 @@
                 },
                 {
                     "key": {
-                        "shape": [
+                        "boxes": [
                             {"height": 2, "width": 1.25, "offset": [0.75, 0]},
                             {"height": 1, "width": 2, "offset": [0, 0]}
                         ],
@@ -95,7 +95,7 @@
                 },
                 {
                     "key": {
-                        "shape": [
+                        "boxes": [
                             {"height": 1, "width": 1.75, "offset": [0, 0]}
                         ],
                         "stabilizers": [],

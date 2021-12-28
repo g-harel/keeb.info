@@ -1,5 +1,5 @@
 import {Box} from "./measure";
-import {Pair} from "./units";
+import {Point} from "./primitives";
 
 export const genID = (
     namespace: string,
@@ -7,14 +7,14 @@ export const genID = (
         base?: Box[];
         shelf?: Box[];
         color?: string;
-        position?: Pair;
+        position?: Point;
         angle?: number;
     },
 ): string => {
     let components: any[] = [namespace];
     components = components.concat(
         [...(info.base || []), ...(info.shelf || [])]
-            .map((shape) => [shape.height, shape.width, shape.offset])
+            .map((box) => [box.height, box.width, box.offset])
             .flat(Infinity),
     );
     components = components.concat((info.color ? [info.color] : []) as any);

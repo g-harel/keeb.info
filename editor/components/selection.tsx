@@ -5,8 +5,8 @@ import {Blank} from "../../internal/blank";
 import {calcKeycap} from "../../internal/key";
 import {rotateCoord} from "../../internal/math";
 import {Box} from "../../internal/measure";
+import {Angle, Pair, Shape, UUID} from "../../internal/primitives";
 import {ReactProps} from "../../internal/react";
-import {Angle, Pair, UUID} from "../../internal/units";
 import * as c from "../cons";
 import {Pooler} from "./view";
 
@@ -26,9 +26,9 @@ export interface SelectionProps extends ReactProps {
 
 export const Selection = (props: SelectionProps) => {
     // TODO finish implementing.
-    const keycapBases: Pair[][] = props.selection.map((key) => {
+    const keycapBases: Shape[] = props.selection.map((key) => {
         const {basePathPoints} = calcKeycap({
-            base: key.blank.shape,
+            base: key.blank.boxes,
             shelf: key.shelf,
         });
         return basePathPoints.map((point) => {

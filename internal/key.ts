@@ -4,9 +4,9 @@ import * as c from "../editor/cons";
 import {memCache} from "./cache";
 import {approx, bridgeArcs, round} from "./curve";
 import {Box} from "./measure";
-import {joinShape, multiUnion} from "./polygon";
+import {multiUnion, toSingleShape} from "./polygon";
+import {Point, RoundShape, Shape} from "./primitives";
 import {roundedPath, straightPath} from "./svg";
-import {Pair, QuadSegment} from "./units";
 import {genID} from "./util";
 
 export interface KeycapInput {
@@ -15,10 +15,10 @@ export interface KeycapInput {
 }
 
 interface CalculatedKeycap {
-    basePathPoints: Pair[];
+    basePathPoints: Shape;
     basePath: string;
     stepPaths: string[];
-    arcBridgeLines: [Pair, Pair][];
+    arcBridgeLines: [Point, Point][];
     shinePath: string;
 }
 
@@ -35,51 +35,51 @@ const SHINE_PADDING: [number, number, number] = [
     c.SHINE_PADDING_BOTTOM,
 ];
 
-const pad = (shapes: Box[], padding: [number, number, number]): Box[] => {
-    return shapes.map((box) => ({
+const pad = (boxes: Box[], padding: [number, number, number]): Box[] => {
+    return boxes.map((box) => ({
         width: box.width - 2 * padding[1],
         height: box.height - padding[0] - padding[2],
         offset: [
             box.offset[0] + padding[1],
             box.offset[1] + padding[0],
-        ] as Pair,
+        ] as Point,
     }));
 };
 
 const internalCalcKeycap = (key: KeycapInput): CalculatedKeycap => {
-    const shape = pad(key.base, KEY_PADDING);
+    const boxes = pad(key.base, KEY_PADDING);
     const shineShape = pad(
         key.shelf && key.shelf.length ? key.shelf : key.base,
         KEY_PADDING,
     );
 
     // Sharp key base.
-    const rawBase = joinShape(shape);
+    const rawBase = toSingleShape(boxes);
     const roundBase = round(rawBase, c.KEY_RADIUS, c.KEY_RADIUS);
 
     // Shine outer edge.
-    const rawStep = joinShape(pad(shape, STEP_PADDING));
+    const rawStep = toSingleShape(pad(boxes, STEP_PADDING));
     const roundStep = round(rawStep, c.STEP_RADIUS, c.KEY_RADIUS);
     const approxStep = approx(roundStep, c.ROUND_RESOLUTION);
 
     // Shine shape.
-    const rawShine = joinShape(pad(shineShape, SHINE_PADDING));
+    const rawShine = toSingleShape(pad(shineShape, SHINE_PADDING));
     const roundShine = round(rawShine, c.SHINE_RADIUS, c.KEY_RADIUS);
 
     // Shine inner edge.
-    const rawShineBase = joinShape(pad(shineShape, STEP_PADDING));
+    const rawShineBase = toSingleShape(pad(shineShape, STEP_PADDING));
     const roundShineBase = round(rawShineBase, c.STEP_RADIUS, c.KEY_RADIUS);
     const approxShineBase = approx(roundShineBase, c.ROUND_RESOLUTION);
 
     // Calculate corner bridge lines and shapes.
-    const arcCorners: Pair[][] = [];
-    const arcBridges: [Pair, Pair][] = [];
-    const addArcs = (count: number, a: QuadSegment[], b: QuadSegment[]) => {
+    const arcCorners: Shape[] = [];
+    const arcBridges: [Point, Point][] = [];
+    const addArcs = (count: number, a: RoundShape, b: RoundShape) => {
         a.forEach((p, i) => {
             const lines = bridgeArcs(count, p, b[i]);
             arcBridges.push(...lines);
 
-            const localCorners: Pair[][] = [];
+            const localCorners: Shape[] = [];
             for (let i = 0; i < lines.length - 2; i++) {
                 const first = lines[i];
                 const second = lines[i + 1];
@@ -112,7 +112,7 @@ const internalCalcKeycap = (key: KeycapInput): CalculatedKeycap => {
     const inflatePadding = STEP_PADDING.map((n) => n - c.BORDER / 1000) as any;
     const approxInflatedShineBase = approx(
         round(
-            joinShape(pad(shineShape, inflatePadding)),
+            toSingleShape(pad(shineShape, inflatePadding)),
             c.STEP_RADIUS,
             c.KEY_RADIUS,
         ),

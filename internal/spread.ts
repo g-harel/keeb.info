@@ -1,37 +1,39 @@
 import * as c from "../editor/cons";
 import {Layout, LayoutBlocker, LayoutKey} from "./layout";
 import {rotateCoord} from "./math";
-import {Box, shapeCorners} from "./measure";
+import {Box, corners} from "./measure";
 import {doesIntersect, multiUnion} from "./polygon";
-import {Angle, Pair} from "./units";
+import {Angle, Point} from "./primitives";
+
+// TODO standardize naming of geometry constructs
 
 const deepCopy = <T>(o: T): T => {
     return JSON.parse(JSON.stringify(o));
 };
 
-const offsetKey = (key: LayoutKey, offset: Pair): LayoutKey => {
+const offsetKey = (key: LayoutKey, offset: Point): LayoutKey => {
     const oKey: LayoutKey = deepCopy(key);
     oKey.position[0] += offset[0];
     oKey.position[1] += offset[1];
     return oKey;
 };
 
-const padShape = (shape: Box, pad: number): Box => {
+const padBox = (box: Box, pad: number): Box => {
     return {
-        width: shape.width + 2 * pad,
-        height: shape.height + 2 * pad,
-        offset: [shape.offset[0] - pad, shape.offset[1] - pad],
+        width: box.width + 2 * pad,
+        height: box.height + 2 * pad,
+        offset: [box.offset[0] - pad, box.offset[1] - pad],
     };
 };
 
 const computeRings = (
-    shapes: Box[],
-    position: Pair,
+    boxes: Box[],
+    position: Point,
     angle: Angle,
     pad = 0,
-): Pair[][] => {
-    return shapes.map((shape) =>
-        shapeCorners(position, padShape(shape, pad)).map((corner) =>
+): Point[][] => {
+    return boxes.map((box) =>
+        corners(position, padBox(box, pad)).map((corner) =>
             rotateCoord(corner, c.ROTATION_ORIGIN, angle),
         ),
     );
@@ -39,15 +41,15 @@ const computeRings = (
 
 const ringsFromKey =
     (pad = 0) =>
-    (key: LayoutKey): Pair[][] => {
-        return computeRings(key.key.shape, key.position, key.angle, pad);
+    (key: LayoutKey): Point[][] => {
+        return computeRings(key.key.boxes, key.position, key.angle, pad);
     };
 
 const ringsFromBlocker =
     (pad = 0) =>
-    (blocker: LayoutBlocker): Pair[][] => {
+    (blocker: LayoutBlocker): Point[][] => {
         return computeRings(
-            blocker.shape,
+            blocker.boxes,
             blocker.position,
             blocker.angle,
             pad,
@@ -59,7 +61,7 @@ const ringsFromBlocker =
 export const spreadSections = (layout: Layout): Layout => {
     const out: Layout = deepCopy(layout);
 
-    const allRings: Pair[][] = [];
+    const allRings: Point[][] = [];
     allRings.push(
         ...out.fixedKeys.map(ringsFromKey(c.LAYOUT_OPTIONS_PADDING)).flat(1),
     );
@@ -80,7 +82,7 @@ export const spreadSections = (layout: Layout): Layout => {
                 .flat(1),
         );
     }
-    let avoid: Pair[][] = multiUnion(...allRings);
+    let avoid: Point[][] = multiUnion(...allRings);
 
     for (const section of out.variableKeys) {
         // Keep track of how far last option had to be moved and start there.
@@ -101,7 +103,7 @@ export const spreadSections = (layout: Layout): Layout => {
                 for (const offset of [
                     [0, j],
                     [0, -j],
-                ] as Pair[]) {
+                ] as Point[]) {
                     let intersects = false;
                     for (const key of option.keys) {
                         if (

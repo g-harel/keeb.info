@@ -2,7 +2,7 @@ import * as c from "../editor/cons";
 import {KeysetKit} from "./keyset";
 import {Layout, LayoutKey} from "./layout";
 import {rotateCoord} from "./math";
-import {Pair} from "./units";
+import {Point, Shape} from "./primitives";
 
 // Generic rectangular shape.
 export interface Box {
@@ -13,15 +13,15 @@ export interface Box {
     height: number;
 
     // Relative location for composite shapes.
-    offset: Pair;
+    offset: Point;
 }
 
 // Corners in ring order.
-export const shapeCorners = (offset: Pair, shape: Box): Pair[] => {
-    const x = shape.offset[0] + offset[0];
-    const y = shape.offset[1] + offset[1];
-    const width = shape.width;
-    const height = shape.height;
+export const corners = (offset: Point, box: Box): Shape => {
+    const x = box.offset[0] + offset[0];
+    const y = box.offset[1] + offset[1];
+    const width = box.width;
+    const height = box.height;
     return [
         [x, y],
         [x, y + height],
@@ -30,16 +30,16 @@ export const shapeCorners = (offset: Pair, shape: Box): Pair[] => {
     ];
 };
 
-export const minmaxKeysetKit = (kit: KeysetKit): [Pair, Pair] => {
-    const coords: Pair[] = [];
+export const minmaxKeysetKit = (kit: KeysetKit): [Point, Point] => {
+    const coords: Point[] = [];
     for (const key of kit.keys) {
-        for (const shape of key.key.shape) {
-            coords.push(...shapeCorners(key.position, shape));
+        for (const box of key.key.boxes) {
+            coords.push(...corners(key.position, box));
         }
     }
 
-    let min: Pair = [Infinity, Infinity];
-    let max: Pair = [0, 0];
+    let min: Point = [Infinity, Infinity];
+    let max: Point = [0, 0];
 
     for (const c of coords) {
         max = [Math.max(max[0], c[0]), Math.max(max[1], c[1])];
@@ -49,26 +49,26 @@ export const minmaxKeysetKit = (kit: KeysetKit): [Pair, Pair] => {
     return [min, max];
 };
 
-export const minmaxLayout = (layout: Layout): [Pair, Pair] => {
+export const minmaxLayout = (layout: Layout): [Point, Point] => {
     const keys: LayoutKey[] = layout.fixedKeys.slice();
     for (const section of layout.variableKeys) {
         for (const option of section.options) {
             keys.push(...option.keys);
         }
     }
-    const coords: Pair[] = [];
+    const coords: Point[] = [];
     for (const key of keys) {
-        for (const shape of key.key.shape) {
+        for (const box of key.key.boxes) {
             coords.push(
-                ...shapeCorners(key.position, shape).map((corner) =>
+                ...corners(key.position, box).map((corner) =>
                     rotateCoord(corner, c.ROTATION_ORIGIN, key.angle),
                 ),
             );
         }
     }
 
-    let min: Pair = [Infinity, Infinity];
-    let max: Pair = [0, 0];
+    let min: Point = [Infinity, Infinity];
+    let max: Point = [0, 0];
 
     for (const c of coords) {
         max = [Math.max(max[0], c[0]), Math.max(max[1], c[1])];

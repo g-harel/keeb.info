@@ -6,12 +6,12 @@ import {KeymapKey, LayoutKeymap} from "./keymap";
 import {Keyset, KeysetKeycapLegend} from "./keyset";
 import {Layout} from "./layout";
 import {Box} from "./measure";
-import {UUID} from "./units";
+import {UUID} from "./primitives";
 
 // TODO support decals
 const convertKLEKey = (key: Key): Blank => {
-    const shapes: Box[] = [];
-    shapes.push({
+    const boxes: Box[] = [];
+    boxes.push({
         height: key.height,
         width: key.width,
         offset: [0, 0],
@@ -23,7 +23,7 @@ const convertKLEKey = (key: Key): Blank => {
     const isMoved = key.x2 !== 0 || key.y2 !== 0;
     const hasSecond = !isMicro && (isMoved || isResized);
     if (hasSecond) {
-        shapes.push({
+        boxes.push({
             height: key.height2,
             width: key.width2,
             offset: [key.x2, key.y2],
@@ -32,16 +32,16 @@ const convertKLEKey = (key: Key): Blank => {
 
     // Infer stabilizers.
     const stabilizers: Stabilizer[] = [];
-    if (shapes[0].width >= 2) {
+    if (boxes[0].width >= 2) {
         stabilizers.push({
             angle: 0,
-            length: shapes[0].width - 1,
+            length: boxes[0].width - 1,
             offset: [0.5, 0.5],
         });
-    } else if (shapes[0].height >= 2) {
+    } else if (boxes[0].height >= 2) {
         stabilizers.push({
             angle: 90,
-            length: shapes[0].height - 1,
+            length: boxes[0].height - 1,
             offset: [0.5, 0.5],
         });
     }
@@ -49,7 +49,7 @@ const convertKLEKey = (key: Key): Blank => {
     // TODO legends.
 
     return {
-        shape: shapes,
+        boxes: boxes,
         stabilizers,
         // Assume centered all the time.
         stem: [key.width / 2, key.height / 2],
@@ -170,7 +170,7 @@ export const convertKLEToKeysetKit = (raw: any): Keyset => {
                     const blank = convertKLEKey(key);
                     return {
                         key: blank,
-                        shelf: blank.shape.length > 1 ? [blank.shape[0]] : [],
+                        shelf: blank.boxes.length > 1 ? [blank.boxes[0]] : [],
                         profile: {
                             profile: String(Math.random()),
                             row: "R1",

@@ -1,13 +1,13 @@
 import {Pair} from "polygon-clipping";
 
 import {Box} from "./measure";
-import {RightAngle} from "./units";
+import {RightAngle} from "./primitives";
 
 // Shared layout footprint and keycap attributes.
 export interface Blank {
     // Shape of the key.
     // ISO enter can be represented using two offset rects.
-    shape: Box[];
+    boxes: Box[];
 
     // Relative stem location.
     stem: Pair;

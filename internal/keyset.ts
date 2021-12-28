@@ -2,7 +2,7 @@ import {Pair} from "polygon-clipping";
 
 import {Blank} from "./blank";
 import {Box} from "./measure";
-import {HexColor, ID, URL, UUID} from "./units";
+import {HexColor, ID, URL, UUID} from "./primitives";
 
 // Group of keycap kits with matching theme.
 export interface Keyset {

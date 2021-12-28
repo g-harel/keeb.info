@@ -69,7 +69,7 @@ export const ExplodedLayout = (props: ExplodedLayoutProps) => {
                 >
                     <Blocker
                         pooler={pooler}
-                        shape={blocker.shape}
+                        boxes={blocker.boxes}
                         color={DEFAULT_KEY_COLOR}
                     />
                 </ViewItem>
@@ -85,7 +85,7 @@ export const ExplodedLayout = (props: ExplodedLayoutProps) => {
                         >
                             <Blocker
                                 pooler={pooler}
-                                shape={blocker.shape}
+                                boxes={blocker.boxes}
                                 color={sectionColors[i]}
                             />
                         </ViewItem>

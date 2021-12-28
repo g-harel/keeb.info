@@ -1,10 +1,10 @@
-import {Angle, Pair} from "./units";
+import {Angle, Point} from "./primitives";
 
-export const distance = (a: Pair, b: Pair): number => {
+export const distance = (a: Point, b: Point): number => {
     return Math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2);
 };
 
-export const angleBetween = (a: Pair, b: Pair, center: Pair): number => {
+export const angleBetween = (a: Point, b: Point, center: Point): number => {
     const dAx = center[0] - a[0];
     const dAy = center[1] - a[1];
     const dBx = b[0] - center[0];
@@ -16,12 +16,12 @@ export const split = (percentage: number, a: number, b: number): number => {
     return a + percentage * (b - a);
 };
 
-export const splitLine = (percentage: number, a: Pair, b: Pair): Pair => {
+export const splitLine = (percentage: number, a: Point, b: Point): Point => {
     return [split(percentage, a[0], b[0]), split(percentage, a[1], b[1])];
 };
 
 // Position is P and the rotation origin is R.
-export const rotateCoord = (p: Pair, r: Pair, a: number): Pair => {
+export const rotateCoord = (p: Point, r: Point, a: number): Point => {
     const angleRads = a * (Math.PI / 180);
     const rotatedX =
         Math.cos(angleRads) * (p[0] - r[0]) -
@@ -35,13 +35,13 @@ export const rotateCoord = (p: Pair, r: Pair, a: number): Pair => {
 };
 
 interface AngledPosition<T> {
-    position: Pair;
+    position: Point;
     original: T;
 }
 
 export const orderVertically = <T>(
-    getter: (item: T) => [Pair, Angle?],
-    origin: Pair,
+    getter: (item: T) => [Point, Angle?],
+    origin: Point,
     ...items: T[][]
 ) => {
     const angled: AngledPosition<T>[] = items.flat(1).map((item) => {

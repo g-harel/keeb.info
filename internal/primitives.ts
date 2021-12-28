@@ -17,10 +17,18 @@ export type HexColor = string;
 export type URL = string;
 
 // X/Y pair not necessarily centered on canvas origin.
-export type Pair = [number, number];
+export type Point = [number, number];
+
+// List of Pairs that form a closed shape.
+// Each point appears only once.
+export type Shape = Point[];
 
 // Rounded corner using a quadratic bezier.
-export type QuadSegment = [Pair, Pair, Pair];
+export type QuadSegment = [Point, Point, Point];
+
+// Rounded shape comprised of multiple quadratic bezier curves.
+// Start and end of each in-order segment should overlap.
+export type RoundShape = QuadSegment[];
 
 // Angle with limited possible values in degrees clockwise from the horizontal.
 // TODO validation required.
