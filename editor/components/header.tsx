@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import {Link} from "react-router-dom";
 import color from "color";
+import React from "react";
+import {Link} from "react-router-dom";
+import styled from "styled-components";
 
 import {Logo} from "./logo";
 

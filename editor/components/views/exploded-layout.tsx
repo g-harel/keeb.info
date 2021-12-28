@@ -1,20 +1,20 @@
 import React from "react";
 
-import {minmaxLayout} from "../../../internal/measure";
-import {spreadSections} from "../../../internal/spread";
+import {colorSeries} from "../../../internal/color";
 import {Layout} from "../../../internal/layout";
-import {Key} from "../key";
+import {orderVertically} from "../../../internal/math";
+import {minmaxLayout} from "../../../internal/measure";
+import {ReactProps} from "../../../internal/react";
+import {spreadSections} from "../../../internal/spread";
 import {
     DEFAULT_KEY_COLOR,
-    SHINE_PADDING_TOP,
     ROTATION_ORIGIN,
+    SHINE_PADDING_TOP,
     START_SECTION_COLOR,
 } from "../../cons";
-import {ReactProps} from "../../../internal/react";
-import {createPool, View, ViewItem} from "../view";
-import {colorSeries} from "../../../internal/color";
 import {Blocker} from "../blocker";
-import {orderVertically} from "../../../internal/math";
+import {Key} from "../key";
+import {View, ViewItem, createPool} from "../view";
 
 export interface ExplodedLayoutProps extends ReactProps {
     width: number;

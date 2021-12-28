@@ -1,13 +1,13 @@
-import React from "react";
 import color from "color";
+import React from "react";
 
-import {genID} from "../../internal/util";
-import {rotateCoord} from "../../internal/math";
-import * as c from "../cons";
-import {ReactProps} from "../../internal/react";
-import {RightAngle, Pair} from "../../internal/units";
-import {Pooler} from "./view";
 import {Blank} from "../../internal/blank";
+import {rotateCoord} from "../../internal/math";
+import {ReactProps} from "../../internal/react";
+import {Pair, RightAngle} from "../../internal/units";
+import {genID} from "../../internal/util";
+import * as c from "../cons";
+import {Pooler} from "./view";
 
 export interface FootprintProps extends ReactProps {
     pooler: Pooler;

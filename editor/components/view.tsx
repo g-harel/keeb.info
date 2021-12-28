@@ -1,7 +1,7 @@
 import React from "react";
 
-import {Pair} from "../../internal/units";
 import {ReactElement, ReactProps} from "../../internal/react";
+import {Pair} from "../../internal/units";
 
 export interface ViewProps extends ReactProps {
     unitSize: Pair;

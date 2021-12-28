@@ -1,12 +1,12 @@
-import React from "react";
 import color from "color";
+import React from "react";
 
-import {minmaxLayout} from "../../../internal/measure";
 import {Layout} from "../../../internal/layout";
-import * as c from "../../cons";
+import {minmaxLayout} from "../../../internal/measure";
 import {ReactProps} from "../../../internal/react";
-import {View, ViewItem, createPool} from "../view";
+import * as c from "../../cons";
 import {Footprint} from "../footprint";
+import {View, ViewItem, createPool} from "../view";
 
 export interface FootprintLayoutProps extends ReactProps {
     width: number;

@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import {createGlobalStyle} from "styled-components";
 import {BrowserRouter, useRoutes} from "react-router-dom";
+import {createGlobalStyle} from "styled-components";
 
-import {BACKGROUND_COLOR} from "./cons";
 import {Header} from "./components/header";
+import {BACKGROUND_COLOR} from "./cons";
 import {sitemap} from "./sitemap";
 
 // Global styles, similar to traditional css.

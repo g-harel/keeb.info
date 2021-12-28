@@ -1,21 +1,15 @@
-import {Serial, Key as KLEKey} from "@ijprest/kle-serial";
+import {Key, Serial} from "@ijprest/kle-serial";
 import color from "color";
-import {DEFAULT_KEY_COLOR} from "../editor/cons";
 
-import {
-    Blank,
-    Box,
-    Stabilizer,
-    Keyset,
-    Layout,
-    LayoutKeymap,
-    UUID,
-    KeymapKey,
-    KeysetKeycapLegend,
-} from "./units";
+import {Blank, Stabilizer} from "./blank";
+import {KeymapKey, LayoutKeymap} from "./keymap";
+import {Keyset, KeysetKeycapLegend} from "./keyset";
+import {Layout} from "./layout";
+import {Box} from "./measure";
+import {UUID} from "./units";
 
 // TODO support decals
-const convertKLEKey = (key: KLEKey): Blank => {
+const convertKLEKey = (key: Key): Blank => {
     const shapes: Box[] = [];
     shapes.push({
         height: key.height,
@@ -68,7 +62,7 @@ export const convertKLEToLayoutKeymap = (raw: any): [Layout, LayoutKeymap] => {
 
     const keymap: Record<UUID, KeymapKey> = {};
     const legend = (
-        key: KLEKey,
+        key: Key,
         index: number,
         size: number,
     ): KeysetKeycapLegend => {

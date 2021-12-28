@@ -1,9 +1,9 @@
+import * as c from "../editor/cons";
+import {Layout, LayoutBlocker, LayoutKey} from "./layout";
+import {rotateCoord} from "./math";
+import {Box, shapeCorners} from "./measure";
 import {doesIntersect, multiUnion} from "./polygon";
 import {Angle, Pair} from "./units";
-import {rotateCoord} from "./math";
-import * as c from "../editor/cons";
-import {Box, shapeCorners} from "./measure";
-import {Layout, LayoutBlocker, LayoutKey} from "./layout";
 
 const deepCopy = <T>(o: T): T => {
     return JSON.parse(JSON.stringify(o));

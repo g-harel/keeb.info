@@ -1,4 +1,4 @@
-import {intersection, MultiPolygon, union} from "polygon-clipping";
+import {MultiPolygon, intersection, union} from "polygon-clipping";
 
 import {Box, shapeCorners} from "./measure";
 import {Pair} from "./units";

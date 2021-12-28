@@ -1,12 +1,12 @@
 import React from "react";
 
-import * as c from "../cons";
 import {Box} from "../../internal/measure";
+import {joinShape} from "../../internal/polygon";
 import {ReactProps} from "../../internal/react";
-import {Pooler} from "./view";
 import {straightPath} from "../../internal/svg";
 import {genID} from "../../internal/util";
-import {joinShape} from "../../internal/polygon";
+import * as c from "../cons";
+import {Pooler} from "./view";
 
 export interface BlockerProps extends ReactProps {
     pooler: Pooler;

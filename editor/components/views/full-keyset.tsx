@@ -1,17 +1,17 @@
+import {Pair} from "polygon-clipping";
 import React from "react";
 
-import {minmaxKeysetKit} from "../../../internal/measure";
+import {resolveColor} from "../../../internal/color";
 import {Keyset, KeysetKit} from "../../../internal/keyset";
-import {Key} from "../key";
+import {minmaxKeysetKit} from "../../../internal/measure";
+import {ReactProps} from "../../../internal/react";
 import {
     DEFAULT_KEY_COLOR,
     MIN_KEYSET_WIDTH_DISPLAY,
     SHINE_PADDING_TOP,
 } from "../../cons";
-import {ReactProps} from "../../../internal/react";
+import {Key} from "../key";
 import {View, ViewItem, createPool} from "../view";
-import {Pair} from "polygon-clipping";
-import {resolveColor} from "../../../internal/color";
 
 export interface FullKeysetProps extends ReactProps {
     width: number;

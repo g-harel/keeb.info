@@ -1,8 +1,8 @@
 import * as c from "../editor/cons";
-import {Pair} from "./units";
-import {rotateCoord} from "./math";
 import {KeysetKit} from "./keyset";
 import {Layout, LayoutKey} from "./layout";
+import {rotateCoord} from "./math";
+import {Pair} from "./units";
 
 // Generic rectangular shape.
 export interface Box {

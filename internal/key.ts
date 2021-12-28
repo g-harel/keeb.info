@@ -1,11 +1,12 @@
 import {difference} from "polygon-clipping";
 
 import * as c from "../editor/cons";
-import {Pair, QuadSegment, Box} from "./units";
-import {roundedPath, straightPath} from "./svg";
-import {joinShape, multiUnion} from "./polygon";
-import {approx, bridgeArcs, round} from "./curve";
 import {memCache} from "./cache";
+import {approx, bridgeArcs, round} from "./curve";
+import {Box} from "./measure";
+import {joinShape, multiUnion} from "./polygon";
+import {roundedPath, straightPath} from "./svg";
+import {Pair, QuadSegment} from "./units";
 import {genID} from "./util";
 
 export interface KeycapInput {

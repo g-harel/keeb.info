@@ -1,4 +1,5 @@
 import {Pair} from "polygon-clipping";
+
 import {Box} from "./measure";
 import {RightAngle} from "./units";
 

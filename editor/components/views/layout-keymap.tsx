@@ -1,13 +1,13 @@
 import React from "react";
 
-import {minmaxLayout} from "../../../internal/measure";
-import {Layout} from "../../../internal/layout";
 import {LayoutKeymap as LayoutKeymapType} from "../../../internal/keymap";
-import {Key} from "../key";
-import {SHINE_PADDING_TOP, ROTATION_ORIGIN} from "../../cons";
-import {ReactProps} from "../../../internal/react";
-import {createPool, View, ViewItem} from "../view";
+import {Layout} from "../../../internal/layout";
 import {orderVertically} from "../../../internal/math";
+import {minmaxLayout} from "../../../internal/measure";
+import {ReactProps} from "../../../internal/react";
+import {ROTATION_ORIGIN, SHINE_PADDING_TOP} from "../../cons";
+import {Key} from "../key";
+import {View, ViewItem, createPool} from "../view";
 
 export interface LayoutKeymapProps extends ReactProps {
     width: number;

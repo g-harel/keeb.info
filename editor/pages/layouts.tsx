@@ -1,10 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-import {convertKLEToLayoutKeymap} from "../../internal/kle";
-import {Layout} from "../../internal/layout";
-import {LayoutKeymap} from "../components/views/layout-keymap";
-
 import alix40 from "../../files/kle/alix40.json";
 import bear65 from "../../files/kle/bear65.json";
 import candybar from "../../files/kle/candybar.json";
@@ -21,6 +17,10 @@ import nyquist from "../../files/kle/nyquist.json";
 import saturn60 from "../../files/kle/saturn60.json";
 import tkc1800 from "../../files/kle/tkc1800.json";
 import tkl from "../../files/kle/tkl.json";
+
+import {convertKLEToLayoutKeymap} from "../../internal/kle";
+import {Layout} from "../../internal/layout";
+import {LayoutKeymap} from "../components/views/layout-keymap";
 
 const StyledWrapper = styled.div`
     align-items: center;

@@ -1,5 +1,5 @@
-import {Pair, QuadSegment} from "./units";
 import {angleBetween, distance, splitLine} from "./math";
+import {Pair, QuadSegment} from "./units";
 
 export const round = (
     shape: Pair[],
