@@ -1,9 +1,8 @@
-import {Pair} from "polygon-clipping";
 import React from "react";
 
 import {resolveColor} from "../../../internal/color";
-import {Keyset, KeysetKit} from "../../../internal/keyset";
-import {minmaxKeysetKit} from "../../../internal/measure";
+import {Keyset, KeysetKit, minmax} from "../../../internal/keyset";
+import { Point } from "../../../internal/point";
 import {ReactProps} from "../../../internal/react";
 import {
     DEFAULT_KEY_COLOR,
@@ -22,7 +21,7 @@ interface KitBox {
     kit: KeysetKit;
     width: number;
     height: number;
-    min: Pair;
+    min: Point;
 }
 
 const sum = (nums: number[]): number => {
@@ -34,7 +33,7 @@ export const FullKeyset = (props: FullKeysetProps) => {
     // Calculate bounding boxes for all kits.
     const kits: KitBox[] = [];
     for (const kit of props.keyset.kits) {
-        const [min, max] = minmaxKeysetKit(kit);
+        const [min, max] = minmax(kit);
         kits.push({
             kit,
             width: max[0] - min[0],

@@ -1,6 +1,6 @@
 import React from "react";
 
-import {Point} from "../../internal/primitives";
+import {Point} from "../../internal/point";
 import {ReactElement, ReactProps} from "../../internal/react";
 
 export interface ViewProps extends ReactProps {

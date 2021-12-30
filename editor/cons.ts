@@ -1,4 +1,4 @@
-import {Point} from "../internal/primitives";
+import {Point} from "../internal/point";
 
 export const DEBUG = true;
 

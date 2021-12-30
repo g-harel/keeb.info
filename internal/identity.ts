@@ -1,5 +1,21 @@
-import {Box} from "./box";
-import {Point} from "./primitives";
+// TODO led support.
+// TODO non-english.
+// TODO keycode/row preference.
+
+import { Box } from "./box";
+import { Point } from "./point";
+
+// Private unique identifier.
+export type UUID = string;
+
+// URL to an image.
+export type URL = string;
+
+// Unique identifier for product SKU.
+export interface ID {
+    vendorID: string;
+    productID: string;
+}
 
 export const genID = (
     namespace: string,

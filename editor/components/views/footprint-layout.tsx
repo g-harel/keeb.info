@@ -1,8 +1,7 @@
 import color from "color";
 import React from "react";
 
-import {Layout} from "../../../internal/layout";
-import {minmaxLayout} from "../../../internal/measure";
+import {Layout, minmax} from "../../../internal/layout";
 import {ReactProps} from "../../../internal/react";
 import * as c from "../../cons";
 import {Footprint} from "../footprint";
@@ -14,7 +13,7 @@ export interface FootprintLayoutProps extends ReactProps {
 }
 
 export const FootprintLayout = (props: FootprintLayoutProps) => {
-    const [min, max] = minmaxLayout(props.layout);
+    const [min, max] = minmax(props.layout);
     const unitWidth = max[0] - min[0];
     const unitHeight = max[1] - min[1];
 

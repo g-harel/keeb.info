@@ -1,6 +1,9 @@
+import {ROTATION_ORIGIN} from "../editor/cons";
 import {Blank} from "./blank";
-import {Box} from "./box";
-import {Angle, Point, RightAngle, UUID} from "./primitives";
+import {Box, corners} from "./box";
+import {rotateCoord} from "./point";
+import {Angle, Point, RightAngle} from "./point";
+import { UUID } from "./identity";
 
 // Keyboard layout.
 export interface Layout {
@@ -76,3 +79,32 @@ export interface LayoutKey {
     // Orientation of the switch in the footprint.
     orientation: RightAngle;
 }
+
+export const minmax = (layout: Layout): [Point, Point] => {
+    const keys: LayoutKey[] = layout.fixedKeys.slice();
+    for (const section of layout.variableKeys) {
+        for (const option of section.options) {
+            keys.push(...option.keys);
+        }
+    }
+    const coords: Point[] = [];
+    for (const key of keys) {
+        for (const box of key.key.boxes) {
+            coords.push(
+                ...corners(key.position, box).map((corner) =>
+                    rotateCoord(corner, ROTATION_ORIGIN, key.angle),
+                ),
+            );
+        }
+    }
+
+    let min: Point = [Infinity, Infinity];
+    let max: Point = [0, 0];
+
+    for (const c of coords) {
+        max = [Math.max(max[0], c[0]), Math.max(max[1], c[1])];
+        min = [Math.min(min[0], c[0]), Math.min(min[1], c[1])];
+    }
+
+    return [min, max];
+};

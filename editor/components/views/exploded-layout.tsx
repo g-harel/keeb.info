@@ -1,11 +1,10 @@
 import React from "react";
 
 import {colorSeries} from "../../../internal/color";
-import {Layout} from "../../../internal/layout";
-import {orderVertically} from "../../../internal/math";
-import {minmaxLayout} from "../../../internal/measure";
+import {Layout, minmax} from "../../../internal/layout";
+import {orderVertically} from "../../../internal/point";
 import {ReactProps} from "../../../internal/react";
-import {spreadSections} from "../../../internal/spread";
+import {spreadSections} from "../../../internal/_spread";
 import {
     DEFAULT_KEY_COLOR,
     ROTATION_ORIGIN,
@@ -23,7 +22,7 @@ export interface ExplodedLayoutProps extends ReactProps {
 
 export const ExplodedLayout = (props: ExplodedLayoutProps) => {
     const spreadLayout = spreadSections(props.layout);
-    const [min, max] = minmaxLayout(spreadLayout);
+    const [min, max] = minmax(spreadLayout);
     const unitWidth = max[0] - min[0];
     const unitHeight = max[1] - min[1];
     const sectionColors = colorSeries(

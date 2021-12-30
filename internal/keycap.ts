@@ -4,9 +4,9 @@ import * as c from "../editor/cons";
 import {Box, toSingleShape} from "./box";
 import {memCache} from "./cache";
 import {CurveShape, approx, bridgeArcs, toSVGPath as curvedPath} from "./curve";
-import {Point} from "./primitives";
+import {Point} from "./point";
 import {Shape, multiUnion, round, toSVGPath as straightPath} from "./shape";
-import {genID} from "./util";
+import {genID} from "./identity";
 
 export interface KeycapInput {
     base: Box[];

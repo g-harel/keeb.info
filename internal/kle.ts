@@ -6,7 +6,7 @@ import {Box} from "./box";
 import {KeymapKey, LayoutKeymap} from "./keymap";
 import {Keyset, KeysetKeycapLegend} from "./keyset";
 import {Layout} from "./layout";
-import {UUID} from "./primitives";
+import { UUID } from "./identity";
 
 export type KLEKey = Key;
 

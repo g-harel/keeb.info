@@ -3,7 +3,7 @@ import React from "react";
 import {Box, toSingleShape} from "../../internal/box";
 import {ReactProps} from "../../internal/react";
 import {toSVGPath} from "../../internal/shape";
-import {genID} from "../../internal/util";
+import {genID} from "../../internal/identity";
 import * as c from "../cons";
 import {Pooler} from "./view";
 

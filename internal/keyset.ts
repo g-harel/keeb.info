@@ -1,9 +1,8 @@
-import {Pair} from "polygon-clipping";
-
 import {Blank} from "./blank";
-import {Box} from "./box";
+import {Box, corners} from "./box";
 import {HexColor} from "./color";
-import {ID, URL, UUID} from "./primitives";
+import { Point } from "./point";
+import { ID, URL, UUID } from "./identity";
 
 // Group of keycap kits with matching theme.
 export interface Keyset {
@@ -43,7 +42,7 @@ export interface KeysetKeycap {
     shelf: Box[];
 
     // Position in the example layout.
-    position: Pair;
+    position: Point;
 
     // Whether the keycap has a homing bar.
     barred: boolean;
@@ -125,3 +124,22 @@ export interface Stem {
     // Human-readable name.
     name: string;
 }
+
+export const minmax = (kit: KeysetKit): [Point, Point] => {
+    const coords: Point[] = [];
+    for (const key of kit.keys) {
+        for (const box of key.key.boxes) {
+            coords.push(...corners(key.position, box));
+        }
+    }
+
+    let min: Point = [Infinity, Infinity];
+    let max: Point = [0, 0];
+
+    for (const c of coords) {
+        max = [Math.max(max[0], c[0]), Math.max(max[1], c[1])];
+        min = [Math.min(min[0], c[0]), Math.min(min[1], c[1])];
+    }
+
+    return [min, max];
+};

@@ -1,10 +1,10 @@
 import {MultiPolygon, intersection, union} from "polygon-clipping";
 
 import {CurveShape} from "./curve";
-import {angleBetween, distance} from "./math";
-import {Point} from "./primitives";
+import {angleBetween, distance} from "./point";
+import {Point} from "./point";
 
-// List of Pairs that form a closed shape.
+// List of Points that form a closed shape.
 // Each point appears only once.
 export type Shape = Point[];
 

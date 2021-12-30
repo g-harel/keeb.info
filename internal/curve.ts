@@ -1,5 +1,5 @@
-import {splitLine} from "./math";
-import {Point} from "./primitives";
+import {splitLine} from "./point";
+import {Point} from "./point";
 import {Shape} from "./shape";
 
 // Rounded corner using a quadratic bezier.

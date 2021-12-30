@@ -1,10 +1,18 @@
-import {Angle, Point} from "./primitives";
+// X/Y pair not necessarily centered on canvas origin.
+export type Point = [number, number];
+
+// Angle in degrees clockwise from the horizontal line (0deg = o--->).
+export type Angle = number;
+
+// Angle with limited possible values in degrees clockwise from the horizontal.
+// TODO validation required.
+export type RightAngle = 0 | 90 | 180 | 270;
 
 export const distance = (a: Point, b: Point): number => {
     return Math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2);
 };
 
-export const angleBetween = (a: Point, b: Point, center: Point): number => {
+export const angleBetween = (a: Point, b: Point, center: Point): Angle => {
     const dAx = center[0] - a[0];
     const dAy = center[1] - a[1];
     const dBx = b[0] - center[0];
@@ -43,7 +51,7 @@ export const orderVertically = <T>(
     getter: (item: T) => [Point, Angle?],
     origin: Point,
     ...items: T[][]
-) => {
+): T[] => {
     const angled: AngledPosition<T>[] = items.flat(1).map((item) => {
         const [position, angle] = getter(item);
         if (!angle) {

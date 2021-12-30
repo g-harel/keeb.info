@@ -1,9 +1,8 @@
 import React from "react";
 
 import {LayoutKeymap as LayoutKeymapType} from "../../../internal/keymap";
-import {Layout} from "../../../internal/layout";
-import {orderVertically} from "../../../internal/math";
-import {minmaxLayout} from "../../../internal/measure";
+import {Layout, minmax} from "../../../internal/layout";
+import {orderVertically} from "../../../internal/point";
 import {ReactProps} from "../../../internal/react";
 import {ROTATION_ORIGIN, SHINE_PADDING_TOP} from "../../cons";
 import {Key} from "../key";
@@ -19,7 +18,7 @@ export interface LayoutKeymapProps extends ReactProps {
 // TODO support layers
 // TODO support variable positions
 export const LayoutKeymap = (props: LayoutKeymapProps) => {
-    const [min, max] = minmaxLayout(props.layout);
+    const [min, max] = minmax(props.layout);
     const unitWidth = max[0] - min[0];
     const unitHeight = max[1] - min[1];
 

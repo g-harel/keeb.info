@@ -1,7 +1,5 @@
-import {Pair} from "polygon-clipping";
-
 import {Box} from "./box";
-import {RightAngle} from "./primitives";
+import {Point, RightAngle} from "./point";
 
 // Shared layout footprint and keycap attributes.
 export interface Blank {
@@ -10,7 +8,7 @@ export interface Blank {
     boxes: Box[];
 
     // Relative stem location.
-    stem: Pair;
+    stem: Point;
 
     // Stabilizer mounting location(s).
     stabilizers: Stabilizer[];
@@ -19,7 +17,7 @@ export interface Blank {
 // Wire stabilizer mounting locations.
 export interface Stabilizer {
     // Relative location of first stem.
-    offset: Pair;
+    offset: Point;
 
     // Distance between stabilizer stems.
     length: number;
