@@ -4,7 +4,7 @@ import React from "react";
 import {Blank} from "../../internal/blank";
 import {Box} from "../../internal/box";
 import {resolveColor} from "../../internal/color";
-import {calcKeycap} from "../../internal/key";
+import {calcKeycap} from "../../internal/keycap";
 import {KeysetKeycapLegends, SpaceBetweenLayout} from "../../internal/keyset";
 import {rotateCoord} from "../../internal/math";
 import {Point, UUID} from "../../internal/primitives";

@@ -8,8 +8,10 @@ import {Keyset, KeysetKeycapLegend} from "./keyset";
 import {Layout} from "./layout";
 import {UUID} from "./primitives";
 
+export type KLEKey = Key;
+
 // TODO support decals
-const convertKLEKey = (key: Key): Blank => {
+const convertKLEKey = (key: KLEKey): Blank => {
     const boxes: Box[] = [];
     boxes.push({
         height: key.height,
@@ -62,7 +64,7 @@ export const convertKLEToLayoutKeymap = (raw: any): [Layout, LayoutKeymap] => {
 
     const keymap: Record<UUID, KeymapKey> = {};
     const legend = (
-        key: Key,
+        key: KLEKey,
         index: number,
         size: number,
     ): KeysetKeycapLegend => {

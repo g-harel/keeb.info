@@ -3,7 +3,7 @@ import React from "react";
 
 import {Blank} from "../../internal/blank";
 import {Box} from "../../internal/box";
-import {calcKeycap} from "../../internal/key";
+import {calcKeycap} from "../../internal/keycap";
 import {rotateCoord} from "../../internal/math";
 import {Angle, Point, UUID} from "../../internal/primitives";
 import {ReactProps} from "../../internal/react";
