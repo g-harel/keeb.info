@@ -35,7 +35,7 @@ export const Demo = () => (
         <Profiler id="demo-layout-footprint" onRender={profilerLogger}>
             <FootprintLayout layout={demoLayout as Layout} width={1200} />
         </Profiler>
-        <LegacyTestContainer>
+        {/* <LegacyTestContainer>
             <ExplodedLayout
                 layout={convertKLEToLayout(kleLayout)}
                 width={600}
@@ -44,6 +44,6 @@ export const Demo = () => (
                 layout={convertKLEToLayout(kleKeyset)}
                 width={600}
             />
-        </LegacyTestContainer>
+        </LegacyTestContainer> */}
     </div>
 );

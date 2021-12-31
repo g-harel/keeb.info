@@ -2,7 +2,7 @@ import React from "react";
 
 import {resolveColor} from "../../../internal/color";
 import {Keyset, KeysetKit, minmax} from "../../../internal/keyset";
-import { Point } from "../../../internal/point";
+import {Point} from "../../../internal/point";
 import {ReactProps} from "../../../internal/react";
 import {
     DEFAULT_KEY_COLOR,

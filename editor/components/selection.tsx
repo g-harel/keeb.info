@@ -3,10 +3,10 @@ import React from "react";
 
 import {Blank} from "../../internal/blank";
 import {Box} from "../../internal/box";
+import {UUID} from "../../internal/identity";
 import {calcKeycap} from "../../internal/keycap";
 import {rotateCoord} from "../../internal/point";
 import {Angle, Point} from "../../internal/point";
-import { UUID } from "../../internal/identity";
 import {ReactProps} from "../../internal/react";
 import {Shape} from "../../internal/shape";
 import * as c from "../cons";

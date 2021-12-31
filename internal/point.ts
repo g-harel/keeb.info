@@ -66,3 +66,15 @@ export const orderVertically = <T>(
         .sort((a, b) => a.position[1] - b.position[1])
         .map((a) => a.original);
 };
+
+export const minmax = (points: Point[]): [Point, Point] => {
+    let min: Point = [Infinity, Infinity];
+    let max: Point = [0, 0];
+
+    for (const p of points) {
+        max = [Math.max(max[0], p[0]), Math.max(max[1], p[1])];
+        min = [Math.min(min[0], p[0]), Math.min(min[1], p[1])];
+    }
+
+    return [min, max];
+};

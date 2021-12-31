@@ -3,10 +3,10 @@ import color from "color";
 
 import {Blank, Stabilizer} from "./blank";
 import {Box} from "./box";
+import {UUID} from "./identity";
 import {KeymapKey, LayoutKeymap} from "./keymap";
 import {Keyset, KeysetKeycapLegend} from "./keyset";
 import {Layout} from "./layout";
-import { UUID } from "./identity";
 
 export type KLEKey = Key;
 

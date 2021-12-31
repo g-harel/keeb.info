@@ -1,9 +1,8 @@
 // TODO led support.
 // TODO non-english.
 // TODO keycode/row preference.
-
-import { Box } from "./box";
-import { Point } from "./point";
+import {Box} from "./box";
+import {Point} from "./point";
 
 // Private unique identifier.
 export type UUID = string;

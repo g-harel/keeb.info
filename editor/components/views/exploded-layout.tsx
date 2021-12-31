@@ -1,10 +1,10 @@
 import React from "react";
 
+import {spreadSections} from "../../../internal/_spread";
 import {colorSeries} from "../../../internal/color";
 import {Layout, minmax} from "../../../internal/layout";
 import {orderVertically} from "../../../internal/point";
 import {ReactProps} from "../../../internal/react";
-import {spreadSections} from "../../../internal/_spread";
 import {
     DEFAULT_KEY_COLOR,
     ROTATION_ORIGIN,

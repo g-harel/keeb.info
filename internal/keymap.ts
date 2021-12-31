@@ -1,6 +1,6 @@
 import {HexColor} from "./color";
+import {UUID} from "./identity";
 import {KeysetKeycapLegends} from "./keyset";
-import { UUID } from "./identity";
 
 // Keymap applied to a layout.
 export interface LayoutKeymap {

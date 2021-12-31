@@ -1,8 +1,8 @@
 import {Blank} from "./blank";
 import {Box, corners} from "./box";
 import {HexColor} from "./color";
-import { Point } from "./point";
-import { ID, URL, UUID } from "./identity";
+import {ID, URL, UUID} from "./identity";
+import {Point, minmax as pointMinmax} from "./point";
 
 // Group of keycap kits with matching theme.
 export interface Keyset {
@@ -133,13 +133,5 @@ export const minmax = (kit: KeysetKit): [Point, Point] => {
         }
     }
 
-    let min: Point = [Infinity, Infinity];
-    let max: Point = [0, 0];
-
-    for (const c of coords) {
-        max = [Math.max(max[0], c[0]), Math.max(max[1], c[1])];
-        min = [Math.min(min[0], c[0]), Math.min(min[1], c[1])];
-    }
-
-    return [min, max];
+    return pointMinmax(coords);
 };

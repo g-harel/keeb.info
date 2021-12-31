@@ -1,9 +1,9 @@
 import {ROTATION_ORIGIN} from "../editor/cons";
 import {Blank} from "./blank";
 import {Box, corners} from "./box";
+import {UUID} from "./identity";
 import {rotateCoord} from "./point";
-import {Angle, Point, RightAngle} from "./point";
-import { UUID } from "./identity";
+import {Angle, Point, RightAngle, minmax as pointMinmax} from "./point";
 
 // Keyboard layout.
 export interface Layout {
@@ -98,13 +98,5 @@ export const minmax = (layout: Layout): [Point, Point] => {
         }
     }
 
-    let min: Point = [Infinity, Infinity];
-    let max: Point = [0, 0];
-
-    for (const c of coords) {
-        max = [Math.max(max[0], c[0]), Math.max(max[1], c[1])];
-        min = [Math.min(min[0], c[0]), Math.min(min[1], c[1])];
-    }
-
-    return [min, max];
+    return pointMinmax(coords);
 };

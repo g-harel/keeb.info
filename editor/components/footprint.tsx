@@ -2,10 +2,10 @@ import color from "color";
 import React from "react";
 
 import {Blank} from "../../internal/blank";
+import {genID} from "../../internal/identity";
 import {rotateCoord} from "../../internal/point";
 import {Point, RightAngle} from "../../internal/point";
 import {ReactProps} from "../../internal/react";
-import {genID} from "../../internal/identity";
 import * as c from "../cons";
 import {Pooler} from "./view";
 

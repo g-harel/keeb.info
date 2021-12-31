@@ -1,11 +1,10 @@
 import * as c from "../editor/cons";
 import {Box, corners} from "./box";
+import {printDebugPath} from "./debug";
 import {Layout, LayoutBlocker, LayoutKey} from "./layout";
 import {rotateCoord} from "./point";
 import {Angle, Point} from "./point";
-import {doesIntersect, multiUnion} from "./shape";
-
-// TODO standardize naming of geometry constructs
+import {Shape, doesIntersect, multiUnion, toSVGPath} from "./shape";
 
 const deepCopy = <T>(o: T): T => {
     return JSON.parse(JSON.stringify(o));
@@ -26,7 +25,7 @@ const padBox = (box: Box, pad: number): Box => {
     };
 };
 
-const computeRings = (
+const computeShapes = (
     boxes: Box[],
     position: Point,
     angle: Angle,
@@ -39,16 +38,16 @@ const computeRings = (
     );
 };
 
-const ringsFromKey =
+const computeShapesFromKey =
     (pad = 0) =>
     (key: LayoutKey): Point[][] => {
-        return computeRings(key.key.boxes, key.position, key.angle, pad);
+        return computeShapes(key.key.boxes, key.position, key.angle, pad);
     };
 
-const ringsFromBlocker =
+const shapesFromBlocker =
     (pad = 0) =>
     (blocker: LayoutBlocker): Point[][] => {
-        return computeRings(
+        return computeShapes(
             blocker.boxes,
             blocker.position,
             blocker.angle,
@@ -61,28 +60,34 @@ const ringsFromBlocker =
 export const spreadSections = (layout: Layout): Layout => {
     const out: Layout = deepCopy(layout);
 
-    const allRings: Point[][] = [];
-    allRings.push(
-        ...out.fixedKeys.map(ringsFromKey(c.LAYOUT_OPTIONS_PADDING)).flat(1),
-    );
-    allRings.push(
-        ...out.fixedBlockers
-            .map(ringsFromBlocker(c.LAYOUT_OPTIONS_PADDING))
+    const allShapes: Point[][] = [];
+    // Add fixed layout elements.
+    allShapes.push(
+        ...out.fixedKeys
+            .map(computeShapesFromKey(c.LAYOUT_OPTIONS_PADDING))
             .flat(1),
     );
+    allShapes.push(
+        ...out.fixedBlockers
+            .map(shapesFromBlocker(c.LAYOUT_OPTIONS_PADDING))
+            .flat(1),
+    );
+    // Add first option of each variable section.
     for (const options of layout.variableKeys) {
-        allRings.push(
+        allShapes.push(
             ...options.options[0].keys
-                .map(ringsFromKey(c.LAYOUT_OPTIONS_PADDING))
+                .map(computeShapesFromKey(c.LAYOUT_OPTIONS_PADDING))
                 .flat(1),
         );
-        allRings.push(
+        allShapes.push(
             ...options.options[0].blockers
-                .map(ringsFromBlocker(c.LAYOUT_OPTIONS_PADDING))
+                .map(shapesFromBlocker(c.LAYOUT_OPTIONS_PADDING))
                 .flat(1),
         );
     }
-    let avoid: Point[][] = multiUnion(...allRings);
+    let avoid: Shape[] = multiUnion(...allShapes);
+
+    printDebugPath(avoid);
 
     for (const section of out.variableKeys) {
         // Keep track of how far last option had to be moved and start there.
@@ -109,7 +114,7 @@ export const spreadSections = (layout: Layout): Layout => {
                         if (
                             doesIntersect(
                                 avoid,
-                                ringsFromKey()(offsetKey(key, offset)),
+                                computeShapesFromKey()(offsetKey(key, offset)),
                             )
                         ) {
                             intersects = true;
@@ -125,9 +130,11 @@ export const spreadSections = (layout: Layout): Layout => {
                         // TODO offset blocker
                         avoid = multiUnion(
                             ...avoid,
-                            ...option.keys.map(ringsFromKey()).flat(1),
-                            ...option.blockers.map(ringsFromBlocker()).flat(1),
+                            ...option.keys.map(computeShapesFromKey()).flat(1),
+                            ...option.blockers.map(shapesFromBlocker()).flat(1),
                         );
+                        console.log(section.ref);
+                        printDebugPath(avoid);
                         break;
                     }
                 }
