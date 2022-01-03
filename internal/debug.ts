@@ -5,18 +5,19 @@ const defaultWidth = 1200;
 
 const document: any = (global as any).document;
 let testElement: any; // TODO find if already created.
-
-export const printDebugPath = (shapes: Shape[]) => {
-    // TODO extract to private helper.
+const getTestElement = () => {
     if (!testElement) {
         testElement = document.createElement("div");
         document.body.appendChild(testElement);
     }
+    return testElement;
+}
 
+export const printDebugPath = (shapes: Shape[]) => {
     const [min, max] = minmax(shapes.flat(1));
     const aspectRatio = (max[0] - min[0]) / (max[1] - min[1]);
 
-    testElement.innerHTML += `
+    getTestElement().innerHTML += `
         <svg 
             viewBox="${min[0]} ${min[1]} ${max[0]} ${max[1]}"
             xmlns="http://www.w3.org/2000/svg"
