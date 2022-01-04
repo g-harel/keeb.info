@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import {BrowserRouter, useRoutes} from "react-router-dom";
 import {createGlobalStyle} from "styled-components";
 
+import {clear} from "../internal/debug";
 import {Header} from "./components/header";
 import {BACKGROUND_COLOR} from "./cons";
 import {sitemap} from "./sitemap";
@@ -32,6 +33,7 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const Routes = () => {
+    clear();
     return useRoutes(Object.values(sitemap));
 };
 

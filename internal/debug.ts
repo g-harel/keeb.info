@@ -1,17 +1,24 @@
 import {minmax} from "./point";
 import {Shape, toSVGPath} from "./shape";
 
-const defaultWidth = 1200;
+const defaultWidth = 400;
+const testElementID = "test-element-component";
 
 const document: any = (global as any).document;
-let testElement: any; // TODO find if already created.
+let testElement: any;
 const getTestElement = () => {
+    testElement = document.getElementById(testElementID);
     if (!testElement) {
         testElement = document.createElement("div");
+        testElement.setAttribute("id", testElementID);
         document.body.appendChild(testElement);
     }
     return testElement;
-}
+};
+
+export const clear = () => {
+    getTestElement().innerHTML = "";
+};
 
 export const printDebugPath = (shapes: Shape[]) => {
     const [min, max] = minmax(shapes.flat(1));
