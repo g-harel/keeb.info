@@ -100,21 +100,22 @@ export const spreadSections = (layout: Layout): Layout => {
                 j <= c.LAYOUT_SPREAD_ATTEMPTS;
                 j += c.LAYOUT_SPREAD_INCREMENT
             ) {
+                // Break when too many attempts.
                 if (j === c.LAYOUT_SPREAD_ATTEMPTS) {
                     console.error("TODO spread failed");
                     continue;
                 }
+
                 let found = false;
-                for (const offset of [
-                    [0, j],
-                    [0, -j],
-                ] as Point[]) {
+                for (const offset of [j, -j]) {
                     let intersects = false;
                     for (const key of option.keys) {
                         if (
                             doesIntersect(
                                 avoid,
-                                computeShapesFromKey()(offsetKey(key, offset)),
+                                computeShapesFromKey()(
+                                    offsetKey(key, [0, offset]),
+                                ),
                             )
                         ) {
                             intersects = true;
@@ -125,7 +126,7 @@ export const spreadSections = (layout: Layout): Layout => {
                         found = true;
                         lastIncrement = j;
                         for (const key of option.keys) {
-                            key.position = offsetKey(key, offset).position;
+                            key.position = offsetKey(key, [0, offset]).position;
                         }
                         // TODO offset blocker
                         avoid = multiUnion(
@@ -134,7 +135,11 @@ export const spreadSections = (layout: Layout): Layout => {
                             ...option.blockers.map(shapesFromBlocker()).flat(1),
                         );
                         console.log(section.ref);
-                        printDebugPath(avoid);
+                        printDebugPath([
+                            ...avoid,
+                            ...option.keys.map(computeShapesFromKey()).flat(1),
+                            ...option.blockers.map(shapesFromBlocker()).flat(1),
+                        ]);
                         break;
                     }
                 }
