@@ -116,6 +116,32 @@
                     "stem": "Cherry",
                     "color": "pink",
                     "keycodeAffinity": []
+                },
+                {
+                    "key": {
+                        "boxes": [
+                            {"height": 0.8, "width": 2, "offset": [0, 0]},
+                            {"height": 0.8, "width": 2, "offset": [0, 1.2]},
+                            {"height": 2, "width": 0.8, "offset": [0, 0]},
+                            {"height": 1, "width": 0.8, "offset": [1, 0]}
+                        ],
+                        "stabilizers": [],
+                        "stem": [0.925, 1.5]
+                    },
+                    "shelf": [
+                        {"height": 0.4, "width": 1, "offset": [0.5, 0.4]}
+                    ],
+                    "profile": {"profile": "0.24463679921190185", "row": "R1"},
+                    "legend": {
+                        "frontLegends": [],
+                        "topLegends": []
+                    },
+                    "position": [4, 1],
+                    "barred": false,
+                    "scooped": false,
+                    "stem": "Cherry",
+                    "color": "pink",
+                    "keycodeAffinity": []
                 }
             ]
         }

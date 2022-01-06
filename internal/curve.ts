@@ -1,4 +1,4 @@
-import {splitLine} from "./point";
+import {Line, splitLine} from "./point";
 import {Point} from "./point";
 import {Shape} from "./shape";
 
@@ -30,7 +30,7 @@ export const approx = (rounded: CurveShape, resolution: number): Shape => {
 
 // Calculate "count" lines spanning between the "a" and "b" arcs.
 export const bridgeArcs = (count: number, a: Curve, b: Curve) => {
-    const lines: [Point, Point][] = [];
+    const lines: Line[] = [];
     for (let i = 0; i <= count; i++) {
         const percentage = i / count;
         lines.push([

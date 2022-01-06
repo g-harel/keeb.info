@@ -205,23 +205,15 @@ export const Key = (props: KeyProps) => {
             {/* Keycap */}
             {props.pooler(refID, () => (
                 <g>
+                    {/* Base shape */}
                     <path
                         d={calculatedKeycap.basePath}
                         stroke={strokeColor}
                         strokeWidth={c.BORDER}
                         fill={props.color}
                     />
-                    {calculatedKeycap.stepPaths.map((path, i) => (
-                        <path
-                            key={i}
-                            d={path}
-                            stroke={strokeColor}
-                            strokeWidth={c.BORDER}
-                            fill={props.color}
-                            strokeLinejoin="round"
-                        />
-                    ))}
-                    {calculatedKeycap.arcBridgeLines.map((l, i) => (
+                    {/* Base->step arcs */}
+                    {calculatedKeycap.baseArcBridges.map((l, i) => (
                         <line
                             key={i}
                             x1={l[0][0]}
@@ -233,6 +225,31 @@ export const Key = (props: KeyProps) => {
                             strokeLinecap="round"
                         />
                     ))}
+                    {/* Step shapes */}
+                    {calculatedKeycap.stepPaths.map((path, i) => (
+                        <path
+                            key={i}
+                            d={path}
+                            stroke={strokeColor}
+                            strokeWidth={c.BORDER}
+                            fill={props.color}
+                            strokeLinejoin="round"
+                        />
+                    ))}
+                    {/* Step->shine arcs */}
+                    {calculatedKeycap.shineArcBridges.map((l, i) => (
+                        <line
+                            key={i}
+                            x1={l[0][0]}
+                            y1={l[0][1]}
+                            x2={l[1][0]}
+                            y2={l[1][1]}
+                            stroke={strokeColor}
+                            strokeWidth={c.DETAIL_BORDER}
+                            strokeLinecap="round"
+                        />
+                    ))}
+                    {/* Shine shape */}
                     <path
                         d={calculatedKeycap.shinePath}
                         stroke={strokeColor}

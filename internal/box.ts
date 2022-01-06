@@ -25,7 +25,7 @@ export const toShapes = (boxes: Box[]): Shape[] => {
 export const toSingleShape = (boxes: Box[]): Shape => {
     const m = toShapes(boxes);
     if (m.length === 0) return [];
-    if (m.length > 1) throw "TODO split";
+    if (m.length > 1) console.warn("Split or holes.");
     return m[0];
 };
 

@@ -1,6 +1,8 @@
 // X/Y pair not necessarily centered on canvas origin.
 export type Point = [number, number];
 
+export type Line = [Point, Point];
+
 // Angle in degrees clockwise from the horizontal line (0deg = o--->).
 export type Angle = number;
 

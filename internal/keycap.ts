@@ -5,7 +5,7 @@ import {Box, toSingleShape} from "./box";
 import {memCache} from "./cache";
 import {CurveShape, approx, bridgeArcs, toSVGPath as curvedPath} from "./curve";
 import {genID} from "./identity";
-import {Point} from "./point";
+import {Line, Point} from "./point";
 import {Shape, multiUnion, round, toSVGPath as straightPath} from "./shape";
 
 export interface KeycapInput {
@@ -17,7 +17,8 @@ interface CalculatedKeycap {
     basePathPoints: Shape;
     basePath: string;
     stepPaths: string[];
-    arcBridgeLines: [Point, Point][];
+    baseArcBridges: Line[];
+    shineArcBridges: Line[];
     shinePath: string;
 }
 
@@ -45,6 +46,7 @@ const pad = (boxes: Box[], padding: [number, number, number]): Box[] => {
     }));
 };
 
+// TODO validate step is inside base.
 const internalCalcKeycap = (key: KeycapInput): CalculatedKeycap => {
     const boxes = pad(key.base, KEY_PADDING);
     const shineShape = pad(
@@ -72,11 +74,11 @@ const internalCalcKeycap = (key: KeycapInput): CalculatedKeycap => {
 
     // Calculate corner bridge lines and shapes.
     const arcCorners: Shape[] = [];
-    const arcBridges: [Point, Point][] = [];
-    const addArcs = (count: number, a: CurveShape, b: CurveShape) => {
+    const arcs = (count: number, a: CurveShape, b: CurveShape) => {
+        const out: Line[] = [];
         a.forEach((p, i) => {
             const lines = bridgeArcs(count, p, b[i]);
-            arcBridges.push(...lines);
+            out.push(...lines);
 
             const localCorners: Shape[] = [];
             for (let i = 0; i < lines.length - 2; i++) {
@@ -94,9 +96,14 @@ const internalCalcKeycap = (key: KeycapInput): CalculatedKeycap => {
             }
             arcCorners.push(...multiUnion(...localCorners));
         });
+        return out;
     };
-    addArcs(1 / c.ROUND_RESOLUTION, roundBase, roundStep);
-    addArcs(1 / c.ROUND_RESOLUTION, roundShineBase, roundShine);
+    const baseArcBridges = arcs(1 / c.ROUND_RESOLUTION, roundBase, roundStep);
+    const shineArcBridges = arcs(
+        1 / c.ROUND_RESOLUTION,
+        roundShineBase,
+        roundShine,
+    );
 
     // Combine all shapes into footprint.
     const finalBase = multiUnion(
@@ -128,7 +135,8 @@ const internalCalcKeycap = (key: KeycapInput): CalculatedKeycap => {
         basePathPoints: finalBase,
         basePath: straightPath(finalBase),
         stepPaths: approxStepOnly.map(straightPath),
-        arcBridgeLines: arcBridges,
+        baseArcBridges,
+        shineArcBridges,
         shinePath: curvedPath(roundShine),
     };
     return calculatedKeycap;
