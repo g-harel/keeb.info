@@ -57,6 +57,7 @@ const shapesFromBlocker =
 
 // TODO validate section overlap.
 // TODO make this faster.
+// TODO move angled things directly downwards.
 export const spreadSections = (layout: Layout): Layout => {
     const out: Layout = deepCopy(layout);
 
@@ -135,8 +136,7 @@ export const spreadSections = (layout: Layout): Layout => {
                             ...option.blockers.map(shapesFromBlocker()).flat(1),
                         );
                         console.log(section.ref);
-                        printDebugPath([
-                            ...avoid,
+                        printDebugPath(avoid, [
                             ...option.keys.map(computeShapesFromKey()).flat(1),
                             ...option.blockers.map(shapesFromBlocker()).flat(1),
                         ]);

@@ -21,8 +21,8 @@ export const clear = () => {
     getTestElement().innerHTML = "";
 };
 
-export const printDebugPath = (shapes: Shape[]) => {
-    const [min, max] = minmax(shapes.flat(1));
+export const printDebugPath = (...shapes: Shape[][]) => {
+    const [min, max] = minmax(shapes.flat(2));
     const aspectRatio = (max[0] - min[0]) / (max[1] - min[1]);
     const colors = colorSeries("red", shapes.length);
 
@@ -35,8 +35,17 @@ export const printDebugPath = (shapes: Shape[]) => {
             version="1.1"
         >
             ${shapes
-                .map(toSVGPath)
-                .map((p, i) => `<path fill="${colors[i]}" d="${p}" />`)
+                .map((shape, i) => {
+                    return shape.map(toSVGPath).map(
+                        (p) => `
+                            <path
+                                fill="${colors[i]}"
+                                opacity="50%"
+                                d="${p}"
+                            />`,
+                    );
+                })
+                .flat(1)
                 .join("")}
         </svg>`;
 };

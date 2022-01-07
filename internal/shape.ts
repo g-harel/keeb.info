@@ -22,8 +22,17 @@ export const multiUnion = (...shapes: Shape[]): Shape[] => {
 };
 
 export const doesIntersect = (a: Shape[], b: Shape[]): boolean => {
-    const intersections = intersection(a, b);
-    return !!intersections.flat(2).length;
+    // TODO name shape list.
+    // TODO compare all b shapes individually to avoid unnecessary work.
+    // Sort lists to compare simplest shapes first.
+    const aSorted = a.slice().sort((x, y) => x.length - y.length);
+    for (const shape of aSorted) {
+        const intersections = intersection([shape], b);
+        if (!!intersections.flat(2).length) {
+            return true;
+        }
+    }
+    return false;
 };
 
 export const toSVGPath = (shape: Shape): string => {
