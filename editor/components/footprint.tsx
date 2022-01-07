@@ -6,7 +6,7 @@ import {genID} from "../../internal/identity";
 import {rotateCoord} from "../../internal/point";
 import {Point, RightAngle} from "../../internal/point";
 import {ReactProps} from "../../internal/react";
-import * as c from "../cons";
+// import * as c from "../cons";
 import {Pooler} from "./view";
 
 export interface FootprintProps extends ReactProps {
@@ -15,6 +15,22 @@ export interface FootprintProps extends ReactProps {
     color: string;
     orientation: RightAngle;
 }
+
+// https://github.com/mohitg11/GH-CAD-Resources/blob/master/MX%20Series.pdf
+// https://github.com/mohitg11/GH-CAD-Resources/blob/master/MXSpec.pdf
+const U = 0.61; // Unit to convert inch measurements to layout grid.
+const MIDDLE_STEM_RADIUS = 0.157 / U / 2;
+const PIN_RADIUS = 0.067 / U / 2;
+const PIN_OFFSET_X = (4 * 0.05) / U;
+const POLE_RADIUS = 0.059 / U / 2;
+const POLE1_OFFSET_X = (-3 * 0.05) / U;
+const POLE2_OFFSET_X = (2 * 0.05) / U;
+const POLE1_OFFSET_Y = (-2 * 0.05) / U;
+const POLE2_OFFSET_Y = (-4 * 0.05) / U;
+const PLATE_STAB_TOP_OFFSET = ((U / 15.6) * 7) / U;
+const PLATE_STAB_BOTTOM_OFFSET = ((U / 15.6) * 8.24) / U;
+const PLATE_STAB_TOP_RADIUS = ((U / 15.6) * 3.05) / U / 2;
+const PLATE_STAB_BOTTOM_RADIUS = ((U / 15.6) * 4) / U / 2;
 
 export const Footprint = (props: FootprintProps) => {
     const contactColor = color(props.color)
@@ -39,39 +55,39 @@ export const Footprint = (props: FootprintProps) => {
                     fill={props.color}
                     cx={props.blank.stem[0]}
                     cy={props.blank.stem[1]}
-                    r={c.CHERRY_MIDDLE_STEM_RADIUS}
+                    r={MIDDLE_STEM_RADIUS}
                 />
                 <circle
                     fill={contactColor}
                     {...rotate([
-                        props.blank.stem[0] + c.CHERRY_PIN_OFFSET_X,
+                        props.blank.stem[0] + PIN_OFFSET_X,
                         props.blank.stem[1],
                     ])}
-                    r={c.CHERRY_PIN_RADIUS}
+                    r={PIN_RADIUS}
                 />
                 <circle
                     fill={contactColor}
                     {...rotate([
-                        props.blank.stem[0] - c.CHERRY_PIN_OFFSET_X,
+                        props.blank.stem[0] - PIN_OFFSET_X,
                         props.blank.stem[1],
                     ])}
-                    r={c.CHERRY_PIN_RADIUS}
+                    r={PIN_RADIUS}
                 />
                 <circle
                     fill={props.color}
                     {...rotate([
-                        props.blank.stem[0] + c.CHERRY_POLE1_OFFSET_X,
-                        props.blank.stem[1] + c.CHERRY_POLE1_OFFSET_Y,
+                        props.blank.stem[0] + POLE1_OFFSET_X,
+                        props.blank.stem[1] + POLE1_OFFSET_Y,
                     ])}
-                    r={c.CHERRY_POLE_RADIUS}
+                    r={POLE_RADIUS}
                 />
                 <circle
                     fill={props.color}
                     {...rotate([
-                        props.blank.stem[0] + c.CHERRY_POLE2_OFFSET_X,
-                        props.blank.stem[1] + c.CHERRY_POLE2_OFFSET_Y,
+                        props.blank.stem[0] + POLE2_OFFSET_X,
+                        props.blank.stem[1] + POLE2_OFFSET_Y,
                     ])}
-                    r={c.CHERRY_POLE_RADIUS}
+                    r={POLE_RADIUS}
                 />
                 {props.blank.stabilizers.map((stabilizer, i) => {
                     const startStem = stabilizer.offset;
@@ -81,34 +97,22 @@ export const Footprint = (props: FootprintProps) => {
                         stabilizer.angle,
                     );
                     const startBottom = rotateCoord(
-                        [
-                            startStem[0] + c.CHERRY_PLATE_STAB_BOTTOM_OFFSET,
-                            startStem[1],
-                        ],
+                        [startStem[0] + PLATE_STAB_BOTTOM_OFFSET, startStem[1]],
                         startStem,
                         stabilizer.angle + 90,
                     );
                     const endBottom = rotateCoord(
-                        [
-                            endStem[0] + c.CHERRY_PLATE_STAB_BOTTOM_OFFSET,
-                            endStem[1],
-                        ],
+                        [endStem[0] + PLATE_STAB_BOTTOM_OFFSET, endStem[1]],
                         endStem,
                         stabilizer.angle + 90,
                     );
                     const startTop = rotateCoord(
-                        [
-                            startStem[0] + c.CHERRY_PLATE_STAB_TOP_OFFSET,
-                            startStem[1],
-                        ],
+                        [startStem[0] + PLATE_STAB_TOP_OFFSET, startStem[1]],
                         startStem,
                         stabilizer.angle - 90,
                     );
                     const endTop = rotateCoord(
-                        [
-                            endStem[0] + c.CHERRY_PLATE_STAB_TOP_OFFSET,
-                            endStem[1],
-                        ],
+                        [endStem[0] + PLATE_STAB_TOP_OFFSET, endStem[1]],
                         endStem,
                         stabilizer.angle - 90,
                     );
@@ -118,25 +122,25 @@ export const Footprint = (props: FootprintProps) => {
                                 fill={props.color}
                                 cx={startBottom[0]}
                                 cy={startBottom[1]}
-                                r={c.CHERRY_PLATE_STAB_BOTTOM_RADIUS}
+                                r={PLATE_STAB_BOTTOM_RADIUS}
                             />
                             <circle
                                 fill={props.color}
                                 cx={endBottom[0]}
                                 cy={endBottom[1]}
-                                r={c.CHERRY_PLATE_STAB_BOTTOM_RADIUS}
+                                r={PLATE_STAB_BOTTOM_RADIUS}
                             />
                             <circle
                                 fill={props.color}
                                 cx={startTop[0]}
                                 cy={startTop[1]}
-                                r={c.CHERRY_PLATE_STAB_TOP_RADIUS}
+                                r={PLATE_STAB_TOP_RADIUS}
                             />
                             <circle
                                 fill={props.color}
                                 cx={endTop[0]}
                                 cy={endTop[1]}
-                                r={c.CHERRY_PLATE_STAB_TOP_RADIUS}
+                                r={PLATE_STAB_TOP_RADIUS}
                             />
                         </g>
                     );

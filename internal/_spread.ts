@@ -1,10 +1,16 @@
 import * as c from "../editor/cons";
 import {Box, corners} from "./box";
-import {printDebugPath} from "./debug";
 import {Layout, LayoutBlocker, LayoutKey} from "./layout";
 import {rotateCoord} from "./point";
 import {Angle, Point} from "./point";
-import {Composite, Shape, doesIntersect, multiUnion, toSVGPath} from "./shape";
+import {Composite, Shape, doesIntersect, multiUnion} from "./shape";
+
+const PAD = 0.45;
+const INC = 0.501;
+const ATTEMPTS = 50;
+
+// TODO simplify spread calculation with helpers.
+// TODO refactor current helpers.
 
 const deepCopy = <T>(o: T): T => {
     return JSON.parse(JSON.stringify(o));
@@ -17,7 +23,10 @@ const offsetKey = (key: LayoutKey, offset: Point): LayoutKey => {
     return oKey;
 };
 
-const offsetBlocker = (blocker: LayoutBlocker, offset: Point): LayoutBlocker => {
+const offsetBlocker = (
+    blocker: LayoutBlocker,
+    offset: Point,
+): LayoutBlocker => {
     const oBlocker: LayoutBlocker = deepCopy(blocker);
     oBlocker.position[0] += offset[0];
     oBlocker.position[1] += offset[1];
@@ -65,45 +74,27 @@ export const spreadSections = (layout: Layout): Layout => {
 
     const allShapes: Shape[] = [];
     // Add fixed layout elements.
-    allShapes.push(
-        ...out.fixedKeys
-            .map(computeShapesFromKey(c.LAYOUT_OPTIONS_PADDING))
-            .flat(1),
-    );
-    allShapes.push(
-        ...out.fixedBlockers
-            .map(shapesFromBlocker(c.LAYOUT_OPTIONS_PADDING))
-            .flat(1),
-    );
+    allShapes.push(...out.fixedKeys.map(computeShapesFromKey(PAD)).flat(1));
+    allShapes.push(...out.fixedBlockers.map(shapesFromBlocker(PAD)).flat(1));
     // Add first option of each variable section.
     for (const options of layout.variableKeys) {
         allShapes.push(
-            ...options.options[0].keys
-                .map(computeShapesFromKey(c.LAYOUT_OPTIONS_PADDING))
-                .flat(1),
+            ...options.options[0].keys.map(computeShapesFromKey(PAD)).flat(1),
         );
         allShapes.push(
-            ...options.options[0].blockers
-                .map(shapesFromBlocker(c.LAYOUT_OPTIONS_PADDING))
-                .flat(1),
+            ...options.options[0].blockers.map(shapesFromBlocker(PAD)).flat(1),
         );
     }
     let avoid: Composite = multiUnion(...allShapes);
-
-    printDebugPath(avoid);
 
     for (const section of out.variableKeys) {
         // Keep track of how far last option had to be moved and start there.
         let lastIncrement = 1;
         for (const option of section.options.slice(1)) {
             // Move option until it doesn't intersect.
-            for (
-                let j = lastIncrement;
-                j <= c.LAYOUT_SPREAD_ATTEMPTS;
-                j += c.LAYOUT_SPREAD_INCREMENT
-            ) {
+            for (let j = lastIncrement; j <= ATTEMPTS; j += INC) {
                 // Break when too many attempts.
-                if (j === c.LAYOUT_SPREAD_ATTEMPTS) {
+                if (j === ATTEMPTS) {
                     console.error("TODO spread failed");
                     continue;
                 }
@@ -144,7 +135,10 @@ export const spreadSections = (layout: Layout): Layout => {
                             key.position = offsetKey(key, [0, offset]).position;
                         }
                         for (const blocker of option.blockers) {
-                            blocker.position = offsetBlocker(blocker, [0, offset]).position;
+                            blocker.position = offsetBlocker(blocker, [
+                                0,
+                                offset,
+                            ]).position;
                         }
                         // TODO offset blocker
                         avoid = multiUnion(
@@ -152,10 +146,6 @@ export const spreadSections = (layout: Layout): Layout => {
                             ...option.keys.map(computeShapesFromKey()).flat(1),
                             ...option.blockers.map(shapesFromBlocker()).flat(1),
                         );
-                        printDebugPath(avoid, [
-                            ...option.keys.map(computeShapesFromKey()).flat(1),
-                            ...option.blockers.map(shapesFromBlocker()).flat(1),
-                        ]);
                         break;
                     }
                 }
