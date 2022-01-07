@@ -80,6 +80,7 @@ export interface LayoutKey {
     orientation: RightAngle;
 }
 
+// TODO include blockers.
 export const minmax = (layout: Layout): [Point, Point] => {
     const keys: LayoutKey[] = layout.fixedKeys.slice();
     for (const section of layout.variableKeys) {

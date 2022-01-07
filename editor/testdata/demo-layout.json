@@ -833,7 +833,7 @@
                     ]
                 },
                 {
-                    "ref": "split backspace",
+                    "ref": "split space",
                     "blockers": [],
                     "keys": [
                         {

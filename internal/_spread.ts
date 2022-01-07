@@ -1,7 +1,8 @@
 import * as c from "../editor/cons";
-import {Box, corners} from "./box";
+import {Box, corners, pad as padBox} from "./box";
+import {UUID} from "./identity";
 import {Layout, LayoutBlocker, LayoutKey} from "./layout";
-import {rotateCoord} from "./point";
+import {add, rotateCoord} from "./point";
 import {Angle, Point} from "./point";
 import {Composite, Shape, doesIntersect, multiUnion} from "./shape";
 
@@ -33,14 +34,6 @@ const offsetBlocker = (
     return oBlocker;
 };
 
-const padBox = (box: Box, pad: number): Box => {
-    return {
-        width: box.width + 2 * pad,
-        height: box.height + 2 * pad,
-        offset: [box.offset[0] - pad, box.offset[1] - pad],
-    };
-};
-
 const composite = (
     boxes: Box[],
     position: Point,
@@ -54,36 +47,33 @@ const composite = (
     );
 };
 
-const computeShapesFromKey =
-    (pad = 0) =>
-    (key: LayoutKey): Composite => {
-        return composite(key.blank.boxes, key.position, key.angle, pad);
-    };
-
-const shapesFromBlocker =
-    (pad = 0) =>
-    (blocker: LayoutBlocker): Composite => {
-        return composite(blocker.boxes, blocker.position, blocker.angle, pad);
-    };
+const shapes = (pad: number) => (entity: LayoutKey | LayoutBlocker) => {
+    if ("boxes" in entity) {
+        return composite(entity.boxes, entity.position, entity.angle, pad);
+    } else {
+        return composite(
+            entity.blank.boxes,
+            entity.position,
+            entity.angle,
+            pad,
+        );
+    }
+};
 
 // TODO validate section overlap.
 // TODO make this faster.
-// TODO move angled things directly downwards.
 export const spreadSections = (layout: Layout): Layout => {
     const out: Layout = deepCopy(layout);
+    // TODO consider returning: const offsets: Record<UUID, Point> = {};
 
     const allShapes: Shape[] = [];
     // Add fixed layout elements.
-    allShapes.push(...out.fixedKeys.map(computeShapesFromKey(PAD)).flat(1));
-    allShapes.push(...out.fixedBlockers.map(shapesFromBlocker(PAD)).flat(1));
+    allShapes.push(...out.fixedKeys.map(shapes(PAD)).flat(1));
+    allShapes.push(...out.fixedBlockers.map(shapes(PAD)).flat(1));
     // Add first option of each variable section.
-    for (const options of layout.variableKeys) {
-        allShapes.push(
-            ...options.options[0].keys.map(computeShapesFromKey(PAD)).flat(1),
-        );
-        allShapes.push(
-            ...options.options[0].blockers.map(shapesFromBlocker(PAD)).flat(1),
-        );
+    for (const vk of layout.variableKeys) {
+        allShapes.push(...vk.options[0].keys.map(shapes(PAD)).flat(1));
+        allShapes.push(...vk.options[0].blockers.map(shapes(PAD)).flat(1));
     }
     let avoid: Composite = multiUnion(...allShapes);
 
@@ -100,54 +90,41 @@ export const spreadSections = (layout: Layout): Layout => {
                 }
 
                 let found = false;
-                for (const offset of [j, -j]) {
+                for (const direction of [j, -j]) {
+                    const offset: Point = [0, direction];
+                    // Check if any key/blocker of the option intersects.
                     let intersects = false;
                     for (const key of option.keys) {
-                        if (
-                            doesIntersect(
-                                avoid,
-                                computeShapesFromKey()(
-                                    offsetKey(key, [0, offset]),
-                                ),
-                            )
-                        ) {
+                        const s = shapes(0)(offsetKey(key, offset));
+                        if (doesIntersect(avoid, s)) {
                             intersects = true;
                             break;
                         }
                     }
                     for (const blocker of option.blockers) {
-                        if (
-                            doesIntersect(
-                                avoid,
-                                shapesFromBlocker()(
-                                    offsetBlocker(blocker, [0, offset]),
-                                ),
-                            )
-                        ) {
+                        const s = shapes(0)(offsetBlocker(blocker, offset));
+                        if (doesIntersect(avoid, s)) {
                             intersects = true;
                             break;
                         }
                     }
-                    if (!intersects) {
-                        found = true;
-                        lastIncrement = j;
-                        for (const key of option.keys) {
-                            key.position = offsetKey(key, [0, offset]).position;
-                        }
-                        for (const blocker of option.blockers) {
-                            blocker.position = offsetBlocker(blocker, [
-                                0,
-                                offset,
-                            ]).position;
-                        }
-                        // TODO offset blocker
-                        avoid = multiUnion(
-                            ...avoid,
-                            ...option.keys.map(computeShapesFromKey()).flat(1),
-                            ...option.blockers.map(shapesFromBlocker()).flat(1),
-                        );
-                        break;
+                    if (intersects) continue;
+
+                    // Modify option members and add to avoided area.
+                    found = true;
+                    lastIncrement = j;
+                    for (const key of option.keys) {
+                        key.position = add(key.position, offset);
                     }
+                    for (const blocker of option.blockers) {
+                        blocker.position = add(blocker.position, offset);
+                    }
+                    avoid = multiUnion(
+                        ...avoid,
+                        ...option.keys.map(shapes(0)).flat(1),
+                        ...option.blockers.map(shapes(0)).flat(1),
+                    );
+                    break;
                 }
                 if (found) break;
             }

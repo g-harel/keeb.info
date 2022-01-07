@@ -42,3 +42,11 @@ export const corners = (offset: Point, box: Box): Shape => {
         [x + width, y],
     ];
 };
+
+export const pad = (box: Box, pad: number): Box => {
+    return {
+        width: box.width + 2 * pad,
+        height: box.height + 2 * pad,
+        offset: [box.offset[0] - pad, box.offset[1] - pad],
+    };
+};

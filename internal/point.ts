@@ -10,6 +10,10 @@ export type Angle = number;
 // TODO validation required.
 export type RightAngle = 0 | 90 | 180 | 270;
 
+export const add = (a: Point, b: Point): Point => {
+    return [a[0] + b[0], a[1] + b[1]];
+};
+
 export const distance = (a: Point, b: Point): number => {
     return Math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2);
 };
