@@ -1,4 +1,8 @@
-import {MultiPolygon, intersection, union} from "polygon-clipping";
+import {
+    MultiPolygon,
+    intersection,
+    union as originalUnion,
+} from "polygon-clipping";
 
 import {CurveShape} from "./curve";
 import {angleBetween, distance} from "./point";
@@ -8,28 +12,35 @@ import {Point} from "./point";
 // Each point appears only once.
 export type Shape = Point[];
 
-export const multiUnion = (...shapes: Shape[]): Shape[] => {
+// Group of shapes that represent a single entity.
+export type Composite = Shape[];
+
+export const multiUnion = (...composites: Composite): Composite => {
     const roundFactor = 10000000; // TODO tweak if breaking.
-    shapes = shapes.map((shape) =>
+    composites = composites.map((shape) =>
         shape.map((point) => [
             Math.round(point[0] * roundFactor) / roundFactor,
             Math.round(point[1] * roundFactor) / roundFactor,
         ]),
     );
 
-    const mp: MultiPolygon = union([], ...shapes.map((lc) => [[lc]]));
+    const mp: MultiPolygon = originalUnion(
+        [],
+        ...composites.map((lc) => [[lc]]),
+    );
     return mp.flat(1).map((poly) => poly.slice(1));
 };
 
-export const doesIntersect = (a: Shape[], b: Shape[]): boolean => {
-    // TODO name shape list.
-    // TODO compare all b shapes individually to avoid unnecessary work.
+export const doesIntersect = (a: Composite, b: Composite): boolean => {
     // Sort lists to compare simplest shapes first.
     const aSorted = a.slice().sort((x, y) => x.length - y.length);
-    for (const shape of aSorted) {
-        const intersections = intersection([shape], b);
-        if (!!intersections.flat(2).length) {
-            return true;
+    const bSorted = b.slice().sort((x, y) => x.length - y.length);
+    for (const aShape of aSorted) {
+        for (const bShape of bSorted) {
+            const intersections = intersection([aShape], [bShape]);
+            if (!!intersections.flat(2).length) {
+                return true;
+            }
         }
     }
     return false;

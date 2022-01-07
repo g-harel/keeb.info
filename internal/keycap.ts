@@ -1,12 +1,18 @@
 import {difference} from "polygon-clipping";
 
 import * as c from "../editor/cons";
-import {Box, toSingleShape} from "./box";
+import {Box, toShape} from "./box";
 import {memCache} from "./cache";
 import {CurveShape, approx, bridgeArcs, toSVGPath as curvedPath} from "./curve";
 import {genID} from "./identity";
 import {Line, Point} from "./point";
-import {Shape, multiUnion, round, toSVGPath as straightPath} from "./shape";
+import {
+    Composite,
+    Shape,
+    multiUnion,
+    round,
+    toSVGPath as straightPath,
+} from "./shape";
 
 export interface KeycapInput {
     base: Box[];
@@ -55,20 +61,20 @@ const internalCalcKeycap = (key: KeycapInput): CalculatedKeycap => {
     );
 
     // Sharp key base.
-    const rawBase = toSingleShape(boxes);
+    const rawBase = toShape(boxes);
     const roundBase = round(rawBase, c.KEY_RADIUS, c.KEY_RADIUS);
 
     // Shine outer edge.
-    const rawStep = toSingleShape(pad(boxes, STEP_PADDING));
+    const rawStep = toShape(pad(boxes, STEP_PADDING));
     const roundStep = round(rawStep, c.STEP_RADIUS, c.KEY_RADIUS);
     const approxStep = approx(roundStep, c.ROUND_RESOLUTION);
 
     // Shine shape.
-    const rawShine = toSingleShape(pad(shineShape, SHINE_PADDING));
+    const rawShine = toShape(pad(shineShape, SHINE_PADDING));
     const roundShine = round(rawShine, c.SHINE_RADIUS, c.KEY_RADIUS);
 
     // Shine inner edge.
-    const rawShineBase = toSingleShape(pad(shineShape, STEP_PADDING));
+    const rawShineBase = toShape(pad(shineShape, STEP_PADDING));
     const roundShineBase = round(rawShineBase, c.STEP_RADIUS, c.KEY_RADIUS);
     const approxShineBase = approx(roundShineBase, c.ROUND_RESOLUTION);
 
@@ -118,13 +124,13 @@ const internalCalcKeycap = (key: KeycapInput): CalculatedKeycap => {
     const inflatePadding = STEP_PADDING.map((n) => n - c.BORDER / 1000) as any;
     const approxInflatedShineBase = approx(
         round(
-            toSingleShape(pad(shineShape, inflatePadding)),
+            toShape(pad(shineShape, inflatePadding)),
             c.STEP_RADIUS,
             c.KEY_RADIUS,
         ),
         c.ROUND_RESOLUTION,
     );
-    const approxStepOnly: Shape[] = difference(
+    const approxStepOnly: Composite = difference(
         [approxStep],
         [approxInflatedShineBase],
     )

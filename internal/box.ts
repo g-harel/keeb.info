@@ -1,5 +1,5 @@
 import {Point} from "./point";
-import {Shape} from "./shape";
+import {Composite, Shape} from "./shape";
 import {multiUnion} from "./shape";
 
 // Generic rectangular shape.
@@ -14,16 +14,16 @@ export interface Box {
     offset: Point;
 }
 
-export const toShapes = (boxes: Box[]): Shape[] => {
-    const polys: Shape[] = [];
+export const toComposite = (boxes: Box[]): Composite => {
+    const shapes: Composite = [];
     for (const box of boxes) {
-        polys.push(corners([0, 0], box));
+        shapes.push(corners([0, 0], box));
     }
-    return multiUnion(...polys);
+    return multiUnion(...shapes);
 };
 
-export const toSingleShape = (boxes: Box[]): Shape => {
-    const m = toShapes(boxes);
+export const toShape = (boxes: Box[]): Shape => {
+    const m = toComposite(boxes);
     if (m.length === 0) return [];
     if (m.length > 1) console.warn("Split or holes.");
     return m[0];

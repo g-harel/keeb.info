@@ -29,7 +29,7 @@ export const WIRE_COLOR_DARKEN = STEM_COLOR_DARKEN;
 export const WIRE_OFFSET = 2 * (STEM_SIZE + WIRE_WIDTH / 2);
 export const WIRE_ANGLE = 105;
 export const LAYOUT_OPTIONS_PADDING = 0.45;
-export const LAYOUT_SPREAD_INCREMENT = 0.5;
+export const LAYOUT_SPREAD_INCREMENT = 0.501;
 export const LAYOUT_SPREAD_ATTEMPTS = 50;
 export const FOOTPRINT_COLOR_DARKEN = 0.3;
 export const MIN_KEYSET_WIDTH_DISPLAY = 10;
@@ -37,7 +37,7 @@ export const ROTATION_ORIGIN: Point = [0, 0];
 
 // https://github.com/mohitg11/GH-CAD-Resources/blob/master/MX%20Series.pdf
 // https://github.com/mohitg11/GH-CAD-Resources/blob/master/MXSpec.pdf
-const CHERRY_UNIT = 0.61; // Unit to convery inch measurements to layout grid.
+const CHERRY_UNIT = 0.61; // Unit to convert inch measurements to layout grid.
 export const CHERRY_MIDDLE_STEM_RADIUS = 0.157 / CHERRY_UNIT / 2;
 export const CHERRY_PIN_RADIUS = 0.067 / CHERRY_UNIT / 2;
 export const CHERRY_PIN_OFFSET_X = (4 * 0.05) / CHERRY_UNIT;

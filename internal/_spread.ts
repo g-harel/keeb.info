@@ -4,7 +4,7 @@ import {printDebugPath} from "./debug";
 import {Layout, LayoutBlocker, LayoutKey} from "./layout";
 import {rotateCoord} from "./point";
 import {Angle, Point} from "./point";
-import {Shape, doesIntersect, multiUnion, toSVGPath} from "./shape";
+import {Composite, Shape, doesIntersect, multiUnion, toSVGPath} from "./shape";
 
 const deepCopy = <T>(o: T): T => {
     return JSON.parse(JSON.stringify(o));
@@ -17,6 +17,13 @@ const offsetKey = (key: LayoutKey, offset: Point): LayoutKey => {
     return oKey;
 };
 
+const offsetBlocker = (blocker: LayoutBlocker, offset: Point): LayoutBlocker => {
+    const oBlocker: LayoutBlocker = deepCopy(blocker);
+    oBlocker.position[0] += offset[0];
+    oBlocker.position[1] += offset[1];
+    return oBlocker;
+};
+
 const padBox = (box: Box, pad: number): Box => {
     return {
         width: box.width + 2 * pad,
@@ -25,12 +32,12 @@ const padBox = (box: Box, pad: number): Box => {
     };
 };
 
-const computeShapes = (
+const composite = (
     boxes: Box[],
     position: Point,
     angle: Angle,
     pad = 0,
-): Point[][] => {
+): Composite => {
     return boxes.map((box) =>
         corners(position, padBox(box, pad)).map((corner) =>
             rotateCoord(corner, c.ROTATION_ORIGIN, angle),
@@ -40,19 +47,14 @@ const computeShapes = (
 
 const computeShapesFromKey =
     (pad = 0) =>
-    (key: LayoutKey): Point[][] => {
-        return computeShapes(key.blank.boxes, key.position, key.angle, pad);
+    (key: LayoutKey): Composite => {
+        return composite(key.blank.boxes, key.position, key.angle, pad);
     };
 
 const shapesFromBlocker =
     (pad = 0) =>
-    (blocker: LayoutBlocker): Point[][] => {
-        return computeShapes(
-            blocker.boxes,
-            blocker.position,
-            blocker.angle,
-            pad,
-        );
+    (blocker: LayoutBlocker): Composite => {
+        return composite(blocker.boxes, blocker.position, blocker.angle, pad);
     };
 
 // TODO validate section overlap.
@@ -61,7 +63,7 @@ const shapesFromBlocker =
 export const spreadSections = (layout: Layout): Layout => {
     const out: Layout = deepCopy(layout);
 
-    const allShapes: Point[][] = [];
+    const allShapes: Shape[] = [];
     // Add fixed layout elements.
     allShapes.push(
         ...out.fixedKeys
@@ -86,7 +88,7 @@ export const spreadSections = (layout: Layout): Layout => {
                 .flat(1),
         );
     }
-    let avoid: Shape[] = multiUnion(...allShapes);
+    let avoid: Composite = multiUnion(...allShapes);
 
     printDebugPath(avoid);
 
@@ -95,7 +97,6 @@ export const spreadSections = (layout: Layout): Layout => {
         let lastIncrement = 1;
         for (const option of section.options.slice(1)) {
             // Move option until it doesn't intersect.
-            // TODO include blockers
             for (
                 let j = lastIncrement;
                 j <= c.LAYOUT_SPREAD_ATTEMPTS;
@@ -123,11 +124,27 @@ export const spreadSections = (layout: Layout): Layout => {
                             break;
                         }
                     }
+                    for (const blocker of option.blockers) {
+                        if (
+                            doesIntersect(
+                                avoid,
+                                shapesFromBlocker()(
+                                    offsetBlocker(blocker, [0, offset]),
+                                ),
+                            )
+                        ) {
+                            intersects = true;
+                            break;
+                        }
+                    }
                     if (!intersects) {
                         found = true;
                         lastIncrement = j;
                         for (const key of option.keys) {
                             key.position = offsetKey(key, [0, offset]).position;
+                        }
+                        for (const blocker of option.blockers) {
+                            blocker.position = offsetBlocker(blocker, [0, offset]).position;
                         }
                         // TODO offset blocker
                         avoid = multiUnion(
@@ -135,7 +152,6 @@ export const spreadSections = (layout: Layout): Layout => {
                             ...option.keys.map(computeShapesFromKey()).flat(1),
                             ...option.blockers.map(shapesFromBlocker()).flat(1),
                         );
-                        console.log(section.ref);
                         printDebugPath(avoid, [
                             ...option.keys.map(computeShapesFromKey()).flat(1),
                             ...option.blockers.map(shapesFromBlocker()).flat(1),

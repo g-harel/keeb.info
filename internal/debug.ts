@@ -1,6 +1,6 @@
 import {colorSeries} from "./color";
 import {minmax} from "./point";
-import {Shape, toSVGPath} from "./shape";
+import {Composite, toSVGPath} from "./shape";
 
 const defaultWidth = 400;
 const testElementID = "test-element-component";
@@ -21,10 +21,10 @@ export const clear = () => {
     getTestElement().innerHTML = "";
 };
 
-export const printDebugPath = (...shapes: Shape[][]) => {
-    const [min, max] = minmax(shapes.flat(2));
+export const printDebugPath = (...composites: Composite[]) => {
+    const [min, max] = minmax(composites.flat(2));
     const aspectRatio = (max[0] - min[0]) / (max[1] - min[1]);
-    const colors = colorSeries("red", shapes.length);
+    const colors = colorSeries("red", composites.length);
 
     getTestElement().innerHTML += `
         <svg
@@ -34,7 +34,7 @@ export const printDebugPath = (...shapes: Shape[][]) => {
             height="${(defaultWidth / aspectRatio) * 1.2}"
             version="1.1"
         >
-            ${shapes
+            ${composites
                 .map((shape, i) => {
                     return shape.map(toSVGPath).map(
                         (p) => `

@@ -1,6 +1,6 @@
 import React from "react";
 
-import {Box, toSingleShape} from "../../internal/box";
+import {Box, toShape} from "../../internal/box";
 import {genID} from "../../internal/identity";
 import {ReactProps} from "../../internal/react";
 import {toSVGPath} from "../../internal/shape";
@@ -14,7 +14,7 @@ export interface BlockerProps extends ReactProps {
 }
 
 export const Blocker = (props: BlockerProps) => {
-    const rawBase = toSingleShape(props.boxes);
+    const rawBase = toShape(props.boxes);
     const refID = genID("blocker", {base: props.boxes, color: props.color});
 
     return (
