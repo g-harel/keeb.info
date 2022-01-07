@@ -44,7 +44,7 @@ export const FootprintLayout = (props: FootprintLayoutProps) => {
                 >
                     <Footprint
                         pooler={pooler}
-                        blank={key.key}
+                        blank={key.blank}
                         orientation={key.orientation}
                         color={getColor()}
                     />
@@ -61,7 +61,7 @@ export const FootprintLayout = (props: FootprintLayoutProps) => {
                         >
                             <Footprint
                                 pooler={pooler}
-                                blank={key.key}
+                                blank={key.blank}
                                 orientation={key.orientation}
                                 color={getColor()}
                             />

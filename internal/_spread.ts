@@ -41,7 +41,7 @@ const computeShapes = (
 const computeShapesFromKey =
     (pad = 0) =>
     (key: LayoutKey): Point[][] => {
-        return computeShapes(key.key.boxes, key.position, key.angle, pad);
+        return computeShapes(key.blank.boxes, key.position, key.angle, pad);
     };
 
 const shapesFromBlocker =

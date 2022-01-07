@@ -50,7 +50,7 @@ export const LayoutKeymap = (props: LayoutKeymapProps) => {
                         <Key
                             uuid={key.key.ref}
                             pooler={pooler}
-                            blank={key.key.key}
+                            blank={key.key.blank}
                             color={key.color}
                             boxes={(key as any).shelf || []}
                             legend={key.legends}

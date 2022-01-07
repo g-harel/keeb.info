@@ -67,7 +67,7 @@ export interface LayoutKey {
     ref: UUID;
 
     // Physical attributes of the key footprint.
-    key: Blank;
+    blank: Blank;
 
     // Position of the key on the layout.
     position: Point;
@@ -89,7 +89,7 @@ export const minmax = (layout: Layout): [Point, Point] => {
     }
     const coords: Point[] = [];
     for (const key of keys) {
-        for (const box of key.key.boxes) {
+        for (const box of key.blank.boxes) {
             coords.push(
                 ...corners(key.position, box).map((corner) =>
                     rotateCoord(corner, ROTATION_ORIGIN, key.angle),

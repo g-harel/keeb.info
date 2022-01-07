@@ -93,7 +93,7 @@ export const FullKeyset = (props: FullKeysetProps) => {
                             <Key
                                 uuid={String(Math.random())}
                                 pooler={pooler}
-                                blank={key.key}
+                                blank={key.blank}
                                 color={resolveColor(
                                     key.color || DEFAULT_KEY_COLOR,
                                 )}

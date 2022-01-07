@@ -36,7 +36,7 @@ export interface KeysetKeycap {
     profile: KeysetKeycapProfile;
 
     // Physical attributes of the keycap.
-    key: Blank;
+    blank: Blank;
 
     // Elevated portion of the keycap.
     shelf: Box[];
@@ -128,7 +128,7 @@ export interface Stem {
 export const minmax = (kit: KeysetKit): [Point, Point] => {
     const coords: Point[] = [];
     for (const key of kit.keys) {
-        for (const box of key.key.boxes) {
+        for (const box of key.blank.boxes) {
             coords.push(...corners(key.position, box));
         }
     }

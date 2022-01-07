@@ -117,7 +117,7 @@ export const convertKLEToLayoutKeymap = (raw: any): [Layout, LayoutKeymap] => {
                 };
                 return {
                     ref: keyRef,
-                    key: convertKLEKey(key),
+                    blank: convertKLEKey(key),
                     position: [key.x, key.y],
                     angle: key.rotation_angle,
                     orientation: 270,
@@ -142,7 +142,7 @@ export const convertKLEToLayout = (raw: any): Layout => {
         fixedKeys: kle.keys.map((key) => {
             return {
                 ref: String(Math.random()),
-                key: convertKLEKey(key),
+                blank: convertKLEKey(key),
                 position: [key.x, key.y],
                 angle: key.rotation_angle,
                 orientation: 270,
@@ -171,7 +171,7 @@ export const convertKLEToKeysetKit = (raw: any): Keyset => {
                 keys: kle.keys.map((key) => {
                     const blank = convertKLEKey(key);
                     return {
-                        key: blank,
+                        blank: blank,
                         shelf: blank.boxes.length > 1 ? [blank.boxes[0]] : [],
                         profile: {
                             profile: String(Math.random()),
