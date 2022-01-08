@@ -1,13 +1,13 @@
 import * as c from "../editor/cons";
 import {Box, corners, pad as padBox} from "./box";
 import {UUID} from "./identity";
-import {Layout, LayoutBlocker, LayoutKey} from "./layout";
+import {Layout, LayoutBlocker, LayoutKey, LayoutOption, LayoutSection} from "./layout";
 import {add, rotateCoord} from "./point";
 import {Angle, Point} from "./point";
 import {Composite, Shape, doesIntersect, multiUnion} from "./shape";
 
 const PAD = 0.45;
-const INC = 0.501;
+const INC = 0.1;
 const ATTEMPTS = 50;
 
 // TODO simplify spread calculation with helpers.
@@ -17,65 +17,71 @@ const deepCopy = <T>(o: T): T => {
     return JSON.parse(JSON.stringify(o));
 };
 
-const offsetKey = (key: LayoutKey, offset: Point): LayoutKey => {
-    const oKey: LayoutKey = deepCopy(key);
-    oKey.position[0] += offset[0];
-    oKey.position[1] += offset[1];
-    return oKey;
-};
+const offset =
+    <T extends LayoutKey | LayoutBlocker>(n: Point) =>
+    (entity: T): T => {
+        const oEntity = deepCopy(entity);
+        oEntity.position[0] += n[0];
+        oEntity.position[1] += n[1];
+        return oEntity;
+    };
 
-const offsetBlocker = (
-    blocker: LayoutBlocker,
-    offset: Point,
-): LayoutBlocker => {
-    const oBlocker: LayoutBlocker = deepCopy(blocker);
-    oBlocker.position[0] += offset[0];
-    oBlocker.position[1] += offset[1];
-    return oBlocker;
-};
+const pad =
+    <T extends LayoutKey | LayoutBlocker>(n: number) =>
+    (entity: T): T => {
+        const oEntity = deepCopy(entity);
+        if ("boxes" in oEntity) {
+            oEntity.boxes = oEntity.boxes.map((b) => padBox(b, n));
+        } else {
+            oEntity.blank.boxes = oEntity.blank.boxes.map((b) => padBox(b, n));
+        }
+        return oEntity;
+    };
 
-const composite = (
-    boxes: Box[],
-    position: Point,
-    angle: Angle,
-    pad = 0,
-): Composite => {
+const toComposite = (entity: LayoutKey | LayoutBlocker) => {
+    let boxes: Box[] = [];
+    if ("boxes" in entity) {
+        boxes = entity.boxes;
+    } else {
+        boxes = entity.blank.boxes;
+    }
+
     return boxes.map((box) =>
-        corners(position, padBox(box, pad)).map((corner) =>
-            rotateCoord(corner, c.ROTATION_ORIGIN, angle),
+        corners(entity.position, box).map((corner) =>
+            rotateCoord(corner, c.ROTATION_ORIGIN, entity.angle),
         ),
     );
 };
 
-const shapes = (pad: number) => (entity: LayoutKey | LayoutBlocker) => {
-    if ("boxes" in entity) {
-        return composite(entity.boxes, entity.position, entity.angle, pad);
-    } else {
-        return composite(
-            entity.blank.boxes,
-            entity.position,
-            entity.angle,
-            pad,
+const footprint = (layout: Layout): Composite => {
+    const shapes: Shape[] = [];
+    // Add fixed layout elements.
+    shapes.push(...layout.fixedKeys.map(pad(PAD)).map(toComposite).flat(1));
+    shapes.push(...layout.fixedBlockers.map(pad(PAD)).map(toComposite).flat(1));
+    // Add first option of each variable section.
+    for (const v of layout.variableKeys) {
+        shapes.push(
+            ...v.options[0].keys.map(pad(PAD)).map(toComposite).flat(1),
+        );
+        shapes.push(
+            ...v.options[0].blockers.map(pad(PAD)).map(toComposite).flat(1),
         );
     }
+    return multiUnion(...shapes);
+}
+
+const spreadSection = (section: LayoutSection): LayoutSection => {
+    return section;
 };
 
 // TODO validate section overlap.
 // TODO make this faster.
+// TODO consider returning -> const offsets: Record<UUID, Point> = {};
+// TODO keep sections together.
 export const spreadSections = (layout: Layout): Layout => {
     const out: Layout = deepCopy(layout);
-    // TODO consider returning: const offsets: Record<UUID, Point> = {};
 
-    const allShapes: Shape[] = [];
-    // Add fixed layout elements.
-    allShapes.push(...out.fixedKeys.map(shapes(PAD)).flat(1));
-    allShapes.push(...out.fixedBlockers.map(shapes(PAD)).flat(1));
-    // Add first option of each variable section.
-    for (const vk of layout.variableKeys) {
-        allShapes.push(...vk.options[0].keys.map(shapes(PAD)).flat(1));
-        allShapes.push(...vk.options[0].blockers.map(shapes(PAD)).flat(1));
-    }
-    let avoid: Composite = multiUnion(...allShapes);
+    let avoid = footprint(layout);
 
     for (const section of out.variableKeys) {
         // Keep track of how far last option had to be moved and start there.
@@ -91,18 +97,18 @@ export const spreadSections = (layout: Layout): Layout => {
 
                 let found = false;
                 for (const direction of [j, -j]) {
-                    const offset: Point = [0, direction];
+                    const offsetAmount: Point = [0, direction];
                     // Check if any key/blocker of the option intersects.
                     let intersects = false;
                     for (const key of option.keys) {
-                        const s = shapes(0)(offsetKey(key, offset));
+                        const s = toComposite(offset(offsetAmount)(key));
                         if (doesIntersect(avoid, s)) {
                             intersects = true;
                             break;
                         }
                     }
                     for (const blocker of option.blockers) {
-                        const s = shapes(0)(offsetBlocker(blocker, offset));
+                        const s = toComposite(offset(offsetAmount)(blocker));
                         if (doesIntersect(avoid, s)) {
                             intersects = true;
                             break;
@@ -114,15 +120,15 @@ export const spreadSections = (layout: Layout): Layout => {
                     found = true;
                     lastIncrement = j;
                     for (const key of option.keys) {
-                        key.position = add(key.position, offset);
+                        key.position = add(key.position, offsetAmount);
                     }
                     for (const blocker of option.blockers) {
-                        blocker.position = add(blocker.position, offset);
+                        blocker.position = add(blocker.position, offsetAmount);
                     }
                     avoid = multiUnion(
                         ...avoid,
-                        ...option.keys.map(shapes(0)).flat(1),
-                        ...option.blockers.map(shapes(0)).flat(1),
+                        ...option.keys.map(toComposite).flat(1),
+                        ...option.blockers.map(toComposite).flat(1),
                     );
                     break;
                 }
