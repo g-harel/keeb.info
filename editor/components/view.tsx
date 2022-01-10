@@ -2,6 +2,7 @@ import React from "react";
 
 import {Point} from "../../internal/point";
 import {ReactElement, ReactProps} from "../../internal/react";
+import {DEBUG_DISABLE_SVG_REF} from "../cons";
 
 export interface ViewProps extends ReactProps {
     unitSize: Point;
@@ -30,6 +31,9 @@ class RefPool {
     }
 
     add(id: string, generator: () => ReactElement): ReactElement {
+        if (DEBUG_DISABLE_SVG_REF) {
+            return generator();
+        }
         if (!this.ids[id]) {
             this.components.push(
                 <g id={id} key={id}>

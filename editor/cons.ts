@@ -2,7 +2,7 @@ import {Point} from "../internal/point";
 
 // TODO inline when only used once.
 
-export const DEBUG = true;
+export const DEBUG_DISABLE_SVG_REF = false;
 
 export const BACKGROUND_COLOR = "#ffffff";
 export const DEFAULT_KEY_COLOR = "#eeeeee";
