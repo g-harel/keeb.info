@@ -53,6 +53,7 @@ interface AngledPosition<T> {
     original: T;
 }
 
+// Orders items in descending vertical order according to rotated point.
 export const orderVertically = <T>(
     getter: (item: T) => [Point, Angle?],
     origin: Point,

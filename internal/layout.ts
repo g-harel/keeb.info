@@ -2,9 +2,9 @@ import {ROTATION_ORIGIN} from "../editor/cons";
 import {Blank} from "./blank";
 import {Box, corners, pad as padBox} from "./box";
 import {UUID} from "./identity";
-import {add, rotateCoord} from "./point";
+import {add, orderVertically as order, rotateCoord} from "./point";
 import {Angle, Point, RightAngle, minmax as pointMinmax} from "./point";
-import {Composite, doesIntersect, multiUnion, Shape} from "./shape";
+import {Composite, Shape, doesIntersect, multiUnion} from "./shape";
 
 // Keyboard layout.
 export interface Layout {
@@ -85,7 +85,7 @@ export interface LayoutKey {
 
 // Maximum offset for options will be INC * ATTEMPTS.
 const PAD = 0.45;
-const INC = 0.101;
+const INC = 0.1001;
 const ATTEMPTS = 100;
 
 // TODO include blockers.
@@ -167,6 +167,52 @@ export const footprint = (layout: Layout): Composite => {
     return multiUnion(...shapes);
 };
 
+export const orderVertically = (sections: LayoutSection[]): LayoutSection[] => {
+    interface OrderableEntity {
+        position: Point;
+        angle: Angle;
+    }
+
+    // Collect all entities associated with each section.
+    const allSectionEntities: Record<UUID, OrderableEntity[]> = {};
+    for (const section of sections) {
+        let sectionEntities: OrderableEntity[] = [];
+        for (const option of section.options) {
+            sectionEntities = sectionEntities
+                .concat(option.keys)
+                .concat(option.blockers);
+        }
+        allSectionEntities[section.ref] = sectionEntities;
+    }
+
+    // Find the lowest ranking entity for each section.
+    const sectionLowestEntity: Record<UUID, OrderableEntity> = {};
+    for (const [ref, sectionEntities] of Object.entries(allSectionEntities)) {
+        const ordered = order(
+            (entity) => [entity.position, entity.angle],
+            ROTATION_ORIGIN,
+            sectionEntities,
+        );
+        sectionLowestEntity[ref] = ordered[0];
+    }
+
+    // Order sections by the lowest entity.
+    const orderedSectionEntries = order(
+        ([, entry]) => {
+            return [entry.position, entry.angle];
+        },
+        ROTATION_ORIGIN,
+        Object.entries(sectionLowestEntity),
+    );
+
+    // Convert refs back to sections.
+    const sectionsByRef: Record<UUID, LayoutSection> = {};
+    for (const section of sections) {
+        sectionsByRef[section.ref] = section;
+    }
+    return orderedSectionEntries.map(([ref]) => sectionsByRef[ref]);
+};
+
 // TODO validate section overlap.
 // TODO consider returning -> const offsets: Record<UUID, Point> = {};
 export const spreadSections = (layout: Layout): Layout => {
@@ -174,7 +220,7 @@ export const spreadSections = (layout: Layout): Layout => {
 
     let avoid = footprint(layout);
 
-    for (const section of out.variableKeys) {
+    for (const section of orderVertically(out.variableKeys)) {
         // Keep track of how far last option had to be moved and start there.
         let lastIncrement = 1;
         for (const option of section.options.slice(1)) {
