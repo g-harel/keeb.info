@@ -1,14 +1,16 @@
 import * as c from "../editor/cons";
 import {Box, corners, pad as padBox} from "./box";
-import {UUID} from "./identity";
-import {Layout, LayoutBlocker, LayoutKey, LayoutOption, LayoutSection} from "./layout";
+import {Layout, LayoutBlocker, LayoutKey} from "./layout";
 import {add, rotateCoord} from "./point";
-import {Angle, Point} from "./point";
+import {Point} from "./point";
 import {Composite, Shape, doesIntersect, multiUnion} from "./shape";
 
+// Maximum offset for options will be INC * ATTEMPTS.
 const PAD = 0.45;
-const INC = 0.1;
-const ATTEMPTS = 50;
+const INC = 0.101;
+const ATTEMPTS = 100;
+
+type LayoutEntity = LayoutKey | LayoutBlocker;
 
 // TODO simplify spread calculation with helpers.
 // TODO refactor current helpers.
@@ -18,7 +20,7 @@ const deepCopy = <T>(o: T): T => {
 };
 
 const offset =
-    <T extends LayoutKey | LayoutBlocker>(n: Point) =>
+    <T extends LayoutEntity>(n: Point) =>
     (entity: T): T => {
         const oEntity = deepCopy(entity);
         oEntity.position[0] += n[0];
@@ -27,7 +29,7 @@ const offset =
     };
 
 const pad =
-    <T extends LayoutKey | LayoutBlocker>(n: number) =>
+    <T extends LayoutEntity>(n: number) =>
     (entity: T): T => {
         const oEntity = deepCopy(entity);
         if ("boxes" in oEntity) {
@@ -38,7 +40,7 @@ const pad =
         return oEntity;
     };
 
-const toComposite = (entity: LayoutKey | LayoutBlocker) => {
+const toComposite = (entity: LayoutEntity) => {
     let boxes: Box[] = [];
     if ("boxes" in entity) {
         boxes = entity.boxes;
@@ -68,16 +70,10 @@ const footprint = (layout: Layout): Composite => {
         );
     }
     return multiUnion(...shapes);
-}
-
-const spreadSection = (section: LayoutSection): LayoutSection => {
-    return section;
 };
 
 // TODO validate section overlap.
-// TODO make this faster.
 // TODO consider returning -> const offsets: Record<UUID, Point> = {};
-// TODO keep sections together.
 export const spreadSections = (layout: Layout): Layout => {
     const out: Layout = deepCopy(layout);
 
@@ -88,51 +84,49 @@ export const spreadSections = (layout: Layout): Layout => {
         let lastIncrement = 1;
         for (const option of section.options.slice(1)) {
             // Move option until it doesn't intersect.
-            for (let j = lastIncrement; j <= ATTEMPTS; j += INC) {
+            for (let j = lastIncrement; ; j += INC) {
                 // Break when too many attempts.
-                if (j === ATTEMPTS) {
-                    console.error("TODO spread failed");
-                    continue;
-                }
-
-                let found = false;
-                for (const direction of [j, -j]) {
-                    const offsetAmount: Point = [0, direction];
-                    // Check if any key/blocker of the option intersects.
-                    let intersects = false;
-                    for (const key of option.keys) {
-                        const s = toComposite(offset(offsetAmount)(key));
-                        if (doesIntersect(avoid, s)) {
-                            intersects = true;
-                            break;
-                        }
-                    }
-                    for (const blocker of option.blockers) {
-                        const s = toComposite(offset(offsetAmount)(blocker));
-                        if (doesIntersect(avoid, s)) {
-                            intersects = true;
-                            break;
-                        }
-                    }
-                    if (intersects) continue;
-
-                    // Modify option members and add to avoided area.
-                    found = true;
-                    lastIncrement = j;
-                    for (const key of option.keys) {
-                        key.position = add(key.position, offsetAmount);
-                    }
-                    for (const blocker of option.blockers) {
-                        blocker.position = add(blocker.position, offsetAmount);
-                    }
-                    avoid = multiUnion(
-                        ...avoid,
-                        ...option.keys.map(toComposite).flat(1),
-                        ...option.blockers.map(toComposite).flat(1),
+                if (j >= ATTEMPTS * INC) {
+                    console.log(
+                        `spread failed for option: ${layout.ref}, ${section.ref}, ${option.ref}`,
                     );
                     break;
                 }
-                if (found) break;
+
+                const offsetAmount: Point = [0, j];
+
+                // Check if any key/blocker of the option intersects.
+                let intersects = false;
+                for (const key of option.keys) {
+                    const s = toComposite(offset(offsetAmount)(key));
+                    if (doesIntersect(avoid, s)) {
+                        intersects = true;
+                        break;
+                    }
+                }
+                for (const blocker of option.blockers) {
+                    const s = toComposite(offset(offsetAmount)(blocker));
+                    if (doesIntersect(avoid, s)) {
+                        intersects = true;
+                        break;
+                    }
+                }
+                if (intersects) continue;
+
+                // Modify option members and add to avoided area.
+                lastIncrement = j;
+                for (const key of option.keys) {
+                    key.position = add(key.position, offsetAmount);
+                }
+                for (const blocker of option.blockers) {
+                    blocker.position = add(blocker.position, offsetAmount);
+                }
+                avoid = multiUnion(
+                    ...avoid,
+                    ...option.keys.map(toComposite).flat(1),
+                    ...option.blockers.map(toComposite).flat(1),
+                );
+                break;
             }
         }
     }

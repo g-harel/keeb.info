@@ -1054,6 +1054,63 @@
                     ]
                 },
                 {
+                    "ref": "big middle",
+                    "blockers": [],
+                    "keys": [
+                        {
+                            "ref": "0.9589218535220114asd",
+                            "blank": {
+                                "boxes": [
+                                    {
+                                        "height": 1,
+                                        "width": 1,
+                                        "offset": [0, 0]
+                                    }
+                                ],
+                                "stabilizers": [],
+                                "stem": [0.5, 0.5]
+                            },
+                            "position": [8.35, 5.15],
+                            "angle": -10,
+                            "orientation": 270
+                        },
+                        {
+                            "ref": "0.2945775888935336asd",
+                            "blank": {
+                                "boxes": [
+                                    {
+                                        "height": 1,
+                                        "width": 2,
+                                        "offset": [0, 0]
+                                    }
+                                ],
+                                "stabilizers": [],
+                                "stem": [1, 0.5]
+                            },
+                            "position": [9.35, 5.15],
+                            "angle": -10,
+                            "orientation": 270
+                        },
+                        {
+                            "ref": "0.04875012309274629ads",
+                            "blank": {
+                                "boxes": [
+                                    {
+                                        "height": 1,
+                                        "width": 1,
+                                        "offset": [0, 0]
+                                    }
+                                ],
+                                "stabilizers": [],
+                                "stem": [0.5, 0.5]
+                            },
+                            "position": [11.35, 5.15],
+                            "angle": -10,
+                            "orientation": 270
+                        }
+                    ]
+                },
+                {
                     "ref": "double",
                     "blockers": [
                         {
