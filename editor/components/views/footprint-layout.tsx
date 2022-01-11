@@ -50,7 +50,7 @@ export const FootprintLayout = (props: FootprintLayoutProps) => {
                     />
                 </ViewItem>
             ))}
-            {props.layout.variableKeys.map((section) => {
+            {props.layout.variableSections.map((section) => {
                 return section.options.map((option) =>
                     option.keys.map((key) => (
                         <ViewItem

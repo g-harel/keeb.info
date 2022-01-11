@@ -18,7 +18,7 @@ export interface Layout {
     fixedKeys: LayoutKey[];
 
     // Sections of layout where multiple options can be used.
-    variableKeys: LayoutSection[];
+    variableSections: LayoutSection[];
 }
 
 export interface LayoutSection {
@@ -88,26 +88,14 @@ const PAD = 0.45;
 const INC = 0.1001;
 const ATTEMPTS = 100;
 
-// TODO include blockers.
 export const minmax = (layout: Layout): [Point, Point] => {
-    const keys: LayoutKey[] = layout.fixedKeys.slice();
-    for (const section of layout.variableKeys) {
+    const entities: LayoutEntity[] = layout.fixedKeys.slice();
+    for (const section of layout.variableSections) {
         for (const option of section.options) {
-            keys.push(...option.keys);
+            entities.push(...option.keys, ...option.blockers);
         }
     }
-    const coords: Point[] = [];
-    for (const key of keys) {
-        for (const box of key.blank.boxes) {
-            coords.push(
-                ...corners(key.position, box).map((corner) =>
-                    rotateCoord(corner, ROTATION_ORIGIN, key.angle),
-                ),
-            );
-        }
-    }
-
-    return pointMinmax(coords);
+    return pointMinmax(entities.map(toComposite).flat(2));
 };
 
 const deepCopy = <T>(o: T): T => {
@@ -156,7 +144,7 @@ export const footprint = (layout: Layout): Composite => {
     shapes.push(...layout.fixedKeys.map(pad(PAD)).map(toComposite).flat(1));
     shapes.push(...layout.fixedBlockers.map(pad(PAD)).map(toComposite).flat(1));
     // Add first option of each variable section.
-    for (const v of layout.variableKeys) {
+    for (const v of layout.variableSections) {
         shapes.push(
             ...v.options[0].keys.map(pad(PAD)).map(toComposite).flat(1),
         );
@@ -220,11 +208,12 @@ export const spreadSections = (layout: Layout): Layout => {
 
     let avoid = footprint(layout);
 
-    for (const section of orderVertically(out.variableKeys)) {
+    for (const section of orderVertically(out.variableSections)) {
         // Keep track of how far last option had to be moved and start there.
         let lastIncrement = 1;
         for (const option of section.options.slice(1)) {
             // Move option until it doesn't intersect.
+            // TODO alternate offset between full jumps and smaller ones
             for (let j = lastIncrement; ; j += INC) {
                 // Break when too many attempts.
                 if (j >= ATTEMPTS * INC) {

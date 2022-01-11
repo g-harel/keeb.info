@@ -26,7 +26,7 @@ export const ExplodedLayout = (props: ExplodedLayoutProps) => {
     const unitHeight = max[1] - min[1];
     const sectionColors = colorSeries(
         START_SECTION_COLOR,
-        spreadLayout.variableKeys.length,
+        spreadLayout.variableSections.length,
     );
 
     // Reorder the keys so they overlap correctly.
@@ -38,7 +38,7 @@ export const ExplodedLayout = (props: ExplodedLayoutProps) => {
             key,
             color: DEFAULT_KEY_COLOR,
         })),
-        spreadLayout.variableKeys
+        spreadLayout.variableSections
             .map((section, i) => {
                 return section.options.map((option) => {
                     return option.keys.map((key) => ({
@@ -72,7 +72,7 @@ export const ExplodedLayout = (props: ExplodedLayoutProps) => {
                     />
                 </ViewItem>
             ))}
-            {spreadLayout.variableKeys.map((section, i) => {
+            {spreadLayout.variableSections.map((section, i) => {
                 return section.options.map((option) => {
                     return option.blockers.map((blocker) => (
                         <ViewItem

@@ -582,7 +582,7 @@
             "angle": 10
         }
     ],
-    "variableKeys": [
+    "variableSections": [
         {
             "ref": "left shift",
             "options": [

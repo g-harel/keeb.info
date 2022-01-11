@@ -123,7 +123,7 @@ export const convertKLEToLayoutKeymap = (raw: any): [Layout, LayoutKeymap] => {
                     orientation: 270,
                 };
             }),
-            variableKeys: [],
+            variableSections: [],
         },
         {
             layout: layoutRef,
@@ -148,7 +148,7 @@ export const convertKLEToLayout = (raw: any): Layout => {
                 orientation: 270,
             };
         }),
-        variableKeys: [],
+        variableSections: [],
     };
 };
 
