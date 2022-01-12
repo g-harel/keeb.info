@@ -12,6 +12,7 @@ import epoch80 from "../../files/kle/epoch80.json";
 import fc980c from "../../files/kle/fc980c.json";
 import hhkb from "../../files/kle/hhkb.json";
 import id80 from "../../files/kle/id80.json";
+import microdox from "../../files/kle/microdox.json";
 import miryoku from "../../files/kle/miryoku.json";
 import nyquist from "../../files/kle/nyquist.json";
 import saturn60 from "../../files/kle/saturn60.json";
@@ -81,6 +82,7 @@ export const Layouts = () => (
         <LayoutItem raw={fc980c} />
         <LayoutItem raw={hhkb} />
         <LayoutItem raw={id80} />
+        <LayoutItem raw={microdox} />
         <LayoutItem raw={miryoku} />
         <LayoutItem raw={nyquist} />
         <LayoutItem raw={saturn60} />
