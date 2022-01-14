@@ -10,6 +10,7 @@ import creator from "../../files/kle/creator.json";
 import discipline65 from "../../files/kle/discipline65.json";
 import epoch80 from "../../files/kle/epoch80.json";
 import fc980c from "../../files/kle/fc980c.json";
+import hatsu from "../../files/kle/hatsu.json";
 import hhkb from "../../files/kle/hhkb.json";
 import id80 from "../../files/kle/id80.json";
 import microdox from "../../files/kle/microdox.json";
@@ -80,6 +81,7 @@ export const Layouts = () => (
         <LayoutItem raw={discipline65} />
         <LayoutItem raw={epoch80} />
         <LayoutItem raw={fc980c} />
+        <LayoutItem raw={hatsu} />
         <LayoutItem raw={hhkb} />
         <LayoutItem raw={id80} />
         <LayoutItem raw={microdox} />
