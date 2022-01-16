@@ -179,16 +179,30 @@ export const Key = (props: KeyProps) => {
 
     const shineShape =
         props.boxes && props.boxes.length > 0 ? props.boxes : props.blank.boxes;
-    const legendContainer = shineShape[0];
-    const legendSpaceHeight =
-        legendContainer.height -
+
+    const topLegendContainer = shineShape[0];
+    const topLegendSpaceHeight =
+        topLegendContainer.height -
         c.SHINE_PADDING_TOP -
         c.SHINE_PADDING_BOTTOM -
         2 * c.LEGEND_PADDING;
-    const legendSpaceWidth =
-        legendContainer.width - 2 * c.SHINE_PADDING_SIDE - 2 * c.LEGEND_PADDING;
-    const legendOffsetX = c.SHINE_PADDING_SIDE + c.LEGEND_PADDING;
-    const legendOffsetY = c.SHINE_PADDING_TOP + c.LEGEND_PADDING;
+    const topLegendSpaceWidth =
+        topLegendContainer.width - 2 * c.SHINE_PADDING_SIDE - 2 * c.LEGEND_PADDING;
+    const topLegendOffsetX = c.SHINE_PADDING_SIDE + c.LEGEND_PADDING;
+    const topLegendOffsetY = c.SHINE_PADDING_TOP + c.LEGEND_PADDING;
+
+    const frontLegendContainer: Box = {
+        width: topLegendContainer.width,
+        height: c.SHINE_PADDING_BOTTOM,
+        offset: [topLegendContainer.offset[0], topLegendContainer.offset[1] + topLegendContainer.height],
+    }
+    const frontLegendSpaceHeight =
+        frontLegendContainer.height -
+        2 * c.LEGEND_PADDING;
+    const frontLegendSpaceWidth =
+        frontLegendContainer.width - c.SHINE_PADDING_SIDE - 2 * c.LEGEND_PADDING;
+    const frontLegendOffsetX = c.SHINE_PADDING_SIDE + c.LEGEND_PADDING;
+    const frontLegendOffsetY = c.SHINE_PADDING_TOP + c.LEGEND_PADDING;
 
     const refID = genID("key", {
         base: props.blank.boxes,
@@ -270,12 +284,11 @@ export const Key = (props: KeyProps) => {
                 noWire={props.noWire}
             />
 
-            {/* TODO front legend */}
             {/* TODO wrap legends when overflow */}
             {props.legend &&
                 calcLayout(props.legend.topLegends, [
-                    legendSpaceWidth,
-                    legendSpaceHeight,
+                    topLegendSpaceWidth,
+                    topLegendSpaceHeight,
                 ]).map((l, i) => {
                     const size = c.LEGEND_FONT_SIZE * (l.element.size || 1);
                     const backupColor = color(props.color)
@@ -284,8 +297,32 @@ export const Key = (props: KeyProps) => {
                     return (
                         <text
                             key={i}
-                            x={l.position[0] + legendOffsetX}
-                            y={l.position[1] + legendOffsetY}
+                            x={l.position[0] + topLegendOffsetX}
+                            y={l.position[1] + topLegendOffsetY}
+                            fontSize={size}
+                            fontWeight="bold"
+                            fill={resolveColor(l.element.color || backupColor)}
+                            dominantBaseline={l.baseline}
+                            textAnchor={l.anchor}
+                        >
+                            {l.element.text}
+                        </text>
+                    );
+                })}
+            {props.legend &&
+                calcLayout(props.legend.frontLegends, [
+                    frontLegendSpaceWidth,
+                    frontLegendSpaceHeight,
+                ]).map((l, i) => {
+                    const size = c.LEGEND_FONT_SIZE * (l.element.size || 1);
+                    const backupColor = color(props.color)
+                        .darken(c.STROKE_COLOR_DARKEN)
+                        .hex();
+                    return (
+                        <text
+                            key={i}
+                            x={l.position[0] + frontLegendOffsetX}
+                            y={l.position[1] + frontLegendOffsetY}
                             fontSize={size}
                             fontWeight="bold"
                             fill={resolveColor(l.element.color || backupColor)}
