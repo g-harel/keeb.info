@@ -187,22 +187,24 @@ export const Key = (props: KeyProps) => {
         c.SHINE_PADDING_BOTTOM -
         2 * c.LEGEND_PADDING;
     const topLegendSpaceWidth =
-        topLegendContainer.width - 2 * c.SHINE_PADDING_SIDE - 2 * c.LEGEND_PADDING;
+        topLegendContainer.width -
+        2 * c.SHINE_PADDING_SIDE -
+        2 * c.LEGEND_PADDING;
     const topLegendOffsetX = c.SHINE_PADDING_SIDE + c.LEGEND_PADDING;
     const topLegendOffsetY = c.SHINE_PADDING_TOP + c.LEGEND_PADDING;
 
-    const frontLegendContainer: Box = {
-        width: topLegendContainer.width,
-        height: c.SHINE_PADDING_BOTTOM,
-        offset: [topLegendContainer.offset[0], topLegendContainer.offset[1] + topLegendContainer.height],
-    }
     const frontLegendSpaceHeight =
-        frontLegendContainer.height -
-        2 * c.LEGEND_PADDING;
+        c.SHINE_PADDING_BOTTOM - 2 * c.LEGEND_PADDING;
     const frontLegendSpaceWidth =
-        frontLegendContainer.width - c.SHINE_PADDING_SIDE - 2 * c.LEGEND_PADDING;
+        topLegendContainer.width -
+        2 * c.SHINE_PADDING_SIDE -
+        2 * c.LEGEND_PADDING;
     const frontLegendOffsetX = c.SHINE_PADDING_SIDE + c.LEGEND_PADDING;
-    const frontLegendOffsetY = c.SHINE_PADDING_TOP + c.LEGEND_PADDING;
+    const frontLegendOffsetY =
+        c.SHINE_PADDING_TOP +
+        2 * c.LEGEND_PADDING +
+        topLegendContainer.height -
+        c.SHINE_PADDING_BOTTOM;
 
     const refID = genID("key", {
         base: props.blank.boxes,
@@ -290,6 +292,7 @@ export const Key = (props: KeyProps) => {
                     topLegendSpaceWidth,
                     topLegendSpaceHeight,
                 ]).map((l, i) => {
+                    if (l.element.text === "") return null;
                     const size = c.LEGEND_FONT_SIZE * (l.element.size || 1);
                     const backupColor = color(props.color)
                         .darken(c.STROKE_COLOR_DARKEN)
@@ -314,6 +317,7 @@ export const Key = (props: KeyProps) => {
                     frontLegendSpaceWidth,
                     frontLegendSpaceHeight,
                 ]).map((l, i) => {
+                    if (l.element.text === "") return null;
                     const size = c.LEGEND_FONT_SIZE * (l.element.size || 1);
                     const backupColor = color(props.color)
                         .darken(c.STROKE_COLOR_DARKEN)

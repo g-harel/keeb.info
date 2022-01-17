@@ -116,7 +116,8 @@ export const convertKLEToLayoutKeymap = (raw: any): [Layout, LayoutKeymap] => {
                                 legend(key, 9, 0.61),
                                 legend(key, 10, 0.61),
                                 legend(key, 11, 0.61),
-                            ],],
+                            ],
+                        ],
                     },
                 };
                 return {
