@@ -4,7 +4,7 @@ import {LayoutKeymap as LayoutKeymapType} from "../../../internal/keymap";
 import {Layout, minmax} from "../../../internal/layout";
 import {orderVertically} from "../../../internal/point";
 import {ReactProps} from "../../../internal/react";
-import {ROTATION_ORIGIN, SHINE_PADDING_TOP} from "../../cons";
+import {ROTATION_ORIGIN, SHELF_PADDING_TOP} from "../../cons";
 import {Key} from "../key";
 import {View, ViewItem, createPool} from "../view";
 
@@ -36,7 +36,7 @@ export const LayoutKeymap = (props: LayoutKeymapProps) => {
         <View
             pixelWidth={props.width}
             unitSize={[unitWidth, unitHeight]}
-            padTop={-Math.min(0, SHINE_PADDING_TOP)}
+            padTop={-Math.min(0, SHELF_PADDING_TOP)}
             pool={pool}
         >
             {keys.map((key) => {

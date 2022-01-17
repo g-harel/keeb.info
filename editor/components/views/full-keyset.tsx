@@ -7,7 +7,7 @@ import {ReactProps} from "../../../internal/react";
 import {
     DEFAULT_KEY_COLOR,
     MIN_KEYSET_WIDTH_DISPLAY,
-    SHINE_PADDING_TOP,
+    SHELF_PADDING_TOP,
 } from "../../cons";
 import {Key} from "../key";
 import {View, ViewItem, createPool} from "../view";
@@ -74,7 +74,7 @@ export const FullKeyset = (props: FullKeysetProps) => {
             pixelWidth={props.width}
             unitSize={[maxWidth, sum(rowHeights)]}
             pool={pool}
-            padTop={-Math.min(0, SHINE_PADDING_TOP)}
+            padTop={-Math.min(0, SHELF_PADDING_TOP)}
         >
             {kitRows.map((row, i) => {
                 const startY = sum(rowHeights.slice(0, i));

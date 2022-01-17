@@ -20,7 +20,7 @@ const HATCHING_SIZE = 0.07;
 export const Blocker = (props: BlockerProps) => {
     const rawBase = round(toShape(props.boxes), c.KEY_RADIUS, c.KEY_RADIUS);
     const refID = genID("blocker", {base: props.boxes, color: props.color});
-    const innerColor = color(props.color).lighten(c.SHINE_COLOR_DIFF).hex();
+    const innerColor = color(props.color).lighten(c.SHELF_COLOR_DIFF).hex();
     const strokeColor = color(props.color).darken(c.STROKE_COLOR_DARKEN).hex();
     const patternID = `${refID}-pattern`;
 

@@ -24,21 +24,23 @@ interface CalculatedKeycap {
     basePath: string;
     stepPaths: string[];
     baseArcBridges: Line[];
-    shineArcBridges: Line[];
-    shinePath: string;
+    shelfArcBridges: Line[];
+    shelfPath: string;
+    topLegendBox: Box;
+    frontLegendBox: Box;
 }
 
 const KEY_PADDING: [number, number, number] = [c.KEY_PAD, c.KEY_PAD, c.KEY_PAD];
 
 const STEP_PADDING: [number, number, number] = [
-    c.SHINE_PADDING_TOP * c.STEP_RATIO,
-    c.SHINE_PADDING_SIDE * c.STEP_RATIO,
-    c.SHINE_PADDING_BOTTOM * c.STEP_RATIO,
+    c.SHELF_PADDING_TOP * c.STEP_RATIO,
+    c.SHELF_PADDING_SIDE * c.STEP_RATIO,
+    c.SHELF_PADDING_BOTTOM * c.STEP_RATIO,
 ];
-const SHINE_PADDING: [number, number, number] = [
-    c.SHINE_PADDING_TOP,
-    c.SHINE_PADDING_SIDE,
-    c.SHINE_PADDING_BOTTOM,
+const SHELF_PADDING: [number, number, number] = [
+    c.SHELF_PADDING_TOP,
+    c.SHELF_PADDING_SIDE,
+    c.SHELF_PADDING_BOTTOM,
 ];
 
 const pad = (boxes: Box[], padding: [number, number, number]): Box[] => {
@@ -55,7 +57,7 @@ const pad = (boxes: Box[], padding: [number, number, number]): Box[] => {
 // TODO validate step is inside base.
 const internalCalcKeycap = (key: KeycapInput): CalculatedKeycap => {
     const boxes = pad(key.base, KEY_PADDING);
-    const shineShape = pad(
+    const shelfShape = pad(
         key.shelf && key.shelf.length ? key.shelf : key.base,
         KEY_PADDING,
     );
@@ -64,19 +66,19 @@ const internalCalcKeycap = (key: KeycapInput): CalculatedKeycap => {
     const rawBase = toShape(boxes);
     const roundBase = round(rawBase, c.KEY_RADIUS, c.KEY_RADIUS);
 
-    // Shine outer edge.
+    // Shelf outer edge.
     const rawStep = toShape(pad(boxes, STEP_PADDING));
     const roundStep = round(rawStep, c.STEP_RADIUS, c.KEY_RADIUS);
     const approxStep = approx(roundStep, c.ROUND_RESOLUTION);
 
-    // Shine shape.
-    const rawShine = toShape(pad(shineShape, SHINE_PADDING));
-    const roundShine = round(rawShine, c.SHINE_RADIUS, c.KEY_RADIUS);
+    // Shelf shape.
+    const rawShelf = toShape(pad(shelfShape, SHELF_PADDING));
+    const roundShelf = round(rawShelf, c.SHELF_RADIUS, c.KEY_RADIUS);
 
-    // Shine inner edge.
-    const rawShineBase = toShape(pad(shineShape, STEP_PADDING));
-    const roundShineBase = round(rawShineBase, c.STEP_RADIUS, c.KEY_RADIUS);
-    const approxShineBase = approx(roundShineBase, c.ROUND_RESOLUTION);
+    // Shelf inner edge.
+    const rawShelfBase = toShape(pad(shelfShape, STEP_PADDING));
+    const roundShelfBase = round(rawShelfBase, c.STEP_RADIUS, c.KEY_RADIUS);
+    const approxShelfBase = approx(roundShelfBase, c.ROUND_RESOLUTION);
 
     // Calculate corner bridge lines and shapes.
     const arcCorners: Shape[] = [];
@@ -105,26 +107,26 @@ const internalCalcKeycap = (key: KeycapInput): CalculatedKeycap => {
         return out;
     };
     const baseArcBridges = arcs(1 / c.ROUND_RESOLUTION, roundBase, roundStep);
-    const shineArcBridges = arcs(
+    const shelfArcBridges = arcs(
         1 / c.ROUND_RESOLUTION,
-        roundShineBase,
-        roundShine,
+        roundShelfBase,
+        roundShelf,
     );
 
     // Combine all shapes into footprint.
     const finalBase = multiUnion(
         approx(roundBase, c.ROUND_RESOLUTION),
         approxStep,
-        approx(roundShine, c.ROUND_RESOLUTION),
-        approxShineBase,
+        approx(roundShelf, c.ROUND_RESOLUTION),
+        approxShelfBase,
         ...arcCorners,
     )[0];
 
-    // Create step shape with the shine stamped out.
+    // Create step shape with the shelf stamped out.
     const inflatePadding = STEP_PADDING.map((n) => n - c.BORDER / 1000) as any;
-    const approxInflatedShineBase = approx(
+    const approxInflatedShelfBase = approx(
         round(
-            toShape(pad(shineShape, inflatePadding)),
+            toShape(pad(shelfShape, inflatePadding)),
             c.STEP_RADIUS,
             c.KEY_RADIUS,
         ),
@@ -132,7 +134,7 @@ const internalCalcKeycap = (key: KeycapInput): CalculatedKeycap => {
     );
     const approxStepOnly: Composite = difference(
         [approxStep],
-        [approxInflatedShineBase],
+        [approxInflatedShelfBase],
     )
         .flat(1)
         .map((r) => r.slice(1));
@@ -142,8 +144,10 @@ const internalCalcKeycap = (key: KeycapInput): CalculatedKeycap => {
         basePath: straightPath(finalBase),
         stepPaths: approxStepOnly.map(straightPath),
         baseArcBridges,
-        shineArcBridges,
-        shinePath: curvedPath(roundShine),
+        shelfArcBridges,
+        shelfPath: curvedPath(roundShelf),
+        topLegendBox: pad(shelfShape, SHELF_PADDING)[0],
+        frontLegendBox: shelfShape[0],
     };
     return calculatedKeycap;
 };

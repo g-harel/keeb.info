@@ -7,7 +7,7 @@ import {ReactProps} from "../../../internal/react";
 import {
     DEFAULT_KEY_COLOR,
     ROTATION_ORIGIN,
-    SHINE_PADDING_TOP,
+    SHELF_PADDING_TOP,
     START_SECTION_COLOR,
 } from "../../cons";
 import {Blocker} from "../blocker";
@@ -55,7 +55,7 @@ export const ExplodedLayout = (props: ExplodedLayoutProps) => {
         <View
             pixelWidth={props.width}
             unitSize={[unitWidth, unitHeight]}
-            padTop={-Math.min(0, SHINE_PADDING_TOP)}
+            padTop={-Math.min(0, SHELF_PADDING_TOP)}
             pool={pool}
         >
             {spreadLayout.fixedBlockers.map((blocker) => (
