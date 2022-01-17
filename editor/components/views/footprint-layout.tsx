@@ -3,7 +3,6 @@ import React from "react";
 
 import {Layout, minmax} from "../../../internal/layout";
 import {ReactProps} from "../../../internal/react";
-import * as c from "../../cons";
 import {Footprint} from "../footprint";
 import {View, ViewItem, createPool} from "../view";
 
@@ -11,6 +10,8 @@ export interface FootprintLayoutProps extends ReactProps {
     width: number;
     layout: Layout;
 }
+
+export const START_COLOR = "#e2a8a8";
 
 export const FootprintLayout = (props: FootprintLayoutProps) => {
     const [min, max] = minmax(props.layout);
@@ -21,7 +22,7 @@ export const FootprintLayout = (props: FootprintLayoutProps) => {
     const numColors = 11;
     const getColor = () => {
         count++;
-        return color(c.START_FOOTPRINT_COLOR)
+        return color(START_COLOR)
             .rotate(((count % numColors) / numColors) * 360)
             .hex();
     };

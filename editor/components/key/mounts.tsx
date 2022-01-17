@@ -4,9 +4,9 @@ import React from "react";
 import {Blank} from "../../../internal/blank";
 import {rotateCoord} from "../../../internal/point";
 import {ReactProps} from "../../../internal/react";
-import * as c from "../../cons";
 import {Pooler} from "../view";
 import {Stem} from "./stem";
+import {COLOR_DARKEN, SIZE, WIDTH} from "./stem";
 
 export interface MountProps extends ReactProps {
     pooler: Pooler;
@@ -17,6 +17,9 @@ export interface MountProps extends ReactProps {
     stabs?: boolean;
     noWire?: boolean;
 }
+
+const OFFSET = 2 * (SIZE + WIDTH / 2);
+const ANGLE = 105;
 
 export const Mounts = (props: MountProps) => (
     <>
@@ -39,14 +42,14 @@ export const Mounts = (props: MountProps) => (
                     stabilizer.angle,
                 );
                 const startWire = rotateCoord(
-                    [startStem[0] + c.WIRE_OFFSET, startStem[1]],
+                    [startStem[0] + OFFSET, startStem[1]],
                     startStem,
-                    stabilizer.angle + c.WIRE_ANGLE,
+                    stabilizer.angle + ANGLE,
                 );
                 const endWire = rotateCoord(
-                    [endStem[0] + c.WIRE_OFFSET, endStem[1]],
+                    [endStem[0] + OFFSET, endStem[1]],
                     endStem,
-                    stabilizer.angle + 180 - c.WIRE_ANGLE,
+                    stabilizer.angle + 180 - ANGLE,
                 );
                 return (
                     <g key={i}>
@@ -67,9 +70,9 @@ export const Mounts = (props: MountProps) => (
                                 x2={endWire[0]}
                                 y2={endWire[1] + props.offset}
                                 stroke={color(props.color)
-                                    .darken(c.WIRE_COLOR_DARKEN)
+                                    .darken(COLOR_DARKEN)
                                     .hex()}
-                                strokeWidth={c.WIRE_WIDTH}
+                                strokeWidth={WIDTH}
                                 strokeLinecap="round"
                             />
                         )}

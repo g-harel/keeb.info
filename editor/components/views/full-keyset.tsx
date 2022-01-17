@@ -1,14 +1,10 @@
 import React from "react";
 
 import {resolveColor} from "../../../internal/color";
+import {SHELF_PADDING_TOP} from "../../../internal/keycap";
 import {Keyset, KeysetKit, minmax} from "../../../internal/keyset";
 import {Point} from "../../../internal/point";
 import {ReactProps} from "../../../internal/react";
-import {
-    DEFAULT_KEY_COLOR,
-    MIN_KEYSET_WIDTH_DISPLAY,
-    SHELF_PADDING_TOP,
-} from "../../cons";
 import {Key} from "../key";
 import {View, ViewItem, createPool} from "../view";
 
@@ -23,6 +19,9 @@ interface KitBox {
     height: number;
     min: Point;
 }
+
+const MIN_WIDTH = 10;
+const DEFAULT_KEY_COLOR = "#eeeeee";
 
 const sum = (nums: number[]): number => {
     return nums.reduce((sum, num) => sum + num, 0);
@@ -43,7 +42,7 @@ export const FullKeyset = (props: FullKeysetProps) => {
     }
 
     // Place kits into rows.
-    let maxWidth = MIN_KEYSET_WIDTH_DISPLAY;
+    let maxWidth = MIN_WIDTH;
     for (const kit of kits) {
         maxWidth = Math.max(maxWidth, kit.width);
     }

@@ -1,23 +1,21 @@
 import React from "react";
 
 import {colorSeries} from "../../../internal/color";
+import {SHELF_PADDING_TOP} from "../../../internal/keycap";
 import {Layout, minmax, spreadSections} from "../../../internal/layout";
 import {orderVertically} from "../../../internal/point";
 import {ReactProps} from "../../../internal/react";
-import {
-    DEFAULT_KEY_COLOR,
-    ROTATION_ORIGIN,
-    SHELF_PADDING_TOP,
-    START_SECTION_COLOR,
-} from "../../cons";
 import {Blocker} from "../blocker";
 import {Key} from "../key";
-import {View, ViewItem, createPool} from "../view";
+import {ROTATION_ORIGIN, View, ViewItem, createPool} from "../view";
 
 export interface ExplodedLayoutProps extends ReactProps {
     width: number;
     layout: Layout;
 }
+
+export const START_COLOR = "#e2a8a8";
+const DEFAULT_KEY_COLOR = "#eeeeee";
 
 export const ExplodedLayout = (props: ExplodedLayoutProps) => {
     const spreadLayout = spreadSections(props.layout);
@@ -25,12 +23,11 @@ export const ExplodedLayout = (props: ExplodedLayoutProps) => {
     const unitWidth = max[0] - min[0];
     const unitHeight = max[1] - min[1];
     const sectionColors = colorSeries(
-        START_SECTION_COLOR,
+        START_COLOR,
         spreadLayout.variableSections.length,
     );
 
     // Reorder the keys so they overlap correctly.
-
     const keys = orderVertically(
         (item) => [item.key.position, item.key.angle],
         ROTATION_ORIGIN,

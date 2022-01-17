@@ -5,13 +5,12 @@ import {createGlobalStyle} from "styled-components";
 
 import {clear} from "../internal/debug";
 import {Header} from "./components/header";
-import {BACKGROUND_COLOR} from "./cons";
 import {sitemap} from "./sitemap";
 
 // Global styles, similar to traditional css.
 const GlobalStyle = createGlobalStyle`
     html {
-        background-color: ${BACKGROUND_COLOR};
+        background-color: #ffffff;
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         margin: 0;
         height: 100%;

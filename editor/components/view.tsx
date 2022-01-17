@@ -1,8 +1,8 @@
 import React from "react";
 
+import {DEBUG_DISABLE_SVG_REF} from "../../internal/debug";
 import {Point} from "../../internal/point";
 import {ReactElement, ReactProps} from "../../internal/react";
-import {DEBUG_DISABLE_SVG_REF} from "../cons";
 
 export interface ViewProps extends ReactProps {
     unitSize: Point;
@@ -16,6 +16,8 @@ interface ViewItemProps extends ReactProps {
     position: Point;
     angle: number;
 }
+
+export const ROTATION_ORIGIN: Point = [0, 0];
 
 export interface Pooler {
     (id: string, generator: () => ReactElement): ReactElement;

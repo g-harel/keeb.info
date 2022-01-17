@@ -6,7 +6,6 @@ import {genID} from "../../internal/identity";
 import {rotateCoord} from "../../internal/point";
 import {Point, RightAngle} from "../../internal/point";
 import {ReactProps} from "../../internal/react";
-// import * as c from "../cons";
 import {Pooler} from "./view";
 
 export interface FootprintProps extends ReactProps {
@@ -31,11 +30,12 @@ const PLATE_STAB_TOP_OFFSET = ((U / 15.6) * 7) / U;
 const PLATE_STAB_BOTTOM_OFFSET = ((U / 15.6) * 8.24) / U;
 const PLATE_STAB_TOP_RADIUS = ((U / 15.6) * 3.05) / U / 2;
 const PLATE_STAB_BOTTOM_RADIUS = ((U / 15.6) * 4) / U / 2;
+const FOOTPRINT_COLOR_DARKEN = 0.1;
 
 export const Footprint = (props: FootprintProps) => {
     const contactColor = color(props.color)
-        // .darken(c.FOOTPRINT_COLOR_DARKEN)
-        // .darken(c.FOOTPRINT_COLOR_DARKEN)
+        .darken(FOOTPRINT_COLOR_DARKEN)
+        .darken(FOOTPRINT_COLOR_DARKEN)
         .hex();
     const angle = props.orientation + 90;
     const rotate = (p: Point): {cx: number; cy: number} => {
@@ -43,6 +43,7 @@ export const Footprint = (props: FootprintProps) => {
         return {cx, cy};
     };
 
+    // TODO pin/pole look inverted here.
     return props.pooler(
         genID("footprint", {
             angle,

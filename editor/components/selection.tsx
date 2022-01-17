@@ -9,8 +9,7 @@ import {rotateCoord} from "../../internal/point";
 import {Angle, Point} from "../../internal/point";
 import {ReactProps} from "../../internal/react";
 import {Shape} from "../../internal/shape";
-import * as c from "../cons";
-import {Pooler} from "./view";
+import {Pooler, ROTATION_ORIGIN} from "./view";
 
 export interface SelectionItem {
     blank: Blank;
@@ -36,7 +35,7 @@ export const Selection = (props: SelectionProps) => {
         return basePathPoints.map((point) => {
             return rotateCoord(
                 [point[0] + key.position[0], point[1] + key.position[1]],
-                c.ROTATION_ORIGIN,
+                ROTATION_ORIGIN,
                 key.angle,
             );
         });

@@ -4,7 +4,6 @@ import {Box, pad} from "../../../internal/box";
 import {HexColor, resolveColor} from "../../../internal/color";
 import {KeysetKeycapLegend, SpaceBetweenLayout} from "../../../internal/keyset";
 import {Point} from "../../../internal/point";
-import * as c from "../../cons";
 import {Pooler} from "../view";
 
 interface LegendProps {
@@ -21,7 +20,8 @@ interface PositionedElement<T> {
     baseline: "auto" | "middle" | "hanging";
 }
 
-export const LEGEND_PADDING = 0.08;
+const FONT_SIZE = 0.28;
+const PADDING = 0.08;
 
 export const calcLayout = <T extends any>(
     layout: SpaceBetweenLayout<T>,
@@ -55,14 +55,14 @@ export const calcLayout = <T extends any>(
 };
 
 export const Legends = (props: LegendProps) => {
-    const container = pad(props.container, -LEGEND_PADDING);
+    const container = pad(props.container, -PADDING);
     return (
         <>
             {/* TODO wrap legends when overflow */}
             {calcLayout(props.layout, [container.width, container.height]).map(
                 (l, i) => {
                     if (l.element.text === "") return null;
-                    const size = c.LEGEND_FONT_SIZE * (l.element.size || 1);
+                    const size = FONT_SIZE * (l.element.size || 1);
                     return (
                         <text
                             key={i}

@@ -2,6 +2,8 @@ import {colorSeries} from "./color";
 import {minmax} from "./point";
 import {Composite, toSVGPath} from "./shape";
 
+export const DEBUG_DISABLE_SVG_REF = false;
+
 const defaultWidth = 400;
 const testElementID = "test-element-component";
 

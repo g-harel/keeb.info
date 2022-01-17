@@ -5,10 +5,14 @@ import {Blank} from "../../../internal/blank";
 import {Box} from "../../../internal/box";
 import {UUID} from "../../../internal/identity";
 import {genID} from "../../../internal/identity";
-import {calcKeycap} from "../../../internal/keycap";
+import {
+    BORDER,
+    SHELF_PADDING_BOTTOM,
+    SHELF_PADDING_TOP,
+    calcKeycap,
+} from "../../../internal/keycap";
 import {KeysetKeycapLegends} from "../../../internal/keyset";
 import {ReactProps} from "../../../internal/react";
-import * as c from "../../cons";
 import {Pooler} from "../view";
 import {Legends} from "./legends";
 import {Mounts} from "./mounts";
@@ -25,9 +29,13 @@ export interface KeyProps extends ReactProps {
     noWire?: boolean;
 }
 
+export const STROKE_COLOR_DARKEN = 0.06;
+export const SHELF_COLOR_DIFF = 0.05;
+export const DETAIL_BORDER = BORDER / 2;
+
 export const Key = (props: KeyProps) => {
-    const shelfColor = color(props.color).lighten(c.SHELF_COLOR_DIFF).hex();
-    const strokeColor = color(props.color).darken(c.STROKE_COLOR_DARKEN).hex();
+    const shelfColor = color(props.color).lighten(SHELF_COLOR_DIFF).hex();
+    const strokeColor = color(props.color).darken(STROKE_COLOR_DARKEN).hex();
 
     const refID = genID("key", {
         base: props.blank.boxes,
@@ -48,7 +56,7 @@ export const Key = (props: KeyProps) => {
                     <path
                         d={calculatedKeycap.basePath}
                         stroke={strokeColor}
-                        strokeWidth={c.BORDER}
+                        strokeWidth={BORDER}
                         fill={props.color}
                     />
                     {/* Base->step arcs */}
@@ -60,7 +68,7 @@ export const Key = (props: KeyProps) => {
                             x2={l[1][0]}
                             y2={l[1][1]}
                             stroke={strokeColor}
-                            strokeWidth={c.DETAIL_BORDER}
+                            strokeWidth={DETAIL_BORDER}
                             strokeLinecap="round"
                         />
                     ))}
@@ -70,7 +78,7 @@ export const Key = (props: KeyProps) => {
                             key={i}
                             d={path}
                             stroke={strokeColor}
-                            strokeWidth={c.BORDER}
+                            strokeWidth={BORDER}
                             fill={props.color}
                             strokeLinejoin="round"
                         />
@@ -84,7 +92,7 @@ export const Key = (props: KeyProps) => {
                             x2={l[1][0]}
                             y2={l[1][1]}
                             stroke={strokeColor}
-                            strokeWidth={c.DETAIL_BORDER}
+                            strokeWidth={DETAIL_BORDER}
                             strokeLinecap="round"
                         />
                     ))}
@@ -92,7 +100,7 @@ export const Key = (props: KeyProps) => {
                     <path
                         d={calculatedKeycap.shelfPath}
                         stroke={strokeColor}
-                        strokeWidth={c.BORDER}
+                        strokeWidth={BORDER}
                         fill={shelfColor}
                     />
                 </g>
@@ -102,7 +110,7 @@ export const Key = (props: KeyProps) => {
             <Mounts
                 pooler={props.pooler}
                 blank={props.blank}
-                offset={(c.SHELF_PADDING_TOP - c.SHELF_PADDING_BOTTOM) / 2}
+                offset={(SHELF_PADDING_TOP - SHELF_PADDING_BOTTOM) / 2}
                 color={props.color}
                 stem={props.stem}
                 stabs={props.stabs}

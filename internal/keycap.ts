@@ -1,6 +1,5 @@
 import {difference} from "polygon-clipping";
 
-import * as c from "../editor/cons";
 import {Box, toShape} from "./box";
 import {memCache} from "./cache";
 import {CurveShape, approx, bridgeArcs, toSVGPath as curvedPath} from "./curve";
@@ -30,17 +29,28 @@ interface CalculatedKeycap {
     frontLegendBox: Box;
 }
 
-const KEY_PADDING: [number, number, number] = [c.KEY_PAD, c.KEY_PAD, c.KEY_PAD];
-
-const STEP_PADDING: [number, number, number] = [
-    c.SHELF_PADDING_TOP * c.STEP_RATIO,
-    c.SHELF_PADDING_SIDE * c.STEP_RATIO,
-    c.SHELF_PADDING_BOTTOM * c.STEP_RATIO,
-];
+export const BORDER = 0.02;
+const KEY_PAD = BORDER / 2;
+const KEY_PADDING: [number, number, number] = [KEY_PAD, KEY_PAD, KEY_PAD];
+export const KEY_RADIUS = 0.01;
+const SHELF_RADIUS = 0.05;
+const ROUND_RESOLUTION = 1 / 5;
+export const SHELF_PADDING_TOP = -0.1;
+const SHELF_PADDING_SIDE = 0.12;
+export const SHELF_PADDING_BOTTOM = 2 * SHELF_PADDING_SIDE - SHELF_PADDING_TOP; // Keep top square.
 const SHELF_PADDING: [number, number, number] = [
-    c.SHELF_PADDING_TOP,
-    c.SHELF_PADDING_SIDE,
-    c.SHELF_PADDING_BOTTOM,
+    SHELF_PADDING_TOP,
+    SHELF_PADDING_SIDE,
+    SHELF_PADDING_BOTTOM,
+];
+const STEP_RATIO = 0.5;
+const STEP_RADIUS =
+    Math.min(KEY_RADIUS, SHELF_RADIUS) +
+    Math.abs(KEY_RADIUS - SHELF_RADIUS) * STEP_RATIO;
+const STEP_PADDING: [number, number, number] = [
+    SHELF_PADDING_TOP * STEP_RATIO,
+    SHELF_PADDING_SIDE * STEP_RATIO,
+    SHELF_PADDING_BOTTOM * STEP_RATIO,
 ];
 
 const pad = (boxes: Box[], padding: [number, number, number]): Box[] => {
@@ -64,21 +74,21 @@ const internalCalcKeycap = (key: KeycapInput): CalculatedKeycap => {
 
     // Sharp key base.
     const rawBase = toShape(boxes);
-    const roundBase = round(rawBase, c.KEY_RADIUS, c.KEY_RADIUS);
+    const roundBase = round(rawBase, KEY_RADIUS, KEY_RADIUS);
 
     // Shelf outer edge.
     const rawStep = toShape(pad(boxes, STEP_PADDING));
-    const roundStep = round(rawStep, c.STEP_RADIUS, c.KEY_RADIUS);
-    const approxStep = approx(roundStep, c.ROUND_RESOLUTION);
+    const roundStep = round(rawStep, STEP_RADIUS, KEY_RADIUS);
+    const approxStep = approx(roundStep, ROUND_RESOLUTION);
 
     // Shelf shape.
     const rawShelf = toShape(pad(shelfShape, SHELF_PADDING));
-    const roundShelf = round(rawShelf, c.SHELF_RADIUS, c.KEY_RADIUS);
+    const roundShelf = round(rawShelf, SHELF_RADIUS, KEY_RADIUS);
 
     // Shelf inner edge.
     const rawShelfBase = toShape(pad(shelfShape, STEP_PADDING));
-    const roundShelfBase = round(rawShelfBase, c.STEP_RADIUS, c.KEY_RADIUS);
-    const approxShelfBase = approx(roundShelfBase, c.ROUND_RESOLUTION);
+    const roundShelfBase = round(rawShelfBase, STEP_RADIUS, KEY_RADIUS);
+    const approxShelfBase = approx(roundShelfBase, ROUND_RESOLUTION);
 
     // Calculate corner bridge lines and shapes.
     const arcCorners: Shape[] = [];
@@ -106,31 +116,31 @@ const internalCalcKeycap = (key: KeycapInput): CalculatedKeycap => {
         });
         return out;
     };
-    const baseArcBridges = arcs(1 / c.ROUND_RESOLUTION, roundBase, roundStep);
+    const baseArcBridges = arcs(1 / ROUND_RESOLUTION, roundBase, roundStep);
     const shelfArcBridges = arcs(
-        1 / c.ROUND_RESOLUTION,
+        1 / ROUND_RESOLUTION,
         roundShelfBase,
         roundShelf,
     );
 
     // Combine all shapes into footprint.
     const finalBase = multiUnion(
-        approx(roundBase, c.ROUND_RESOLUTION),
+        approx(roundBase, ROUND_RESOLUTION),
         approxStep,
-        approx(roundShelf, c.ROUND_RESOLUTION),
+        approx(roundShelf, ROUND_RESOLUTION),
         approxShelfBase,
         ...arcCorners,
     )[0];
 
     // Create step shape with the shelf stamped out.
-    const inflatePadding = STEP_PADDING.map((n) => n - c.BORDER / 1000) as any;
+    const inflatePadding = STEP_PADDING.map((n) => n - BORDER / 1000) as any;
     const approxInflatedShelfBase = approx(
         round(
             toShape(pad(shelfShape, inflatePadding)),
-            c.STEP_RADIUS,
-            c.KEY_RADIUS,
+            STEP_RADIUS,
+            KEY_RADIUS,
         ),
-        c.ROUND_RESOLUTION,
+        ROUND_RESOLUTION,
     );
     const approxStepOnly: Composite = difference(
         [approxStep],
@@ -161,12 +171,9 @@ const internalCalcKeycap = (key: KeycapInput): CalculatedKeycap => {
         }
     }
     const frontLegendBox: Box = {
-        height: c.SHELF_PADDING_BOTTOM,
-        width: highestX - lowestX - 2 * c.SHELF_PADDING_SIDE,
-        offset: [
-            lowestX + c.SHELF_PADDING_SIDE,
-            lowestY - c.SHELF_PADDING_BOTTOM,
-        ],
+        height: SHELF_PADDING_BOTTOM,
+        width: highestX - lowestX - 2 * SHELF_PADDING_SIDE,
+        offset: [lowestX + SHELF_PADDING_SIDE, lowestY - SHELF_PADDING_BOTTOM],
     };
 
     const calculatedKeycap: CalculatedKeycap = {

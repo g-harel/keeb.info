@@ -1,4 +1,4 @@
-import {ROTATION_ORIGIN} from "../editor/cons";
+import {ROTATION_ORIGIN} from "../editor/components/view";
 import {Blank} from "./blank";
 import {Box, corners, pad as padBox} from "./box";
 import {UUID} from "./identity";
