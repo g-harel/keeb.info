@@ -139,6 +139,36 @@ const internalCalcKeycap = (key: KeycapInput): CalculatedKeycap => {
         .flat(1)
         .map((r) => r.slice(1));
 
+    // Create front legend box.
+    let lowestEdge: Point[] = [];
+    let lowestY = 0;
+    for (const point of finalBase) {
+        if (point[1] > lowestY) {
+            lowestY = point[1];
+            lowestEdge = [point];
+        } else if (point[1] === lowestY) {
+            lowestEdge.push(point);
+        }
+    }
+    let lowestX = Infinity;
+    let highestX = 0;
+    for (const point of lowestEdge) {
+        if (point[0] < lowestX) {
+            lowestX = point[0];
+        }
+        if (point[0] > highestX) {
+            highestX = point[0];
+        }
+    }
+    const frontLegendBox: Box = {
+        height: c.SHELF_PADDING_BOTTOM,
+        width: highestX - lowestX - 2 * c.SHELF_PADDING_SIDE,
+        offset: [
+            lowestX + c.SHELF_PADDING_SIDE,
+            lowestY - c.SHELF_PADDING_BOTTOM,
+        ],
+    };
+
     const calculatedKeycap: CalculatedKeycap = {
         basePathPoints: finalBase,
         basePath: straightPath(finalBase),
@@ -147,7 +177,7 @@ const internalCalcKeycap = (key: KeycapInput): CalculatedKeycap => {
         shelfArcBridges,
         shelfPath: curvedPath(roundShelf),
         topLegendBox: pad(shelfShape, SHELF_PADDING)[0],
-        frontLegendBox: shelfShape[0],
+        frontLegendBox: frontLegendBox,
     };
     return calculatedKeycap;
 };
