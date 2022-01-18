@@ -3,7 +3,8 @@
         "build": "parcel build editor/index.html",
         "fmt": "prettier --list-different --write --ignore-path .gitignore \"**/*.{js,ts,tsx,md,yml,json}\"",
         "editor": "parcel editor/index.html --open",
-        "test": "jest"
+        "test": "jest",
+        "deploy": "firebase deploy --only firestore:rules"
     },
     "dependencies": {
         "@ijprest/kle-serial": "^0.15.1",
@@ -21,6 +22,7 @@
         "parcel": "^2.0.0-beta.2",
         "polygon-clipping": "^0.15.3",
         "prettier": "^2.3.0",
+        "prettier-plugin-firestore-rules": "^0.1.5",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
         "react-firebase-hooks": "^4.0.1",
