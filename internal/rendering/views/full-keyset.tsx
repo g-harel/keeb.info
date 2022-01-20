@@ -1,10 +1,10 @@
 import React from "react";
 
-import {resolveColor} from "../../../internal/color";
-import {SHELF_PADDING_TOP} from "../../../internal/keycap";
-import {Keyset, KeysetKit, minmax} from "../../../internal/keyset";
-import {Point} from "../../../internal/point";
-import {ReactProps} from "../../../internal/react";
+import {resolveColor} from "../../color";
+import {SHELF_PADDING_TOP} from "../../keycap";
+import {Keyset, KeysetKit, minmax} from "../../keyset";
+import {Point} from "../../point";
+import {ReactProps} from "../../react";
 import {Key} from "../key";
 import {View, ViewItem, createPool} from "../view";
 

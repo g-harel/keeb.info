@@ -1,14 +1,14 @@
 import color from "color";
 import React from "react";
 
-import {Box, toShape} from "../../internal/box";
-import {toSVGPath} from "../../internal/curve";
-import {genID} from "../../internal/identity";
-import {BORDER, KEY_RADIUS} from "../../internal/keycap";
-import {ReactProps} from "../../internal/react";
-import {round} from "../../internal/shape";
+import {Box, toShape} from "../box";
+import {toSVGPath} from "../curve";
+import {genID} from "../identity";
+import {BORDER, KEY_RADIUS} from "../keycap";
+import {ReactProps} from "../react";
+import {round} from "../shape";
 import {SHELF_COLOR_DIFF, STROKE_COLOR_DARKEN} from "./key";
-import {Pooler} from "./view";
+import {Pooler} from "../../website/components/view";
 
 export interface BlockerProps extends ReactProps {
     pooler: Pooler;

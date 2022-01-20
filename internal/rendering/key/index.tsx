@@ -1,19 +1,19 @@
 import color from "color";
 import React from "react";
 
-import {Blank} from "../../../internal/blank";
-import {Box} from "../../../internal/box";
-import {UUID} from "../../../internal/identity";
-import {genID} from "../../../internal/identity";
+import {Blank} from "../../blank";
+import {Box} from "../../box";
+import {UUID} from "../../identity";
+import {genID} from "../../identity";
 import {
     BORDER,
     SHELF_PADDING_BOTTOM,
     SHELF_PADDING_TOP,
     calcKeycap,
-} from "../../../internal/keycap";
-import {KeysetKeycapLegends} from "../../../internal/keyset";
-import {ReactProps} from "../../../internal/react";
-import {Pooler} from "../view";
+} from "../../keycap";
+import {KeysetKeycapLegends} from "../../keyset";
+import {ReactProps} from "../../react";
+import {Pooler} from "../../../website/components/view";
 import {Legends} from "./legends";
 import {Mounts} from "./mounts";
 

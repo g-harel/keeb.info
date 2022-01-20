@@ -1,10 +1,10 @@
 import color from "color";
 import React from "react";
 
-import {genID} from "../../../internal/identity";
-import {Point} from "../../../internal/point";
-import {ReactProps} from "../../../internal/react";
-import {Pooler} from "../view";
+import {genID} from "../../identity";
+import {Point} from "../../point";
+import {ReactProps} from "../../react";
+import {Pooler} from "../../../website/components/view";
 
 export interface StemProps extends ReactProps {
     pooler: Pooler;

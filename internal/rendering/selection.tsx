@@ -1,14 +1,14 @@
 import color from "color";
 import React from "react";
 
-import {Blank} from "../../internal/blank";
-import {Box} from "../../internal/box";
-import {UUID} from "../../internal/identity";
-import {calcKeycap} from "../../internal/keycap";
-import {rotateCoord} from "../../internal/point";
-import {Angle, Point} from "../../internal/point";
-import {ReactProps} from "../../internal/react";
-import {Shape} from "../../internal/shape";
+import {Blank} from "../blank";
+import {Box} from "../box";
+import {UUID} from "../identity";
+import {calcKeycap} from "../keycap";
+import {rotateCoord} from "../point";
+import {Angle, Point} from "../point";
+import {ReactProps} from "../react";
+import {Shape} from "../shape";
 import {Pooler, ROTATION_ORIGIN} from "./view";
 
 export interface SelectionItem {

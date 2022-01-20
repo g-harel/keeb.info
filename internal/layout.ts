@@ -1,4 +1,4 @@
-import {ROTATION_ORIGIN} from "../website/components/view";
+import {ROTATION_ORIGIN} from "./rendering/view";
 import {Blank} from "./blank";
 import {Box, corners, pad as padBox} from "./box";
 import {UUID} from "./identity";

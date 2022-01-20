@@ -1,10 +1,10 @@
 import React from "react";
 
-import {Box, pad} from "../../../internal/box";
-import {HexColor, resolveColor} from "../../../internal/color";
-import {KeysetKeycapLegend, SpaceBetweenLayout} from "../../../internal/keyset";
-import {Point} from "../../../internal/point";
-import {Pooler} from "../view";
+import {Box, pad} from "../../box";
+import {HexColor, resolveColor} from "../../color";
+import {KeysetKeycapLegend, SpaceBetweenLayout} from "../../keyset";
+import {Point} from "../../point";
+import {Pooler} from "../../../website/components/view";
 
 interface LegendProps {
     pooler: Pooler; // Not used, the legends don't repeat enough for caching.

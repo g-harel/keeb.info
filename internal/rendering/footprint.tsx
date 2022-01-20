@@ -1,12 +1,12 @@
 import color from "color";
 import React from "react";
 
-import {Blank} from "../../internal/blank";
-import {genID} from "../../internal/identity";
-import {rotateCoord} from "../../internal/point";
-import {Point, RightAngle} from "../../internal/point";
-import {ReactProps} from "../../internal/react";
-import {Pooler} from "./view";
+import {Blank} from "../blank";
+import {genID} from "../identity";
+import {rotateCoord} from "../point";
+import {Point, RightAngle} from "../point";
+import {ReactProps} from "../react";
+import {Pooler} from "../../website/components/view";
 
 export interface FootprintProps extends ReactProps {
     pooler: Pooler;

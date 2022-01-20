@@ -22,7 +22,7 @@ import tkl from "../../external/g-harel/keyboards/kle/tkl.json";
 
 import {convertKLEToLayoutKeymap} from "../../internal/kle";
 import {Layout} from "../../internal/layout";
-import {LayoutKeymap} from "../components/views/layout-keymap";
+import {LayoutKeymap} from "../../internal/rendering/views/layout-keymap";
 
 const StyledWrapper = styled.div`
     align-items: center;

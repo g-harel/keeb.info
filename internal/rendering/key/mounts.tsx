@@ -1,10 +1,10 @@
 import color from "color";
 import React from "react";
 
-import {Blank} from "../../../internal/blank";
-import {rotateCoord} from "../../../internal/point";
-import {ReactProps} from "../../../internal/react";
-import {Pooler} from "../view";
+import {Blank} from "../../blank";
+import {rotateCoord} from "../../point";
+import {ReactProps} from "../../react";
+import {Pooler} from "../../../website/components/view";
 import {Stem} from "./stem";
 import {COLOR_DARKEN, SIZE, WIDTH} from "./stem";
 
