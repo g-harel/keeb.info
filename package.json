@@ -1,7 +1,7 @@
 {
     "scripts": {
         "build": "parcel build editor/index.html",
-        "fmt": "prettier --list-different --write --ignore-path .gitignore \"**/*.{js,ts,tsx,md,yml,json}\"",
+        "fmt": "prettier --list-different --write \"**/*.{js,ts,tsx,md,yml,json}\"",
         "editor": "parcel editor/index.html --open",
         "test": "jest",
         "deploy": "firebase deploy --only firestore:rules"

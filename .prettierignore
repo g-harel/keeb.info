@@ -1,7 +1,7 @@
 .*
 !.*ignore
 !.github/
-!.firebaserc
 
 dist/
 node_modules/
+external/

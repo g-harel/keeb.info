@@ -10,7 +10,7 @@ import {Layout} from "./layout";
 
 export type KLEKey = Key;
 
-// TODO support decals
+// TODO support decals?
 const convertKLEKey = (key: KLEKey): Blank => {
     const boxes: Box[] = [];
     boxes.push({
@@ -47,8 +47,6 @@ const convertKLEKey = (key: KLEKey): Blank => {
             offset: [0.5, 0.5],
         });
     }
-
-    // TODO legends.
 
     return {
         boxes: boxes,

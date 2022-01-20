@@ -1,3 +1,9 @@
-[submodule "reader"]
-	path = reader
-	url = https://github.com/the-via/reader.git
+[submodule "external/the-via/keyboards"]
+	path = external/the-via/keyboards
+	url = git@github.com:the-via/keyboards.git
+[submodule "external/qmk/qmk_firmware"]
+	path = external/qmk/qmk_firmware
+	url = git@github.com:qmk/qmk_firmware.git
+[submodule "external/the-via/reader"]
+	path = external/the-via/reader
+	url = git@github.com:the-via/reader.git
