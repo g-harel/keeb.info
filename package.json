@@ -42,7 +42,7 @@
         "importOrderSortSpecifiers": true,
         "importOrder": [
             "^[^.].+$",
-            "files/kle",
+            "external/",
             "^[./]"
         ]
     }

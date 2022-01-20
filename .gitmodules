@@ -13,3 +13,6 @@
 [submodule "external/zmkfirmware/zmk"]
 	path = external/zmkfirmware/zmk
 	url = git@github.com:zmkfirmware/zmk.git
+[submodule "external/g-harel/keyboards"]
+	path = external/g-harel/keyboards
+	url = git@github.com:g-harel/keyboards.git

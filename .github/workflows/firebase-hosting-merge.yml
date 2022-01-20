@@ -9,7 +9,7 @@ jobs:
         steps:
             - uses: actions/checkout@v2
               with:
-                  submodules: recursive
+                  submodules: true
             - run: npm ci && npm run build
             - uses: FirebaseExtended/action-hosting-deploy@v0
               with:
