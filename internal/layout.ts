@@ -85,7 +85,8 @@ export interface LayoutKey {
 
 // Maximum offset for options will be INC * ATTEMPTS.
 const PAD = 0.45;
-const INC = 0.1001;
+const INC = 0.10001;
+const SECTION_INC = 0.01;
 const ATTEMPTS = 100;
 
 export const minmax = (layout: Layout): [Point, Point] => {
@@ -208,9 +209,11 @@ export const spreadSections = (layout: Layout): Layout => {
 
     let avoid = footprint(layout);
 
+    let count = 0;
     for (const section of orderVertically(out.variableSections)) {
         // Keep track of how far last option had to be moved and start there.
-        let lastIncrement = 1;
+        let lastIncrement = count * SECTION_INC;
+        count++;
         for (const option of section.options.slice(1)) {
             // Move option until it doesn't intersect.
             // TODO alternate offset between full jumps and smaller ones

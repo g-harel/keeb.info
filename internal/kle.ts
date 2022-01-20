@@ -11,7 +11,7 @@ import {Layout} from "./layout";
 export type KLEKey = Key;
 
 // TODO support decals?
-const convertKLEKey = (key: KLEKey): Blank => {
+export const convertKLEKey = (key: KLEKey): Blank => {
     const boxes: Box[] = [];
     boxes.push({
         height: key.height,

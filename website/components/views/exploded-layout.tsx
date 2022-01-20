@@ -17,6 +17,7 @@ export interface ExplodedLayoutProps extends ReactProps {
 export const START_COLOR = "#e2a8a8";
 const DEFAULT_KEY_COLOR = "#eeeeee";
 
+// TODO add key size when non-standard.
 export const ExplodedLayout = (props: ExplodedLayoutProps) => {
     const spreadLayout = spreadSections(props.layout);
     const [min, max] = minmax(spreadLayout);

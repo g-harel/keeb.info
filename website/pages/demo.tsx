@@ -1,9 +1,14 @@
 import React, {Profiler} from "react";
 import styled from "styled-components";
 
+import titan from "../../external/the-via/keyboards/v3/acekeyboard/titan60/titan60.json";
+import discipline from "../../external/the-via/keyboards/v3/cftkb/discipline/discipline.json";
+import bear from "../../external/the-via/keyboards/v3/other/bear_65/bear_65.json";
+import candybar from "../../external/the-via/keyboards/v3/tkc/candybar/candybar-lefty.json";
 import {Keyset} from "../../internal/keyset";
 import {convertKLEToLayout} from "../../internal/kle";
 import {Layout} from "../../internal/layout";
+import {convertViaToLayout} from "../../internal/via";
 import {ExplodedLayout} from "../components/views/exploded-layout";
 import {FootprintLayout} from "../components/views/footprint-layout";
 import {FullKeyset} from "../components/views/full-keyset";
@@ -19,15 +24,39 @@ const LegacyTestContainer = styled.div`
     width: 1200;
 `;
 
+const Wrapper = styled.div`
+    * {
+        margin: 0.5rem;
+    }
+`;
+
 const profilerLogger = (id, _, duration) => console.log(id, duration);
 
 export const Demo = () => (
-    <div>
+    <Wrapper>
+        <Profiler id="via-titan-layout-exploded" onRender={profilerLogger}>
+            <ExplodedLayout layout={convertViaToLayout(titan)} width={600} />
+        </Profiler>
+        <Profiler id="via-discipline-layout-exploded" onRender={profilerLogger}>
+            <ExplodedLayout
+                layout={convertViaToLayout(discipline)}
+                width={600}
+            />
+        </Profiler>
+        <Profiler id="via-candybar-layout-exploded" onRender={profilerLogger}>
+            <ExplodedLayout layout={convertViaToLayout(candybar)} width={600} />
+        </Profiler>
+        <Profiler id="via-bear-layout-exploded" onRender={profilerLogger}>
+            <ExplodedLayout layout={convertViaToLayout(bear)} width={600} />
+        </Profiler>
         <Profiler id="demo-keyset" onRender={profilerLogger}>
             <FullKeyset keyset={demoKeyset as Keyset} width={1200} />
         </Profiler>
         <Profiler id="botanical-keyset" onRender={profilerLogger}>
-            <FullKeyset keyset={botanicalKeyset as Keyset} width={1200} />
+            <FullKeyset
+                keyset={botanicalKeyset as any as Keyset}
+                width={1200}
+            />
         </Profiler>
         <Profiler id="demo-layout-exploded" onRender={profilerLogger}>
             <ExplodedLayout layout={demoLayout as Layout} width={1200} />
@@ -45,5 +74,5 @@ export const Demo = () => (
                 width={600}
             />
         </LegacyTestContainer>
-    </div>
+    </Wrapper>
 );

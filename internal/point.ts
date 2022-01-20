@@ -14,6 +14,10 @@ export const add = (a: Point, b: Point): Point => {
     return [a[0] + b[0], a[1] + b[1]];
 };
 
+export const subtract = (a: Point, b: Point): Point => {
+    return add(a, b.map((p) => -p) as Point);
+};
+
 export const distance = (a: Point, b: Point): number => {
     return Math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2);
 };
