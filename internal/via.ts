@@ -1,9 +1,7 @@
 import {Serial} from "@ijprest/kle-serial";
 
-import {corners} from "./box";
 import {convertKLEKey} from "./kle";
-import {Layout, LayoutKey, LayoutOption, LayoutSection} from "./layout";
-import {Point, add, distance, subtract} from "./point";
+import {Layout, LayoutKey, LayoutSection, stackSections} from "./layout";
 
 export interface ViaDefinition {
     name: string;
@@ -19,26 +17,13 @@ export interface ViaDefinition {
     };
 }
 
-const pointToString = (point: Point): string => {
-    return point.join(",");
-};
-
-const keyCorners = (keys: LayoutKey[]): Point[] => {
-    const result: Point[] = [];
-    for (const key of keys) {
-        for (const box of key.blank.boxes) {
-            result.push(...corners(key.position, box));
-        }
-    }
-    return result;
-};
-
 export const convertViaToLayout = (definition: ViaDefinition): Layout => {
     const kle = Serial.deserialize(definition.layouts.keymap);
 
     // Collect keys and sections.
     // There is no need to consider blockers since they are not generated.
     // TODO handle decals/blockers
+    // TODO add labels to things instead of using refs
     const fixedKeys: LayoutKey[] = [];
     const variableSections: LayoutSection[] = [];
     for (const key of kle.keys) {
@@ -47,21 +32,35 @@ export const convertViaToLayout = (definition: ViaDefinition): Layout => {
                 .split(",")
                 .map(Number);
 
-            // Create required sections/options.
+            // Create required sections.
             while (variableSections.length <= sectionIndex) {
                 variableSections.push({
-                    ref: String(Math.random()),
+                    ref: "",
                     options: [],
                 });
             }
+            let sectionLabel = definition.layouts.labels[sectionIndex];
+            if (Array.isArray(sectionLabel)) {
+                sectionLabel = sectionLabel[0];
+            }
+            variableSections[sectionIndex].ref = sectionLabel;
+
+            // Create required options.
             const options = variableSections[sectionIndex].options;
             while (options.length <= optionIndex) {
                 options.push({
-                    ref: String(Math.random()),
+                    ref: "",
                     blockers: [],
                     keys: [],
                 });
             }
+            let optionLabel = definition.layouts.labels[sectionIndex];
+            if (Array.isArray(optionLabel)) {
+                optionLabel = optionLabel[optionIndex];
+            } else {
+                optionLabel = String(optionIndex);
+            }
+            options[optionIndex].ref = optionLabel;
 
             const option = options[optionIndex];
             option.keys.push({
@@ -84,71 +83,10 @@ export const convertViaToLayout = (definition: ViaDefinition): Layout => {
         });
     }
 
-    // Collect all corners from fixed keys.
-    const fixedKeyCorners: Record<string, boolean> = {};
-    keyCorners(fixedKeys).map(
-        (c) => (fixedKeyCorners[pointToString(c)] = true),
-    );
-
-    // Make all options overlap within section.
-    for (const section of variableSections) {
-        // Find section anchor by option with most corners in common with fixed keys.
-        // When there is a tie, all tied sections will be included in origin search.
-        let sectionAnchor: Point = [0, 0];
-        let maxCommonCornersOptions: LayoutOption[] = [];
-        let maxCommonCorners = 0;
-        for (const option of section.options) {
-            const optionCorners = keyCorners(option.keys).map(pointToString);
-            const count = optionCorners
-                .map((c) => !!fixedKeyCorners[c])
-                .filter(Boolean).length;
-            if (count > maxCommonCorners) {
-                maxCommonCornersOptions = [option];
-                maxCommonCorners = count;
-            } else if (count === maxCommonCorners) {
-                maxCommonCornersOptions.push(option);
-            }
-        }
-        // Fallback to key position nearest the origin.
-        let minSectionAnchorDistance: number = Infinity;
-        for (const option of maxCommonCornersOptions) {
-            for (const key of option.keys) {
-                const delta = distance(key.position, [0, 0]);
-                if (delta < minSectionAnchorDistance) {
-                    sectionAnchor = key.position;
-                    minSectionAnchorDistance = delta;
-                }
-            }
-        }
-
-        // TODO fix when option is to the left of anchor.
-        // TODO don't assume X/Y invariant was followed.
-        for (const option of section.options) {
-            // Find each option's anchor by finding nearest one to the section anchor.
-            // Because options are only moved horizontally or vertically, the nearest
-            // position to the section anchor should be the option anchor.
-            let optionAnchor: Point = [0, 0];
-            let minOptionAnchorDistance: number = Infinity;
-            for (const key of option.keys) {
-                const delta = distance(key.position, sectionAnchor);
-                if (delta < minOptionAnchorDistance) {
-                    optionAnchor = key.position;
-                    minOptionAnchorDistance = delta;
-                }
-            }
-
-            // Move all keys within option to overlap with section footprint.
-            const diff = subtract(sectionAnchor, optionAnchor);
-            for (const key of option.keys) {
-                key.position = add(key.position, diff);
-            }
-        }
-    }
-
-    return {
-        ref: String(Math.random()),
+    return stackSections({
+        ref: definition.name,
         fixedBlockers: [],
         fixedKeys,
         variableSections,
-    };
+    });
 };

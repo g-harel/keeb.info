@@ -2,7 +2,13 @@ import {ROTATION_ORIGIN} from "../website/components/view";
 import {Blank} from "./blank";
 import {Box, corners, pad as padBox} from "./box";
 import {UUID} from "./identity";
-import {add, orderVertically as order, rotateCoord} from "./point";
+import {
+    add,
+    distance,
+    orderVertically as order,
+    rotateCoord,
+    subtract,
+} from "./point";
 import {Angle, Point, RightAngle, minmax as pointMinmax} from "./point";
 import {Composite, Shape, doesIntersect, multiUnion} from "./shape";
 
@@ -265,4 +271,84 @@ export const spreadSections = (layout: Layout): Layout => {
     }
 
     return out;
+};
+
+const pointToString = (point: Point): string => {
+    return point.join(",");
+};
+
+const keyCorners = (keys: LayoutKey[]): Point[] => {
+    const result: Point[] = [];
+    for (const key of keys) {
+        for (const box of key.blank.boxes) {
+            result.push(...corners(key.position, box));
+        }
+    }
+    return result;
+};
+
+const centerOfMass = (entities: LayoutEntity[]): Point => {
+    const perimiterPoints = multiUnion(
+        ...entities.map(toComposite).flat(),
+    ).flat();
+    const pointsSum = perimiterPoints.reduce(add, [0, 0]);
+    return pointsSum.map((v) => v / perimiterPoints.length) as Point;
+};
+
+export const stackSections = (layout: Layout): Layout => {
+    // Collect all corners from fixed keys.
+    const fixedKeyCorners: Record<string, boolean> = {};
+    keyCorners(layout.fixedKeys).map(
+        (c) => (fixedKeyCorners[pointToString(c)] = true),
+    );
+
+    // Make all options overlap within section.
+    for (const section of layout.variableSections) {
+        // Find section anchor by option with most corners in common with fixed keys.
+        let maxCommonCornersOptions: LayoutOption[] = [];
+        let maxCommonCorners = 0;
+        for (const option of section.options) {
+            const optionCorners = keyCorners(option.keys).map(pointToString);
+            const count = optionCorners
+                .map((c) => !!fixedKeyCorners[c])
+                .filter(Boolean).length;
+            if (count > maxCommonCorners) {
+                maxCommonCornersOptions = [option];
+                maxCommonCorners = count;
+            } else if (count === maxCommonCorners) {
+                maxCommonCornersOptions.push(option);
+            }
+        }
+        // Fallback to option with key position nearest the origin.
+        let anchorOption: LayoutOption = maxCommonCornersOptions[0];
+        let minSectionAnchorDistance: number = Infinity;
+        for (const option of maxCommonCornersOptions) {
+            for (const key of option.keys) {
+                const delta = distance(key.position, [0, 0]);
+                if (delta < minSectionAnchorDistance) {
+                    anchorOption = option;
+                    minSectionAnchorDistance = delta;
+                }
+            }
+        }
+
+        // Stack all options on top of the anchor option.
+        const anchorCenter = centerOfMass([
+            ...anchorOption.keys,
+            ...anchorOption.blockers,
+        ]);
+        for (const option of section.options) {
+            let optionCenter = centerOfMass([
+                ...option.keys,
+                ...option.blockers,
+            ]);
+            // Move all keys within option to overlap with section footprint.
+            const diff = subtract(anchorCenter, optionCenter);
+            for (const key of option.keys) {
+                key.position = add(key.position, diff);
+            }
+        }
+    }
+
+    return layout;
 };

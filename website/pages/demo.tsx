@@ -26,7 +26,8 @@ const LegacyTestContainer = styled.div`
 
 const Wrapper = styled.div`
     * {
-        margin: 0.5rem;
+        border: 1px solid #eee;
+        margin: 1rem;
     }
 `;
 
