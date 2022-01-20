@@ -17,6 +17,7 @@ interface ViewItemProps extends ReactProps {
     angle: number;
 }
 
+// TODO move to internal
 export const ROTATION_ORIGIN: Point = [0, 0];
 
 export interface Pooler {
