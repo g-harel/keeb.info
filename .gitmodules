@@ -7,3 +7,9 @@
 [submodule "external/the-via/reader"]
 	path = external/the-via/reader
 	url = git@github.com:the-via/reader.git
+[submodule "external/vial-kb/vial-qmk"]
+	path = external/vial-kb/vial-qmk
+	url = git@github.com:vial-kb/vial-qmk.git
+[submodule "external/zmkfirmware/zmk"]
+	path = external/zmkfirmware/zmk
+	url = git@github.com:zmkfirmware/zmk.git
