@@ -4,7 +4,7 @@ import React from "react";
 import {Blank} from "../../blank";
 import {rotateCoord} from "../../point";
 import {ReactProps} from "../../react";
-import {Pooler} from "../../../website/components/view";
+import {Pooler} from "../view";
 import {Stem} from "./stem";
 import {COLOR_DARKEN, SIZE, WIDTH} from "./stem";
 

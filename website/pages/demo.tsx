@@ -9,10 +9,10 @@ import candybar from "../../external/the-via/keyboards/v3/tkc/candybar/candybar-
 import {Keyset} from "../../internal/keyset";
 import {convertKLEToLayout} from "../../internal/kle";
 import {Layout} from "../../internal/layout";
-import {convertViaToLayout} from "../../internal/via";
 import {ExplodedLayout} from "../../internal/rendering/views/exploded-layout";
 import {FootprintLayout} from "../../internal/rendering/views/footprint-layout";
 import {FullKeyset} from "../../internal/rendering/views/full-keyset";
+import {convertViaToLayout} from "../../internal/via";
 import botanicalKeyset from "../testdata/botanical-keyset.json";
 import demoKeyset from "../testdata/demo-keyset.json";
 import demoLayout from "../testdata/demo-layout.json";

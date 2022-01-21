@@ -6,7 +6,7 @@ import {genID} from "../identity";
 import {rotateCoord} from "../point";
 import {Point, RightAngle} from "../point";
 import {ReactProps} from "../react";
-import {Pooler} from "../../website/components/view";
+import {Pooler} from "./view";
 
 export interface FootprintProps extends ReactProps {
     pooler: Pooler;

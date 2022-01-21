@@ -4,7 +4,7 @@ import {Box, pad} from "../../box";
 import {HexColor, resolveColor} from "../../color";
 import {KeysetKeycapLegend, SpaceBetweenLayout} from "../../keyset";
 import {Point} from "../../point";
-import {Pooler} from "../../../website/components/view";
+import {Pooler} from "../view";
 
 interface LegendProps {
     pooler: Pooler; // Not used, the legends don't repeat enough for caching.

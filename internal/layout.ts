@@ -1,4 +1,3 @@
-import {ROTATION_ORIGIN} from "./rendering/view";
 import {Blank} from "./blank";
 import {Box, corners, pad as padBox} from "./box";
 import {UUID} from "./identity";
@@ -10,6 +9,7 @@ import {
     subtract,
 } from "./point";
 import {Angle, Point, RightAngle, minmax as pointMinmax} from "./point";
+import {ROTATION_ORIGIN} from "./rendering/view";
 import {Composite, Shape, doesIntersect, multiUnion} from "./shape";
 
 // Keyboard layout.

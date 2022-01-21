@@ -13,7 +13,7 @@ import {
 } from "../../keycap";
 import {KeysetKeycapLegends} from "../../keyset";
 import {ReactProps} from "../../react";
-import {Pooler} from "../../../website/components/view";
+import {Pooler} from "../view";
 import {Legends} from "./legends";
 import {Mounts} from "./mounts";
 

@@ -8,7 +8,7 @@ import {BORDER, KEY_RADIUS} from "../keycap";
 import {ReactProps} from "../react";
 import {round} from "../shape";
 import {SHELF_COLOR_DIFF, STROKE_COLOR_DARKEN} from "./key";
-import {Pooler} from "../../website/components/view";
+import {Pooler} from "./view";
 
 export interface BlockerProps extends ReactProps {
     pooler: Pooler;

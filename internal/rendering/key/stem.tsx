@@ -4,7 +4,7 @@ import React from "react";
 import {genID} from "../../identity";
 import {Point} from "../../point";
 import {ReactProps} from "../../react";
-import {Pooler} from "../../../website/components/view";
+import {Pooler} from "../view";
 
 export interface StemProps extends ReactProps {
     pooler: Pooler;

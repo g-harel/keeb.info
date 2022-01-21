@@ -1,11 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import {BrowserRouter, useRoutes} from "react-router-dom";
-import {createGlobalStyle} from "styled-components";
+import {ThemeProvider, createGlobalStyle} from "styled-components";
 
 import {clear} from "../internal/debug";
 import {Header} from "./components/header";
 import {sitemap} from "./sitemap";
+import {t, theme} from "./theme";
 
 // Global styles, similar to traditional css.
 const GlobalStyle = createGlobalStyle`
@@ -17,6 +18,7 @@ const GlobalStyle = createGlobalStyle`
     }
 
     body {
+        background-color: ${t(({colors}) => colors.background)};
         display: flex;
         flex-direction: column;
         margin: 0;
@@ -37,13 +39,13 @@ const Routes = () => {
 };
 
 const App = () => (
-    <>
+    <ThemeProvider theme={theme}>
         <GlobalStyle />
         <BrowserRouter>
             <Header />
             <Routes />
         </BrowserRouter>
-    </>
+    </ThemeProvider>
 );
 
 ReactDOM.render(<App />, document.getElementById("root"));

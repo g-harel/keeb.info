@@ -37,11 +37,11 @@ const StyledTextLink = styled(Link)`
     text-decoration: none;
     text-transform: uppercase;
     padding: 0.5rem;
-    background-color: ${color("#a7e7f0")};
-    color: ${color("#a7e7f0").darken(0.5)};
+    background-color: ${color("#a7e7f0").hex()};
+    color: ${color("#a7e7f0").darken(0.5).hex()};
     font-size: 0.8rem;
     border-radius: 0.25rem;
-    border: 1px solid ${color("#a7e7f0").darken(0.1)};
+    border: 1px solid ${color("#a7e7f0").darken(0.1).hex()};
 `;
 
 export const Header = () => {
