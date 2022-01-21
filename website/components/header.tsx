@@ -2,13 +2,15 @@ import color from "color";
 import React from "react";
 import {Link} from "react-router-dom";
 import styled from "styled-components";
+import {ReactProps} from "../../internal/react";
+import {theme} from "../theme";
 
 import {Logo} from "./logo";
 
 const StyledHeader = styled.header`
     align-items: center;
-    background-color: pink;
-    border-bottom: 2px solid lightpink;
+    background-color: ${theme.colors.highlight};
+    border-bottom: 2px solid ${theme.colors.highlightAccent};
     display: flex;
     flex-direction: row;
     flex-shrink: 0;
@@ -24,7 +26,7 @@ const StyledLogoLink = styled(Link)`
     text-decoration: none;
 
     :hover {
-        background-color: lightpink;
+        background-color: ${theme.colors.highlightAccent};
     }
 
     :active {
@@ -44,11 +46,12 @@ const StyledTextLink = styled(Link)`
     border: 1px solid ${color("#a7e7f0").darken(0.1).hex()};
 `;
 
-export const Header = () => {
+// TODO fix non-styled-definition theme access.
+export const Header = (props: ReactProps) => {
     return (
         <StyledHeader>
             <StyledLogoLink to="/">
-                <Logo color="lightcoral" size="2rem" />
+                <Logo color={theme.colors.highlightAccent(props)} size="2rem" />
             </StyledLogoLink>
             <StyledTextLink to="/account">Profile</StyledTextLink>
         </StyledHeader>

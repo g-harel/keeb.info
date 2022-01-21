@@ -1,6 +1,7 @@
 import React, {Profiler} from "react";
 import styled from "styled-components";
 
+import tkc1800 from "../../external/the-via/keyboards/src/tkc/tkc1800/tkc1800.json";
 import titan from "../../external/the-via/keyboards/v3/acekeyboard/titan60/titan60.json";
 import discipline from "../../external/the-via/keyboards/v3/cftkb/discipline/discipline.json";
 import bear from "../../external/the-via/keyboards/v3/other/bear_65/bear_65.json";
@@ -50,6 +51,9 @@ export const Demo = () => (
         </Profiler>
         <Profiler id="via-bear-layout-exploded" onRender={profilerLogger}>
             <ExplodedLayout layout={convertViaToLayout(bear)} width={600} />
+        </Profiler>
+        <Profiler id="via-bear-layout-exploded" onRender={profilerLogger}>
+            <ExplodedLayout layout={convertViaToLayout(tkc1800)} width={1200} />
         </Profiler>
         <Profiler id="demo-keyset" onRender={profilerLogger}>
             <FullKeyset keyset={demoKeyset as Keyset} width={1200} />

@@ -7,10 +7,10 @@ export interface ViaDefinition {
     name: string;
     productId: string; // TODO hex number
     vendorId: string; // TODO hex number
-    firmwareVersion: number;
-    keycodes: string[]; // TODO enum
+    firmwareVersion?: number;
+    keycodes?: string[]; // TODO enum
     matrix: {rows: number; cols: number};
-    menus: string[]; // TODO enum
+    menus?: string[]; // TODO enum
     layouts: {
         labels: (string | string[])[];
         keymap: any; // KLE

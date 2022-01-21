@@ -92,7 +92,7 @@ export interface LayoutKey {
 // Maximum offset for options will be INC * ATTEMPTS.
 const PAD = 0.45;
 const INC = 0.10001;
-const SECTION_INC = 0.01;
+const SECTION_INC = 0.001;
 const ATTEMPTS = 100;
 
 export const minmax = (layout: Layout): [Point, Point] => {
