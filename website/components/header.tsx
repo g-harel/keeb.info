@@ -2,9 +2,9 @@ import color from "color";
 import React from "react";
 import {Link} from "react-router-dom";
 import styled from "styled-components";
-import {ReactProps} from "../../internal/react";
-import {theme} from "../theme";
 
+import {ReactProps} from "../../internal/react";
+import {theme, useTheme} from "../theme";
 import {Logo} from "./logo";
 
 const StyledHeader = styled.header`
@@ -48,10 +48,11 @@ const StyledTextLink = styled(Link)`
 
 // TODO fix non-styled-definition theme access.
 export const Header = (props: ReactProps) => {
+    const theme = useTheme();
     return (
         <StyledHeader>
             <StyledLogoLink to="/">
-                <Logo color={theme.colors.highlightAccent(props)} size="2rem" />
+                <Logo color={theme.colors.secondary} size="2rem" />
             </StyledLogoLink>
             <StyledTextLink to="/account">Profile</StyledTextLink>
         </StyledHeader>
