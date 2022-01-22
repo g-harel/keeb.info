@@ -29,13 +29,19 @@ export interface KeyProps extends ReactProps {
     noWire?: boolean;
 }
 
-export const STROKE_COLOR_DARKEN = 0.06;
-export const SHELF_COLOR_DIFF = 0.05;
+// TODO add helper to calculate colors and share with blocker
+export const STROKE_COLOR_DARKEN = 0.05;
+export const STROKE_COLOR_BLACKEN = 0.25;
+export const SHELF_COLOR_LIGHTEN = 0.05;
 export const DETAIL_BORDER = BORDER / 2;
 
 export const Key = (props: KeyProps) => {
-    const shelfColor = color(props.color).lighten(SHELF_COLOR_DIFF).hex();
-    const strokeColor = color(props.color).darken(STROKE_COLOR_DARKEN).hex();
+    const shelfColor = color(props.color).lighten(SHELF_COLOR_LIGHTEN).hex();
+    const strokeColor = color(props.color)
+        .blacken(STROKE_COLOR_BLACKEN)
+        .darken(STROKE_COLOR_DARKEN)
+        .saturate(0.5)
+        .hex();
 
     const refID = genID("key", {
         base: props.blank.boxes,

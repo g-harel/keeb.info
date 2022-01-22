@@ -7,6 +7,7 @@ import discipline from "../../external/the-via/keyboards/v3/cftkb/discipline/dis
 import bear from "../../external/the-via/keyboards/v3/other/bear_65/bear_65.json";
 import candybar from "../../external/the-via/keyboards/v3/tkc/candybar/candybar-lefty.json";
 
+import {colorSeries} from "../../internal/color";
 import {Keyset} from "../../internal/keyset";
 import {convertKLEToLayout} from "../../internal/kle";
 import {Layout} from "../../internal/layout";
@@ -35,8 +36,65 @@ const Wrapper = styled.div`
 
 const profilerLogger = (id, _, duration) => console.log(id, duration);
 
+const rainbowTable = (count: number): Keyset => {
+    const colors = colorSeries("red", count);
+    const keyset: Keyset = {
+        name: "rainbowTable",
+        id: {
+            productID: "rainbowTable",
+            vendorID: "rainbowTable",
+        },
+        kits: [
+            {
+                id: {
+                    productID: "rainbowTableKit",
+                    vendorID: "rainbowTableKit",
+                },
+                keys: [],
+                name: "rainbowTableKit",
+            },
+        ],
+    };
+    for (let i = 0; i < count; i++) {
+        for (let j = 0; j < count; j++) {
+            keyset.kits[0].keys.push({
+                blank: {
+                    boxes: [
+                        {
+                            width: 1,
+                            height: 1,
+                            offset: [0, 0],
+                        },
+                    ],
+                    stem: [0.5, 0.5],
+                    stabilizers: [],
+                },
+                color: colors[(i + j) % count],
+                profile: {
+                    profile: "profile",
+                    row: "row",
+                },
+                shelf: [],
+                barred: false,
+                scooped: false,
+                stem: "",
+                keycodeAffinity: [],
+                legend: {
+                    topLegends: [],
+                    frontLegends: [],
+                },
+                position: [i, j],
+            });
+        }
+    }
+    return keyset;
+};
+
 export const Demo = () => (
     <Wrapper>
+        <Profiler id="rainbow-keyset" onRender={profilerLogger}>
+            <FullKeyset keyset={rainbowTable(21)} width={600} />
+        </Profiler>
         <Profiler id="via-titan-layout-exploded" onRender={profilerLogger}>
             <ExplodedLayout layout={convertViaToLayout(titan)} width={600} />
         </Profiler>
