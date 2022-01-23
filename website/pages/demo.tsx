@@ -1,3 +1,4 @@
+import Color from "color";
 import React, {Profiler} from "react";
 import styled from "styled-components";
 
@@ -36,8 +37,8 @@ const Wrapper = styled.div`
 
 const profilerLogger = (id, _, duration) => console.log(id, duration);
 
+// TODO also cycle through saturation
 const rainbowTable = (count: number): Keyset => {
-    const colors = colorSeries("red", count);
     const keyset: Keyset = {
         name: "rainbowTable",
         id: {
@@ -55,8 +56,18 @@ const rainbowTable = (count: number): Keyset => {
             },
         ],
     };
-    for (let i = 0; i < count; i++) {
-        for (let j = 0; j < count; j++) {
+    const colors = colorSeries("red", count);
+    colors.push("#808080");
+    for (let i = 0; i <= count; i++) {
+        for (let j = 0; j <= count; j++) {
+            const baseColor = Color(colors[i]);
+            const progress = j / count;
+            let keyColor: string = "";
+            if (progress < 0.5) {
+                keyColor = baseColor.lighten(1-2 * progress).hex();
+            } else {
+                keyColor = baseColor.darken(2 * (progress - 0.5)).hex();
+            }
             keyset.kits[0].keys.push({
                 blank: {
                     boxes: [
@@ -69,7 +80,7 @@ const rainbowTable = (count: number): Keyset => {
                     stem: [0.5, 0.5],
                     stabilizers: [],
                 },
-                color: colors[(i + j) % count],
+                color: keyColor,
                 profile: {
                     profile: "profile",
                     row: "row",
