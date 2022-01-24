@@ -64,7 +64,7 @@ const rainbowTable = (count: number): Keyset => {
             const progress = j / count;
             let keyColor: string = "";
             if (progress < 0.5) {
-                keyColor = baseColor.lighten(1-2 * progress).hex();
+                keyColor = baseColor.lighten(1 - 2 * progress).hex();
             } else {
                 keyColor = baseColor.darken(2 * (progress - 0.5)).hex();
             }

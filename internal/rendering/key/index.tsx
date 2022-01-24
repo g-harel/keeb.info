@@ -3,6 +3,7 @@ import React from "react";
 
 import {Blank} from "../../blank";
 import {Box} from "../../box";
+import {HexColor} from "../../color";
 import {UUID} from "../../identity";
 import {genID} from "../../identity";
 import {
@@ -29,19 +30,23 @@ export interface KeyProps extends ReactProps {
     noWire?: boolean;
 }
 
-// TODO add helper to calculate colors and share with blocker
-export const STROKE_COLOR_DARKEN = 0.05;
-export const STROKE_COLOR_BLACKEN = 0.25;
-export const SHELF_COLOR_LIGHTEN = 0.05;
 export const DETAIL_BORDER = BORDER / 2;
 
-export const Key = (props: KeyProps) => {
-    const shelfColor = color(props.color).lighten(SHELF_COLOR_LIGHTEN).hex();
-    const strokeColor = color(props.color)
-        .blacken(STROKE_COLOR_BLACKEN)
+// TODO move and share with blocker
+export const STROKE_COLOR_DARKEN = 0.07;
+export const STROKE_COLOR_DESATURATE = 0.18;
+export const SHELF_COLOR_LIGHTEN = 0.05;
+const keyColor = (base: HexColor): [HexColor, HexColor] => {
+    const shelfColor = color(base).lighten(SHELF_COLOR_LIGHTEN).hex();
+    const strokeColor = color(base)
+        .desaturate(STROKE_COLOR_DESATURATE)
         .darken(STROKE_COLOR_DARKEN)
-        .saturate(0.5)
         .hex();
+    return [shelfColor, strokeColor];
+};
+
+export const Key = (props: KeyProps) => {
+    const [shelfColor, strokeColor] = keyColor(props.color);
 
     const refID = genID("key", {
         base: props.blank.boxes,
