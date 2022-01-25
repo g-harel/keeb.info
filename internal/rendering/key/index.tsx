@@ -1,9 +1,7 @@
-import color from "color";
 import React from "react";
 
 import {Blank} from "../../blank";
 import {Box} from "../../box";
-import {HexColor} from "../../color";
 import {UUID} from "../../identity";
 import {genID} from "../../identity";
 import {
@@ -17,6 +15,7 @@ import {ReactProps} from "../../react";
 import {Pooler} from "../view";
 import {Legends} from "./legends";
 import {Mounts} from "./mounts";
+import {keyColor} from "../color";
 
 export interface KeyProps extends ReactProps {
     uuid: UUID;
@@ -31,19 +30,6 @@ export interface KeyProps extends ReactProps {
 }
 
 export const DETAIL_BORDER = BORDER / 2;
-
-// TODO move and share with blocker
-export const STROKE_COLOR_DARKEN = 0.07;
-export const STROKE_COLOR_DESATURATE = 0.18;
-export const SHELF_COLOR_LIGHTEN = 0.05;
-const keyColor = (base: HexColor): [HexColor, HexColor] => {
-    const shelfColor = color(base).lighten(SHELF_COLOR_LIGHTEN).hex();
-    const strokeColor = color(base)
-        .desaturate(STROKE_COLOR_DESATURATE)
-        .darken(STROKE_COLOR_DARKEN)
-        .hex();
-    return [shelfColor, strokeColor];
-};
 
 export const Key = (props: KeyProps) => {
     const [shelfColor, strokeColor] = keyColor(props.color);

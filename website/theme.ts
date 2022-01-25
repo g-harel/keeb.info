@@ -9,7 +9,7 @@ export const rawTheme = {
         highlight: "pink",
         highlightAccent: "lightpink",
         secondary: "magenta",
-        background: "#fffffa",
+        background: "#fefefe",
     },
 };
 

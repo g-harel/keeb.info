@@ -7,7 +7,7 @@ import {genID} from "../identity";
 import {BORDER, KEY_RADIUS} from "../keycap";
 import {ReactProps} from "../react";
 import {round} from "../shape";
-import {SHELF_COLOR_LIGHTEN, STROKE_COLOR_DARKEN} from "./key";
+import {keyColor} from "./color";
 import {Pooler} from "./view";
 
 export interface BlockerProps extends ReactProps {
@@ -21,8 +21,7 @@ const HATCHING_SIZE = 0.07;
 export const Blocker = (props: BlockerProps) => {
     const rawBase = round(toShape(props.boxes), KEY_RADIUS, KEY_RADIUS);
     const refID = genID("blocker", {base: props.boxes, color: props.color});
-    const innerColor = color(props.color).lighten(SHELF_COLOR_LIGHTEN).hex();
-    const strokeColor = color(props.color).darken(STROKE_COLOR_DARKEN).hex();
+    const [innerColor, strokeColor] = keyColor(props.color);
     const patternID = `${refID}-pattern`;
 
     return (

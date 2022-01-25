@@ -14,7 +14,7 @@ export interface ExplodedLayoutProps extends ReactProps {
     layout: Layout;
 }
 
-export const START_COLOR = "#e2a8a8";
+export const START_COLOR = "hsl(0, 50%, 83%)";
 const DEFAULT_KEY_COLOR = "#eeeeee";
 
 // TODO add key size when non-standard.

@@ -103,9 +103,6 @@ const rainbowTable = (count: number): Keyset => {
 
 export const Demo = () => (
     <Wrapper>
-        <Profiler id="rainbow-keyset" onRender={profilerLogger}>
-            <FullKeyset keyset={rainbowTable(21)} width={600} />
-        </Profiler>
         <Profiler id="via-titan-layout-exploded" onRender={profilerLogger}>
             <ExplodedLayout layout={convertViaToLayout(titan)} width={600} />
         </Profiler>
@@ -124,8 +121,8 @@ export const Demo = () => (
         <Profiler id="via-bear-layout-exploded" onRender={profilerLogger}>
             <ExplodedLayout layout={convertViaToLayout(tkc1800)} width={1200} />
         </Profiler>
-        <Profiler id="demo-keyset" onRender={profilerLogger}>
-            <FullKeyset keyset={demoKeyset as Keyset} width={1200} />
+        <Profiler id="demo-layout-exploded" onRender={profilerLogger}>
+            <ExplodedLayout layout={demoLayout as Layout} width={1200} />
         </Profiler>
         <Profiler id="botanical-keyset" onRender={profilerLogger}>
             <FullKeyset
@@ -133,13 +130,16 @@ export const Demo = () => (
                 width={1200}
             />
         </Profiler>
-        <Profiler id="demo-layout-exploded" onRender={profilerLogger}>
-            <ExplodedLayout layout={demoLayout as Layout} width={1200} />
-        </Profiler>
         <Profiler id="demo-layout-footprint" onRender={profilerLogger}>
             <FootprintLayout layout={demoLayout as Layout} width={1200} />
         </Profiler>
         <LegacyTestContainer>
+            <Profiler id="rainbow-keyset" onRender={profilerLogger}>
+                <FullKeyset keyset={rainbowTable(21)} width={600} />
+            </Profiler>
+            <Profiler id="demo-keyset" onRender={profilerLogger}>
+                <FullKeyset keyset={demoKeyset as Keyset} width={1200} />
+            </Profiler>
             <ExplodedLayout
                 layout={convertKLEToLayout(kleLayout)}
                 width={600}
