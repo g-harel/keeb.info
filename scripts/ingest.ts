@@ -1,5 +1,6 @@
 import fastGlob from "fast-glob";
 import fs from "fs";
+import json5 from "json5";
 import path from "path";
 
 import {ViaDefinition} from "../internal/via";
@@ -23,6 +24,30 @@ const getEntry = (vendorID: number, productID: number): KeyboardMetadata => {
     return db[vendorID][productID];
 };
 
+interface IngestErrors {
+    viaInvalidID: {
+        path: string;
+    }[];
+    viaConflictingDefinitions: {
+        path1: string;
+        path2: string;
+    }[];
+    qmkInfoSyntaxError: {
+        path: string;
+        error: string;
+    }[];
+    qmkEmptyInfo: {
+        path: string;
+    }[];
+}
+
+const errors: IngestErrors = {
+    viaInvalidID: [],
+    viaConflictingDefinitions: [],
+    qmkInfoSyntaxError: [],
+    qmkEmptyInfo: [],
+};
+
 const hexToInt = (hex: string): number | null => {
     let result = Number(hex);
     if (isNaN(result)) {
@@ -34,8 +59,12 @@ const hexToInt = (hex: string): number | null => {
     return result;
 };
 
-const logErr = (message: string) => console.error(`ERR ${message}`);
-const logWarn = (message: string) => console.error(`WARN ${message}`);
+const log = (messages: string | string[], data?: string | string[]) => {
+    messages = [messages].flat(1);
+    data = [data || []].flat(1);
+    const message = `> ${messages.join(": ")}`;
+    console.log([message, ...data].join("\n\t"));
+};
 
 // TODO convert to streams
 // TODO use path helpers everywhere
@@ -50,14 +79,16 @@ const ingestVia = () => {
             const vendorID = hexToInt(definition.vendorId);
             const productID = hexToInt(definition.productId);
             if (vendorID === null || productID === null) {
-                logErr(`invalid vendor or product IDs: ${definitionPath}`);
+                errors.viaInvalidID.push({path: definitionPath});
                 return;
             }
             const entry = getEntry(vendorID, productID);
-            if (entry.via) {
-                logWarn(
-                    `conflicting definitions:\n\t${definitionPath}\n\t${entry.viaPath}`,
-                );
+            if (entry.viaPath) {
+                errors.viaConflictingDefinitions.push({
+                    path1: entry.viaPath,
+                    path2: definitionPath,
+                });
+                return;
             }
             entry.via = definition;
             entry.viaPath = definitionPath;
@@ -68,6 +99,25 @@ const ingestQMK = () => {
     fastGlob
         .sync("external/qmk/qmk_firmware/keyboards/**/info.json")
         .forEach((infoPath) => {
+            // Read found info.json file.
+            const infoContents = fs.readFileSync(infoPath).toString("utf-8");
+            let infoContentsParsed;
+            try {
+                infoContentsParsed = json5.parse(infoContents);
+            } catch (e) {
+                errors.qmkInfoSyntaxError.push({
+                    path: infoPath,
+                    error: String(e),
+                });
+                return;
+            }
+
+            // Ignore info.json files that don't define layouts.
+            if (infoContentsParsed.layouts === undefined) {
+                errors.qmkEmptyInfo.push({path: infoPath});
+                return;
+            }
+
             let parentInfoDir = path.dirname(infoPath);
             while (!parentInfoDir.endsWith("qmk/qmk_firmware/keyboards")) {
                 parentInfoDir = path.dirname(parentInfoDir);
@@ -77,7 +127,7 @@ const ingestQMK = () => {
                         fs.readFileSync(parentInfoPath).toString("utf-8"),
                     );
                     if (parentInfoContents.layout) {
-                        logWarn(`found parent info: ${parentInfoDir}`);
+                        log("found parent info", parentInfoDir);
                         return;
                     }
                 }
@@ -91,7 +141,7 @@ const ingestQMK = () => {
                 boardFolderPath = path.dirname(boardFolderPath);
             }
             if (configPaths.length === 0) {
-                logErr(`could not find configs: ${infoPath}`);
+                log("could not find configs", infoPath);
                 return;
             }
         });
@@ -128,3 +178,8 @@ const time = (label: string, fn: () => any) => {
 time("the-via/keyboards", ingestVia);
 console.log();
 time("qmk/qmk_firmware", ingestQMK);
+
+// Log a summary of errors.
+for (const [key, value] of Object.entries(errors)) {
+    console.log(key, value.length);
+}

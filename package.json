@@ -21,6 +21,7 @@
         "firebaseui": "^6.0.0",
         "glob": "^7.2.0",
         "jest": "^27.4.5",
+        "json5": "^2.2.0",
         "nodemon": "^2.0.7",
         "parcel": "^2.0.0-beta.2",
         "polygon-clipping": "^0.15.3",
