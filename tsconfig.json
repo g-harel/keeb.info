@@ -7,5 +7,5 @@
         "strict": true,
         "esModuleInterop": true
     },
-    "include": ["internal/**/*.ts", "scripts/**/*.ts"]
+    "include": ["internal/**/*.ts", "scripts/**/*.ts", "website/**/*.ts"]
 }
