@@ -7,6 +7,8 @@ import titan from "../../external/the-via/keyboards/v3/acekeyboard/titan60/titan
 import discipline from "../../external/the-via/keyboards/v3/cftkb/discipline/discipline.json";
 import bear from "../../external/the-via/keyboards/v3/other/bear_65/bear_65.json";
 import candybar from "../../external/the-via/keyboards/v3/tkc/candybar/candybar-lefty.json";
+import polaris from "../../external/the-via/keyboards/v3/ai03/polaris/polaris.json";
+import epoch from "../../external/the-via/keyboards/v3/epoch80/epoch80.json";
 
 import {colorSeries} from "../../internal/color";
 import {Keyset} from "../../internal/keyset";
@@ -106,11 +108,17 @@ export const Demo = () => (
         <Profiler id="via-titan-layout-exploded" onRender={profilerLogger}>
             <ExplodedLayout layout={convertViaToLayout(titan)} width={600} />
         </Profiler>
+        <Profiler id="via-polaris-layout-exploded" onRender={profilerLogger}>
+            <ExplodedLayout layout={convertViaToLayout(polaris)} width={600} />
+        </Profiler>
         <Profiler id="via-discipline-layout-exploded" onRender={profilerLogger}>
             <ExplodedLayout
                 layout={convertViaToLayout(discipline)}
                 width={600}
             />
+        </Profiler>
+        <Profiler id="via-epoch-layout-exploded" onRender={profilerLogger}>
+            <ExplodedLayout layout={convertViaToLayout(epoch)} width={600} />
         </Profiler>
         <Profiler id="via-candybar-layout-exploded" onRender={profilerLogger}>
             <ExplodedLayout layout={convertViaToLayout(candybar)} width={600} />
@@ -118,7 +126,7 @@ export const Demo = () => (
         <Profiler id="via-bear-layout-exploded" onRender={profilerLogger}>
             <ExplodedLayout layout={convertViaToLayout(bear)} width={600} />
         </Profiler>
-        <Profiler id="via-bear-layout-exploded" onRender={profilerLogger}>
+        <Profiler id="via-tkc1800-layout-exploded" onRender={profilerLogger}>
             <ExplodedLayout layout={convertViaToLayout(tkc1800)} width={1200} />
         </Profiler>
         <Profiler id="demo-layout-exploded" onRender={profilerLogger}>

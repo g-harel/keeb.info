@@ -63,25 +63,19 @@ export const ExplodedLayout = (props: ExplodedLayoutProps) => {
         if (blank.boxes.length === 1) {
             const {width, height} = blank.boxes[0];
             key.legends = {
-                topLegends: [
+                topLegends: [],
+                frontLegends: [
                     [
-                        {text: ""},
                         {
                             text: width !== 1 ? width + "u" : "",
                             size: 0.8,
                         },
-                        {text: ""},
-                    ],
-                    [
-                        {text: ""},
                         {
                             text: height !== 1 ? height + "u" : "",
                             size: 0.8,
                         },
                     ],
-                    [],
                 ],
-                frontLegends: [],
             };
         }
     }

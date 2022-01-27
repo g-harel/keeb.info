@@ -1,7 +1,13 @@
 import {Serial} from "@ijprest/kle-serial";
 
 import {convertKLEKey} from "./kle";
-import {Layout, LayoutKey, LayoutSection, stackSections} from "./layout";
+import {
+    Layout,
+    LayoutBlocker,
+    LayoutKey,
+    LayoutSection,
+    stackSections,
+} from "./layout";
 
 export interface ViaDefinition {
     name: string;
@@ -21,13 +27,14 @@ export const convertViaToLayout = (definition: ViaDefinition): Layout => {
     const kle = Serial.deserialize(definition.layouts.keymap);
 
     // Collect keys and sections.
-    // There is no need to consider blockers since they are not generated.
-    // TODO handle decals/blockers
     // TODO add labels to things instead of using refs
     // TODO flag that pole/stab positions are guessed
     const fixedKeys: LayoutKey[] = [];
+    const fixedBlockers: LayoutBlocker[] = [];
     const variableSections: LayoutSection[] = [];
     for (const key of kle.keys) {
+        const isEmpty = !!key.decal;
+
         if (key.labels[8]) {
             const [sectionIndex, optionIndex] = key.labels[8]
                 .split(",")
@@ -64,29 +71,49 @@ export const convertViaToLayout = (definition: ViaDefinition): Layout => {
             options[optionIndex].ref = optionLabel;
 
             const option = options[optionIndex];
-            option.keys.push({
+            if (isEmpty) {
+                option.blockers.push({
+                    ref: String(Math.random()),
+                    boxes: convertKLEKey(key).boxes,
+                    label: "covered",
+                    position: [key.x, key.y],
+                    angle: key.rotation_angle,
+                });
+            } else {
+                option.keys.push({
+                    ref: String(Math.random()),
+                    blank: convertKLEKey(key),
+                    position: [key.x, key.y],
+                    angle: key.rotation_angle,
+                    orientation: 270,
+                });
+            }
+
+            continue;
+        }
+
+        if (isEmpty) {
+            fixedBlockers.push({
+                ref: String(Math.random()),
+                boxes: convertKLEKey(key).boxes,
+                label: "covered",
+                position: [key.x, key.y],
+                angle: key.rotation_angle,
+            });
+        } else {
+            fixedKeys.push({
                 ref: String(Math.random()),
                 blank: convertKLEKey(key),
                 position: [key.x, key.y],
                 angle: key.rotation_angle,
                 orientation: 270,
             });
-
-            continue;
         }
-
-        fixedKeys.push({
-            ref: String(Math.random()),
-            blank: convertKLEKey(key),
-            position: [key.x, key.y],
-            angle: key.rotation_angle,
-            orientation: 270,
-        });
     }
 
     return stackSections({
         ref: definition.name,
-        fixedBlockers: [],
+        fixedBlockers,
         fixedKeys,
         variableSections,
     });

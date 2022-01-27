@@ -287,6 +287,16 @@ const keyCorners = (keys: LayoutKey[]): Point[] => {
     return result;
 };
 
+const blockerCorners = (blockers: LayoutBlocker[]): Point[] => {
+    const result: Point[] = [];
+    for (const blocker of blockers) {
+        for (const box of blocker.boxes) {
+            result.push(...corners(blocker.position, box));
+        }
+    }
+    return result;
+};
+
 const centerOfMass = (entities: LayoutEntity[]): Point => {
     const perimiterPoints = multiUnion(
         ...entities.map(toComposite).flat(),
@@ -297,20 +307,26 @@ const centerOfMass = (entities: LayoutEntity[]): Point => {
 
 export const stackSections = (layout: Layout): Layout => {
     // Collect all corners from fixed keys.
-    const fixedKeyCorners: Record<string, boolean> = {};
+    const fixedCorners: Record<string, boolean> = {};
     keyCorners(layout.fixedKeys).map(
-        (c) => (fixedKeyCorners[pointToString(c)] = true),
+        (c) => (fixedCorners[pointToString(c)] = true),
+    );
+    blockerCorners(layout.fixedBlockers).map(
+        (c) => (fixedCorners[pointToString(c)] = true),
     );
 
     // Make all options overlap within section.
     for (const section of layout.variableSections) {
         // Find section anchor by option with most corners in common with fixed keys.
+        // TODO make a center of mass calculation with fixed entities.
         let maxCommonCornersOptions: LayoutOption[] = [];
         let maxCommonCorners = 0;
         for (const option of section.options) {
-            const optionCorners = keyCorners(option.keys).map(pointToString);
+            const optionCorners = keyCorners(option.keys)
+                .map(pointToString)
+                .concat(blockerCorners(option.blockers).map(pointToString));
             const count = optionCorners
-                .map((c) => !!fixedKeyCorners[c])
+                .map((c) => !!fixedCorners[c])
                 .filter(Boolean).length;
             if (count > maxCommonCorners) {
                 maxCommonCornersOptions = [option];
@@ -325,6 +341,13 @@ export const stackSections = (layout: Layout): Layout => {
         for (const option of maxCommonCornersOptions) {
             for (const key of option.keys) {
                 const delta = distance(key.position, [0, 0]);
+                if (delta < minSectionAnchorDistance) {
+                    anchorOption = option;
+                    minSectionAnchorDistance = delta;
+                }
+            }
+            for (const blocker of option.blockers) {
+                const delta = distance(blocker.position, [0, 0]);
                 if (delta < minSectionAnchorDistance) {
                     anchorOption = option;
                     minSectionAnchorDistance = delta;
@@ -346,6 +369,9 @@ export const stackSections = (layout: Layout): Layout => {
             const diff = subtract(anchorCenter, optionCenter);
             for (const key of option.keys) {
                 key.position = add(key.position, diff);
+            }
+            for (const blocker of option.blockers) {
+                blocker.position = add(blocker.position, diff);
             }
         }
     }
