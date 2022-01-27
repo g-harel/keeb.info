@@ -24,6 +24,7 @@ export const convertViaToLayout = (definition: ViaDefinition): Layout => {
     // There is no need to consider blockers since they are not generated.
     // TODO handle decals/blockers
     // TODO add labels to things instead of using refs
+    // TODO flag that pole/stab positions are guessed
     const fixedKeys: LayoutKey[] = [];
     const variableSections: LayoutSection[] = [];
     for (const key of kle.keys) {

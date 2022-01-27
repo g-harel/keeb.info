@@ -12,10 +12,10 @@ import {
 } from "../../keycap";
 import {KeysetKeycapLegends} from "../../keyset";
 import {ReactProps} from "../../react";
+import {keyColor} from "../color";
 import {Pooler} from "../view";
 import {Legends} from "./legends";
 import {Mounts} from "./mounts";
-import {keyColor} from "../color";
 
 export interface KeyProps extends ReactProps {
     uuid: UUID;

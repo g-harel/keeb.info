@@ -1,10 +1,16 @@
 import React from "react";
 
-import {colorSeries} from "../../../internal/color";
+import {HexColor, colorSeries} from "../../../internal/color";
 import {SHELF_PADDING_TOP} from "../../../internal/keycap";
-import {Layout, minmax, spreadSections} from "../../../internal/layout";
+import {
+    Layout,
+    LayoutKey,
+    minmax,
+    spreadSections,
+} from "../../../internal/layout";
 import {orderVertically} from "../../../internal/point";
 import {ReactProps} from "../../../internal/react";
+import {KeysetKeycapLegends} from "../../keyset";
 import {Blocker} from "../blocker";
 import {Key} from "../key";
 import {ROTATION_ORIGIN, View, ViewItem, createPool} from "../view";
@@ -17,7 +23,6 @@ export interface ExplodedLayoutProps extends ReactProps {
 export const START_COLOR = "hsl(0, 50%, 83%)";
 const DEFAULT_KEY_COLOR = "#eeeeee";
 
-// TODO add key size when non-standard.
 export const ExplodedLayout = (props: ExplodedLayoutProps) => {
     const spreadLayout = spreadSections(props.layout);
     const [min, max] = minmax(spreadLayout);
@@ -29,7 +34,11 @@ export const ExplodedLayout = (props: ExplodedLayoutProps) => {
     );
 
     // Reorder the keys so they overlap correctly.
-    const keys = orderVertically(
+    const keys: {
+        key: LayoutKey;
+        color: HexColor;
+        legends?: KeysetKeycapLegends;
+    }[] = orderVertically(
         (item) => [item.key.position, item.key.angle],
         ROTATION_ORIGIN,
         spreadLayout.fixedKeys.map((key) => ({
@@ -47,6 +56,35 @@ export const ExplodedLayout = (props: ExplodedLayoutProps) => {
             })
             .flat(3),
     );
+
+    // Add labels for key size.
+    for (const key of keys) {
+        const blank = key.key.blank;
+        if (blank.boxes.length === 1) {
+            const {width, height} = blank.boxes[0];
+            key.legends = {
+                topLegends: [
+                    [
+                        {text: ""},
+                        {
+                            text: width !== 1 ? width + "u" : "",
+                            size: 0.8,
+                        },
+                        {text: ""},
+                    ],
+                    [
+                        {text: ""},
+                        {
+                            text: height !== 1 ? height + "u" : "",
+                            size: 0.8,
+                        },
+                    ],
+                    [],
+                ],
+                frontLegends: [],
+            };
+        }
+    }
 
     const [pool, pooler] = createPool();
     return (
@@ -101,6 +139,7 @@ export const ExplodedLayout = (props: ExplodedLayoutProps) => {
                         blank={key.key.blank}
                         color={key.color}
                         boxes={(key.key as any).shelf || []}
+                        legend={key.legends}
                         stem
                         stabs
                     />

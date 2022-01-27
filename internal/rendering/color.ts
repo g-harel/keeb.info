@@ -1,4 +1,5 @@
 import color from "color";
+
 import {HexColor} from "../color";
 
 export const STROKE_COLOR_DARKEN = 0.07;
