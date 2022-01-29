@@ -96,14 +96,25 @@ const ingestVia = () => {
 };
 
 const ingestQMK = () => {
+    // TODO combine revisions of same board.
     fastGlob
         .sync("external/qmk/qmk_firmware/keyboards/**/info.json")
         .forEach((infoPath) => {
-            // Read found info.json file.
-            const infoContents = fs.readFileSync(infoPath).toString("utf-8");
-            let infoContentsParsed;
+            const infoDir = path.dirname(infoPath);
+
+            // Parent directories in ascending order (direct parent is first).
+            const parentDirs: string[] = [path.dirname(infoDir)];
+            while (!parentDirs[0].endsWith("qmk/qmk_firmware/keyboards")) {
+                parentDirs.unshift(path.dirname(parentDirs[0]));
+            }
+            parentDirs.shift();
+            parentDirs.reverse();
+
+            // Read info file.
+            const infoContentsRaw = fs.readFileSync(infoPath).toString("utf-8");
+            let infoContents;
             try {
-                infoContentsParsed = json5.parse(infoContents);
+                infoContents = json5.parse(infoContentsRaw);
             } catch (e) {
                 errors.qmkInfoSyntaxError.push({
                     path: infoPath,
@@ -112,39 +123,46 @@ const ingestQMK = () => {
                 return;
             }
 
-            // Ignore info.json files that don't define layouts.
-            if (infoContentsParsed.layouts === undefined) {
+            // Ignore info files that don't define layouts.
+            if (infoContents.layouts === undefined) {
                 errors.qmkEmptyInfo.push({path: infoPath});
                 return;
             }
 
-            let parentInfoDir = path.dirname(infoPath);
-            while (!parentInfoDir.endsWith("qmk/qmk_firmware/keyboards")) {
-                parentInfoDir = path.dirname(parentInfoDir);
-                const parentInfoPath = path.join(parentInfoDir, "info.json");
-                if (fs.existsSync(parentInfoPath)) {
-                    const parentInfoContents = JSON.parse(
-                        fs.readFileSync(parentInfoPath).toString("utf-8"),
-                    );
-                    if (parentInfoContents.layout) {
-                        log("found parent info", parentInfoDir);
-                        return;
-                    }
-                }
-            }
-
-            let boardFolderPath = path.dirname(infoPath);
-            let configPaths: string[] = [];
-            while (!boardFolderPath.endsWith("qmk/qmk_firmware/keyboards")) {
-                configPaths = fastGlob.sync(boardFolderPath + "/**/config.h");
-                if (configPaths.length > 0) break;
-                boardFolderPath = path.dirname(boardFolderPath);
-            }
-            if (configPaths.length === 0) {
-                log("could not find configs", infoPath);
-                return;
+            const childConfigs = fastGlob.sync(infoDir + "/**/config.h");
+            if (childConfigs.length === 0) {
+                // TODO look in parent dirs
+                log(infoPath);
             }
         });
+
+    // Ignore info files that are not at the root of their directory.
+    // let parentInfoDir = infoDir;
+    // while (!parentInfoDir.endsWith("qmk/qmk_firmware/keyboards")) {
+    //     parentInfoDir = path.dirname(parentInfoDir);
+    //     const parentInfoPath = path.join(parentInfoDir, "info.json");
+    //     if (fs.existsSync(parentInfoPath)) {
+    //         const parentInfoContents = JSON.parse(
+    //             fs.readFileSync(parentInfoPath).toString("utf-8"),
+    //         );
+    //         if (parentInfoContents.layout) {
+    //             log("found parent info", parentInfoDir);
+    //             return;
+    //         }
+    //     }
+    // }
+
+    // let boardFolderPath = path.dirname(infoPath);
+    // let configPaths: string[] = [];
+    // while (!boardFolderPath.endsWith("qmk/qmk_firmware/keyboards")) {
+    //     configPaths = fastGlob.sync(boardFolderPath + "/**/config.h");
+    //     if (configPaths.length > 0) break;
+    //     boardFolderPath = path.dirname(boardFolderPath);
+    // }
+    // if (configPaths.length === 0) {
+    //     log("could not find configs", infoPath);
+    //     return;
+    // }
 
     // const configFile = fs.readFileSync(path).toString("utf-8");
     // let configPath = path;
@@ -175,8 +193,9 @@ const time = (label: string, fn: () => any) => {
     console.timeEnd(label);
 };
 
+//
+
 time("the-via/keyboards", ingestVia);
-console.log();
 time("qmk/qmk_firmware", ingestQMK);
 
 // Log a summary of errors.
