@@ -3,30 +3,28 @@ import React from "react";
 import {Link} from "react-router-dom";
 import styled from "styled-components";
 
-import {ReactProps} from "../../internal/react";
 import {theme, useTheme} from "../theme";
 import {Logo} from "./logo";
 
 const StyledHeader = styled.header`
     align-items: center;
-    background-color: ${theme.colors.highlight};
-    border-bottom: 2px solid ${theme.colors.highlightAccent};
     display: flex;
     flex-direction: row;
     flex-shrink: 0;
     height: 3rem;
     justify-content: space-between;
-    padding: 0 0.5rem;
+    padding: 0 0.3rem;
 `;
 
 const StyledLogoLink = styled(Link)`
     border-radius: 0.2rem;
-    height: 2rem;
     padding: 0.2rem;
     text-decoration: none;
+    border: 2px solid ${theme.colors.background};
+    box-sizing: border-box;
 
     :hover {
-        background-color: ${theme.colors.highlightAccent};
+        border-color: ${theme.colors.sub};
     }
 
     :active {
@@ -48,12 +46,12 @@ const StyledTextLink = styled(Link)`
     text-transform: uppercase;
 `;
 
-export const Header = (props: ReactProps) => {
+export const Header = () => {
     const theme = useTheme();
     return (
         <StyledHeader>
             <StyledLogoLink to="/">
-                <Logo color={theme.colors.secondary} size="2rem" />
+                <Logo color={theme.colors.main} size="2rem" />
             </StyledLogoLink>
             <div style={{flexGrow: 1}}></div>
             <StyledTextLink to="/demo">Demo</StyledTextLink>

@@ -6,13 +6,13 @@ import {ThemeProvider, createGlobalStyle} from "styled-components";
 import {clear} from "../internal/debug";
 import {Header} from "./components/header";
 import {sitemap} from "./sitemap";
-import {rawTheme, theme} from "./theme";
+import {lightTheme, theme} from "./theme";
 
 // Global styles, similar to traditional css.
 const GlobalStyle = createGlobalStyle`
     html {
-        background-color: #ffffff;
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        background-color: ${theme.colors.background};
+        font-family: ${theme.fontStack};
         margin: 0;
         height: 100%;
     }
@@ -39,7 +39,7 @@ const Routes = () => {
 };
 
 const App = () => (
-    <ThemeProvider theme={rawTheme}>
+    <ThemeProvider theme={lightTheme}>
         <GlobalStyle />
         <BrowserRouter>
             <Header />

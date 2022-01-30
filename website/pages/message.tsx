@@ -2,10 +2,11 @@ import React from "react";
 import styled from "styled-components";
 
 import {ReactProps} from "../../internal/react";
+import {theme} from "../theme";
 
 const StyledWrapper = styled.div`
     align-items: center;
-    color: lightcoral;
+    color: ${theme.colors.text};
     display: flex;
     flex-grow: 1;
     justify-content: center;
