@@ -35,18 +35,19 @@ const StyledLogoLink = styled(Link)`
 `;
 
 const StyledTextLink = styled(Link)`
-    font-weight: bold;
-    text-decoration: none;
-    text-transform: uppercase;
-    padding: 0.5rem;
     background-color: ${color("#a7e7f0").hex()};
-    color: ${color("#a7e7f0").darken(0.5).hex()};
-    font-size: 0.8rem;
     border-radius: 0.25rem;
     border: 1px solid ${color("#a7e7f0").darken(0.1).hex()};
+    color: ${color("#a7e7f0").darken(0.5).hex()};
+    font-size: 0.8rem;
+    font-weight: bold;
+    justify-self: flex-end;
+    margin-left: 1rem;
+    padding: 0.5rem;
+    text-decoration: none;
+    text-transform: uppercase;
 `;
 
-// TODO fix non-styled-definition theme access.
 export const Header = (props: ReactProps) => {
     const theme = useTheme();
     return (
@@ -54,6 +55,8 @@ export const Header = (props: ReactProps) => {
             <StyledLogoLink to="/">
                 <Logo color={theme.colors.secondary} size="2rem" />
             </StyledLogoLink>
+            <div style={{flexGrow: 1}}></div>
+            <StyledTextLink to="/demo">Demo</StyledTextLink>
             <StyledTextLink to="/account">Profile</StyledTextLink>
         </StyledHeader>
     );
