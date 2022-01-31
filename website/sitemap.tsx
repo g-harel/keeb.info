@@ -1,7 +1,7 @@
 import React from "react";
 import {RouteObject} from "react-router-dom";
 
-import {Account} from "./pages/account";
+import {Profile} from "./pages/profile";
 import {Demo} from "./pages/demo";
 import {Layouts} from "./pages/layouts";
 import {Message} from "./pages/message";
@@ -11,9 +11,9 @@ export const sitemap = {
         path: "/",
         element: <Layouts />,
     },
-    account: {
-        path: "/account",
-        element: <Account />,
+    profile: {
+        path: "/profile",
+        element: <Profile />,
     },
     demo: {
         path: "/demo",

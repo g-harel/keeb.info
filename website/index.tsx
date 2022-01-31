@@ -12,6 +12,7 @@ import {lightTheme, theme} from "./theme";
 const GlobalStyle = createGlobalStyle`
     html {
         background-color: ${theme.colors.background};
+        color: ${theme.colors.text};
         font-family: ${theme.fontStack};
         margin: 0;
         height: 100%;

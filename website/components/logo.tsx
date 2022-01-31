@@ -5,8 +5,11 @@ import {ReactProps} from "../../internal/react";
 
 export interface LogoProps extends ReactProps {
     size: string;
-    color: string;
 }
+
+const GroupWrapper = styled.g`
+    fill: currentColor;
+`;
 
 export const Logo = (props: LogoProps) => (
     <div style={{paddingTop: `calc(${props.size} * 0.1)`}}>
@@ -23,9 +26,8 @@ export const Logo = (props: LogoProps) => (
             enableBackground="new 0 0 1000 780"
             xmlSpace="preserve"
         >
-            <g>
+            <GroupWrapper>
                 <path
-                    fill={props.color}
                     d="M939.863,225.015H60.137c-30.366,0-54.982,24.616-54.982,54.983c0,30.367,24.616,54.982,54.982,54.982
 		h307.124L150.09,552.152c-21.473,21.471-21.473,56.285,0,77.758c10.735,10.734,24.808,16.102,38.878,16.102
 		c14.072,0,28.144-5.367,38.88-16.102l217.17-217.172v307.125c0,30.367,24.616,54.982,54.982,54.982s54.982-24.615,54.982-54.982
@@ -34,11 +36,10 @@ export const Logo = (props: LogoProps) => (
 		C994.846,249.631,970.229,225.015,939.863,225.015z"
                 />
                 <path
-                    fill={props.color}
                     d="M280.067,115.05h439.863c30.367,0,54.982-24.616,54.982-54.983c0-30.366-24.615-54.982-54.982-54.982
 		H280.067c-30.366,0-54.982,24.616-54.982,54.982C225.085,90.434,249.701,115.05,280.067,115.05z"
                 />
-            </g>
+            </GroupWrapper>
         </svg>
     </div>
 );

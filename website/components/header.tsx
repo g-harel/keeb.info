@@ -2,8 +2,9 @@ import color from "color";
 import React from "react";
 import {Link} from "react-router-dom";
 import styled from "styled-components";
+import {sitemap} from "../sitemap";
 
-import {theme, useTheme} from "../theme";
+import {theme} from "../theme";
 import {Logo} from "./logo";
 
 const StyledHeader = styled.header`
@@ -18,13 +19,12 @@ const StyledHeader = styled.header`
 
 const StyledLogoLink = styled(Link)`
     border-radius: 0.2rem;
+    color: ${theme.colors.sub};
     padding: 0.2rem;
     text-decoration: none;
-    border: 2px solid ${theme.colors.background};
-    box-sizing: border-box;
 
     :hover {
-        border-color: ${theme.colors.sub};
+        color: ${theme.colors.main}
     }
 
     :active {
@@ -33,29 +33,26 @@ const StyledLogoLink = styled(Link)`
 `;
 
 const StyledTextLink = styled(Link)`
-    background-color: ${color("#a7e7f0").hex()};
-    border-radius: 0.25rem;
-    border: 1px solid ${color("#a7e7f0").darken(0.1).hex()};
-    color: ${color("#a7e7f0").darken(0.5).hex()};
+    color: ${theme.colors.text};
     font-size: 0.8rem;
-    font-weight: bold;
-    justify-self: flex-end;
-    margin-left: 1rem;
+    margin-right: 1rem;
     padding: 0.5rem;
-    text-decoration: none;
-    text-transform: uppercase;
+
+    :not(:hover) {
+        text-decoration: none;
+    }
 `;
 
 export const Header = () => {
-    const theme = useTheme();
     return (
         <StyledHeader>
             <StyledLogoLink to="/">
-                <Logo color={theme.colors.main} size="2rem" />
+                <Logo size="2rem" />
             </StyledLogoLink>
             <div style={{flexGrow: 1}}></div>
-            <StyledTextLink to="/demo">Demo</StyledTextLink>
-            <StyledTextLink to="/account">Profile</StyledTextLink>
+            <StyledTextLink to={sitemap.demo.path}>/demo</StyledTextLink>
+            <StyledTextLink to={sitemap.profile.path}>/profile</StyledTextLink>
+            <StyledTextLink to="/404">/404</StyledTextLink>
         </StyledHeader>
     );
 };

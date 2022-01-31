@@ -32,8 +32,6 @@ const StyledWrapper = styled.div`
 `;
 
 const StyledItem = styled.div`
-    background-color: white;
-    color: lightcoral;
     margin-bottom: 1rem;
     padding: 1.5rem 2rem 2rem;
 

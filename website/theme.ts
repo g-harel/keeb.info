@@ -3,13 +3,13 @@ import {useTheme as styledComponentsUseTheme} from "styled-components";
 import {createAccessorsByExample} from "../internal/theme";
 
 export const lightTheme = {
-    fontStack: `"Helvetica Neue", Helvetica, Arial, sans-serif`,
+    fontStack: `'SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo', 'Courier', 'monospace';`,
     colors: {
-        background: "#eeebe2",
+        background: "#fefefe",
         text: "#080909",
         error: "#c87e74",
         main: "#080909",
-        sub: "#99947f",
+        sub: "#69646f",
     },
 };
 

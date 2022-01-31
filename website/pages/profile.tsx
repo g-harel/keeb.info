@@ -11,7 +11,7 @@ const StyledWrapper = styled.div`
     padding: 2rem;
 `;
 
-export const Account = () => {
+export const Profile = () => {
     const [user, loading, error] = useAuthState();
     const navigate = useNavigate();
 
