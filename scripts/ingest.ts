@@ -39,6 +39,9 @@ interface IngestErrors {
     qmkEmptyInfo: {
         path: string;
     }[];
+    qmkMissingConfig: {
+        path: string;
+    }[]
 }
 
 const errors: IngestErrors = {
@@ -46,6 +49,7 @@ const errors: IngestErrors = {
     viaConflictingDefinitions: [],
     qmkInfoSyntaxError: [],
     qmkEmptyInfo: [],
+    qmkMissingConfig: [],
 };
 
 const hexToInt = (hex: string): number | null => {
@@ -95,8 +99,10 @@ const ingestVia = () => {
         });
 };
 
+// TODO change this to be folder based instead of indexing on info.json files.
 const ingestQMK = () => {
     // TODO combine revisions of same board.
+    // TODO do better for oddly laid out directories.
     fastGlob
         .sync("external/qmk/qmk_firmware/keyboards/**/info.json")
         .forEach((infoPath) => {
@@ -129,10 +135,9 @@ const ingestQMK = () => {
                 return;
             }
 
-            const childConfigs = fastGlob.sync(infoDir + "/**/config.h");
-            if (childConfigs.length === 0) {
-                // TODO look in parent dirs
-                log(infoPath);
+            const configPath = path.join(infoDir, "config.h");
+            if (!fs.existsSync(configPath)) {
+                errors.qmkMissingConfig.push({path: configPath});
             }
         });
 
@@ -202,3 +207,4 @@ time("qmk/qmk_firmware", ingestQMK);
 for (const [key, value] of Object.entries(errors)) {
     console.log(key, value.length);
 }
+console.log(errors.qmkMissingConfig)
