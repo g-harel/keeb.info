@@ -41,7 +41,7 @@ interface IngestErrors {
     }[];
     qmkMissingConfig: {
         path: string;
-    }[]
+    }[];
 }
 
 const errors: IngestErrors = {
@@ -207,4 +207,4 @@ time("qmk/qmk_firmware", ingestQMK);
 for (const [key, value] of Object.entries(errors)) {
     console.log(key, value.length);
 }
-console.log(errors.qmkMissingConfig)
+console.log(errors.qmkMissingConfig);

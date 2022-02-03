@@ -14,15 +14,21 @@ import {colorSeries} from "../../internal/color";
 import {Keyset} from "../../internal/keyset";
 import {convertKLEToLayout} from "../../internal/kle";
 import {Layout} from "../../internal/layout";
+import {ReactProps} from "../../internal/react";
 import {ExplodedLayout} from "../../internal/rendering/views/exploded-layout";
 import {FootprintLayout} from "../../internal/rendering/views/footprint-layout";
 import {FullKeyset} from "../../internal/rendering/views/full-keyset";
 import {convertViaToLayout} from "../../internal/via";
+import {Defer} from "../components/defer";
 import botanicalKeyset from "../testdata/botanical-keyset.json";
 import demoKeyset from "../testdata/demo-keyset.json";
 import demoLayout from "../testdata/demo-layout.json";
 import kleKeyset from "../testdata/kle-keyset.json";
 import kleLayout from "../testdata/kle-layout.json";
+
+interface DemoItemProps extends ReactProps {
+    name: string;
+}
 
 const LegacyTestContainer = styled.div`
     display: flex;
@@ -37,7 +43,77 @@ const Wrapper = styled.div`
     }
 `;
 
-const profilerLogger = (id, _, duration) => console.log(id, duration);
+const DemoItem = (props: DemoItemProps) => {
+    const profilerLogger = (id, _, duration) => console.log(id, duration);
+    return (
+        <Defer>
+            <Profiler id={props.name} onRender={profilerLogger}>
+                {props.children}
+            </Profiler>
+        </Defer>
+    );
+};
+
+export const Demo = () => (
+    <Wrapper>
+        <DemoItem name="via-titan-layout-exploded">
+            <ExplodedLayout layout={convertViaToLayout(titan)} width={600} />
+        </DemoItem>
+        <DemoItem name="via-polaris-layout-exploded">
+            <ExplodedLayout layout={convertViaToLayout(polaris)} width={600} />
+        </DemoItem>
+        <DemoItem name="via-discipline-layout-exploded">
+            <ExplodedLayout
+                layout={convertViaToLayout(discipline)}
+                width={600}
+            />
+        </DemoItem>
+        <DemoItem name="via-epoch-layout-exploded">
+            <ExplodedLayout layout={convertViaToLayout(epoch)} width={600} />
+        </DemoItem>
+        <DemoItem name="via-candybar-layout-exploded">
+            <ExplodedLayout layout={convertViaToLayout(candybar)} width={600} />
+        </DemoItem>
+        <DemoItem name="via-bear-layout-exploded">
+            <ExplodedLayout layout={convertViaToLayout(bear)} width={600} />
+        </DemoItem>
+        <DemoItem name="via-tkc1800-layout-exploded">
+            <ExplodedLayout layout={convertViaToLayout(tkc1800)} width={1200} />
+        </DemoItem>
+        <DemoItem name="demo-layout-exploded">
+            <ExplodedLayout layout={demoLayout as Layout} width={1200} />
+        </DemoItem>
+        <DemoItem name="botanical-keyset">
+            <FullKeyset
+                keyset={botanicalKeyset as any as Keyset}
+                width={1200}
+            />
+        </DemoItem>
+        <DemoItem name="demo-layout-footprint">
+            <FootprintLayout layout={demoLayout as Layout} width={1200} />
+        </DemoItem>
+        <LegacyTestContainer>
+            <DemoItem name="rainbow-keyset">
+                <FullKeyset keyset={rainbowTable(21)} width={600} />
+            </DemoItem>
+            <DemoItem name="demo-keyset">
+                <FullKeyset keyset={demoKeyset as Keyset} width={1200} />
+            </DemoItem>
+            <DemoItem name="demo-kle-layout">
+                <ExplodedLayout
+                    layout={convertKLEToLayout(kleLayout)}
+                    width={600}
+                />
+            </DemoItem>
+            <DemoItem name="demo-kle-keyset">
+                <ExplodedLayout
+                    layout={convertKLEToLayout(kleKeyset)}
+                    width={600}
+                />
+            </DemoItem>
+        </LegacyTestContainer>
+    </Wrapper>
+);
 
 // TODO also cycle through saturation
 const rainbowTable = (count: number): Keyset => {
@@ -102,60 +178,3 @@ const rainbowTable = (count: number): Keyset => {
     }
     return keyset;
 };
-
-export const Demo = () => (
-    <Wrapper>
-        <Profiler id="via-titan-layout-exploded" onRender={profilerLogger}>
-            <ExplodedLayout layout={convertViaToLayout(titan)} width={600} />
-        </Profiler>
-        <Profiler id="via-polaris-layout-exploded" onRender={profilerLogger}>
-            <ExplodedLayout layout={convertViaToLayout(polaris)} width={600} />
-        </Profiler>
-        <Profiler id="via-discipline-layout-exploded" onRender={profilerLogger}>
-            <ExplodedLayout
-                layout={convertViaToLayout(discipline)}
-                width={600}
-            />
-        </Profiler>
-        <Profiler id="via-epoch-layout-exploded" onRender={profilerLogger}>
-            <ExplodedLayout layout={convertViaToLayout(epoch)} width={600} />
-        </Profiler>
-        <Profiler id="via-candybar-layout-exploded" onRender={profilerLogger}>
-            <ExplodedLayout layout={convertViaToLayout(candybar)} width={600} />
-        </Profiler>
-        <Profiler id="via-bear-layout-exploded" onRender={profilerLogger}>
-            <ExplodedLayout layout={convertViaToLayout(bear)} width={600} />
-        </Profiler>
-        <Profiler id="via-tkc1800-layout-exploded" onRender={profilerLogger}>
-            <ExplodedLayout layout={convertViaToLayout(tkc1800)} width={1200} />
-        </Profiler>
-        <Profiler id="demo-layout-exploded" onRender={profilerLogger}>
-            <ExplodedLayout layout={demoLayout as Layout} width={1200} />
-        </Profiler>
-        <Profiler id="botanical-keyset" onRender={profilerLogger}>
-            <FullKeyset
-                keyset={botanicalKeyset as any as Keyset}
-                width={1200}
-            />
-        </Profiler>
-        <Profiler id="demo-layout-footprint" onRender={profilerLogger}>
-            <FootprintLayout layout={demoLayout as Layout} width={1200} />
-        </Profiler>
-        <LegacyTestContainer>
-            <Profiler id="rainbow-keyset" onRender={profilerLogger}>
-                <FullKeyset keyset={rainbowTable(21)} width={600} />
-            </Profiler>
-            <Profiler id="demo-keyset" onRender={profilerLogger}>
-                <FullKeyset keyset={demoKeyset as Keyset} width={1200} />
-            </Profiler>
-            <ExplodedLayout
-                layout={convertKLEToLayout(kleLayout)}
-                width={600}
-            />
-            <ExplodedLayout
-                layout={convertKLEToLayout(kleKeyset)}
-                width={600}
-            />
-        </LegacyTestContainer>
-    </Wrapper>
-);

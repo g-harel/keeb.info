@@ -2,8 +2,8 @@ import color from "color";
 import React from "react";
 import {Link} from "react-router-dom";
 import styled from "styled-components";
-import {sitemap} from "../sitemap";
 
+import {sitemap} from "../sitemap";
 import {theme} from "../theme";
 import {Logo} from "./logo";
 
@@ -24,7 +24,7 @@ const StyledLogoLink = styled(Link)`
     text-decoration: none;
 
     :hover {
-        color: ${theme.colors.main}
+        color: ${theme.colors.main};
     }
 
     :active {

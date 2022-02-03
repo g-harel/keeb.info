@@ -21,8 +21,10 @@ import tkc1800 from "../../external/g-harel/keyboards/kle/tkc1800.json";
 import tkl from "../../external/g-harel/keyboards/kle/tkl.json";
 
 import {convertKLEToLayoutKeymap} from "../../internal/kle";
-import {Layout} from "../../internal/layout";
+import {Layout, minmax} from "../../internal/layout";
+import {subtract} from "../../internal/point";
 import {LayoutKeymap} from "../../internal/rendering/views/layout-keymap";
+import {Defer} from "../components/defer";
 
 const StyledWrapper = styled.div`
     align-items: center;
@@ -54,16 +56,24 @@ const StyledItem = styled.div`
 // TODO make downloadable.
 export const LayoutItem = (props: {raw: any}) => {
     const [layout, keymap] = convertKLEToLayoutKeymap(props.raw);
+    const [width, height] = subtract(...minmax(layout));
+    const defaultWidth = 838;
+
     const name = props.raw[0]?.name || "unknown";
     return (
         <StyledItem>
             <h2>{name}</h2>
             <h4>{layout.fixedKeys.length} keys</h4>
-            <LayoutKeymap
-                layout={layout as Layout}
-                keymap={keymap}
-                width={838}
-            />
+            <Defer
+                width={`${defaultWidth}px`}
+                height={`${(defaultWidth / width) * height}px`}
+            >
+                <LayoutKeymap
+                    layout={layout as Layout}
+                    keymap={keymap}
+                    width={defaultWidth}
+                />
+            </Defer>
         </StyledItem>
     );
 };
