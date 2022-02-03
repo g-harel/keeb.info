@@ -99,47 +99,91 @@ const ingestVia = () => {
         });
 };
 
-// TODO change this to be folder based instead of indexing on info.json files.
+// TODO combine revisions of same board.
+// TODO do better for oddly laid out directories.
 const ingestQMK = () => {
-    // TODO combine revisions of same board.
-    // TODO do better for oddly laid out directories.
-    fastGlob
-        .sync("external/qmk/qmk_firmware/keyboards/**/info.json")
-        .forEach((infoPath) => {
-            const infoDir = path.dirname(infoPath);
+    const qmkRoot = "external/qmk/qmk_firmware/keyboards";
 
-            // Parent directories in ascending order (direct parent is first).
-            const parentDirs: string[] = [path.dirname(infoDir)];
-            while (!parentDirs[0].endsWith("qmk/qmk_firmware/keyboards")) {
-                parentDirs.unshift(path.dirname(parentDirs[0]));
-            }
-            parentDirs.shift();
-            parentDirs.reverse();
+    // Collect suspected keyboard roots.
+    const rootFiles = ["config.h", "info.json", "rules.mk"];
+    const roots: string[] = [];
+    for (const current of fs.readdirSync(qmkRoot)) {
+        const currentPath = path.join(qmkRoot, current);
 
-            // Read info file.
-            const infoContentsRaw = fs.readFileSync(infoPath).toString("utf-8");
-            let infoContents;
-            try {
-                infoContents = json5.parse(infoContentsRaw);
-            } catch (e) {
-                errors.qmkInfoSyntaxError.push({
-                    path: infoPath,
-                    error: String(e),
-                });
-                return;
-            }
+        // Skip non-dirs in root.
+        if (!fs.statSync(currentPath).isDirectory()) continue;
 
-            // Ignore info files that don't define layouts.
-            if (infoContents.layouts === undefined) {
-                errors.qmkEmptyInfo.push({path: infoPath});
-                return;
+        // Collect nested files and directories.
+        const nestedFiles: string[] = [];
+        const nestedDirs: string[] = [];
+        for (const nested of fs.readdirSync(currentPath)) {
+            const nestedPath = path.join(currentPath, nested);
+            if (fs.statSync(nestedPath).isDirectory()) {
+                nestedDirs.push(nestedPath);
+            } else {
+                nestedFiles.push(nestedPath);
             }
+        }
 
-            const configPath = path.join(infoDir, "config.h");
-            if (!fs.existsSync(configPath)) {
-                errors.qmkMissingConfig.push({path: configPath});
+        // Decide whether current path is a root.
+        let isRoot = false;
+        for (const nestedFile of nestedFiles) {
+            for (const rootFile of rootFiles) {
+                if (path.basename(nestedFile) === rootFile) {
+                    isRoot = true;
+                    break;
+                }
             }
-        });
+            if (isRoot) break;
+        }
+
+        // Add current dir or it's children depending on root status.
+        if (isRoot) {
+            roots.push(currentPath);
+        } else {
+            roots.push(...nestedDirs);
+        }
+    }
+
+    console.log(roots);
+
+    // fastGlob
+    //     .sync("external/qmk/qmk_firmware/keyboards/**/info.json")
+    //     .forEach((infoPath) => {
+    //         const infoDir = path.dirname(infoPath);
+
+    //         // Parent directories in ascending order (direct parent is first).
+    //         const parentDirs: string[] = [path.dirname(infoDir)];
+    //         while (!parentDirs[0].endsWith("qmk/qmk_firmware/keyboards")) {
+    //             parentDirs.unshift(path.dirname(parentDirs[0]));
+    //         }
+    //         parentDirs.shift();
+    //         parentDirs.reverse();
+
+    //         // Read info file.
+    //         const infoContentsRaw = fs.readFileSync(infoPath).toString("utf-8");
+    //         let infoContents;
+    //         try {
+    //             infoContents = json5.parse(infoContentsRaw);
+    //         } catch (e) {
+    //             errors.qmkInfoSyntaxError.push({
+    //                 path: infoPath,
+    //                 error: String(e),
+    //             });
+    //             return;
+    //         }
+
+    //         // Ignore info files that don't define layouts.
+    //         if (infoContents.layouts === undefined) {
+    //             errors.qmkEmptyInfo.push({path: infoPath});
+    //             return;
+    //         }
+
+    //         const configPath = path.join(infoDir, "config.h");
+    //         if (!fs.existsSync(configPath)) {
+    //             errors.qmkMissingConfig.push({path: configPath});
+    //         }
+    //     });
 
     // Ignore info files that are not at the root of their directory.
     // let parentInfoDir = infoDir;
@@ -207,4 +251,3 @@ time("qmk/qmk_firmware", ingestQMK);
 for (const [key, value] of Object.entries(errors)) {
     console.log(key, value.length);
 }
-console.log(errors.qmkMissingConfig);
