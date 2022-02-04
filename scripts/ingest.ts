@@ -103,17 +103,14 @@ const ingestVia = () => {
 // TODO do better for oddly laid out directories.
 const ingestQMK = () => {
     const qmkRoot = "external/qmk/qmk_firmware/keyboards";
+    const configFile = "config.h";
+    const infoFile = "info.json";
+    const rulesFile = "rules.mk";
 
     // Collect suspected keyboard roots.
-    const rootFiles = ["config.h", "info.json", "rules.mk"];
+    const rootFiles = [configFile, infoFile, rulesFile];
     const roots: string[] = [];
-    for (const current of fs.readdirSync(qmkRoot)) {
-        const currentPath = path.join(qmkRoot, current);
-
-        // Skip non-dirs in root.
-        if (!fs.statSync(currentPath).isDirectory()) continue;
-
-        // Collect nested files and directories.
+    const findRoots = (currentPath: string) => {
         const nestedFiles: string[] = [];
         const nestedDirs: string[] = [];
         for (const nested of fs.readdirSync(currentPath)) {
@@ -137,15 +134,21 @@ const ingestQMK = () => {
             if (isRoot) break;
         }
 
-        // Add current dir or it's children depending on root status.
+        // Add current dir or keep looking depending on root status.
         if (isRoot) {
             roots.push(currentPath);
         } else {
-            roots.push(...nestedDirs);
+            nestedDirs.forEach(findRoots);
         }
     }
+    findRoots(qmkRoot);
 
-    console.log(roots);
+    for (const root of roots) {
+        const rulesPath = path.join(root, rulesFile);
+        if (!fs.existsSync(rulesPath)) {
+            console.log(root);
+        }
+    }
 
     // fastGlob
     //     .sync("external/qmk/qmk_firmware/keyboards/**/info.json")
