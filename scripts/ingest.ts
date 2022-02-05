@@ -32,24 +32,11 @@ interface IngestErrors {
         path1: string;
         path2: string;
     }[];
-    qmkInfoSyntaxError: {
-        path: string;
-        error: string;
-    }[];
-    qmkEmptyInfo: {
-        path: string;
-    }[];
-    qmkMissingConfig: {
-        path: string;
-    }[];
 }
 
 const errors: IngestErrors = {
     viaInvalidID: [],
     viaConflictingDefinitions: [],
-    qmkInfoSyntaxError: [],
-    qmkEmptyInfo: [],
-    qmkMissingConfig: [],
 };
 
 const hexToInt = (hex: string): number | null => {
@@ -142,6 +129,18 @@ const ingestQMK = () => {
         }
     }
     findRoots(qmkRoot);
+
+    const readFile = (filePath: string): string => {
+        return fs.readFileSync(filePath).toString("utf-8");
+    };
+
+    const readJsonFile = <T>(filePath: string): T | null => {
+        try {
+            return json5.parse(readFile(filePath));
+        } catch (e) {
+            return null;
+        }
+    }
 
     for (const root of roots) {
         const rulesPath = path.join(root, rulesFile);
