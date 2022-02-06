@@ -4,6 +4,7 @@ import json5 from "json5";
 import path from "path";
 
 import {ViaDefinition} from "../internal/via";
+import {Err, Possible} from "../internal/possible";
 
 interface KeyboardMetadata {
     via?: ViaDefinition;
@@ -127,20 +128,25 @@ const ingestQMK = () => {
         } else {
             nestedDirs.forEach(findRoots);
         }
-    }
+    };
     findRoots(qmkRoot);
 
-    const readFile = (filePath: string): string => {
+    const readFile = (filePath: string): Possible<string> => {
+        if (!fs.existsSync(filePath)) {
+            return Err.err(`not found: ${filePath}`);
+        }
         return fs.readFileSync(filePath).toString("utf-8");
     };
 
-    const readJsonFile = <T>(filePath: string): T | null => {
+    const readJsonFile = <T>(filePath: string): Possible<T> => {
         try {
-            return json5.parse(readFile(filePath));
+            const contents = readFile(filePath);
+            if (Err.isErr(contents)) return contents;
+            return json5.parse(contents);
         } catch (e) {
-            return null;
+            return Err.err(String(e));
         }
-    }
+    };
 
     for (const root of roots) {
         const rulesPath = path.join(root, rulesFile);
