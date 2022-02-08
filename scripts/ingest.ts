@@ -18,6 +18,14 @@ interface MetadataDB {
     };
 }
 
+interface QMKInfo {
+    layouts: any[];
+}
+
+interface QMKConfig {
+    vendorID: string;
+}
+
 const db: MetadataDB = {};
 const getEntry = (vendorID: number, productID: number): KeyboardMetadata => {
     if (!db[vendorID]) db[vendorID] = {};
@@ -33,11 +41,19 @@ interface IngestErrors {
         path1: string;
         path2: string;
     }[];
+    qmkInvalidInfo: {
+        path: string;
+    }[];
+    qmkInvalidConfig: {
+        path: string;
+    }[];
 }
 
 const errors: IngestErrors = {
     viaInvalidID: [],
     viaConflictingDefinitions: [],
+    qmkInvalidInfo: [],
+    qmkInvalidConfig: [],
 };
 
 const hexToInt = (hex: string): number | null => {
@@ -87,6 +103,23 @@ const ingestVia = () => {
         });
 };
 
+const readFile = (filePath: string): Possible<string> => {
+    if (!fs.existsSync(filePath)) {
+        return Err.err(`not found: ${filePath}`);
+    }
+    return fs.readFileSync(filePath).toString("utf-8");
+};
+
+const readJsonFile = <T>(filePath: string): Possible<T> => {
+    try {
+        const contents = readFile(filePath);
+        if (Err.isErr(contents)) return contents;
+        return json5.parse(contents);
+    } catch (e) {
+        return Err.err(filePath).with(String(e));
+    }
+};
+
 // TODO combine revisions of same board.
 // TODO do better for oddly laid out directories.
 const ingestQMK = () => {
@@ -131,28 +164,36 @@ const ingestQMK = () => {
     };
     findRoots(qmkRoot);
 
-    const readFile = (filePath: string): Possible<string> => {
-        if (!fs.existsSync(filePath)) {
-            return Err.err(`not found: ${filePath}`);
-        }
-        return fs.readFileSync(filePath).toString("utf-8");
-    };
-
-    const readJsonFile = <T>(filePath: string): Possible<T> => {
-        try {
-            const contents = readFile(filePath);
-            if (Err.isErr(contents)) return contents;
-            return json5.parse(contents);
-        } catch (e) {
-            return Err.err(String(e));
-        }
-    };
-
     for (const root of roots) {
-        const rulesPath = path.join(root, rulesFile);
-        if (!fs.existsSync(rulesPath)) {
-            console.log(root);
+        let configContents: QMKConfig | null = null;
+        const configPath = path.join(root, configFile);
+        if (fs.existsSync(configPath)) {
+            const config = readFile(configPath);
+            if (Err.isErr(config)) {
+                errors.qmkInvalidConfig.push({path: config.print()});
+                continue;
+            }
+            // TODO parse and validate config
         }
+
+        let infoContents: QMKInfo | null = null;
+        const infoPath = path.join(root, infoFile);
+        if (fs.existsSync(infoPath)) {
+            const info = readJsonFile<QMKInfo>(infoPath);
+            if (Err.isErr(info)) {
+                errors.qmkInvalidInfo.push({path: info.print()});
+                continue;
+            }
+            if (info.layouts !== undefined) {
+                infoContents = info;
+            }
+        }
+
+        // TODO read rules.mk if exists
+        // const rulesPath = path.join(root, rulesFile);
+        // if (!fs.existsSync(rulesPath)) {
+        //     console.log(root);
+        // }
     }
 
     // fastGlob
@@ -259,3 +300,4 @@ time("qmk/qmk_firmware", ingestQMK);
 for (const [key, value] of Object.entries(errors)) {
     console.log(key, value.length);
 }
+console.log(errors.qmkInvalidInfo)
