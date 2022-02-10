@@ -3,8 +3,8 @@ import fs from "fs";
 import json5 from "json5";
 import path from "path";
 
-import {ViaDefinition} from "../internal/via";
 import {Err, Possible} from "../internal/possible";
+import {ViaDefinition} from "../internal/via";
 
 interface KeyboardMetadata {
     via?: ViaDefinition;
@@ -26,6 +26,10 @@ interface QMKConfig {
     vendorID: string;
 }
 
+interface QMKRules {
+    MCU: string;
+}
+
 const db: MetadataDB = {};
 const getEntry = (vendorID: number, productID: number): KeyboardMetadata => {
     if (!db[vendorID]) db[vendorID] = {};
@@ -43,9 +47,15 @@ interface IngestErrors {
     }[];
     qmkInvalidInfo: {
         path: string;
+        error: string;
     }[];
     qmkInvalidConfig: {
         path: string;
+        error: string;
+    }[];
+    qmkInvalidRules: {
+        path: string;
+        error: string;
     }[];
 }
 
@@ -54,6 +64,7 @@ const errors: IngestErrors = {
     viaConflictingDefinitions: [],
     qmkInvalidInfo: [],
     qmkInvalidConfig: [],
+    qmkInvalidRules: [],
 };
 
 const hexToInt = (hex: string): number | null => {
@@ -170,7 +181,10 @@ const ingestQMK = () => {
         if (fs.existsSync(configPath)) {
             const config = readFile(configPath);
             if (Err.isErr(config)) {
-                errors.qmkInvalidConfig.push({path: config.print()});
+                errors.qmkInvalidConfig.push({
+                    path: configPath,
+                    error: config.print(),
+                });
                 continue;
             }
             // TODO parse and validate config
@@ -181,7 +195,10 @@ const ingestQMK = () => {
         if (fs.existsSync(infoPath)) {
             const info = readJsonFile<QMKInfo>(infoPath);
             if (Err.isErr(info)) {
-                errors.qmkInvalidInfo.push({path: info.print()});
+                errors.qmkInvalidInfo.push({
+                    path: infoPath,
+                    error: info.print(),
+                });
                 continue;
             }
             if (info.layouts !== undefined) {
@@ -189,11 +206,19 @@ const ingestQMK = () => {
             }
         }
 
-        // TODO read rules.mk if exists
-        // const rulesPath = path.join(root, rulesFile);
-        // if (!fs.existsSync(rulesPath)) {
-        //     console.log(root);
-        // }
+        let rulesContents: QMKRules | null = null;
+        const rulesPath = path.join(root, rulesFile);
+        if (fs.existsSync(rulesPath)) {
+            const rules = readJsonFile<QMKRules>(rulesPath);
+            if (Err.isErr(rules)) {
+                errors.qmkInvalidRules.push({
+                    path: rulesPath,
+                    error: rules.print(),
+                });
+                continue;
+            }
+            // TODO parse and validate rules
+        }
     }
 
     // fastGlob
@@ -300,4 +325,4 @@ time("qmk/qmk_firmware", ingestQMK);
 for (const [key, value] of Object.entries(errors)) {
     console.log(key, value.length);
 }
-console.log(errors.qmkInvalidInfo)
+console.log(errors.qmkInvalidInfo);

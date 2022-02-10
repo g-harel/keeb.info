@@ -1,5 +1,4 @@
-import { Err } from "./possible";
-
+import {Err} from "./possible";
 
 describe("Err", () => {
     // TODO make table of values.
