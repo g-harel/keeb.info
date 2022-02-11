@@ -1,139 +1,13 @@
-import fastGlob from "fast-glob";
 import fs from "fs";
-import json5 from "json5";
 import path from "path";
 
-import {Err, Possible} from "../internal/possible";
-import {ViaDefinition} from "../internal/via";
-
-interface KeyboardMetadata {
-    via?: ViaDefinition;
-    viaPath?: string;
-}
-
-interface MetadataDB {
-    // TODO these are not always numbers in QMK
-    [vendorID: number]: {
-        [productID: number]: KeyboardMetadata;
-    };
-}
-
-interface QMKInfo {
-    layouts: any[];
-}
-
-interface QMKConfig {
-    vendorID: string;
-}
-
-interface QMKRules {
-    MCU: string;
-}
-
-const db: MetadataDB = {};
-const getEntry = (vendorID: number, productID: number): KeyboardMetadata => {
-    if (!db[vendorID]) db[vendorID] = {};
-    if (!db[vendorID][productID]) db[vendorID][productID] = {};
-    return db[vendorID][productID];
-};
-
-interface IngestErrors {
-    viaInvalidID: {
-        path: string;
-    }[];
-    viaConflictingDefinitions: {
-        path1: string;
-        path2: string;
-    }[];
-    qmkInvalidInfo: {
-        path: string;
-        error: string;
-    }[];
-    qmkInvalidConfig: {
-        path: string;
-        error: string;
-    }[];
-    qmkInvalidRules: {
-        path: string;
-        error: string;
-    }[];
-}
-
-const errors: IngestErrors = {
-    viaInvalidID: [],
-    viaConflictingDefinitions: [],
-    qmkInvalidInfo: [],
-    qmkInvalidConfig: [],
-    qmkInvalidRules: [],
-};
-
-const hexToInt = (hex: string): number | null => {
-    let result = Number(hex);
-    if (isNaN(result)) {
-        result = Number("0x" + hex);
-    }
-    if (isNaN(result)) {
-        return null;
-    }
-    return result;
-};
-
-const log = (messages: string | string[], data?: string | string[]) => {
-    messages = [messages].flat(1);
-    data = [data || []].flat(1);
-    const message = `> ${messages.join(": ")}`;
-    console.log([message, ...data].join("\n\t"));
-};
-
-// TODO convert to streams
-// TODO use path helpers everywhere
-
-const ingestVia = () => {
-    fastGlob
-        .sync("external/the-via/keyboards/v3/**/*.json")
-        .forEach((definitionPath) => {
-            const definition: ViaDefinition = JSON.parse(
-                fs.readFileSync(definitionPath).toString("utf-8"),
-            );
-            const vendorID = hexToInt(definition.vendorId);
-            const productID = hexToInt(definition.productId);
-            if (vendorID === null || productID === null) {
-                errors.viaInvalidID.push({path: definitionPath});
-                return;
-            }
-            const entry = getEntry(vendorID, productID);
-            if (entry.viaPath) {
-                errors.viaConflictingDefinitions.push({
-                    path1: entry.viaPath,
-                    path2: definitionPath,
-                });
-                return;
-            }
-            entry.via = definition;
-            entry.viaPath = definitionPath;
-        });
-};
-
-const readFile = (filePath: string): Possible<string> => {
-    if (!fs.existsSync(filePath)) {
-        return Err.err(`not found: ${filePath}`);
-    }
-    return fs.readFileSync(filePath).toString("utf-8");
-};
-
-const readJsonFile = <T>(filePath: string): Possible<T> => {
-    try {
-        const contents = readFile(filePath);
-        if (Err.isErr(contents)) return contents;
-        return json5.parse(contents);
-    } catch (e) {
-        return Err.err(filePath).with(String(e));
-    }
-};
+import {Err} from "../../internal/possible";
+import {IngestContext, QMKConfig, QMKInfo, QMKRules} from "./context";
+import {readFile, readJsonFile} from "./lib";
 
 // TODO combine revisions of same board.
 // TODO do better for oddly laid out directories.
-const ingestQMK = () => {
+export const ingestQMK = (ctx: IngestContext) => {
     const qmkRoot = "external/qmk/qmk_firmware/keyboards";
     const configFile = "config.h";
     const infoFile = "info.json";
@@ -181,7 +55,7 @@ const ingestQMK = () => {
         if (fs.existsSync(configPath)) {
             const config = readFile(configPath);
             if (Err.isErr(config)) {
-                errors.qmkInvalidConfig.push({
+                ctx.errors.qmkInvalidConfig.push({
                     path: configPath,
                     error: config.print(),
                 });
@@ -195,7 +69,7 @@ const ingestQMK = () => {
         if (fs.existsSync(infoPath)) {
             const info = readJsonFile<QMKInfo>(infoPath);
             if (Err.isErr(info)) {
-                errors.qmkInvalidInfo.push({
+                ctx.errors.qmkInvalidInfo.push({
                     path: infoPath,
                     error: info.print(),
                 });
@@ -211,7 +85,7 @@ const ingestQMK = () => {
         if (fs.existsSync(rulesPath)) {
             const rules = readJsonFile<QMKRules>(rulesPath);
             if (Err.isErr(rules)) {
-                errors.qmkInvalidRules.push({
+                ctx.errors.qmkInvalidRules.push({
                     path: rulesPath,
                     error: rules.print(),
                 });
@@ -309,20 +183,3 @@ const ingestQMK = () => {
     // }
     // console.log(path);
 };
-
-const time = (label: string, fn: () => any) => {
-    console.time(label);
-    fn();
-    console.timeEnd(label);
-};
-
-//
-
-time("the-via/keyboards", ingestVia);
-time("qmk/qmk_firmware", ingestQMK);
-
-// Log a summary of errors.
-for (const [key, value] of Object.entries(errors)) {
-    console.log(key, value.length);
-}
-console.log(errors.qmkInvalidInfo);
