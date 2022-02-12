@@ -18,18 +18,6 @@ export interface MetadataDB {
     };
 }
 
-export interface QMKInfo {
-    layouts: any[];
-}
-
-export interface QMKConfig {
-    vendorID: string;
-}
-
-export interface QMKRules {
-    MCU: string;
-}
-
 export interface ErrorLog {
     viaInvalidID: {
         path: string;

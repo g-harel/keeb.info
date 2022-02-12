@@ -1,57 +1,65 @@
 import fs from "fs";
 import path from "path";
 
-import {Err} from "../../internal/possible";
-import {IngestContext, QMKConfig, QMKInfo, QMKRules} from "./context";
-import {readFile, readJsonFile} from "./lib";
+import {Err, Possible} from "../../../internal/possible";
+import {IngestContext} from "../context";
+import {readFile, readJsonFile} from "../lib";
+import {QMKConfig} from "./config";
+import {QMKInfo} from "./info";
+import {QMKRules, parse} from "./rules";
+
+const ROOT = "external/qmk/qmk_firmware/keyboards";
+const CONFIG = "config.h";
+const INFO = "info.json";
+const RULES = "rules.mk";
+
+// Collect suspected keyboard roots.
+const findRoots = (currentPath: string): string[] => {
+    let roots: string[] = [];
+
+    const nestedFiles: string[] = [];
+    const nestedDirs: string[] = [];
+    for (const nested of fs.readdirSync(currentPath)) {
+        const nestedPath = path.join(currentPath, nested);
+        if (fs.statSync(nestedPath).isDirectory()) {
+            nestedDirs.push(nestedPath);
+        } else {
+            nestedFiles.push(nestedPath);
+        }
+    }
+
+    // Decide whether current path is a root.
+    let isRoot = false;
+    for (const nestedFile of nestedFiles) {
+        for (const rootFile of [CONFIG, INFO, RULES]) {
+            if (path.basename(nestedFile) === rootFile) {
+                isRoot = true;
+                break;
+            }
+        }
+        if (isRoot) break;
+    }
+
+    // Add current dir or keep looking depending on root status.
+    if (isRoot) {
+        roots.push(currentPath);
+    } else {
+        nestedDirs.forEach((nestedDir) => {
+            roots = roots.concat(...findRoots(nestedDir));
+        });
+    }
+
+    return roots;
+};
 
 // TODO combine revisions of same board.
 // TODO do better for oddly laid out directories.
 export const ingestQMK = (ctx: IngestContext) => {
-    const qmkRoot = "external/qmk/qmk_firmware/keyboards";
-    const configFile = "config.h";
-    const infoFile = "info.json";
-    const rulesFile = "rules.mk";
-
-    // Collect suspected keyboard roots.
-    const rootFiles = [configFile, infoFile, rulesFile];
-    const roots: string[] = [];
-    const findRoots = (currentPath: string) => {
-        const nestedFiles: string[] = [];
-        const nestedDirs: string[] = [];
-        for (const nested of fs.readdirSync(currentPath)) {
-            const nestedPath = path.join(currentPath, nested);
-            if (fs.statSync(nestedPath).isDirectory()) {
-                nestedDirs.push(nestedPath);
-            } else {
-                nestedFiles.push(nestedPath);
-            }
-        }
-
-        // Decide whether current path is a root.
-        let isRoot = false;
-        for (const nestedFile of nestedFiles) {
-            for (const rootFile of rootFiles) {
-                if (path.basename(nestedFile) === rootFile) {
-                    isRoot = true;
-                    break;
-                }
-            }
-            if (isRoot) break;
-        }
-
-        // Add current dir or keep looking depending on root status.
-        if (isRoot) {
-            roots.push(currentPath);
-        } else {
-            nestedDirs.forEach(findRoots);
-        }
-    };
-    findRoots(qmkRoot);
+    const roots = findRoots(ROOT);
 
     for (const root of roots) {
         let configContents: QMKConfig | null = null;
-        const configPath = path.join(root, configFile);
+        const configPath = path.join(root, CONFIG);
         if (fs.existsSync(configPath)) {
             const config = readFile(configPath);
             if (Err.isErr(config)) {
@@ -65,7 +73,7 @@ export const ingestQMK = (ctx: IngestContext) => {
         }
 
         let infoContents: QMKInfo | null = null;
-        const infoPath = path.join(root, infoFile);
+        const infoPath = path.join(root, INFO);
         if (fs.existsSync(infoPath)) {
             const info = readJsonFile<QMKInfo>(infoPath);
             if (Err.isErr(info)) {
@@ -81,17 +89,29 @@ export const ingestQMK = (ctx: IngestContext) => {
         }
 
         let rulesContents: QMKRules | null = null;
-        const rulesPath = path.join(root, rulesFile);
+        const rulesPath = path.join(root, RULES);
         if (fs.existsSync(rulesPath)) {
-            const rules = readJsonFile<QMKRules>(rulesPath);
+            const rawRules = readFile(rulesPath);
+            if (Err.isErr(rawRules)) {
+                ctx.errors.qmkInvalidRules.push({
+                    path: rulesPath,
+                    error: rawRules.print(),
+                });
+                continue;
+            }
+
+            const rules = parse(rawRules);
             if (Err.isErr(rules)) {
+                console.log(rulesPath, rules.print());
+                console.log("====");
                 ctx.errors.qmkInvalidRules.push({
                     path: rulesPath,
                     error: rules.print(),
                 });
                 continue;
             }
-            // TODO parse and validate rules
+
+            rulesContents = rules;
         }
     }
 

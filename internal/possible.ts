@@ -20,7 +20,7 @@ export class Err {
 
     public with(message: string): Err {
         const err = new Err();
-        err.messages = [...this.messages, message];
+        err.messages = [message, ...this.messages];
         return err;
     }
 
