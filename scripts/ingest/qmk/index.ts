@@ -1,14 +1,14 @@
 import fs from "fs";
 import path from "path";
 
-import {Err, Possible} from "../../../internal/possible";
+import {Err} from "../../../internal/possible";
 import {IngestContext} from "../context";
 import {readFile, readJsonFile} from "../lib";
 import {QMKConfig} from "./config";
 import {QMKInfo} from "./info";
 import {QMKRules, parse} from "./rules";
 
-const ROOT = "external/qmk/qmk_firmware/keyboards";
+const ROOT = "external/qmk/qmk_firmware/keyboards/ai03/orbit";
 const CONFIG = "config.h";
 const INFO = "info.json";
 const RULES = "rules.mk";
@@ -90,6 +90,7 @@ export const ingestQMK = (ctx: IngestContext) => {
 
         let rulesContents: QMKRules | null = null;
         const rulesPath = path.join(root, RULES);
+        console.log(rulesPath);
         if (fs.existsSync(rulesPath)) {
             const rawRules = readFile(rulesPath);
             if (Err.isErr(rawRules)) {
