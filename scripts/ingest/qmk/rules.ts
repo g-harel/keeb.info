@@ -6,18 +6,22 @@ import {
 import {Err, Possible} from "../../../internal/possible";
 
 export interface QMKRules {
-    MCU: string;
+    layouts: string[];
+    viaEnable: boolean;
+    defaultFolder?: string;
+    raw: Record<string, string[]>;
 }
 
 enum Type {
-    EVAL,       // 0
-    INCLUDE,    // 1
+    EVAL, // 0
+    INCLUDE, // 1
     WHITESPACE, // 2
-    COMMENT,    // 3
-    ASSIGN,     // 4
-    SYMBOL,     // 5
+    COMMENT, // 3
+    ASSIGN, // 4
+    SYMBOL, // 5
 }
 
+// TODO support for conditionals (ex. ifdef)
 const rulesTokens: InputToken<Type>[] = [
     {type: Type.COMMENT, pattern: "#[^\\n]*\\n?"},
     {type: Type.WHITESPACE, pattern: "\\s+"},
@@ -27,7 +31,7 @@ const rulesTokens: InputToken<Type>[] = [
     {type: Type.EVAL, pattern: "\\$\\([^#\\n]*"},
     {type: Type.INCLUDE, pattern: "include"}, // TODO not being found for rgbkb/sol
     {type: Type.ASSIGN, pattern: "[\\:\\+]?="},
-    {type: Type.SYMBOL, pattern: "[^\\s]+"},
+    {type: Type.SYMBOL, pattern: "[^\\s=]+"},
 ];
 
 const extract = (
@@ -65,7 +69,7 @@ const extract = (
                     if (lastToken !== null && lastToken.type === Type.SYMBOL) {
                         return Err.err(JSON.stringify(lastToken)).with(
                             "loose symbol",
-                        ).with(JSON.stringify(token));
+                        );
                     }
                 } else {
                     // Assign when demanded.
@@ -113,9 +117,23 @@ export const parse = (raw: string): Possible<QMKRules> => {
         return tokens.with("parse error");
     }
 
-    console.log(extract(tokens));
+    const extracted = extract(tokens);
+    if (Err.isErr(extracted)) {
+        return extracted.with("extract error");
+    }
+
+    const layouts: string[] = [];
+    if (extracted.LAYOUT !== undefined) {
+        layouts.push(extracted.LAYOUT[0]);
+    }
+    if (extracted.LAYOUTS !== undefined) {
+        layouts.push(...extracted.LAYOUTS);
+    }
 
     return {
-        MCU: "",
+        layouts,
+        viaEnable: !!extracted.VIA_ENABLE,
+        defaultFolder: extracted.DEFAULT_FOLDER?.[0],
+        raw: extracted,
     };
 };
