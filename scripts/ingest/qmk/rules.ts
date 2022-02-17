@@ -19,17 +19,23 @@ enum Type {
     COMMENT, // 3
     ASSIGN, // 4
     SYMBOL, // 5
+    CONDITIONAL, // 6
 }
 
-// TODO support for conditionals (ex. ifdef)
 const rulesTokens: InputToken<Type>[] = [
     {type: Type.COMMENT, pattern: "#[^\\n]*\\n?"},
     {type: Type.WHITESPACE, pattern: "\\s+"},
     {type: Type.WHITESPACE, pattern: "\\\\"},
 
-    // Semantic.
+    // Unsupported.
+    {type: Type.CONDITIONAL, pattern: "ifeq"},
+    {type: Type.CONDITIONAL, pattern: "idef"},
+    {type: Type.CONDITIONAL, pattern: "else"},
+    {type: Type.CONDITIONAL, pattern: "endif"},
     {type: Type.EVAL, pattern: "\\$\\([^#\\n]*"},
     {type: Type.INCLUDE, pattern: "include"}, // TODO not being found for rgbkb/sol
+
+    // Semantic.
     {type: Type.ASSIGN, pattern: "[\\:\\+]?="},
     {type: Type.SYMBOL, pattern: "[^\\s=]+"},
 ];
@@ -43,44 +49,42 @@ const extract = (
         return token.type !== Type.COMMENT && token.type !== Type.WHITESPACE;
     });
 
+    // Fail when token is unsupported.
+    for (const token of semanticTokens) {
+        if (
+            token.type === Type.CONDITIONAL ||
+            token.type === Type.EVAL ||
+            token.type === Type.INCLUDE
+        ) {
+            return Err.err(JSON.stringify(token)).with("unsupported token");
+        }
+    }
+
     // State.
     let lastSymbol: OutputToken<Type> | null = null;
-    let burnSymbols: boolean = false;
     let assignSymbol: string | null = null;
     let lastToken: OutputToken<Type> | null = null;
 
     for (let i = 0; i < semanticTokens.length; i++) {
         const token = semanticTokens[i];
 
-        // Burn all symbols following weird sequences.
-        if (token.type === Type.INCLUDE || token.type === Type.EVAL) {
-            lastSymbol = null;
-            burnSymbols = true;
-            assignSymbol = null;
-            lastToken = token;
-            continue;
-        }
-
         if (token.type === Type.SYMBOL) {
             // Ignore when burning.
-            if (burnSymbols !== true) {
-                if (assignSymbol === null) {
-                    // Two symbols following each other with no assignment.
-                    if (lastToken !== null && lastToken.type === Type.SYMBOL) {
-                        return Err.err(JSON.stringify(lastToken)).with(
-                            "loose symbol",
-                        );
-                    }
-                } else {
-                    // Assign when demanded.
-                    if (values[assignSymbol] === undefined) {
-                        values[assignSymbol] = [];
-                    }
-                    values[assignSymbol].push(token.value[0]);
+            if (assignSymbol === null) {
+                // Two symbols following each other with no assignment.
+                if (lastToken !== null && lastToken.type === Type.SYMBOL) {
+                    return Err.err(JSON.stringify(lastToken)).with(
+                        "loose symbol",
+                    );
                 }
+            } else {
+                // Assign when demanded.
+                if (values[assignSymbol] === undefined) {
+                    values[assignSymbol] = [];
+                }
+                values[assignSymbol].push(token.value[0]);
             }
             lastSymbol = token;
-            burnSymbols = burnSymbols;
             assignSymbol = assignSymbol;
             lastToken = token;
             continue;
@@ -99,7 +103,6 @@ const extract = (
                 values[assignSymbol].pop();
             }
             lastSymbol = lastSymbol;
-            burnSymbols = false;
             assignSymbol = lastSymbol?.value[0];
             lastToken = token;
             continue;
