@@ -6,9 +6,10 @@ import {IngestContext} from "../context";
 import {readFile, readJsonFile} from "../lib";
 import {QMKConfig} from "./config";
 import {QMKInfo} from "./info";
-import {QMKRules, parse} from "./rules";
+import {QMKRules, parse as parseRules} from "./rules";
+import {parse as parseConfig} from "./config";
 
-const ROOT = "external/qmk/qmk_firmware/keyboards";
+const ROOT = "external/qmk/qmk_firmware/keyboards/ai03";
 const CONFIG = "config.h";
 const INFO = "info.json";
 const RULES = "rules.mk";
@@ -60,6 +61,7 @@ export const ingestQMK = (ctx: IngestContext) => {
     for (const root of roots) {
         let configContents: QMKConfig | null = null;
         const configPath = path.join(root, CONFIG);
+        parseConfig(configPath);
         if (fs.existsSync(configPath)) {
             const config = readFile(configPath);
             if (Err.isErr(config)) {
@@ -100,7 +102,7 @@ export const ingestQMK = (ctx: IngestContext) => {
                 continue;
             }
 
-            const rules = parse(rawRules);
+            const rules = parseRules(rawRules);
             if (Err.isErr(rules)) {
                 ctx.errors.qmkInvalidRules.push({
                     path: rulesPath,
