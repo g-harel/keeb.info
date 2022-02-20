@@ -1,3 +1,5 @@
+import moo from "moo";
+
 import {
     InputToken,
     OutputToken,
@@ -21,6 +23,22 @@ enum Type {
     SYMBOL, // 5
     CONDITIONAL, // 6
 }
+
+const lexer = moo.compile({
+    COMMENT: /#[^\n]*/,
+    WHITESPACE: [
+        {match: /[ \t]+/},
+        {match: /\\/},
+        {match: /\n/, lineBreaks: true},
+    ],
+
+    // Unsupported
+    CONDITIONAL: {match: ["ifeq", "ifdef", "else", "endif"], error: true},
+    EVAL: /\$\([^#\n]*/,
+
+    ASSIGN: /[\:\+]?=/,
+    SYMBOL: /[^\s=]/,
+});
 
 const rulesTokens: InputToken<Type>[] = [
     {type: Type.COMMENT, pattern: "#[^\\n]*\\n?"},
@@ -115,6 +133,12 @@ const extract = (
 };
 
 export const parse = (raw: string): Possible<QMKRules> => {
+    // TODO multiline comments
+    lexer.reset(raw);
+    for (let here of lexer) {
+        console.log(here);
+    }
+
     const tokens = tokenize(raw, rulesTokens);
     if (Err.isErr(tokens)) {
         return tokens.with("parse error");

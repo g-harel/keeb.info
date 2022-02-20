@@ -5,11 +5,11 @@ import {Err} from "../../../internal/possible";
 import {IngestContext} from "../context";
 import {readFile, readJsonFile} from "../lib";
 import {QMKConfig} from "./config";
+import {parse as parseConfig} from "./config";
 import {QMKInfo} from "./info";
 import {QMKRules, parse as parseRules} from "./rules";
-import {parse as parseConfig} from "./config";
 
-const ROOT = "external/qmk/qmk_firmware/keyboards/ai03";
+const ROOT = "external/qmk/qmk_firmware/keyboards/ai03/vega";
 const CONFIG = "config.h";
 const INFO = "info.json";
 const RULES = "rules.mk";

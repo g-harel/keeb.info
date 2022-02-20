@@ -1,4 +1,4 @@
-import { readFile } from "../lib";
+import {readFile} from "../lib";
 
 const parser = require("node-c-parser");
 

@@ -5,7 +5,8 @@
         "noEmit": true,
         "jsx": "react",
         "strict": true,
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "downlevelIteration": true
     },
     "include": ["internal/**/*.ts", "scripts/**/*.ts", "website/**/*.ts"]
 }
