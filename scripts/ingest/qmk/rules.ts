@@ -24,20 +24,30 @@ enum Type {
     CONDITIONAL, // 6
 }
 
-const lexer = moo.compile({
-    COMMENT: /#[^\n]*/,
-    WHITESPACE: [
-        {match: /[ \t]+/},
-        {match: /\\/},
-        {match: /\n/, lineBreaks: true},
-    ],
+// TODO use multiline for config files...
+// TODO support symbols that contain eq "-test=true"
+const lexer = moo.states({
+    default: {
+        COMMENT: /#[^\n]*/,
+        WHITESPACE: [
+            {match: /[ \t]+/},
+            {match: /\\/},
+            {match: /\n/, lineBreaks: true},
+        ],
+        COMMENT_OPEN: {match: /\/\*/, push: "multiline_comment"},
 
-    // Unsupported
-    CONDITIONAL: {match: ["ifeq", "ifdef", "else", "endif"], error: true},
-    EVAL: /\$\([^#\n]*/,
+        // Unsupported
+        CONDITIONAL: {match: ["ifeq", "ifdef", "else", "endif"], error: true},
+        EVAL: /\$\([^#\n]*/,
 
-    ASSIGN: /[\:\+]?=/,
-    SYMBOL: /[^\s=]/,
+        ASSIGN: /[\:\+]?=/,
+        SYMBOL: /[^\s=]+/,
+    },
+    multiline_comment: {
+        COMMENT_CLOSE: {match: /\*\//, pop: 1},
+        WHITESPACE: {match: /\n/, lineBreaks: true},
+        COMMENT_CHAR: /./,
+    },
 });
 
 const rulesTokens: InputToken<Type>[] = [
