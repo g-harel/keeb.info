@@ -1,4 +1,4 @@
-import moo from "moo";
+import moo, {Token} from "moo";
 
 import {
     InputToken,
@@ -14,93 +14,67 @@ export interface QMKRules {
     raw: Record<string, string[]>;
 }
 
-enum Type {
-    EVAL, // 0
-    INCLUDE, // 1
-    WHITESPACE, // 2
-    COMMENT, // 3
-    ASSIGN, // 4
-    SYMBOL, // 5
-    CONDITIONAL, // 6
-}
+const EVAL = "EVAL"
+const INCLUDE = "INCLUDE" // TODO
+const WHITESPACE = "WHITESPACE"
+const COMMENT = "COMMENT"
+const ASSIGN = "ASSIGN"
+const SYMBOL = "SYMBOL"
+const CONDITIONAL = "CONDITIONAL"
 
-// TODO use multiline for config files...
 // TODO support symbols that contain eq "-test=true"
 const lexer = moo.states({
     default: {
-        COMMENT: /#[^\n]*/,
-        WHITESPACE: [
+        [COMMENT]: /#[^\n]*/,
+        [WHITESPACE]: [
             {match: /[ \t]+/},
             {match: /\\/},
             {match: /\n/, lineBreaks: true},
         ],
-        COMMENT_OPEN: {match: /\/\*/, push: "multiline_comment"},
 
         // Unsupported
-        CONDITIONAL: {match: ["ifeq", "ifdef", "else", "endif"], error: true},
-        EVAL: /\$\([^#\n]*/,
+        [CONDITIONAL]: {match: ["ifeq", "ifdef", "else", "endif"], error: true},
+        [EVAL]: /\$\([^#\n]*/,
+        [INCLUDE]: /include/,
 
-        ASSIGN: /[\:\+]?=/,
-        SYMBOL: /[^\s=]+/,
-    },
-    multiline_comment: {
-        COMMENT_CLOSE: {match: /\*\//, pop: 1},
-        WHITESPACE: {match: /\n/, lineBreaks: true},
-        COMMENT_CHAR: /./,
+        [ASSIGN]: /[\:\+]?=/,
+        [SYMBOL]: /[^\s]+/,
     },
 });
 
-const rulesTokens: InputToken<Type>[] = [
-    {type: Type.COMMENT, pattern: "#[^\\n]*\\n?"},
-    {type: Type.WHITESPACE, pattern: "\\s+"},
-    {type: Type.WHITESPACE, pattern: "\\\\"},
-
-    // Unsupported.
-    {type: Type.CONDITIONAL, pattern: "ifeq"},
-    {type: Type.CONDITIONAL, pattern: "idef"},
-    {type: Type.CONDITIONAL, pattern: "else"},
-    {type: Type.CONDITIONAL, pattern: "endif"},
-    {type: Type.EVAL, pattern: "\\$\\([^#\\n]*"},
-    {type: Type.INCLUDE, pattern: "include"}, // TODO not being found for rgbkb/sol
-
-    // Semantic.
-    {type: Type.ASSIGN, pattern: "[\\:\\+]?="},
-    {type: Type.SYMBOL, pattern: "[^\\s=]+"},
-];
-
 const extract = (
-    tokens: OutputToken<Type>[],
+    tokens: Token[],
 ): Possible<Record<string, string[]>> => {
     const values: Record<string, string[]> = {};
 
     const semanticTokens = tokens.filter((token) => {
-        return token.type !== Type.COMMENT && token.type !== Type.WHITESPACE;
+        return token.type !== COMMENT && token.type !== WHITESPACE;
     });
 
     // Fail when token is unsupported.
     for (const token of semanticTokens) {
         if (
-            token.type === Type.CONDITIONAL ||
-            token.type === Type.EVAL ||
-            token.type === Type.INCLUDE
+            token.type === CONDITIONAL ||
+            token.type === EVAL ||
+            token.type === INCLUDE
         ) {
             return Err.err(JSON.stringify(token)).with("unsupported token");
         }
     }
 
     // State.
-    let lastSymbol: OutputToken<Type> | null = null;
+    let lastSymbol: Token | null = null;
     let assignSymbol: string | null = null;
-    let lastToken: OutputToken<Type> | null = null;
+    let lastToken: Token | null = null;
 
     for (let i = 0; i < semanticTokens.length; i++) {
         const token = semanticTokens[i];
 
-        if (token.type === Type.SYMBOL) {
+        if (token.type === SYMBOL) {
             // Ignore when burning.
             if (assignSymbol === null) {
                 // Two symbols following each other with no assignment.
-                if (lastToken !== null && lastToken.type === Type.SYMBOL) {
+                if (lastToken !== null && lastToken.type === SYMBOL) {
                     return Err.err(JSON.stringify(lastToken)).with(
                         "loose symbol",
                     );
@@ -118,11 +92,11 @@ const extract = (
             continue;
         }
 
-        if (token.type === Type.ASSIGN) {
+        if (token.type === ASSIGN) {
             if (
                 lastSymbol === null ||
                 lastToken === null ||
-                lastToken.type !== Type.SYMBOL
+                lastToken.type !== SYMBOL
             ) {
                 return Err.err("no LHS for assignment");
             }
@@ -143,16 +117,17 @@ const extract = (
 };
 
 export const parse = (raw: string): Possible<QMKRules> => {
-    // TODO multiline comments
+    // TODO error catching
     lexer.reset(raw);
-    for (let here of lexer) {
-        console.log(here);
+    const tokens: Token[] = [];
+    for (let token of lexer) {
+        tokens.push(token);
     }
 
-    const tokens = tokenize(raw, rulesTokens);
-    if (Err.isErr(tokens)) {
-        return tokens.with("parse error");
-    }
+    // const tokens = tokenize(raw, rulesTokens);
+    // if (Err.isErr(tokens)) {
+    //     return tokens.with("parse error");
+    // }
 
     const extracted = extract(tokens);
     if (Err.isErr(extracted)) {

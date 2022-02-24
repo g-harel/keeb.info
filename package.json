@@ -1,5 +1,6 @@
 {
     "scripts": {
+        "TODO": "switch to yarn",
         "build": "parcel build website/index.html",
         "fmt": "prettier --list-different --write \"**/*.{js,ts,tsx,md,yml,json}\"",
         "dev": "parcel website/index.html --open",
