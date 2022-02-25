@@ -19,3 +19,4 @@ time("qmk/qmk_firmware", () => ingestQMK(ctx));
 for (const [key, value] of Object.entries(ctx.errors)) {
     console.log(key, value.length);
 }
+console.log(ctx.errors);

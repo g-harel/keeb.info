@@ -14,13 +14,13 @@ export interface QMKRules {
     raw: Record<string, string[]>;
 }
 
-const EVAL = "EVAL"
-const INCLUDE = "INCLUDE" // TODO
-const WHITESPACE = "WHITESPACE"
-const COMMENT = "COMMENT"
-const ASSIGN = "ASSIGN"
-const SYMBOL = "SYMBOL"
-const CONDITIONAL = "CONDITIONAL"
+const EVAL = "EVAL";
+const INCLUDE = "INCLUDE"; // TODO
+const WHITESPACE = "WHITESPACE";
+const COMMENT = "COMMENT";
+const ASSIGN = "ASSIGN";
+const SYMBOL = "SYMBOL";
+const CONDITIONAL = "CONDITIONAL";
 
 // TODO support symbols that contain eq "-test=true"
 const lexer = moo.states({
@@ -42,9 +42,7 @@ const lexer = moo.states({
     },
 });
 
-const extract = (
-    tokens: Token[],
-): Possible<Record<string, string[]>> => {
+const extract = (tokens: Token[]): Possible<Record<string, string[]>> => {
     const values: Record<string, string[]> = {};
 
     const semanticTokens = tokens.filter((token) => {
@@ -117,17 +115,15 @@ const extract = (
 };
 
 export const parse = (raw: string): Possible<QMKRules> => {
-    // TODO error catching
-    lexer.reset(raw);
     const tokens: Token[] = [];
-    for (let token of lexer) {
-        tokens.push(token);
+    try {
+        lexer.reset(raw);
+        for (let token of lexer) {
+            tokens.push(token);
+        }
+    } catch (e) {
+        return Err.err(String(e)).with("parse error");
     }
-
-    // const tokens = tokenize(raw, rulesTokens);
-    // if (Err.isErr(tokens)) {
-    //     return tokens.with("parse error");
-    // }
 
     const extracted = extract(tokens);
     if (Err.isErr(extracted)) {
