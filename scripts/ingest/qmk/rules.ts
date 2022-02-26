@@ -1,10 +1,5 @@
 import moo, {Token} from "moo";
 
-import {
-    InputToken,
-    OutputToken,
-    tokenize,
-} from "../../../internal/parsing/tokenizer";
 import {Err, Possible} from "../../../internal/possible";
 
 export interface QMKRules {

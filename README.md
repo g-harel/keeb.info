@@ -5,7 +5,7 @@ Layout, keyset and keymap repository.
 ## Development
 
 ```bash
-$ npm run website
+$ yarn run website
 ```
 
 ## License

@@ -27,7 +27,6 @@
         "json5": "^2.2.0",
         "moo": "^0.5.1",
         "nearley": "^2.20.1",
-        "node-c-parser": "^1.0.11",
         "nodemon": "^2.0.7",
         "parcel": "^2.0.0-beta.2",
         "polygon-clipping": "^0.15.3",
