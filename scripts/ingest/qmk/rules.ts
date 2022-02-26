@@ -82,7 +82,7 @@ const extract = (tokens: Token[]): Possible<Record<string, string[]>> => {
                 if (values[assignSymbol] === undefined) {
                     values[assignSymbol] = [];
                 }
-                values[assignSymbol].push(token.value[0]);
+                values[assignSymbol].push(token.value);
             }
             lastSymbol = token;
             assignSymbol = assignSymbol;
@@ -103,7 +103,7 @@ const extract = (tokens: Token[]): Possible<Record<string, string[]>> => {
                 values[assignSymbol].pop();
             }
             lastSymbol = lastSymbol;
-            assignSymbol = lastSymbol?.value[0];
+            assignSymbol = lastSymbol?.value;
             lastToken = token;
             continue;
         }
