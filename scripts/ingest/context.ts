@@ -1,21 +1,9 @@
-import {ViaDefinition} from "../../internal/via";
+import {IngestedMetadata, MetadataDB} from "./metadata";
 
 export interface IngestContext {
     errors: ErrorLog;
     metadata: MetadataDB;
-    getMetadata: (vendorID: number, productID: number) => KeyboardMetadata;
-}
-
-export interface KeyboardMetadata {
-    via?: ViaDefinition;
-    viaPath?: string;
-}
-
-export interface MetadataDB {
-    // TODO these are not always numbers in QMK
-    [vendorID: number]: {
-        [productID: number]: KeyboardMetadata;
-    };
+    getMetadata: (vendorID: number, productID: number) => IngestedMetadata;
 }
 
 export interface ErrorLog {
@@ -25,6 +13,9 @@ export interface ErrorLog {
     viaConflictingDefinitions: {
         path1: string;
         path2: string;
+    }[];
+    viaMissingLayout: {
+        path: string;
     }[];
     qmkInvalidInfo: {
         path: string;
@@ -44,7 +35,7 @@ export const createContext = (): IngestContext => {
     const metadata: MetadataDB = {};
     return {
         metadata,
-        getMetadata: (vendorID, productID): KeyboardMetadata => {
+        getMetadata: (vendorID, productID): IngestedMetadata => {
             if (!metadata[vendorID]) metadata[vendorID] = {};
             if (!metadata[vendorID][productID])
                 metadata[vendorID][productID] = {};
@@ -53,6 +44,7 @@ export const createContext = (): IngestContext => {
         errors: {
             viaInvalidID: [],
             viaConflictingDefinitions: [],
+            viaMissingLayout: [],
             qmkInvalidInfo: [],
             qmkInvalidConfig: [],
             qmkInvalidRules: [],

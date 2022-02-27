@@ -1,4 +1,5 @@
 import {createContext} from "./context";
+import { flatten } from "./metadata";
 import {ingestQMK} from "./qmk";
 import {ingestVia} from "./via";
 
@@ -15,8 +16,11 @@ const ctx = createContext();
 time("the-via/keyboards", () => ingestVia(ctx));
 time("qmk/qmk_firmware", () => ingestQMK(ctx));
 
+const keyboards = flatten(ctx);
+console.log(keyboards.length);
+
 // Log a summary of errors.
 for (const [key, value] of Object.entries(ctx.errors)) {
     console.log(key, value.length);
 }
-console.log(ctx.errors);
+// console.log(ctx.errors);
