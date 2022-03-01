@@ -16,8 +16,8 @@ const ctx = createContext();
 time("the-via/keyboards", () => ingestVia(ctx));
 time("qmk/qmk_firmware", () => ingestQMK(ctx));
 
-const keyboards = flatten(ctx);
-console.log(keyboards.length);
+const metadata = flatten(ctx);
+console.log(metadata.keyboards.length);
 
 // Log a summary of errors.
 for (const [key, value] of Object.entries(ctx.errors)) {

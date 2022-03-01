@@ -1,3 +1,4 @@
+import {serializedIndex} from "../../internal";
 import {Layout} from "../../internal/layout";
 import {ViaDefinition, convertViaToLayout} from "../../internal/via";
 import {IngestContext} from "./context";
@@ -20,7 +21,12 @@ export interface KeyboardMetadata {
     layout: Layout;
 }
 
-export const flatten = (ctx: IngestContext): KeyboardMetadata[] => {
+export interface Metadata {
+    keyboards: KeyboardMetadata[];
+    index: any;
+}
+
+export const flatten = (ctx: IngestContext): Metadata => {
     const keyboards: KeyboardMetadata[] = [];
     for (const [vendorID, products] of Object.entries(ctx.metadata)) {
         for (const [productID, ingested] of Object.entries<IngestedMetadata>(
@@ -40,5 +46,9 @@ export const flatten = (ctx: IngestContext): KeyboardMetadata[] => {
             });
         }
     }
-    return keyboards;
+
+    // TODO make consistent fields
+    const index = serializedIndex(keyboards, "name", ["vendorID", "productID"]);
+
+    return {keyboards, index};
 };
