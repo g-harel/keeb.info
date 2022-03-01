@@ -1,7 +1,6 @@
 import {Err, Possible} from "./possible";
 
 describe("Err", () => {
-    // TODO make table of values.
     it("Should assert the type.", () => {
         const testValue = {test: true};
         const possibleErr: Possible<typeof testValue> = testValue;
@@ -44,5 +43,19 @@ describe("Err", () => {
         for (const message of testStrings) {
             expect(err.print()).toContain(message);
         }
+    });
+
+    it("Should start with most recent extension in printed error.", () => {
+        const testStrings = ["123", "456", "789"];
+        let err = Err.err(testStrings[0]);
+        for (let i = 1; i < testStrings.length; i++) {
+            err = err.with(testStrings[i]);
+        }
+
+        const printed = err.print();
+        const indexes = testStrings.map((str) => printed.indexOf(str));
+        expect(
+            indexes.slice(1).every((item, i) => indexes[i] >= item),
+        ).toBeTruthy();
     });
 });

@@ -1,6 +1,6 @@
 import {Layout} from "../../internal/layout";
-import {convertViaToLayout, ViaDefinition} from "../../internal/via";
-import { IngestContext } from "./context";
+import {ViaDefinition, convertViaToLayout} from "../../internal/via";
+import {IngestContext} from "./context";
 
 export interface MetadataDB {
     // TODO these are not always numbers in QMK repo
@@ -23,7 +23,9 @@ export interface KeyboardMetadata {
 export const flatten = (ctx: IngestContext): KeyboardMetadata[] => {
     const keyboards: KeyboardMetadata[] = [];
     for (const [vendorID, products] of Object.entries(ctx.metadata)) {
-        for (const [productID, ingested] of Object.entries<IngestedMetadata>(products)) {
+        for (const [productID, ingested] of Object.entries<IngestedMetadata>(
+            products,
+        )) {
             if (!ingested.via) {
                 ctx.errors.viaMissingLayout.push({
                     path: ingested.viaPath || "unknown",
@@ -34,7 +36,7 @@ export const flatten = (ctx: IngestContext): KeyboardMetadata[] => {
                 name: ingested.via?.name || `${vendorID} ${productID}`,
                 vendorID,
                 productID,
-                layout: convertViaToLayout(ingested.via)
+                layout: convertViaToLayout(ingested.via),
             });
         }
     }

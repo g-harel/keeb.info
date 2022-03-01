@@ -1,5 +1,5 @@
 import {createContext} from "./context";
-import { flatten } from "./metadata";
+import {flatten} from "./metadata";
 import {ingestQMK} from "./qmk";
 import {ingestVia} from "./via";
 
