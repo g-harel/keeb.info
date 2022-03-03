@@ -15,3 +15,7 @@ export const serializedIndex = <T extends object>(
 
     return JSON.stringify(idx);
 };
+
+export const deserializeIndex = (idx: string) => {
+    return lunr.Index.load(JSON.parse(idx));
+};
