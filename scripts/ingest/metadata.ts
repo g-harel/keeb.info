@@ -2,6 +2,7 @@ import {serializedIndex} from "../../internal";
 import {Layout} from "../../internal/layout";
 import {ViaDefinition, convertViaToLayout} from "../../internal/via";
 import {IngestContext} from "./context";
+import {log} from "./lib";
 
 export interface MetadataDB {
     // TODO these are not always numbers in QMK repo
@@ -14,6 +15,8 @@ export interface IngestedMetadata {
     viaPath?: string;
 }
 
+const keyboardMetadataKey = "name";
+const keyboardMetadataFields = [keyboardMetadataKey];
 export interface KeyboardMetadata {
     name: string;
     vendorID: string;
@@ -47,8 +50,12 @@ export const flatten = (ctx: IngestContext): Metadata => {
         }
     }
 
-    // TODO make consistent fields
-    const index = serializedIndex(keyboards, "name", ["vendorID", "productID"]);
+    const index = serializedIndex(
+        keyboards,
+        keyboardMetadataKey,
+        keyboardMetadataFields,
+    );
+    log(`Index size: ${Math.round(index.length / 1000)}kB`);
 
     return {keyboards, index};
 };

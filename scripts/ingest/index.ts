@@ -17,7 +17,6 @@ time("the-via/keyboards", () => ingestVia(ctx));
 time("qmk/qmk_firmware", () => ingestQMK(ctx));
 
 const metadata = flatten(ctx);
-console.log(metadata.keyboards.length);
 
 // Log a summary of errors.
 for (const [key, value] of Object.entries(ctx.errors)) {
