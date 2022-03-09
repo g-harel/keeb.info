@@ -1,7 +1,7 @@
 import {Err, Possible} from "./possible";
 
 describe("Err", () => {
-    it("Should assert the type.", () => {
+    it("should assert the type", () => {
         const testValue = {test: true};
         const possibleErr: Possible<typeof testValue> = testValue;
 
@@ -11,29 +11,29 @@ describe("Err", () => {
         expect(possibleErr.test).toBeTruthy(); // Type check.
     });
 
-    it("Should detect errors.", () => {
+    it("should detect errors", () => {
         const err = Err.err("test");
         expect(Err.isErr(err)).toBeTruthy();
     });
 
-    it("Should detect non-errors.", () => {
+    it("should detect non-errors", () => {
         const nonErr = null;
         expect(Err.isErr(nonErr)).toBeFalsy();
     });
 
-    it("Should detect elaborated errors.", () => {
+    it("should detect elaborated errors", () => {
         const err = Err.err("test").with("test");
         expect(Err.isErr(err)).toBeTruthy();
     });
 
-    it("Should inlcude message in printed errors.", () => {
+    it("should inlcude message in printed errors", () => {
         const testString = "abc";
         const err = Err.err(testString);
 
         expect(err.print()).toContain(testString);
     });
 
-    it("Should include extended messages in printed errors.", () => {
+    it("should include extended messages in printed errors", () => {
         const testStrings = ["foo", "bar", "xyz"];
         let err = Err.err(testStrings[0]);
         for (let i = 1; i < testStrings.length; i++) {
@@ -45,7 +45,7 @@ describe("Err", () => {
         }
     });
 
-    it("Should start with most recent extension in printed error.", () => {
+    it("should start with most recent extension in printed error", () => {
         const testStrings = ["123", "456", "789"];
         let err = Err.err(testStrings[0]);
         for (let i = 1; i < testStrings.length; i++) {

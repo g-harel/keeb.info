@@ -1,8 +1,7 @@
 import {Box, toComposite} from "./box";
 
-// TODO remove test case capitalization
 describe("toComposite", () => {
-    it("Should combine touching boxes.", () => {
+    it("should combine touching boxes", () => {
         const boxes: Box[] = [
             {height: 1, width: 1, offset: [0, 0]},
             {height: 1, width: 1, offset: [1, 0]},
@@ -11,7 +10,7 @@ describe("toComposite", () => {
         expect(composite).toHaveLength(1);
     });
 
-    it("Should support split boxes.", () => {
+    it("should support split boxes", () => {
         const boxes: Box[] = [
             {height: 1, width: 1, offset: [0, 0]},
             {height: 1, width: 1, offset: [0, 2]},
@@ -20,7 +19,7 @@ describe("toComposite", () => {
         expect(composite).toHaveLength(2);
     });
 
-    it("Should combine complex touching boxes.", () => {
+    it("should combine complex touching boxes", () => {
         const boxes: Box[] = [
             {height: 1, width: 1, offset: [0, 0]},
             {height: 1, width: 1, offset: [0.5, 0.5]},
