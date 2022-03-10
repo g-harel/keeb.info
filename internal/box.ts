@@ -23,7 +23,6 @@ export const toComposite = (boxes: Box[]): Composite => {
     return multiUnion(...shapes);
 };
 
-// TODO error reporting with possible
 export const toShape = (boxes: Box[]): Possible<Shape> => {
     const m = toComposite(boxes);
     if (m.length === 0) return [];
