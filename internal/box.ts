@@ -1,4 +1,5 @@
 import {Point} from "./point";
+import {Err, Possible} from "./possible";
 import {Composite, Shape} from "./shape";
 import {multiUnion} from "./shape";
 
@@ -23,10 +24,10 @@ export const toComposite = (boxes: Box[]): Composite => {
 };
 
 // TODO error reporting with possible
-export const toShape = (boxes: Box[]): Shape => {
+export const toShape = (boxes: Box[]): Possible<Shape> => {
     const m = toComposite(boxes);
     if (m.length === 0) return [];
-    if (m.length > 1) console.warn("Split or holes.");
+    if (m.length > 1) return Err.err("split shape");
     return m[0];
 };
 

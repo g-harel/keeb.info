@@ -7,6 +7,7 @@ import {UUID} from "../identity";
 import {calcKeycap} from "../keycap";
 import {rotateCoord} from "../point";
 import {Angle, Point} from "../point";
+import {Err} from "../possible";
 import {ReactProps} from "../react";
 import {Shape} from "../shape";
 import {Pooler, ROTATION_ORIGIN} from "./view";
@@ -28,11 +29,16 @@ export interface SelectionProps extends ReactProps {
 export const Selection = (props: SelectionProps) => {
     // TODO finish implementing.
     const keycapBases: Shape[] = props.selection.map((key) => {
-        const {basePathPoints} = calcKeycap({
+        const keycap = calcKeycap({
             base: key.blank.boxes,
             shelf: key.shelf,
         });
-        return basePathPoints.map((point) => {
+        if (Err.isErr(keycap)) {
+            console.warn(keycap.print());
+            // TODO centralize errors.
+            return;
+        }
+        return keycap.basePathPoints.map((point) => {
             return rotateCoord(
                 [point[0] + key.position[0], point[1] + key.position[1]],
                 ROTATION_ORIGIN,

@@ -5,6 +5,7 @@ import {Box, toShape} from "../box";
 import {toSVGPath} from "../curve";
 import {genID} from "../identity";
 import {BORDER, KEY_RADIUS} from "../keycap";
+import {Err} from "../possible";
 import {ReactProps} from "../react";
 import {round} from "../shape";
 import {keyColor} from "./color";
@@ -19,7 +20,13 @@ export interface BlockerProps extends ReactProps {
 const HATCHING_SIZE = 0.07;
 
 export const Blocker = (props: BlockerProps) => {
-    const rawBase = round(toShape(props.boxes), KEY_RADIUS, KEY_RADIUS);
+    const rawBase = toShape(props.boxes);
+    if (Err.isErr(rawBase)) {
+        // TODO centralize error reporting.
+        console.warn(rawBase.print());
+        return;
+    }
+    const roundedBase = round(rawBase, KEY_RADIUS, KEY_RADIUS);
     const refID = genID("blocker", {base: props.boxes, color: props.color});
     const [innerColor, strokeColor] = keyColor(props.color);
     const patternID = `${refID}-pattern`;
@@ -49,7 +56,7 @@ export const Blocker = (props: BlockerProps) => {
             </pattern>
             {props.pooler(refID, () => (
                 <path
-                    d={toSVGPath(rawBase)}
+                    d={toSVGPath(roundedBase)}
                     stroke={strokeColor}
                     strokeWidth={BORDER}
                     fill={`url(#${patternID})`}
