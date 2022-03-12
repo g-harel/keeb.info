@@ -1,41 +1,41 @@
-import {Err, Possible} from "./possible";
+import {Err, isErr, newErr, Possible} from "./possible";
 
 describe("Err", () => {
     it("should assert the type", () => {
         const testValue = {test: true};
         const possibleErr: Possible<typeof testValue> = testValue;
 
-        if (Err.isErr(possibleErr)) {
-            expect(Err.isErr(possibleErr)).toBeFalsy();
+        if (isErr(possibleErr)) {
+            expect(isErr(possibleErr)).toBeFalsy();
         }
         expect(possibleErr.test).toBeTruthy(); // Type check.
     });
 
     it("should detect errors", () => {
-        const err = Err.err("test");
-        expect(Err.isErr(err)).toBeTruthy();
+        const err = newErr("test");
+        expect(isErr(err)).toBeTruthy();
     });
 
     it("should detect non-errors", () => {
         const nonErr = null;
-        expect(Err.isErr(nonErr)).toBeFalsy();
+        expect(isErr(nonErr)).toBeFalsy();
     });
 
     it("should detect elaborated errors", () => {
-        const err = Err.err("test").with("test");
-        expect(Err.isErr(err)).toBeTruthy();
+        const err = newErr("test").with("test");
+        expect(isErr(err)).toBeTruthy();
     });
 
     it("should inlcude message in printed errors", () => {
         const testString = "abc";
-        const err = Err.err(testString);
+        const err = newErr(testString);
 
         expect(err.print()).toContain(testString);
     });
 
     it("should include extended messages in printed errors", () => {
         const testStrings = ["foo", "bar", "xyz"];
-        let err = Err.err(testStrings[0]);
+        let err = newErr(testStrings[0]);
         for (let i = 1; i < testStrings.length; i++) {
             err = err.with(testStrings[i]);
         }
@@ -47,7 +47,7 @@ describe("Err", () => {
 
     it("should start with most recent extension in printed error", () => {
         const testStrings = ["123", "456", "789"];
-        let err = Err.err(testStrings[0]);
+        let err = newErr(testStrings[0]);
         for (let i = 1; i < testStrings.length; i++) {
             err = err.with(testStrings[i]);
         }
