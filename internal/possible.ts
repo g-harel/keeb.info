@@ -1,5 +1,6 @@
 const internalIdentity = {};
 
+// TODO rename/combine types
 export class Err {
     public static isErr(value: Possible<any>): value is Err {
         return (
@@ -30,3 +31,19 @@ export class Err {
 }
 
 export type Possible<T> = T | Err;
+
+// TODO remove testing
+const isErr = <T>(value: Possible<T>): [boolean, Err | T] => {
+    if (Err.isErr(value)) {
+        return [true, value];
+    }
+    return [false, value];
+}
+
+const test = (): Possible<string> => {
+    const foo: Possible<string> = Math.random() > 0.5 ? "" : Err.err("");
+    if ([is, err] = isErr(foo); is) {
+        return err.with("");
+    }
+    return foo;
+}
