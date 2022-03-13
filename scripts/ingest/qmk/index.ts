@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 
-import {Err} from "../../../internal/possible";
+import {isErr} from "../../../internal/possible";
 import {IngestContext} from "../context";
 import {readFile, readJsonFile} from "../lib";
 import {QMKConfig} from "./config";
@@ -64,10 +64,10 @@ export const ingestQMK = (ctx: IngestContext) => {
         parseConfig(configPath);
         if (fs.existsSync(configPath)) {
             const config = readFile(configPath);
-            if (Err.isErr(config)) {
+            if (isErr(config)) {
                 ctx.errors.qmkInvalidConfig.push({
                     path: configPath,
-                    error: config.print(),
+                    error: config.err.print(),
                 });
                 continue;
             }
@@ -78,10 +78,10 @@ export const ingestQMK = (ctx: IngestContext) => {
         const infoPath = path.join(root, INFO);
         if (fs.existsSync(infoPath)) {
             const info = readJsonFile<QMKInfo>(infoPath);
-            if (Err.isErr(info)) {
+            if (isErr(info)) {
                 ctx.errors.qmkInvalidInfo.push({
                     path: infoPath,
-                    error: info.print(),
+                    error: info.err.print(),
                 });
                 continue;
             }
@@ -94,19 +94,19 @@ export const ingestQMK = (ctx: IngestContext) => {
         const rulesPath = path.join(root, RULES);
         if (fs.existsSync(rulesPath)) {
             const rawRules = readFile(rulesPath);
-            if (Err.isErr(rawRules)) {
+            if (isErr(rawRules)) {
                 ctx.errors.qmkInvalidRules.push({
                     path: rulesPath,
-                    error: rawRules.print(),
+                    error: rawRules.err.print(),
                 });
                 continue;
             }
 
             const rules = parseRules(rawRules);
-            if (Err.isErr(rules)) {
+            if (isErr(rules)) {
                 ctx.errors.qmkInvalidRules.push({
                     path: rulesPath,
-                    error: rules.print(),
+                    error: rules.err.print(),
                 });
                 continue;
             }

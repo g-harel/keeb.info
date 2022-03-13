@@ -5,7 +5,7 @@ import {memCache} from "./cache";
 import {CurveShape, approx, bridgeArcs, toSVGPath as curvedPath} from "./curve";
 import {genID} from "./identity";
 import {Line, Point} from "./point";
-import {Err, Possible} from "./possible";
+import {Possible, isErr} from "./possible";
 import {
     Composite,
     Shape,
@@ -75,23 +75,23 @@ const internalCalcKeycap = (key: KeycapInput): Possible<CalculatedKeycap> => {
 
     // Sharp key base.
     const rawBase = toShape(boxes);
-    if (Err.isErr(rawBase)) return rawBase.with("base");
+    if (isErr(rawBase)) return rawBase.err.with("base");
     const roundBase = round(rawBase, KEY_RADIUS, KEY_RADIUS);
 
     // Shelf outer edge.
     const rawStep = toShape(pad(boxes, STEP_PADDING));
-    if (Err.isErr(rawStep)) return rawStep.with("step");
+    if (isErr(rawStep)) return rawStep.err.with("step");
     const roundStep = round(rawStep, STEP_RADIUS, KEY_RADIUS);
     const approxStep = approx(roundStep, ROUND_RESOLUTION);
 
     // Shelf shape.
     const rawShelf = toShape(pad(shelfShape, SHELF_PADDING));
-    if (Err.isErr(rawShelf)) return rawShelf.with("shelf");
+    if (isErr(rawShelf)) return rawShelf.err.with("shelf");
     const roundShelf = round(rawShelf, SHELF_RADIUS, KEY_RADIUS);
 
     // Shelf inner edge.
     const rawShelfBase = toShape(pad(shelfShape, STEP_PADDING));
-    if (Err.isErr(rawShelfBase)) return rawShelfBase.with("shelf base");
+    if (isErr(rawShelfBase)) return rawShelfBase.err.with("shelf base");
     const roundShelfBase = round(rawShelfBase, STEP_RADIUS, KEY_RADIUS);
     const approxShelfBase = approx(roundShelfBase, ROUND_RESOLUTION);
 
@@ -140,7 +140,7 @@ const internalCalcKeycap = (key: KeycapInput): Possible<CalculatedKeycap> => {
     // Create step shape with the shelf stamped out.
     const inflatePadding = STEP_PADDING.map((n) => n - BORDER / 1000) as any;
     const inflatedShelf = toShape(pad(shelfShape, inflatePadding));
-    if (Err.isErr(inflatedShelf)) return inflatedShelf.with("inflated shelf");
+    if (isErr(inflatedShelf)) return inflatedShelf.err.with("inflated shelf");
     const approxInflatedShelfBase = approx(
         round(inflatedShelf, STEP_RADIUS, KEY_RADIUS),
         ROUND_RESOLUTION,

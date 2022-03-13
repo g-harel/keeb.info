@@ -1,6 +1,6 @@
 import moo, {Token} from "moo";
 
-import {Err, Possible} from "../../../internal/possible";
+import {Possible, isErr, newErr} from "../../../internal/possible";
 
 export interface QMKRules {
     layouts: string[];
@@ -51,7 +51,7 @@ const extract = (tokens: Token[]): Possible<Record<string, string[]>> => {
             token.type === EVAL ||
             token.type === INCLUDE
         ) {
-            return Err.err(JSON.stringify(token)).with("unsupported token");
+            return newErr(JSON.stringify(token)).err.with("unsupported token");
         }
     }
 
@@ -68,7 +68,7 @@ const extract = (tokens: Token[]): Possible<Record<string, string[]>> => {
             if (assignSymbol === null) {
                 // Two symbols following each other with no assignment.
                 if (lastToken !== null && lastToken.type === SYMBOL) {
-                    return Err.err(JSON.stringify(lastToken)).with(
+                    return newErr(JSON.stringify(lastToken)).err.with(
                         "loose symbol",
                     );
                 }
@@ -91,7 +91,7 @@ const extract = (tokens: Token[]): Possible<Record<string, string[]>> => {
                 lastToken === null ||
                 lastToken.type !== SYMBOL
             ) {
-                return Err.err("no LHS for assignment");
+                return newErr("no LHS for assignment");
             }
             // Remove most recent symbol since it's the LHS.
             if (assignSymbol !== null) {
@@ -103,7 +103,7 @@ const extract = (tokens: Token[]): Possible<Record<string, string[]>> => {
             continue;
         }
 
-        return Err.err("unknown output token");
+        return newErr("unknown output token");
     }
 
     return values;
@@ -117,12 +117,12 @@ export const parse = (raw: string): Possible<QMKRules> => {
             tokens.push(token);
         }
     } catch (e) {
-        return Err.err(String(e)).with("parse error");
+        return newErr(String(e)).err.with("parse error");
     }
 
     const extracted = extract(tokens);
-    if (Err.isErr(extracted)) {
-        return extracted.with("extract error");
+    if (isErr(extracted)) {
+        return extracted.err.with("extract error");
     }
 
     const layouts: string[] = [];

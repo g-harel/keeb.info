@@ -1,4 +1,4 @@
-import {Err, isErr, newErr, Possible} from "./possible";
+import {Possible, isErr, newErr} from "./possible";
 
 describe("Err", () => {
     it("should assert the type", () => {
@@ -12,47 +12,47 @@ describe("Err", () => {
     });
 
     it("should detect errors", () => {
-        const err = newErr("test");
-        expect(isErr(err)).toBeTruthy();
+        const value = newErr("test");
+        expect(isErr(value)).toBeTruthy();
     });
 
     it("should detect non-errors", () => {
-        const nonErr = null;
-        expect(isErr(nonErr)).toBeFalsy();
+        const value = null;
+        expect(isErr(value)).toBeFalsy();
     });
 
     it("should detect elaborated errors", () => {
-        const err = newErr("test").with("test");
-        expect(isErr(err)).toBeTruthy();
+        const value = newErr("test").err.with("test");
+        expect(isErr(value)).toBeTruthy();
     });
 
     it("should inlcude message in printed errors", () => {
         const testString = "abc";
-        const err = newErr(testString);
+        const value = newErr(testString);
 
-        expect(err.print()).toContain(testString);
+        expect(value.err.print()).toContain(testString);
     });
 
     it("should include extended messages in printed errors", () => {
         const testStrings = ["foo", "bar", "xyz"];
-        let err = newErr(testStrings[0]);
+        let value = newErr(testStrings[0]);
         for (let i = 1; i < testStrings.length; i++) {
-            err = err.with(testStrings[i]);
+            value = value.err.with(testStrings[i]);
         }
 
         for (const message of testStrings) {
-            expect(err.print()).toContain(message);
+            expect(value.err.print()).toContain(message);
         }
     });
 
     it("should start with most recent extension in printed error", () => {
         const testStrings = ["123", "456", "789"];
-        let err = newErr(testStrings[0]);
+        let value = newErr(testStrings[0]);
         for (let i = 1; i < testStrings.length; i++) {
-            err = err.with(testStrings[i]);
+            value = value.err.with(testStrings[i]);
         }
 
-        const printed = err.print();
+        const printed = value.err.print();
         const indexes = testStrings.map((str) => printed.indexOf(str));
         expect(
             indexes.slice(1).every((item, i) => indexes[i] >= item),

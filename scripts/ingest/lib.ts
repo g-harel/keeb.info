@@ -1,7 +1,7 @@
 import fs from "fs";
 import json5 from "json5";
 
-import {Err, Possible} from "../../internal/possible";
+import {Possible, isErr, newErr} from "../../internal/possible";
 
 export const hexToInt = (hex: string): number | null => {
     let result = Number(hex);
@@ -23,7 +23,7 @@ export const log = (messages: string | string[], data?: string | string[]) => {
 
 export const readFile = (filePath: string): Possible<string> => {
     if (!fs.existsSync(filePath)) {
-        return Err.err(`not found: ${filePath}`);
+        return newErr(`not found: ${filePath}`);
     }
     return fs.readFileSync(filePath).toString("utf-8");
 };
@@ -31,9 +31,9 @@ export const readFile = (filePath: string): Possible<string> => {
 export const readJsonFile = <T>(filePath: string): Possible<T> => {
     try {
         const contents = readFile(filePath);
-        if (Err.isErr(contents)) return contents;
+        if (isErr(contents)) return contents;
         return json5.parse(contents);
     } catch (e) {
-        return Err.err(filePath).with(String(e));
+        return newErr(filePath).err.with(String(e));
     }
 };

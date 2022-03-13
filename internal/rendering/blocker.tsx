@@ -5,7 +5,7 @@ import {Box, toShape} from "../box";
 import {toSVGPath} from "../curve";
 import {genID} from "../identity";
 import {BORDER, KEY_RADIUS} from "../keycap";
-import {Err} from "../possible";
+import {isErr} from "../possible";
 import {ReactProps} from "../react";
 import {round} from "../shape";
 import {keyColor} from "./color";
@@ -21,9 +21,9 @@ const HATCHING_SIZE = 0.07;
 
 export const Blocker = (props: BlockerProps) => {
     const rawBase = toShape(props.boxes);
-    if (Err.isErr(rawBase)) {
+    if (isErr(rawBase)) {
         // TODO centralize error reporting.
-        console.warn(rawBase.print());
+        console.warn(rawBase.err.print());
         return;
     }
     const roundedBase = round(rawBase, KEY_RADIUS, KEY_RADIUS);

@@ -1,5 +1,5 @@
 import {Box, toComposite, toShape} from "./box";
-import {Err} from "./possible";
+import {isErr} from "./possible";
 
 describe("toComposite", () => {
     it("should combine touching boxes", () => {
@@ -46,7 +46,7 @@ describe("toShape", () => {
             {height: 1, width: 1, offset: [0, 2]},
         ];
         const composite = toShape(boxes);
-        expect(Err.isErr(composite)).toBeTruthy();
+        expect(isErr(composite)).toBeTruthy();
     });
 
     it("should combine complex touching boxes", () => {

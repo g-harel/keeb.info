@@ -7,7 +7,7 @@ import {UUID} from "../identity";
 import {calcKeycap} from "../keycap";
 import {rotateCoord} from "../point";
 import {Angle, Point} from "../point";
-import {Err} from "../possible";
+import {isErr} from "../possible";
 import {ReactProps} from "../react";
 import {Shape} from "../shape";
 import {Pooler, ROTATION_ORIGIN} from "./view";
@@ -33,8 +33,8 @@ export const Selection = (props: SelectionProps) => {
             base: key.blank.boxes,
             shelf: key.shelf,
         });
-        if (Err.isErr(keycap)) {
-            console.warn(keycap.print());
+        if (isErr(keycap)) {
+            console.warn(keycap.err.print());
             // TODO centralize errors.
             return;
         }

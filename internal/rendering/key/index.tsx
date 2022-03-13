@@ -11,7 +11,7 @@ import {
     calcKeycap,
 } from "../../keycap";
 import {KeysetKeycapLegends} from "../../keyset";
-import {Err} from "../../possible";
+import {isErr} from "../../possible";
 import {ReactProps} from "../../react";
 import {keyColor} from "../color";
 import {Pooler} from "../view";
@@ -45,8 +45,8 @@ export const Key = (props: KeyProps) => {
         base: props.blank.boxes,
         shelf: props.boxes,
     });
-    if (Err.isErr(calculatedKeycap)) {
-        console.warn(calculatedKeycap.print());
+    if (isErr(calculatedKeycap)) {
+        console.warn(calculatedKeycap.err.print());
         // TODO centralize errors.
         return;
     }
