@@ -3,36 +3,41 @@ export type Possible<T> = T | ErrContainer;
 const internalIdentity = {};
 
 export const newErr = (message: string): ErrContainer => {
-    const container = new ErrContainer();
+    const container = new InternalErrContainer();
     container.err = new Err();
     (container.err as any).messages = [message];
     return container;
 };
 
-export const isErr = <T>(value: T | UnresolvedErrContainer): value is UnresolvedErrContainer => {
+export const isErr = (value: any): value is UnresolvedErrContainer => {
     return (
-        value &&
-        (value as any).err &&
-        (value as any).$__internal__identity__ === internalIdentity
+        (value as any) !== undefined &&
+        (value as any).$__internal__identity__ === internalIdentity &&
+        (value as any).err
     );
 };
 
-export interface UnresolvedErrContainer {
+interface UnresolvedErrContainer {
+    err: Err;
+};
+
+interface ErrContainer {
+    val: string;
     err: Err;
 }
 
-export class ErrContainer  {
+class InternalErrContainer implements ErrContainer {
     private $__internal__identity__ = internalIdentity;
+    public val = "";
     public err!: Err;
 }
 
 // TODO TESTING START
-const a = (): Possible<string> => {
-    return "";
-}
+const a = (): Possible<string> => "";
 const b = (): Possible<string> => {
     const aa = a();
     if (isErr(aa)) {
+        const bb = aa;
         if (Math.random() > 0.5) {
             return aa.err.with("test");
         }
@@ -49,13 +54,13 @@ class Err {
     private messages: string[] = [];
 
     public forward(): ErrContainer {
-        const container = new ErrContainer();
+        const container = new InternalErrContainer();
         container.err = this;
         return container;
     }
 
     public with(message: string): ErrContainer {
-        const container = new ErrContainer();
+        const container = new InternalErrContainer();
         container.err = new Err();
         container.err.messages = [message, ...this.messages];
         return container;
