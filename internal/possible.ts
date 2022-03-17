@@ -1,72 +1,67 @@
-export type Possible<T> = T | ErrContainer;
+export type Possible<T> = T | Err;
 
-const internalIdentity = {};
+const globalErrIdentity = {};
 
-export const newErr = (message: string): ErrContainer => {
-    const container = new InternalErrContainer();
-    container.err = new Err();
-    (container.err as any).messages = [message];
-    return container;
+export const newErr = (messageOrErr: string | Err): Err => {
+    if (typeof messageOrErr === "string") {
+        return new Err(messageOrErr);
+    } else {
+        return new Err("TODO copy");
+    }
 };
 
-export const isErr = (value: any): value is UnresolvedErrContainer => {
+export const isErr = (value: any): value is Err => {
     return (
-        (value as any) !== undefined &&
-        (value as any).$__internal__identity__ === internalIdentity &&
-        (value as any).err
+        (value as any) && (value as any).$globalIdentity === globalErrIdentity
     );
 };
 
-interface UnresolvedErrContainer {
-    err: Err;
-};
-
-interface ErrContainer {
-    val: string;
-    err: Err;
-}
-
-class InternalErrContainer implements ErrContainer {
-    private $__internal__identity__ = internalIdentity;
-    public val = "";
-    public err!: Err;
-}
-
 // TODO TESTING START
-const a = (): Possible<string> => "";
-const b = (): Possible<string> => {
-    const aa = a();
-    if (isErr(aa)) {
-        const bb = aa;
-        if (Math.random() > 0.5) {
-            return aa.err.with("test");
-        }
-        const aaa = aa.err.forward();
-        return aa;
-    }
-    return "";
-};
+// const a = (): Possible<string> => "";
+// const b = (): Possible<string> => {
+//     const aa = a();
+//     if (isErr(aa)) {
+//         const bb = aa;
+//         if (Math.random() > 0.5) {
+//             return aa.err.with("test");
+//         }
+//         const aaa = aa.err.forward();
+//         return aa;
+//     }
+//     return "";
+// };
 // TODO TESTING END
 
 // TODO add error type and type checking (ex. NotFoundErr)
 // TODO force "value.err" to be used even when returning plain err.
+// TODO make sure errors can be reused without sharing arrays and refs.
+// TODO remove container.
 class Err {
-    private messages: string[] = [];
+    public err = this;
+    private $globalIdentity = globalErrIdentity;
 
-    public forward(): ErrContainer {
-        const container = new InternalErrContainer();
-        container.err = this;
-        return container;
+    private $identity: {};
+    private message: string;
+    private nextErr: Err | null = null;
+
+    constructor(message: string, nextErr: Err | null = null) {
+        this.$identity = {};
+        this.message = message;
+        this.nextErr = nextErr;
     }
 
-    public with(message: string): ErrContainer {
-        const container = new InternalErrContainer();
-        container.err = new Err();
-        container.err.messages = [message, ...this.messages];
-        return container;
+    public with(message: string): Err {
+        return new Err(message, this);
     }
 
     public print(): string {
-        return this.messages.join(": ");
+        let cur: Err = this;
+        const messages: string[] = [];
+        while (cur.nextErr !== null) {
+            messages.push(cur.message);
+            cur = cur.nextErr;
+        }
+        messages.push(cur.message);
+        return messages.join(": ");
     }
 }
