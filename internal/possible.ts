@@ -50,6 +50,18 @@ class Err {
         this.nextErr = nextErr;
     }
 
+    // TODO err list iteration helper
+    public is(err: Error) {
+        let cur: Err = this;
+        while (cur.nextErr !== null) {
+            if (cur.$identity === (err as any).$identity) {
+                return true;
+            }
+            cur = cur.nextErr;
+        }
+        return cur.$identity === (err as any).$identity;
+    }
+
     public with(message: string): Err {
         return new Err(message, this);
     }

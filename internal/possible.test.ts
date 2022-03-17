@@ -26,7 +26,7 @@ describe("Err", () => {
         expect(isErr(value)).toBeTruthy();
     });
 
-    it("should inlcude message in printed errors", () => {
+    it("should include message in printed errors", () => {
         const testString = "abc";
         const value = newErr(testString);
 
@@ -57,5 +57,13 @@ describe("Err", () => {
         expect(
             indexes.slice(1).every((item, i) => indexes[i] >= item),
         ).toBeTruthy();
+    });
+
+    it("should correctly identify an ancestor error type", () => {
+        // TODO
+    });
+
+    it("cloned errs should match the error type", () => {
+        // TODO
     });
 });
