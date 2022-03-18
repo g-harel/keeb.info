@@ -51,7 +51,7 @@ class Err {
     }
 
     // TODO err list iteration helper
-    public is(err: Error) {
+    public is(err: Err) {
         let cur: Err = this;
         while (cur.nextErr !== null) {
             if (cur.$identity === (err as any).$identity) {

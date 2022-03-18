@@ -59,8 +59,17 @@ describe("Err", () => {
         ).toBeTruthy();
     });
 
-    it("should correctly identify an ancestor error type", () => {
-        // TODO
+    it("should correctly identify all ancestor error type", () => {
+        const firstErr = newErr("test");
+        const secondErr = firstErr.with("test");
+        const thirdErr = secondErr.with("test");
+        const errs = [firstErr, secondErr, thirdErr];
+
+        for (let i = 0; i < errs.length; i++) {
+            for (let j = i; j < errs.length; j++) {
+                expect(errs[j].is(errs[i])).toBeTruthy();
+            }
+        }
     });
 
     it("cloned errs should match the error type", () => {
