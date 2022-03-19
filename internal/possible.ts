@@ -28,6 +28,7 @@ export const isErr = (value: any): value is Err => {
 // };
 // TODO TESTING END
 
+// TODO identity is not serializable.
 // TODO add error type and type checking (ex. NotFoundErr)
 // TODO force "value.err" to be used even when returning plain err
 class Err {
