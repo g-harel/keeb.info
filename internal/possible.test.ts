@@ -22,7 +22,7 @@ describe("Err", () => {
     });
 
     it("should detect elaborated errors", () => {
-        const value = newErr("test").err.with("test");
+        const value = newErr("test").err.fwd("test");
         expect(isErr(value)).toBeTruthy();
     });
 
@@ -37,7 +37,7 @@ describe("Err", () => {
         const testStrings = ["foo", "bar", "xyz"];
         let value = newErr(testStrings[0]);
         for (let i = 1; i < testStrings.length; i++) {
-            value = value.err.with(testStrings[i]);
+            value = value.err.fwd(testStrings[i]);
         }
 
         for (const message of testStrings) {
@@ -49,7 +49,7 @@ describe("Err", () => {
         const testStrings = ["123", "456", "789"];
         let value = newErr(testStrings[0]);
         for (let i = 1; i < testStrings.length; i++) {
-            value = value.err.with(testStrings[i]);
+            value = value.err.fwd(testStrings[i]);
         }
 
         const printed = value.err.print();
@@ -61,8 +61,8 @@ describe("Err", () => {
 
     it("should correctly identify all ancestor error type", () => {
         const firstErr = newErr("test");
-        const secondErr = firstErr.with("test");
-        const thirdErr = secondErr.with("test");
+        const secondErr = firstErr.fwd("test");
+        const thirdErr = secondErr.fwd("test");
         const errs = [firstErr, secondErr, thirdErr];
 
         for (let i = 0; i < errs.length; i++) {
@@ -70,9 +70,5 @@ describe("Err", () => {
                 expect(errs[j].is(errs[i])).toBeTruthy();
             }
         }
-    });
-
-    it("cloned errs should match the error type", () => {
-        // TODO
     });
 });

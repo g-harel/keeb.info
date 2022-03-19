@@ -2,12 +2,8 @@ export type Possible<T> = T | Err;
 
 const globalErrIdentity = {};
 
-export const newErr = (messageOrErr: string | Err): Err => {
-    if (typeof messageOrErr === "string") {
-        return new Err(messageOrErr);
-    } else {
-        return new Err("TODO copy");
-    }
+export const newErr = (message: string): Err => {
+    return new Err({$identity: null, message, nextErr: null});
 };
 
 export const isErr = (value: any): value is Err => {
@@ -33,21 +29,41 @@ export const isErr = (value: any): value is Err => {
 // TODO TESTING END
 
 // TODO add error type and type checking (ex. NotFoundErr)
-// TODO force "value.err" to be used even when returning plain err.
-// TODO make sure errors can be reused without sharing arrays and refs.
-// TODO remove container.
+// TODO force "value.err" to be used even when returning plain err
 class Err {
     public err = this;
     private $globalIdentity = globalErrIdentity;
 
-    private $identity: {};
-    private message: string;
-    private nextErr: Err | null = null;
+    private readonly $identity: {};
+    private readonly message: string;
+    private readonly nextErr: Err | null = null;
 
-    constructor(message: string, nextErr: Err | null = null) {
-        this.$identity = {};
-        this.message = message;
-        this.nextErr = nextErr;
+    constructor(values: {
+        $identity: {} | null;
+        message: string;
+        nextErr: Err | null;
+    }) {
+        this.$identity = values.$identity || {};
+        this.message = values.message;
+        this.nextErr = values.nextErr;
+    }
+
+    // TODO find better name
+    public fwd(messageOrErr: string | Err): Err {
+        if (typeof messageOrErr === "string") {
+            return new Err({
+                $identity: null,
+                message: messageOrErr,
+                nextErr: this,
+            });
+        } else {
+            // TODO test this
+            return new Err({
+                $identity: messageOrErr.$identity,
+                message: messageOrErr.message,
+                nextErr: this,
+            });
+        }
     }
 
     // TODO err list iteration helper
@@ -60,10 +76,6 @@ class Err {
             cur = cur.nextErr;
         }
         return cur.$identity === (err as any).$identity;
-    }
-
-    public with(message: string): Err {
-        return new Err(message, this);
     }
 
     public print(): string {

@@ -34,6 +34,6 @@ export const readJsonFile = <T>(filePath: string): Possible<T> => {
         if (isErr(contents)) return contents;
         return json5.parse(contents);
     } catch (e) {
-        return newErr(filePath).err.with(String(e));
+        return newErr(filePath).err.fwd(String(e));
     }
 };
