@@ -3,7 +3,7 @@ export type Possible<T> = T | Err;
 const globalErrIdentity = {};
 
 export const newErr = (message: string): Err => {
-    return new Err({$identity: null, message, nextErr: null});
+    return new Err(null, message, null);
 };
 
 export const isErr = (value: any): value is Err => {
@@ -11,6 +11,55 @@ export const isErr = (value: any): value is Err => {
         (value as any) && (value as any).$globalIdentity === globalErrIdentity
     );
 };
+
+// TODO identity is not serializable.
+// TODO force "value.err" to be used even when returning plain err
+class Err {
+    public err = this;
+    private $globalIdentity = globalErrIdentity;
+
+    private readonly $identity: {};
+    private readonly message: string;
+    private readonly nextErr: Err | null = null;
+
+    constructor($identity: {} | null, message: string, nextErr: Err | null) {
+        this.$identity = $identity || {};
+        this.message = message;
+        this.nextErr = nextErr;
+    }
+
+    private nextErrs(): Err[] {
+        let cur: Err = this;
+        const errs: Err[] = [];
+        while (cur.nextErr !== null) {
+            errs.push(cur);
+            cur = cur.nextErr;
+        }
+        errs.push(cur);
+        return errs;
+    }
+
+    // TODO find better name
+    public fwd(messageOrErr: string | Err): Err {
+        if (typeof messageOrErr === "string") {
+            return new Err(null, messageOrErr, this);
+        } 
+        // TODO test this
+        return new Err(messageOrErr.$identity, messageOrErr.message, this);
+    }
+
+    public is(err: Err) {
+        return !!this.nextErrs().find(
+            (e) => (err as any).$identity === e.$identity,
+        );
+    }
+
+    public print(): string {
+        return this.nextErrs()
+            .map((e) => e.message)
+            .join(": ");
+    }
+}
 
 // TODO TESTING START
 // const a = (): Possible<string> => "";
@@ -27,66 +76,3 @@ export const isErr = (value: any): value is Err => {
 //     return "";
 // };
 // TODO TESTING END
-
-// TODO identity is not serializable.
-// TODO add error type and type checking (ex. NotFoundErr)
-// TODO force "value.err" to be used even when returning plain err
-class Err {
-    public err = this;
-    private $globalIdentity = globalErrIdentity;
-
-    private readonly $identity: {};
-    private readonly message: string;
-    private readonly nextErr: Err | null = null;
-
-    constructor(values: {
-        $identity: {} | null;
-        message: string;
-        nextErr: Err | null;
-    }) {
-        this.$identity = values.$identity || {};
-        this.message = values.message;
-        this.nextErr = values.nextErr;
-    }
-
-    // TODO find better name
-    public fwd(messageOrErr: string | Err): Err {
-        if (typeof messageOrErr === "string") {
-            return new Err({
-                $identity: null,
-                message: messageOrErr,
-                nextErr: this,
-            });
-        } else {
-            // TODO test this
-            return new Err({
-                $identity: messageOrErr.$identity,
-                message: messageOrErr.message,
-                nextErr: this,
-            });
-        }
-    }
-
-    // TODO err list iteration helper
-    public is(err: Err) {
-        let cur: Err = this;
-        while (cur.nextErr !== null) {
-            if (cur.$identity === (err as any).$identity) {
-                return true;
-            }
-            cur = cur.nextErr;
-        }
-        return cur.$identity === (err as any).$identity;
-    }
-
-    public print(): string {
-        let cur: Err = this;
-        const messages: string[] = [];
-        while (cur.nextErr !== null) {
-            messages.push(cur.message);
-            cur = cur.nextErr;
-        }
-        messages.push(cur.message);
-        return messages.join(": ");
-    }
-}
