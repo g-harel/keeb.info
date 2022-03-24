@@ -5,7 +5,7 @@
         "dev": "parcel website/index.html --open",
         "test": "jest",
         "deploy": "firebase deploy --only firestore:rules",
-        "script:ingest": "ts-node scripts/ingest"
+        "script:ingest": "ts-node scripts/ingest ./dist/keyboard-index.json"
     },
     "dependencies": {
         "@ijprest/kle-serial": "^0.15.1",

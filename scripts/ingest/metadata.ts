@@ -29,6 +29,7 @@ export interface Metadata {
     index: any;
 }
 
+// TODO serialize keyboard metadata better
 export const flatten = (ctx: IngestContext): Metadata => {
     const keyboards: KeyboardMetadata[] = [];
     for (const [vendorID, products] of Object.entries(ctx.metadata)) {

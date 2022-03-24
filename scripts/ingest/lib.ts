@@ -37,3 +37,11 @@ export const readJsonFile = <T>(filePath: string): Possible<T> => {
         return newErr(filePath).err.fwd(String(e));
     }
 };
+
+export const writeFile = (filePath: string, contents: string): Possible<void> => {
+    try {
+        fs.writeFileSync(filePath, contents);
+    } catch (e) {
+        return newErr(filePath).err.fwd(String(e));
+    }
+};
