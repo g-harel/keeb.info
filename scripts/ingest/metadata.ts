@@ -1,5 +1,5 @@
-import {serializedIndex} from "../../internal";
 import {Layout} from "../../internal/layout";
+import {serializedIndex} from "../../internal/search";
 import {ViaDefinition, convertViaToLayout} from "../../internal/via";
 import {IngestContext} from "./context";
 import {log} from "./lib";

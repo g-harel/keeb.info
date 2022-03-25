@@ -5,6 +5,7 @@ import {ThemeProvider, createGlobalStyle} from "styled-components";
 
 import {clear} from "../internal/debug";
 import {Header} from "./components/header";
+import "./search";
 import {sitemap} from "./sitemap";
 import {lightTheme, theme} from "./theme";
 
