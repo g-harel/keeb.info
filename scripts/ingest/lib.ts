@@ -38,7 +38,10 @@ export const readJsonFile = <T>(filePath: string): Possible<T> => {
     }
 };
 
-export const writeFile = (filePath: string, contents: string): Possible<void> => {
+export const writeFile = (
+    filePath: string,
+    contents: string,
+): Possible<void> => {
     try {
         fs.writeFileSync(filePath, contents);
     } catch (e) {

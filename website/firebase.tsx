@@ -1,7 +1,8 @@
 import {User} from "firebase/auth";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
-import React from "react";
+import {getDownloadURL, getStorage, ref} from "firebase/storage";
+import React, {useState} from "react";
 import {useAuthState as uas} from "react-firebase-hooks/auth";
 import {StyledFirebaseAuth} from "react-firebaseui";
 
@@ -23,6 +24,8 @@ const uiConfig: firebaseui.auth.Config = {
 
 firebase.initializeApp(firebaseConfig);
 
+const storage = getStorage();
+
 export const Login = () => (
     <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
 );
@@ -36,3 +39,16 @@ export const useAuthState: () => [
 export const logout = (): Promise<void> => {
     return firebase.auth().signOut();
 };
+
+// TODO make url argument.
+// TODO CORS
+export const useStorageAsset = async () => {
+    // const keyboardIndexReference = ref(storage, 'gs://keeb-43f9a-public/keyboard-index.json');
+    // const keyboardIndexURL = await getDownloadURL(keyboardIndexReference);
+    const keyboardIndexURL =
+        "https://storage.googleapis.com/keeb-43f9a-public/keyboard-index.json";
+    const keyboardIndexResponse = await fetch(keyboardIndexURL);
+    const rawIndex = await keyboardIndexResponse.text();
+    console.log(rawIndex);
+};
+useStorageAsset();

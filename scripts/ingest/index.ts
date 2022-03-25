@@ -1,5 +1,5 @@
 import {createContext} from "./context";
-import { writeFile } from "./lib";
+import {writeFile} from "./lib";
 import {flatten} from "./metadata";
 import {ingestQMK} from "./qmk";
 import {ingestVia} from "./via";
@@ -9,7 +9,7 @@ if (outFile === undefined) {
     console.error("Usage: ingest [outFile]");
     process.exit(1);
 }
-console.log(outFile)
+console.log(outFile);
 
 const time = (label: string, fn: () => any) => {
     console.time(label);
