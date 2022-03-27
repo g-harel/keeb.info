@@ -1,11 +1,12 @@
 {
     "scripts": {
-        "build": "parcel build website/index.html",
+        "build": "run-p build:*",
+        "build:website": "parcel build website/index.html",
+        "build:search-index": "ts-node scripts/ingest ./dist/keyboard-index.json",
         "fmt": "prettier --list-different --write \"**/*.{js,ts,tsx,md,yml,json}\"",
         "dev": "parcel website/index.html --open",
-        "test": "jest",
         "deploy": "firebase deploy --only firestore:rules",
-        "script:ingest": "ts-node scripts/ingest ./dist/keyboard-index.json"
+        "test": "jest"
     },
     "dependencies": {
         "@google-cloud/storage": "^5.18.2",
@@ -30,6 +31,7 @@
         "moo": "^0.5.1",
         "nearley": "^2.20.1",
         "nodemon": "^2.0.7",
+        "npm-run-all": "^4.1.5",
         "parcel": "^2.0.0-beta.2",
         "polygon-clipping": "^0.15.3",
         "prettier": "^2.3.0",
