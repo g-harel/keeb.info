@@ -1,5 +1,7 @@
 import lunr from "lunr";
 
+// TODO wrap index type.
+
 export const serializedIndex = <T extends object>(
     documents: T[],
     ref: string,

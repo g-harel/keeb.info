@@ -1,7 +1,9 @@
 export type Possible<T> = T | Err;
+export type Prossible<T> = Promise<Possible<T>>;
 
 const globalErrIdentity = {};
 
+// TODO builder that works better with try/catch
 export const newErr = (message: string): Err => {
     return new Err(null, message, null);
 };

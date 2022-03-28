@@ -9,7 +9,6 @@
         "test": "jest"
     },
     "dependencies": {
-        "@google-cloud/storage": "^5.18.2",
         "@ijprest/kle-serial": "^0.15.1",
         "@trivago/prettier-plugin-sort-imports": "^3.1.1",
         "@types/color": "^3.0.1",

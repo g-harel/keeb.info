@@ -1,26 +1,29 @@
-import {Storage} from "@google-cloud/storage";
+import lunr from "lunr";
+import { isErr, newErr, Prossible } from "../internal/possible";
+import {deserializeIndex} from "../internal/search";
 
-// TODO make url argument.
-// TODO CORS
-// TODO doesn't work in-browser!!!
-export const useStorageAsset = async () => {
-    // const keyboardIndexReference = ref(storage, 'gs://keeb-43f9a-public/keyboard-index.json');
-    // const keyboardIndexURL = await getDownloadURL(keyboardIndexReference);const bucketName='bucket name here';
-
-    const storage = new Storage();
-    const file = storage
-        .bucket("keeb-43f9a-public")
-        .file("keyboard-index.json");
-
-    file.download((err, contents) => {
-        console.log("file err: " + err);
-        console.log("file data: " + contents);
-    });
-
-    // const keyboardIndexURL =
-    //     "https://storage.googleapis.com/keeb-43f9a-public/keyboard-index.json";
-    // const keyboardIndexResponse = await fetch(keyboardIndexURL);
-    // const rawIndex = await keyboardIndexResponse.text();
-    // console.log(rawIndex);
+export const useStorageAsset = async (): Prossible<lunr.Index> => {
+    let rawIndex = "";
+    try {
+        const keyboardIndexResponse = await fetch("/keyboard-index.json");
+        rawIndex = await keyboardIndexResponse.text();
+    } catch (e) {
+        return newErr(String(e)).fwd("failed to fetch index");
+    }
+    try {
+        console.log(JSON.parse(rawIndex));
+        return deserializeIndex(rawIndex);
+    } catch (e) {
+        return newErr(String(e)).fwd("corrupted index");
+    }
 };
-useStorageAsset();
+
+(async () => {
+    const idx = await useStorageAsset();
+    if (isErr(idx)) {
+        console.warn(idx.err.print());
+        return;
+    }
+
+    console.log(idx.search("trio"));
+})();
