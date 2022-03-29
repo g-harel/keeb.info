@@ -1,5 +1,8 @@
 export type Possible<T> = T | Err;
-export type Prossible<T> = Promise<Possible<T>>;
+
+// TODO async
+export type Promible<T> = Promise<Possible<T>>;
+export type Possmise<T> = Possible<Promise<T>>;
 
 const globalErrIdentity = {};
 
