@@ -1,5 +1,6 @@
 import lunr from "lunr";
-import { isErr, newErr, Prossible } from "../internal/possible";
+
+import {Prossible, isErr, newErr} from "../internal/possible";
 import {deserializeIndex} from "../internal/search";
 
 export const useStorageAsset = async (): Prossible<lunr.Index> => {
@@ -11,7 +12,6 @@ export const useStorageAsset = async (): Prossible<lunr.Index> => {
         return newErr(String(e)).fwd("failed to fetch index");
     }
     try {
-        console.log(JSON.parse(rawIndex));
         return deserializeIndex(rawIndex);
     } catch (e) {
         return newErr(String(e)).fwd("corrupted index");
