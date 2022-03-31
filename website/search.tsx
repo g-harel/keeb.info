@@ -1,9 +1,11 @@
-import lunr from "lunr";
+import {KeyboardMetadata} from "@ijprest/kle-serial";
 
 import {Promible, isErr, newErr} from "../internal/possible";
-import {deserializeIndex} from "../internal/search";
+import {SearchIndex} from "../internal/search";
 
-export const loadSearchData = async (): Promible<lunr.Index> => {
+export const loadSearchData = async (): Promible<
+    SearchIndex<KeyboardMetadata>
+> => {
     let rawIndex = "";
     try {
         const keyboardIndexResponse = await fetch("/keyboard-index.json");
@@ -13,7 +15,7 @@ export const loadSearchData = async (): Promible<lunr.Index> => {
     }
     try {
         const data = JSON.parse(rawIndex);
-        return deserializeIndex(data.index);
+        return SearchIndex.fromSerialized(data.index);
     } catch (e) {
         console.log(e);
         return newErr(String(e)).fwd("corrupted index");
@@ -27,5 +29,5 @@ export const loadSearchData = async (): Promible<lunr.Index> => {
         return;
     }
 
-    console.log(idx.search("a")); // TODO
+    // console.log(idx.search("a")); // TODO
 })();

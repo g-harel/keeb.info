@@ -1,5 +1,5 @@
 import {Layout} from "../../internal/layout";
-import {createSerializedIndex} from "../../internal/search";
+import {SearchIndex} from "../../internal/search";
 import {ViaDefinition, convertViaToLayout} from "../../internal/via";
 import {IngestContext} from "./context";
 import {log} from "./lib";
@@ -51,11 +51,11 @@ export const flatten = (ctx: IngestContext): Metadata => {
         }
     }
 
-    const index = createSerializedIndex(
+    const index = SearchIndex.fromDocuments(
         keyboards,
         keyboardMetadataKey,
         keyboardMetadataFields,
-    );
+    ).serialize();
     log(`Index size: ${Math.round(index.length / 1000)}kB`);
 
     return {keyboards, index};
