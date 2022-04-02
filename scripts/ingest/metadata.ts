@@ -25,11 +25,12 @@ export interface KeyboardMetadata {
 }
 
 export interface Metadata {
+    // TODO keyboard info is redundant with index
     keyboards: KeyboardMetadata[];
     index: any;
 }
 
-// TODO serialize keyboard metadata better
+// TODO serialize keyboard metadata more efficiently (repeated fields names, might not be required if gzip)
 export const flatten = (ctx: IngestContext): Metadata => {
     const keyboards: KeyboardMetadata[] = [];
     for (const [vendorID, products] of Object.entries(ctx.metadata)) {
@@ -51,12 +52,12 @@ export const flatten = (ctx: IngestContext): Metadata => {
         }
     }
 
-    const index = SearchIndex.fromDocuments(
+    const searchIndex = SearchIndex.fromDocuments(
         keyboards,
         keyboardMetadataKey,
         keyboardMetadataFields,
     ).serialize();
-    log(`Index size: ${Math.round(index.length / 1000)}kB`);
+    log(`Index size: ${Math.round(searchIndex.length / 1000)}kB`);
 
-    return {keyboards, index};
+    return {keyboards, index: searchIndex};
 };
