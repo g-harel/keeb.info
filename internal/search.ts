@@ -1,6 +1,5 @@
 import lunr from "lunr";
 
-// TODO use this.
 // TODO add query methods.
 export class SearchIndex<T> {
     private index: lunr.Index;
@@ -30,5 +29,10 @@ export class SearchIndex<T> {
 
     public serialize(): string {
         return JSON.stringify(this.index);
+    }
+
+    public search(query: string): T[] {
+        // todo
+        return [];
     }
 }
