@@ -2,7 +2,11 @@ import lunr from "lunr";
 
 import {Possible, newErr} from "./possible";
 
-// TODO add query methods.
+interface SerializedSearchIndex {
+    index: any;
+    documents: Record<string, any>;
+}
+
 export class SearchIndex<T> {
     public static fromDocuments<T>(
         documentList: T[],
@@ -30,8 +34,9 @@ export class SearchIndex<T> {
         return new SearchIndex(idx, documentsMap);
     }
 
-    public static fromSerialized<T>(idx: string): SearchIndex<T> {
-        return new SearchIndex(lunr.Index.load(JSON.parse(idx)));
+    public static fromSerialized<T>(serialized: string): SearchIndex<T> {
+        const data: SerializedSearchIndex = JSON.parse(serialized);
+        return new SearchIndex(lunr.Index.load(data.index), data.documents);
     }
 
     private index: lunr.Index;
@@ -43,8 +48,11 @@ export class SearchIndex<T> {
     }
 
     public serialize(): string {
-        // TODO serialize documents.
-        return JSON.stringify(this.index);
+        const data: SerializedSearchIndex = {
+            index: this.index,
+            documents: this.documents,
+        };
+        return JSON.stringify(data);
     }
 
     public search(query: string): Possible<T[]> {
