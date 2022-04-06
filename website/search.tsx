@@ -17,7 +17,7 @@ export const loadSearchData = async (): Promible<
         const data = JSON.parse(rawIndex);
         return SearchIndex.fromSerialized(data.index);
     } catch (e) {
-        console.log(e);
+        console.log(e, rawIndex);
         return newErr(String(e)).fwd("corrupted index");
     }
 };
