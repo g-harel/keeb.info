@@ -7,6 +7,10 @@ interface SerializedSearchIndex {
     documents: Record<string, any>;
 }
 
+// TODO make interface for search
+// TODO replace lunr with flexsearch
+interface ISearchIndex<T> {}
+
 export class SearchIndex<T> {
     public static fromDocuments<T>(
         documentList: T[],

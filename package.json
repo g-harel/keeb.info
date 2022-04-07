@@ -24,6 +24,7 @@
         "fast-glob": "^3.2.11",
         "firebase": "^9.5.0",
         "firebaseui": "^6.0.0",
+        "flexsearch": "^0.7.21",
         "glob": "^7.2.0",
         "jest": "^27.4.5",
         "json5": "^2.2.0",
