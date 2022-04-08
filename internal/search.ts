@@ -1,4 +1,4 @@
-import lunr from "lunr";
+import {Document} from "flexsearch";
 
 import {Possible, newErr} from "./possible";
 
@@ -7,46 +7,39 @@ interface SerializedSearchIndex {
     documents: Record<string, any>;
 }
 
-// TODO make interface for search
 // TODO replace lunr with flexsearch
-interface ISearchIndex<T> {}
 
 export class SearchIndex<T> {
     public static fromDocuments<T>(
         documentList: T[],
-        refField: string,
+        refField: string, // TODO remove and use list index.
         fields: string[],
     ): SearchIndex<T> {
-        const documentsMap: Record<string, T> = {};
-
-        const idx = lunr(function () {
-            const $idx = this;
-
-            // Set the "ref" field (index).
-            $idx.ref(refField);
-
-            // Set the other fields to be indexed.
-            fields.forEach((field) => $idx.field(field));
-
-            // Add all documents to index and ref map.
-            documentList.forEach((doc: any) => {
-                $idx.add(doc);
-                documentsMap[doc[refField]] = doc;
-            });
+        // TODO options.
+        const index = new Document<T>({
+            document: {
+                id: refField,
+                index: fields,
+            },
         });
 
-        return new SearchIndex(idx, documentsMap);
+        for (const doc of documentList) {
+            index.add(doc);
+        }
+
+        return new SearchIndex(index, documentList);
     }
 
     public static fromSerialized<T>(serialized: string): SearchIndex<T> {
         const data: SerializedSearchIndex = JSON.parse(serialized);
+        // TODO serialize flex
         return new SearchIndex(lunr.Index.load(data.index), data.documents);
     }
 
-    private index: lunr.Index;
-    private documents: Record<string, T>;
+    private index: Document<T>;
+    private documents: Record<string, T>; // TODO convert to string.
 
-    private constructor(index: lunr.Index, documents: Record<string, T>) {
+    private constructor(index: Document<T>, documents: Record<string, T>) {
         this.index = index;
         this.documents = documents;
     }
