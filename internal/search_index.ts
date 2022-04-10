@@ -1,6 +1,6 @@
 import {Document, IndexOptionsForDocumentSearch} from "flexsearch";
 
-import {Possible, newErr} from "./possible";
+import {newErr, Possible} from "./possible";
 
 interface SerializedSearchIndex {
     index: any;
@@ -10,8 +10,7 @@ interface SerializedSearchIndex {
 
 const ID_FIELD = "__id__";
 
-// TODO replace lunr with flexsearch
-// TODO compress fields?
+// TODO compress document list during serialization
 export class SearchIndex<T> {
     public static fromDocuments<T>(
         documentList: T[],
@@ -24,7 +23,7 @@ export class SearchIndex<T> {
             },
         };
 
-        // TODO tuned options.
+        // TODO tune options.
         const index = new Document<T>(options);
         for (let i = 0; i < documentList.length; i++) {
             const doc = documentList[i];
@@ -47,7 +46,7 @@ export class SearchIndex<T> {
     }
 
     private index: Document<T>;
-    private documents: T[]; // TODO might not be needed
+    private documents: T[];
     private options: IndexOptionsForDocumentSearch<T>;
 
     private constructor(
@@ -79,7 +78,6 @@ export class SearchIndex<T> {
                 }
             }, exportDetectIntervalMS);
         });
-        console.log("exported", exportedIndex);
 
         const data: SerializedSearchIndex = {
             index: exportedIndex,
@@ -90,15 +88,19 @@ export class SearchIndex<T> {
     }
 
     public search(query: string): Possible<T[]> {
-        return this.index.search(query) as any;
+        const searchResults = this.index.search(query);
+
+        // TODO order search results by quality across fields.
         const results: T[] = [];
-        // for (const result of this.index.search(query)) {
-        //     const document = this.documents[result.ref];
-        //     if (document === undefined) {
-        //         return newErr(result.ref).fwd("missing ref");
-        //     }
-        //     results.push(document);
-        // }
+        for (const fieldResult of searchResults) {
+            for (const resultID of fieldResult.result) {
+                const document = this.documents[resultID as number];
+                if (document === undefined) {
+                    return newErr(String(resultID)).fwd("missing ID");
+                }
+                results.push(document);
+            }
+        }
         return results;
     }
 }

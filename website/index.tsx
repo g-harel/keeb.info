@@ -20,7 +20,7 @@ import {lightTheme, theme} from "./theme";
         return;
     }
 
-    // console.log(idx.search("a")); // TODO
+    console.log(idx.search("a"));
 })();
 // TODO TEMP
 

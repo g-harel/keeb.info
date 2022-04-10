@@ -210,6 +210,7 @@ export const orderVertically = (sections: LayoutSection[]): LayoutSection[] => {
 
 // TODO validate section overlap.
 // TODO consider returning -> const offsets: Record<UUID, Point> = {};
+// TODO return possible
 export const spreadSections = (layout: Layout): Layout => {
     const out: Layout = deepCopy(layout);
 

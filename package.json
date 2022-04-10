@@ -5,7 +5,7 @@
         "build:search-index": "ts-node scripts/ingest ./dist/keyboard-index.json",
         "fmt": "prettier --list-different --write \"**/*.{js,ts,tsx,md,yml,json}\"",
         "dev": "run-s build:search-index dev:*",
-        "dev:website": "parcel website/index.html",
+        "dev:website": "parcel website/index.html --open",
         "deploy": "firebase deploy --only firestore:rules",
         "test": "jest"
     },
