@@ -1,5 +1,5 @@
 import {Layout} from "../../internal/layout";
-import {SearchIndex} from "../../internal/search";
+import {SearchIndex} from "../../internal/search_index";
 import {ViaDefinition, convertViaToLayout} from "../../internal/via";
 import {IngestContext} from "./context";
 import {log} from "./lib";
@@ -15,8 +15,7 @@ export interface IngestedMetadata {
     viaPath?: string;
 }
 
-const keyboardMetadataKey = "name";
-const keyboardMetadataFields = [keyboardMetadataKey];
+const keyboardMetadataFields = ["name"];
 export interface KeyboardMetadata {
     name: string;
     vendorID: string;
@@ -31,7 +30,7 @@ export interface Metadata {
 }
 
 // TODO serialize keyboard metadata more efficiently (repeated fields names, might not be required if gzip)
-export const flatten = (ctx: IngestContext): Metadata => {
+export const flatten = async (ctx: IngestContext): Promise<Metadata> => {
     const keyboards: KeyboardMetadata[] = [];
     for (const [vendorID, products] of Object.entries(ctx.metadata)) {
         for (const [productID, ingested] of Object.entries<IngestedMetadata>(
@@ -54,10 +53,10 @@ export const flatten = (ctx: IngestContext): Metadata => {
 
     const searchIndex = SearchIndex.fromDocuments(
         keyboards,
-        keyboardMetadataKey,
         keyboardMetadataFields,
-    ).serialize();
-    log(`Index size: ${Math.round(searchIndex.length / 1000)}kB`);
+    );
+    const serializedIndex = await searchIndex.serialize();
+    log(`Index size: ${Math.round(serializedIndex.length / 1000)}kB`);
 
-    return {keyboards, index: searchIndex};
+    return {keyboards, index: serializedIndex};
 };

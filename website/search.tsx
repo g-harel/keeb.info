@@ -1,7 +1,7 @@
 import {KeyboardMetadata} from "@ijprest/kle-serial";
 
-import {Promible, isErr, newErr} from "../internal/possible";
-import {SearchIndex} from "../internal/search";
+import {Promible, newErr} from "../internal/possible";
+import {SearchIndex} from "../internal/search_index";
 
 export const loadSearchData = async (): Promible<
     SearchIndex<KeyboardMetadata>
@@ -21,13 +21,3 @@ export const loadSearchData = async (): Promible<
         return newErr(String(e)).fwd("corrupted index");
     }
 };
-
-(async () => {
-    const idx = await loadSearchData();
-    if (isErr(idx)) {
-        console.warn(idx.err.print());
-        return;
-    }
-
-    // console.log(idx.search("a")); // TODO
-})();

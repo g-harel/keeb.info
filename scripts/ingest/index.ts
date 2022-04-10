@@ -23,11 +23,16 @@ const ctx = createContext();
 time("the-via/keyboards", () => ingestVia(ctx));
 time("qmk/qmk_firmware", () => ingestQMK(ctx));
 
-const metadata = flatten(ctx);
-writeFile(outFile, JSON.stringify(metadata));
-
 // Log a summary of errors.
 for (const [key, value] of Object.entries(ctx.errors)) {
-    console.log(key, value.length);
+    console.log("\t", key, value.length);
 }
 // console.log(ctx.errors);
+
+// Write data to file.
+(async () => {
+    const metadata = await flatten(ctx);
+    writeFile(outFile, JSON.stringify(metadata));
+    console.log("Wrote index to file.");
+    process.exit(0);
+})();
