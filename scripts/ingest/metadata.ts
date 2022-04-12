@@ -58,5 +58,10 @@ export const flatten = async (ctx: IngestContext): Promise<Metadata> => {
     const serializedIndex = await searchIndex.serialize();
     log(`Index size: ${Math.round(serializedIndex.length / 1000)}kB`);
 
-    return {keyboards, index: serializedIndex};
+    // TODO double serialized adds a lot of useless escape chars
+    return {
+        // TODO might not need if stored in index.
+        keyboards: [],
+        index: serializedIndex,
+    };
 };

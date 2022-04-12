@@ -1,3 +1,4 @@
+import {isErr} from "../../internal/possible";
 import {createContext} from "./context";
 import {writeFile} from "./lib";
 import {flatten} from "./metadata";
@@ -32,7 +33,12 @@ for (const [key, value] of Object.entries(ctx.errors)) {
 // Write data to file.
 (async () => {
     const metadata = await flatten(ctx);
-    writeFile(outFile, JSON.stringify(metadata));
-    console.log("Wrote index to file.");
+    console.log(metadata.keyboards);
+    const err = writeFile(outFile, JSON.stringify(metadata));
+    if (isErr(err)) {
+        console.error(err.print());
+        process.exit(1);
+    }
+    console.log("Wrote index to", outFile);
     process.exit(0);
 })();
