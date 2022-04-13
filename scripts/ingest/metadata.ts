@@ -23,14 +23,8 @@ export interface KeyboardMetadata {
     layout: Layout;
 }
 
-export interface Metadata {
-    // TODO keyboard info is redundant with index
-    keyboards: KeyboardMetadata[];
-    index: any;
-}
-
 // TODO serialize keyboard metadata more efficiently (repeated fields names, might not be required if gzip)
-export const flatten = async (ctx: IngestContext): Promise<Metadata> => {
+export const flattenToSerializedIndex = async (ctx: IngestContext): Promise<string> => {
     const keyboards: KeyboardMetadata[] = [];
     for (const [vendorID, products] of Object.entries(ctx.metadata)) {
         for (const [productID, ingested] of Object.entries<IngestedMetadata>(
@@ -58,10 +52,9 @@ export const flatten = async (ctx: IngestContext): Promise<Metadata> => {
     const serializedIndex = await searchIndex.serialize();
     log(`Index size: ${Math.round(serializedIndex.length / 1000)}kB`);
 
-    // TODO double serialized adds a lot of useless escape chars
-    return {
-        // TODO might not need if stored in index.
-        keyboards: [],
-        index: serializedIndex,
-    };
+    // Test that deserialziation worrks.
+    const deserializedIndex = SearchIndex.fromSerialized(serializedIndex);
+    console.log(deserializedIndex.search("a")); // TODO fix with stringinfy at run time.
+
+    return serializedIndex;
 };

@@ -61,9 +61,12 @@ export class SearchIndex<T> {
 
     public async serialize(): Promise<string> {
         let wasExported = false;
-        const exportedIndex: Record<string, T> = {};
-        this.index.export((key, data) => {
+        const exportedIndex: Record<string, any> = {};
+        this.index.export((key, data: any) => {
             wasExported = true;
+            if (data !== undefined) {
+                data = JSON.parse(data);
+            }
             exportedIndex[key] = data;
         });
 
@@ -82,7 +85,7 @@ export class SearchIndex<T> {
         const data: SerializedSearchIndex = {
             index: exportedIndex,
             options: this.options,
-            documents: this.documents,
+            documents: [] || this.documents,
         };
         return JSON.stringify(data);
     }

@@ -1,7 +1,7 @@
 import {isErr} from "../../internal/possible";
 import {createContext} from "./context";
 import {writeFile} from "./lib";
-import {flatten} from "./metadata";
+import {flattenToSerializedIndex} from "./metadata";
 import {ingestQMK} from "./qmk";
 import {ingestVia} from "./via";
 
@@ -32,8 +32,7 @@ for (const [key, value] of Object.entries(ctx.errors)) {
 
 // Write data to file.
 (async () => {
-    const metadata = await flatten(ctx);
-    console.log(metadata.keyboards);
+    const metadata = await flattenToSerializedIndex(ctx);
     const err = writeFile(outFile, JSON.stringify(metadata));
     if (isErr(err)) {
         console.error(err.print());
