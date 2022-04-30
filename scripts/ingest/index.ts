@@ -1,16 +1,18 @@
+import path from "path";
+
 import {isErr} from "../../internal/possible";
 import {createContext} from "./context";
 import {writeFile} from "./lib";
-import {flattenToSerializedIndex} from "./metadata";
 import {ingestQMK} from "./qmk";
+import {flattenToSerializedIndex} from "./serialize";
 import {ingestVia} from "./via";
 
 const outFile = process.argv[2];
-if (outFile === undefined) {
-    console.error("Usage: ingest [outFile]");
+const outDir = process.argv[3];
+if (outFile === undefined || outDir === undefined) {
+    console.error("Usage: ingest [outFile] [outDir]");
     process.exit(1);
 }
-console.log(outFile);
 
 const time = (label: string, fn: () => any) => {
     console.time(label);
@@ -30,14 +32,28 @@ for (const [key, value] of Object.entries(ctx.errors)) {
 }
 // console.log(ctx.errors);
 
-// Write data to file.
+// Write data to files.
 (async () => {
-    const metadata = await flattenToSerializedIndex(ctx);
-    const err = writeFile(outFile, JSON.stringify(metadata));
+    const [index, keyboards] = await flattenToSerializedIndex(ctx);
+
+    const err = writeFile(outFile, index);
     if (isErr(err)) {
         console.error(err.print());
         process.exit(1);
     }
-    console.log("Wrote index to", outFile);
+
+    for (let i = 0; i < keyboards.length; i++) {
+        const keyboardOutFile = path.join(outDir, `${i}.json`);
+        const err = writeFile(keyboardOutFile, JSON.stringify(keyboards[i]));
+        if (isErr(err)) {
+            console.error(err.print());
+            process.exit(1);
+        }
+    }
+
+    console.log(
+        `Wrote ${Math.round(index.length / 1000)}kB ` +
+            `to ${outFile} and ${keyboards.length} keyboards.`,
+    );
     process.exit(0);
 })();

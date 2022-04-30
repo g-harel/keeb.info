@@ -5,12 +5,10 @@ import {Possible, newErr} from "./possible";
 interface SerializedSearchIndex {
     index: any;
     options: any;
-    documents: any[];
 }
 
 const ID_FIELD = "__id__";
 
-// TODO compress document list during serialization
 export class SearchIndex<T> {
     public static fromDocuments<T>(
         documentList: T[],
@@ -31,31 +29,35 @@ export class SearchIndex<T> {
             index.add(doc);
         }
 
-        return new SearchIndex(index, documentList, options);
+        return new SearchIndex(index, options);
     }
 
-    public static fromSerialized<T>(serialized: string): SearchIndex<T> {
-        const data: SerializedSearchIndex = JSON.parse(serialized);
+    public static fromSerialized<T>(
+        serialized: string,
+    ): Possible<SearchIndex<T>> {
+        let data: SerializedSearchIndex;
+        try {
+            data = JSON.parse(serialized);
+        } catch (e) {
+            return newErr(String(e)).fwd("deserialize index");
+        }
 
         const index = new Document<T>(data.options);
         for (const [key, d] of Object.entries(data.index)) {
             index.import(key, d as any);
         }
 
-        return new SearchIndex(index, data.documents, data.options);
+        return new SearchIndex(index, data.options);
     }
 
     private index: Document<T>;
-    private documents: T[];
     private options: IndexOptionsForDocumentSearch<T>;
 
     private constructor(
         index: Document<T>,
-        documents: T[],
         options: IndexOptionsForDocumentSearch<T>,
     ) {
         this.index = index;
-        this.documents = documents;
         this.options = options;
     }
 
@@ -85,23 +87,18 @@ export class SearchIndex<T> {
         const data: SerializedSearchIndex = {
             index: exportedIndex,
             options: this.options,
-            documents: [] || this.documents,
         };
         return JSON.stringify(data);
     }
 
-    public search(query: string): Possible<T[]> {
+    public search(query: string): Possible<number[]> {
         const searchResults = this.index.search(query);
 
         // TODO order search results by quality across fields.
-        const results: T[] = [];
+        const results: number[] = [];
         for (const fieldResult of searchResults) {
             for (const resultID of fieldResult.result) {
-                const document = this.documents[resultID as number];
-                if (document === undefined) {
-                    return newErr(String(resultID)).fwd("missing ID");
-                }
-                results.push(document);
+                results.push(resultID as number);
             }
         }
         return results;

@@ -1,4 +1,16 @@
-import {IngestedMetadata, MetadataDB} from "./metadata";
+import {ViaDefinition} from "../../internal/via";
+
+export interface MetadataDB {
+    // TODO these are not always numbers in QMK repo
+    [vendorID: number]: {
+        [productID: number]: IngestedMetadata;
+    };
+}
+
+export interface IngestedMetadata {
+    via?: ViaDefinition;
+    viaPath?: string;
+}
 
 export interface IngestContext {
     errors: ErrorLog;

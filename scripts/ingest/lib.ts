@@ -1,5 +1,6 @@
 import fs from "fs";
 import json5 from "json5";
+import path from "path";
 
 import {Possible, isErr, newErr} from "../../internal/possible";
 
@@ -43,6 +44,8 @@ export const writeFile = (
     contents: string,
 ): Possible<void> => {
     try {
+        const dirname = path.dirname(filePath);
+        if (!fs.existsSync(dirname)) fs.mkdirSync(dirname, {recursive: true});
         fs.writeFileSync(filePath, contents);
     } catch (e) {
         return newErr(filePath).err.fwd(String(e));

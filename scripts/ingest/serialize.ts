@@ -1,21 +1,11 @@
 import {Layout} from "../../internal/layout";
+import {isErr} from "../../internal/possible";
 import {SearchIndex} from "../../internal/search_index";
-import {ViaDefinition, convertViaToLayout} from "../../internal/via";
-import {IngestContext} from "./context";
+import {convertViaToLayout} from "../../internal/via";
+import {IngestContext, IngestedMetadata} from "./context";
 import {log} from "./lib";
 
-export interface MetadataDB {
-    // TODO these are not always numbers in QMK repo
-    [vendorID: number]: {
-        [productID: number]: IngestedMetadata;
-    };
-}
-export interface IngestedMetadata {
-    via?: ViaDefinition;
-    viaPath?: string;
-}
-
-const keyboardMetadataFields = ["name"];
+const keyboardMetadataSearchableFields = ["name"];
 export interface KeyboardMetadata {
     name: string;
     vendorID: string;
@@ -23,8 +13,10 @@ export interface KeyboardMetadata {
     layout: Layout;
 }
 
-// TODO serialize keyboard metadata more efficiently (repeated fields names, might not be required if gzip)
-export const flattenToSerializedIndex = async (ctx: IngestContext): Promise<string> => {
+// TODO rename and refactor
+export const flattenToSerializedIndex = async (
+    ctx: IngestContext,
+): Promise<[string, KeyboardMetadata[]]> => {
     const keyboards: KeyboardMetadata[] = [];
     for (const [vendorID, products] of Object.entries(ctx.metadata)) {
         for (const [productID, ingested] of Object.entries<IngestedMetadata>(
@@ -47,14 +39,21 @@ export const flattenToSerializedIndex = async (ctx: IngestContext): Promise<stri
 
     const searchIndex = SearchIndex.fromDocuments(
         keyboards,
-        keyboardMetadataFields,
+        keyboardMetadataSearchableFields,
     );
     const serializedIndex = await searchIndex.serialize();
-    log(`Index size: ${Math.round(serializedIndex.length / 1000)}kB`);
 
-    // Test that deserialziation worrks.
+    // Test that deserialziation works.
     const deserializedIndex = SearchIndex.fromSerialized(serializedIndex);
-    console.log(deserializedIndex.search("a")); // TODO fix with stringinfy at run time.
+    if (isErr(deserializedIndex)) {
+        console.log(deserializedIndex.print());
+        process.exit(1);
+    }
+    const result = deserializedIndex.search("wilba");
+    if (isErr(result)) {
+        console.log(result.print());
+        process.exit(1);
+    }
 
-    return serializedIndex;
+    return [serializedIndex, keyboards];
 };
