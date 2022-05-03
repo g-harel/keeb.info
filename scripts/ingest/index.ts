@@ -4,7 +4,7 @@ import {isErr} from "../../internal/possible";
 import {createContext} from "./context";
 import {writeFile} from "./lib";
 import {ingestQMK} from "./qmk";
-import {flattenToSerializedIndex} from "./serialize";
+import {exportKeyboards} from "./export";
 import {ingestVia} from "./via";
 
 const outFile = process.argv[2];
@@ -30,11 +30,10 @@ time("qmk/qmk_firmware", () => ingestQMK(ctx));
 for (const [key, value] of Object.entries(ctx.errors)) {
     console.log("\t", key, value.length);
 }
-// console.log(ctx.errors);
 
 // Write data to files.
 (async () => {
-    const [index, keyboards] = await flattenToSerializedIndex(ctx);
+    const [index, keyboards] = await exportKeyboards(ctx);
 
     const err = writeFile(outFile, index);
     if (isErr(err)) {

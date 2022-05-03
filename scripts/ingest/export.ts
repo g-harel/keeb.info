@@ -3,7 +3,6 @@ import {isErr} from "../../internal/possible";
 import {SearchIndex} from "../../internal/search_index";
 import {convertViaToLayout} from "../../internal/via";
 import {IngestContext, IngestedMetadata} from "./context";
-import {log} from "./lib";
 
 const keyboardMetadataSearchableFields = ["name"];
 export interface KeyboardMetadata {
@@ -13,8 +12,7 @@ export interface KeyboardMetadata {
     layout: Layout;
 }
 
-// TODO rename and refactor
-export const flattenToSerializedIndex = async (
+export const exportKeyboards = async (
     ctx: IngestContext,
 ): Promise<[string, KeyboardMetadata[]]> => {
     const keyboards: KeyboardMetadata[] = [];
@@ -44,6 +42,7 @@ export const flattenToSerializedIndex = async (
     const serializedIndex = await searchIndex.serialize();
 
     // Test that deserialziation works.
+    // TODO this should be a test.
     const deserializedIndex = SearchIndex.fromSerialized(serializedIndex);
     if (isErr(deserializedIndex)) {
         console.log(deserializedIndex.print());
