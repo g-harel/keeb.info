@@ -19,6 +19,9 @@ export interface IngestContext {
 }
 
 export interface ErrorLog {
+    nameConflicts: {
+        error: string;
+    }[];
     viaInvalidID: {
         path: string;
     }[];
@@ -54,6 +57,7 @@ export const createContext = (): IngestContext => {
             return metadata[vendorID][productID];
         },
         errors: {
+            nameConflicts: [],
             viaInvalidID: [],
             viaConflictingDefinitions: [],
             viaMissingLayout: [],

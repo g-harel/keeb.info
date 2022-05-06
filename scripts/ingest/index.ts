@@ -2,9 +2,9 @@ import path from "path";
 
 import {isErr} from "../../internal/possible";
 import {createContext} from "./context";
+import {exportKeyboards} from "./export";
 import {writeFile} from "./lib";
 import {ingestQMK} from "./qmk";
-import {exportKeyboards} from "./export";
 import {ingestVia} from "./via";
 
 const outFile = process.argv[2];
@@ -26,14 +26,14 @@ const ctx = createContext();
 time("the-via/keyboards", () => ingestVia(ctx));
 time("qmk/qmk_firmware", () => ingestQMK(ctx));
 
-// Log a summary of errors.
-for (const [key, value] of Object.entries(ctx.errors)) {
-    console.log("\t", key, value.length);
-}
-
 // Write data to files.
 (async () => {
     const [index, keyboards] = await exportKeyboards(ctx);
+
+    // Log a summary of errors.
+    for (const [key, value] of Object.entries(ctx.errors)) {
+        console.log("\t", key, value.length);
+    }
 
     const err = writeFile(outFile, index);
     if (isErr(err)) {
@@ -41,6 +41,7 @@ for (const [key, value] of Object.entries(ctx.errors)) {
         process.exit(1);
     }
 
+    // TODO write keyboards by name instead of index.
     for (let i = 0; i < keyboards.length; i++) {
         const keyboardOutFile = path.join(outDir, `${i}.json`);
         const err = writeFile(keyboardOutFile, JSON.stringify(keyboards[i]));

@@ -10,6 +10,7 @@ interface SerializedSearchIndex {
 const ID_FIELD = "__id__";
 
 export class SearchIndex<T> {
+    // TODO index on arbitrary field.
     public static fromDocuments<T>(
         documentList: T[],
         fields: string[],

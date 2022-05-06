@@ -1,5 +1,5 @@
 import {Layout} from "../../internal/layout";
-import {isErr} from "../../internal/possible";
+import {isErr, newErr} from "../../internal/possible";
 import {SearchIndex} from "../../internal/search_index";
 import {convertViaToLayout} from "../../internal/via";
 import {IngestContext, IngestedMetadata} from "./context";
@@ -16,6 +16,7 @@ export const exportKeyboards = async (
     ctx: IngestContext,
 ): Promise<[string, KeyboardMetadata[]]> => {
     const keyboards: KeyboardMetadata[] = [];
+    const seenNames: Record<string, number> = {};
     for (const [vendorID, products] of Object.entries(ctx.metadata)) {
         for (const [productID, ingested] of Object.entries<IngestedMetadata>(
             products,
@@ -26,14 +27,34 @@ export const exportKeyboards = async (
                 });
                 continue;
             }
+            const name = ingested.via?.name || `${vendorID} ${productID}`;
+            if (seenNames[name] !== undefined) {
+                seenNames[name] += 1;
+                // TODO report error here and include path(s).
+                continue;
+            } else {
+                seenNames[name] = 1;
+            }
             keyboards.push({
-                name: ingested.via?.name || `${vendorID} ${productID}`,
+                name,
                 vendorID,
                 productID,
                 layout: convertViaToLayout(ingested.via),
             });
         }
     }
+
+    // Report repeated keyboard names.
+    const repeated = Object.entries(seenNames).filter(([, count]) => count > 1);
+    ctx.errors.nameConflicts.push(
+        ...repeated.map(([name, count]) => {
+            return {
+                error: newErr(`x${count} ${name}`)
+                    .fwd("duplicate names")
+                    .print(),
+            };
+        }),
+    );
 
     const searchIndex = SearchIndex.fromDocuments(
         keyboards,
