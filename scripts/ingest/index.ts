@@ -1,4 +1,5 @@
 import path from "path";
+import sanitize from "sanitize-filename";
 
 import {isErr} from "../../internal/possible";
 import {createContext} from "./context";
@@ -30,30 +31,36 @@ time("qmk/qmk_firmware", () => ingestQMK(ctx));
 (async () => {
     const [index, keyboards] = await exportKeyboards(ctx);
 
-    // Log a summary of errors.
-    for (const [key, value] of Object.entries(ctx.errors)) {
-        console.log("\t", key, value.length);
-    }
-
+    // Write index and keyboards to output.
     const err = writeFile(outFile, index);
     if (isErr(err)) {
         console.error(err.print());
         process.exit(1);
     }
-
-    // TODO write keyboards by name instead of index.
-    for (let i = 0; i < keyboards.length; i++) {
-        const keyboardOutFile = path.join(outDir, `${i}.json`);
-        const err = writeFile(keyboardOutFile, JSON.stringify(keyboards[i]));
+    Object.entries(keyboards).forEach(([name, keyboard]) => {
+        const keyboardOutFile = path.join(outDir, `${name}.json`);
+        if (name !== sanitize(name)) {
+            ctx.errors.nameInvalid.push({
+                path: keyboardOutFile,
+            });
+            return;
+        }
+        const err = writeFile(keyboardOutFile, JSON.stringify(keyboard));
         if (isErr(err)) {
             console.error(err.print());
             process.exit(1);
         }
-    }
-
+    });
     console.log(
         `Wrote ${Math.round(index.length / 1000)}kB ` +
-            `to ${outFile} and ${keyboards.length} keyboards.`,
+            `to ${outFile} and ${Object.keys(keyboards).length} keyboards.`,
     );
+
+    // Log a summary of errors.
+    for (const [key, value] of Object.entries(ctx.errors)) {
+        console.log("ERR", key, value.length);
+    }
+    // console.log(ctx.errors.nameInvalid);
+
     process.exit(0);
 })();

@@ -7,12 +7,13 @@ interface SerializedSearchIndex {
     options: any;
 }
 
+type ID_TYPE = string;
 const ID_FIELD = "__id__";
 
 export class SearchIndex<T> {
     // TODO index on arbitrary field.
     public static fromDocuments<T>(
-        documents: Record<string, T>,
+        documents: Record<ID_TYPE, T>,
         fields: string[],
     ): SearchIndex<T> {
         const options: IndexOptionsForDocumentSearch<T> = {
@@ -91,14 +92,14 @@ export class SearchIndex<T> {
         return JSON.stringify(data);
     }
 
-    public search(query: string): Possible<number[]> {
+    public search(query: string): Possible<ID_TYPE[]> {
         const searchResults = this.index.search(query);
 
         // TODO order search results by quality across fields.
-        const results: number[] = [];
+        const results: ID_TYPE[] = [];
         for (const fieldResult of searchResults) {
             for (const resultID of fieldResult.result) {
-                results.push(resultID as number);
+                results.push(resultID as ID_TYPE);
             }
         }
         return results;

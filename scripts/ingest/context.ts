@@ -20,7 +20,11 @@ export interface IngestContext {
 
 export interface ErrorLog {
     nameConflicts: {
+        path: string;
         error: string;
+    }[];
+    nameInvalid: {
+        path: string;
     }[];
     viaInvalidID: {
         path: string;
@@ -58,6 +62,7 @@ export const createContext = (): IngestContext => {
         },
         errors: {
             nameConflicts: [],
+            nameInvalid: [],
             viaInvalidID: [],
             viaConflictingDefinitions: [],
             viaMissingLayout: [],
