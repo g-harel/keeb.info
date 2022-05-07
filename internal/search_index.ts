@@ -12,7 +12,7 @@ const ID_FIELD = "__id__";
 export class SearchIndex<T> {
     // TODO index on arbitrary field.
     public static fromDocuments<T>(
-        documentList: T[],
+        documents: Record<string, T>,
         fields: string[],
     ): SearchIndex<T> {
         const options: IndexOptionsForDocumentSearch<T> = {
@@ -24,9 +24,8 @@ export class SearchIndex<T> {
 
         // TODO tune options.
         const index = new Document<T>(options);
-        for (let i = 0; i < documentList.length; i++) {
-            const doc = documentList[i];
-            (doc as any)[ID_FIELD] = i;
+        for (const [id, doc] of Object.entries(documents)) {
+            (doc as any)[ID_FIELD] = id;
             index.add(doc);
         }
 
