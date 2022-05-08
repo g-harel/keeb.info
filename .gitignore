@@ -3,5 +3,4 @@
 !.github/
 !.firebaserc
 
-dist/
 node_modules/

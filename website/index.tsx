@@ -20,7 +20,18 @@ import {lightTheme, theme} from "./theme";
         return;
     }
 
-    console.log(idx.search("a"));
+    const results = idx.search("wilba");
+    if (isErr(results)) {
+        console.warn(results.err.print());
+        return;
+    }
+
+    console.log(results);
+    for (const result of results) {
+        const url = "/keyboards/" + result + ".json";
+        console.log(url);
+        console.log(await (await fetch(url)).text());
+    }
 })();
 // TODO TEMP
 
