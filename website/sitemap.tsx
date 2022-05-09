@@ -5,6 +5,7 @@ import {Demo} from "./pages/demo";
 import {Layouts} from "./pages/layouts";
 import {Message} from "./pages/message";
 import {Profile} from "./pages/profile";
+import {Search} from "./pages/search";
 
 export const sitemap = {
     home: {

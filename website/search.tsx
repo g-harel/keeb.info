@@ -1,4 +1,6 @@
-import {KeyboardMetadata} from "@ijprest/kle-serial";
+
+import {KeyboardMetadata} from "../scripts/ingest/export";
+import { Layout } from "../internal/layout";
 
 import {Promible, newErr} from "../internal/possible";
 import {SearchIndex} from "../internal/search_index";
@@ -18,5 +20,15 @@ export const loadSearchData = async (): Promible<
     } catch (e) {
         console.log(e, rawIndex);
         return newErr(String(e)).fwd("corrupted index");
+    }
+};
+
+// TODO this is not the right place
+export const loadKeyboardMetadata = async (name: string): Promible<KeyboardMetadata> => {
+    try {
+        const keyboardIndexResponse = await fetch(`/keyboards/${name}.json`);
+        return await keyboardIndexResponse.json();
+    } catch (e) {
+        return newErr(String(e)).fwd("failed to fetch keyboard");
     }
 };
