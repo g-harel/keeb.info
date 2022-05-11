@@ -52,6 +52,7 @@ export const Header = () => {
             <div style={{flexGrow: 1}}></div>
             <StyledTextLink to={sitemap.demo.path}>/demo</StyledTextLink>
             <StyledTextLink to={sitemap.profile.path}>/profile</StyledTextLink>
+            <StyledTextLink to={sitemap.search.path}>/search</StyledTextLink>
             <StyledTextLink to="/404">/404</StyledTextLink>
         </StyledHeader>
     );

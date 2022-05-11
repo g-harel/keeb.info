@@ -4,36 +4,10 @@ import {BrowserRouter, useRoutes} from "react-router-dom";
 import {ThemeProvider, createGlobalStyle} from "styled-components";
 
 import {clear} from "../internal/debug";
-import {isErr} from "../internal/possible";
 import {Header} from "./components/header";
 import "./search";
-import {loadSearchData} from "./search";
 import {sitemap} from "./sitemap";
 import {lightTheme, theme} from "./theme";
-
-// TODO TEMP
-(async () => {
-    console.log("Loading data.");
-    const idx = await loadSearchData();
-    if (isErr(idx)) {
-        console.warn(idx.err.print());
-        return;
-    }
-
-    const results = idx.search("wilba");
-    if (isErr(results)) {
-        console.warn(results.err.print());
-        return;
-    }
-
-    console.log(results);
-    for (const result of results) {
-        const url = "/keyboards/" + result + ".json";
-        console.log(url);
-        console.log(await (await fetch(url)).text());
-    }
-})();
-// TODO TEMP
 
 // Global styles, similar to traditional css.
 const GlobalStyle = createGlobalStyle`

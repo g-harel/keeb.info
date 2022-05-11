@@ -1,10 +1,9 @@
-
-import {KeyboardMetadata} from "../scripts/ingest/export";
-import { Layout } from "../internal/layout";
-
+import {Layout} from "../internal/layout";
 import {Promible, newErr} from "../internal/possible";
 import {SearchIndex} from "../internal/search_index";
+import {KeyboardMetadata} from "../scripts/ingest/export";
 
+// TODO dedupe/cache requests
 export const loadSearchData = async (): Promible<
     SearchIndex<KeyboardMetadata>
 > => {
@@ -24,7 +23,9 @@ export const loadSearchData = async (): Promible<
 };
 
 // TODO this is not the right place
-export const loadKeyboardMetadata = async (name: string): Promible<KeyboardMetadata> => {
+export const loadKeyboardMetadata = async (
+    name: string,
+): Promible<KeyboardMetadata> => {
     try {
         const keyboardIndexResponse = await fetch(`/keyboards/${name}.json`);
         return await keyboardIndexResponse.json();

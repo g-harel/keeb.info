@@ -4,6 +4,7 @@ import {SearchIndex} from "../../internal/search_index";
 import {convertViaToLayout} from "../../internal/via";
 import {IngestContext, IngestedMetadata} from "./context";
 
+// TODO index layout options and the like... maybe flatten that into a string?
 const keyboardMetadataSearchableFields = ["name"];
 export interface KeyboardMetadata {
     name: string;

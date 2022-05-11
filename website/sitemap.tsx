@@ -20,6 +20,10 @@ export const sitemap = {
         path: "/demo",
         element: <Demo />,
     },
+    search: {
+        path: "/search",
+        element: <Search />,
+    },
     missing: {
         path: "*",
         element: <Message banner="404" message="Not Found" />,
