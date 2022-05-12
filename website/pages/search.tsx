@@ -4,6 +4,7 @@ import styled from "styled-components";
 import {Layout, minmax} from "../../internal/layout";
 import {subtract} from "../../internal/point";
 import {isErr} from "../../internal/possible";
+import {Possible} from "../../internal/possible";
 import {ExplodedLayout} from "../../internal/rendering/views/exploded-layout";
 import {SearchIndex} from "../../internal/search_index";
 import {KeyboardMetadata} from "../../scripts/ingest/export";
@@ -39,34 +40,24 @@ const StyledItem = styled.div`
 
 // TODO make downloadable.
 export const ResultLayout = (props: {name: string}) => {
-    const [keyboardMetadata, setKeyboardMetadata] =
-        useState<null | KeyboardMetadata>(null);
-    const [keyboardMetadataError, setKeyboardMetadataError] = useState<
-        null | string
-    >(null);
+    const [keyboard, setKeyboard] = useState<null | Possible<KeyboardMetadata>>(
+        null,
+    );
 
     useEffect(() => {
-        const load = async () => {
-            const index = await loadKeyboardMetadata(props.name);
-            if (isErr(index)) {
-                // TODO log this instead and show generic message.
-                setKeyboardMetadataError(index.err.print());
-                return;
-            }
-            setKeyboardMetadata(index);
-        };
+        const load = async () =>
+            setKeyboard(await loadKeyboardMetadata(props.name));
         load();
     }, []);
 
-    if (keyboardMetadataError !== null) {
-        return <>{keyboardMetadataError}</>;
-    }
-
-    if (keyboardMetadata === null) {
+    if (keyboard === null) {
         return <>loading...</>;
     }
+    if (isErr(keyboard)) {
+        return <>{keyboard.print()}</>;
+    }
 
-    const {name, layout} = keyboardMetadata;
+    const {name, layout} = keyboard;
     const [width, height] = subtract(...minmax(layout));
     const defaultWidth = 838;
     return (
@@ -87,37 +78,24 @@ export const ResultLayout = (props: {name: string}) => {
 };
 
 export const Search = () => {
-    // TODO combine into possible value
-    const [searchIndex, setSearchIndex] =
-        useState<null | SearchIndex<KeyboardMetadata>>(null);
-    const [searchIndexError, setSearchIndexError] = useState<null | string>(
-        null,
-    );
+    const [idx, setIdx] = useState<null | Possible<
+        SearchIndex<KeyboardMetadata>
+    >>(null);
 
-    // TODO
     useEffect(() => {
-        const load = async () => {
-            const index = await loadSearchData();
-            if (isErr(index)) {
-                // TODO log this instead and show generic message.
-                setSearchIndexError(index.err.print());
-                return;
-            }
-            setSearchIndex(index);
-        };
+        const load = async () => setIdx(await loadSearchData());
         load();
     }, []);
 
-    if (searchIndexError !== null) {
-        return <>{searchIndexError}</>;
-    }
-
-    if (searchIndex === null) {
+    if (idx === null) {
         return <>loading...</>;
+    }
+    if (isErr(idx)) {
+        return <>{idx.print()}</>;
     }
 
     const query = "wilba";
-    const results = searchIndex.search(query);
+    const results = idx.search(query);
     if (isErr(results)) {
         return <>{results.err.print()}</>;
     }
