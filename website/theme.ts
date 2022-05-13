@@ -9,7 +9,7 @@ export const lightTheme = {
         text: "#080909",
         error: "#c87e74",
         main: "#080909",
-        sub: "#69646f",
+        sub: "#99949f",
     },
 };
 

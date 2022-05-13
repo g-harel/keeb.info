@@ -38,7 +38,6 @@ const StyledItem = styled.div`
     }
 `;
 
-// TODO make downloadable.
 export const ResultLayout = (props: {name: string}) => {
     const [keyboard, setKeyboard] = useState<null | Possible<KeyboardMetadata>>(
         null,
@@ -78,6 +77,7 @@ export const ResultLayout = (props: {name: string}) => {
 };
 
 export const Search = () => {
+    const query = new URLSearchParams(window.location.search).get("q") || "";
     const [idx, setIdx] = useState<null | Possible<
         SearchIndex<KeyboardMetadata>
     >>(null);
@@ -87,6 +87,9 @@ export const Search = () => {
         load();
     }, []);
 
+    if (query === "") {
+        return <>no results</>;
+    }
     if (idx === null) {
         return <>loading...</>;
     }
@@ -94,7 +97,6 @@ export const Search = () => {
         return <>{idx.print()}</>;
     }
 
-    const query = "wilba";
     const results = idx.search(query);
     if (isErr(results)) {
         return <>{results.err.print()}</>;
