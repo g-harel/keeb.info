@@ -19,9 +19,13 @@ jobs:
 
             # Website bundle.
             - run: yarn run build
-            - uses: FirebaseExtended/action-hosting-deploy@v0
+            - id: hosting_deploy
+              uses: FirebaseExtended/action-hosting-deploy@v0
               with:
                   repoToken: "${{ secrets.GITHUB_TOKEN }}"
                   firebaseServiceAccount: "${{ secrets.GCP_SERVICE_ACCOUNT }}"
                   channelId: live
                   projectId: keeb-43f9a
+            - run: echo "$HOSTING_FILES"
+              env:
+                  HOSTING_FILES: ${{join(steps.hosting_deploy.outputs.*, '\n')}}
