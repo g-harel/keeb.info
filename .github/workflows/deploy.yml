@@ -26,6 +26,8 @@ jobs:
                   firebaseServiceAccount: "${{ secrets.GCP_SERVICE_ACCOUNT }}"
                   channelId: live
                   projectId: keeb-43f9a
-            - run: echo "$HOSTING_FILES"
+            - run: |
+                echo ::notice title=test::test
+                echo ::notice title=hosting_files::"$HOSTING_FILES"
               env:
-                  HOSTING_FILES: ${{join(steps.hosting_deploy.outputs.*, '\n')}}
+                  HOSTING_FILES: ${{ join(steps.hosting_deploy.outputs.urls, '\n') }}
