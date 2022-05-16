@@ -78,6 +78,7 @@ const StyledSearchSubmit = styled("button")`
 export const Header = () => {
     // TODO standardize.
     const query = new URLSearchParams(window.location.search).get("q") || "";
+    const autofocus = window.location.pathname === sitemap.search.path;
 
     return (
         <StyledHeader>
@@ -96,6 +97,7 @@ export const Header = () => {
                     name="q"
                     defaultValue={query}
                     placeholder="search"
+                    autoFocus={autofocus}
                 />
                 <StyledSearchSubmit type="submit">
                     <SearchIcon />
