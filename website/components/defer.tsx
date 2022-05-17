@@ -3,7 +3,7 @@ import "requestidlecallback";
 import styled, {keyframes} from "styled-components";
 
 import {ReactProps} from "../../internal/react";
-import {theme} from "../theme";
+import {theme} from "../internal/theme";
 
 export interface DeferProps extends ReactProps {
     width?: string;

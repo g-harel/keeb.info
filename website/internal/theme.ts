@@ -1,6 +1,6 @@
 import {useTheme as styledComponentsUseTheme} from "styled-components";
 
-import {createAccessorsByExample} from "../internal/theme";
+import {createAccessorsByExample} from "../../internal/theme";
 
 export const lightTheme = {
     fontStack: `'SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo', 'Courier', 'monospace';`,

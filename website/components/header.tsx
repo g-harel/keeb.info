@@ -2,8 +2,10 @@ import React from "react";
 import {Link} from "react-router-dom";
 import styled from "styled-components";
 
+import {isErr} from "../../internal/possible";
+import {getQuery, isPath} from "../internal/location";
+import {theme} from "../internal/theme";
 import {sitemap} from "../sitemap";
-import {theme} from "../theme";
 import {Logo} from "./logo";
 
 const StyledHeader = styled.header`
@@ -76,9 +78,12 @@ const StyledSearchSubmit = styled("button")`
 `;
 
 export const Header = () => {
-    // TODO standardize.
-    const query = new URLSearchParams(window.location.search).get("q") || "";
-    const autofocus = window.location.pathname === sitemap.search.path;
+    const autofocus = isPath(sitemap.search.path);
+
+    let query = getQuery();
+    if (isErr(query)) {
+        query = "";
+    }
 
     return (
         <StyledHeader>

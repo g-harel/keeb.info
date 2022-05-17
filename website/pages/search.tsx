@@ -9,7 +9,8 @@ import {ExplodedLayout} from "../../internal/rendering/views/exploded-layout";
 import {SearchIndex} from "../../internal/search_index";
 import {KeyboardMetadata} from "../../scripts/ingest/export";
 import {Defer} from "../components/defer";
-import {loadKeyboardMetadata, loadSearchData} from "../search";
+import {getQuery} from "../internal/location";
+import {loadKeyboardMetadata, loadSearchData} from "../internal/search";
 
 const StyledWrapper = styled.div`
     align-items: center;
@@ -77,7 +78,6 @@ export const ResultLayout = (props: {name: string}) => {
 };
 
 export const Search = () => {
-    const query = new URLSearchParams(window.location.search).get("q") || "";
     const [idx, setIdx] = useState<null | Possible<
         SearchIndex<KeyboardMetadata>
     >>(null);
@@ -87,7 +87,8 @@ export const Search = () => {
         load();
     }, []);
 
-    if (query === "") {
+    const query = getQuery();
+    if (isErr(query)) {
         return <>no results</>;
     }
     if (idx === null) {

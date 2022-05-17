@@ -2,7 +2,7 @@ import React from "react";
 import {useNavigate} from "react-router-dom";
 import styled from "styled-components";
 
-import {Login, logout, useAuthState} from "../firebase";
+import {Login, logout, useAuthState} from "../internal/firebase";
 import {sitemap} from "../sitemap";
 
 const StyledWrapper = styled.div`

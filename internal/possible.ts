@@ -53,6 +53,7 @@ class Err {
         return new Err(messageOrErr.$identity, messageOrErr.message, this);
     }
 
+    // TODO 2022-05-16 should be able to call this on "any" type to avoid being nested in isErr block
     public is(err: Err) {
         return !!this.nextErrs().find(
             (e) => (err as any).$identity === e.$identity,

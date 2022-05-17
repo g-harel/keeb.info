@@ -1,7 +1,7 @@
-import {Layout} from "../internal/layout";
-import {Promible, newErr} from "../internal/possible";
-import {SearchIndex} from "../internal/search_index";
-import {KeyboardMetadata} from "../scripts/ingest/export";
+import {Layout} from "../../internal/layout";
+import {Promible, newErr} from "../../internal/possible";
+import {SearchIndex} from "../../internal/search_index";
+import {KeyboardMetadata} from "../../scripts/ingest/export";
 
 // TODO dedupe/cache requests
 export const loadSearchData = async (): Promible<

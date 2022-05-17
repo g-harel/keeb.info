@@ -5,9 +5,9 @@ import {ThemeProvider, createGlobalStyle} from "styled-components";
 
 import {clear} from "../internal/debug";
 import {Header} from "./components/header";
-import "./search";
+import "./internal/search";
+import {lightTheme, theme} from "./internal/theme";
 import {sitemap} from "./sitemap";
-import {lightTheme, theme} from "./theme";
 
 // Global styles, similar to traditional css.
 const GlobalStyle = createGlobalStyle`

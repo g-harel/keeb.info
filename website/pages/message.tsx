@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import {ReactProps} from "../../internal/react";
-import {theme} from "../theme";
+import {theme} from "../internal/theme";
 
 const StyledWrapper = styled.div`
     align-items: center;

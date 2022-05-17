@@ -23,6 +23,7 @@ export const clear = () => {
     getTestElement().innerHTML = "";
 };
 
+// TODO 2022-05-16 move to website/
 export const printDebugPath = (...composites: Composite[]) => {
     const [min, max] = minmax(composites.flat(2));
     const aspectRatio = (max[0] - min[0]) / (max[1] - min[1]);
