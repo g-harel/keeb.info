@@ -1,6 +1,6 @@
-import {colorSeries} from "./color";
-import {minmax} from "./point";
-import {Composite, toSVGPath} from "./shape";
+import {colorSeries} from "../../internal/color";
+import {minmax} from "../../internal/point";
+import {Composite, toSVGPath} from "../../internal/shape";
 
 export const DEBUG_DISABLE_SVG_REF = false;
 
@@ -23,7 +23,6 @@ export const clear = () => {
     getTestElement().innerHTML = "";
 };
 
-// TODO 2022-05-16 move to website/
 export const printDebugPath = (...composites: Composite[]) => {
     const [min, max] = minmax(composites.flat(2));
     const aspectRatio = (max[0] - min[0]) / (max[1] - min[1]);

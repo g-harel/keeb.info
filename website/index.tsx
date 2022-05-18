@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import {BrowserRouter, useRoutes} from "react-router-dom";
 import {ThemeProvider, createGlobalStyle} from "styled-components";
 
-import {clear} from "../internal/debug";
+import {clear} from "./internal/debug";
 import {Header} from "./components/header";
 import "./internal/search";
 import {lightTheme, theme} from "./internal/theme";
