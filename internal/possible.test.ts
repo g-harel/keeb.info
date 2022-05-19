@@ -1,7 +1,25 @@
-import {Possible, isErr, newErr} from "./possible";
+import {Possible, isErr, newErr, isErrOfType} from "./possible";
 
-describe("Err", () => {
-    it("should assert the type", () => {
+test("api", () => {
+    // TODO TESTING START
+    // const a = (): Possible<string> => "";
+    // const b = (): Possible<string> => {
+    //     const aa = a();
+    //     if (isErr(aa)) {
+    //         const bb = aa;
+    //         if (Math.random() > 0.5) {
+    //             return aa.err.with("test");
+    //         }
+    //         const aaa = aa.err.forward();
+    //         return aa;
+    //     }
+    //     return "";
+    // };
+    // TODO TESTING END
+});
+
+describe("isErr", () => {
+    it("should guard the original type", () => {
         const testValue = {test: true};
         const possibleErr: Possible<typeof testValue> = testValue;
 
@@ -25,7 +43,35 @@ describe("Err", () => {
         const value = newErr("test").err.fwd("test");
         expect(isErr(value)).toBeTruthy();
     });
+});
 
+describe("isErrOfType", () => {
+    it("should be callable before the value is resolved to Err", () => {
+        const ERR_TEST = newErr("foo");
+        const plainErr: Possible<string> = newErr("bar") as any;
+        const fwdErr: Possible<string> = ERR_TEST.fwd("baz") as any;
+        const value: Possible<string> = "" as any;
+
+        expect(isErrOfType(plainErr, ERR_TEST)).toBeFalsy();
+        expect(isErrOfType(fwdErr, ERR_TEST)).toBeTruthy();
+        expect(isErrOfType(value, ERR_TEST)).toBeFalsy();
+    });
+
+    it("should correctly identify all ancestor error type", () => {
+        const firstErr = newErr("test");
+        const secondErr = firstErr.fwd("test");
+        const thirdErr = secondErr.fwd("test");
+        const errs = [firstErr, secondErr, thirdErr];
+
+        for (let i = 0; i < errs.length; i++) {
+            for (let j = i; j < errs.length; j++) {
+                expect(isErrOfType(errs[j], errs[i])).toBeTruthy();
+            }
+        }
+    });
+})
+
+describe("Err", () => {
     it("should include message in printed errors", () => {
         const testString = "abc";
         const value = newErr(testString);
@@ -57,18 +103,5 @@ describe("Err", () => {
         expect(
             indexes.slice(1).every((item, i) => indexes[i] >= item),
         ).toBeTruthy();
-    });
-
-    it("should correctly identify all ancestor error type", () => {
-        const firstErr = newErr("test");
-        const secondErr = firstErr.fwd("test");
-        const thirdErr = secondErr.fwd("test");
-        const errs = [firstErr, secondErr, thirdErr];
-
-        for (let i = 0; i < errs.length; i++) {
-            for (let j = i; j < errs.length; j++) {
-                expect(errs[j].is(errs[i])).toBeTruthy();
-            }
-        }
     });
 });

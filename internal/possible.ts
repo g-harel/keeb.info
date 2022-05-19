@@ -17,8 +17,15 @@ export const isErr = (value: any): value is Err => {
     );
 };
 
+export const isErrOfType = (value: any, err: Err): value is Err => {
+    if (!isErr(value)) return false;
+    return (value as any).nextErrs().find(
+        (e: Err) => (e as any).$identity === (err as any).$identity,
+    );
+};
+
 // TODO identity is not serializable.
-// TODO force "value.err" to be used even when returning plain err
+// TODO 2022-05-18 force "value.err" to be used even when returning plain err. remove otherwise
 class Err {
     public err = this;
     private $globalIdentity = globalErrIdentity;
@@ -28,11 +35,12 @@ class Err {
     private readonly nextErr: Err | null = null;
 
     constructor($identity: {} | null, message: string, nextErr: Err | null) {
-        this.$identity = $identity || {};
+        this.$identity = $identity || Math.random();
         this.message = message;
         this.nextErr = nextErr;
     }
 
+    // TODO 2022-05-18 cycle protection
     private nextErrs(): Err[] {
         let cur: Err = this;
         const errs: Err[] = [];
@@ -53,32 +61,9 @@ class Err {
         return new Err(messageOrErr.$identity, messageOrErr.message, this);
     }
 
-    // TODO 2022-05-16 should be able to call this on "any" type to avoid being nested in isErr block
-    public is(err: Err) {
-        return !!this.nextErrs().find(
-            (e) => (err as any).$identity === e.$identity,
-        );
-    }
-
     public print(): string {
         return this.nextErrs()
             .map((e) => e.message)
             .join(": ");
     }
 }
-
-// TODO TESTING START
-// const a = (): Possible<string> => "";
-// const b = (): Possible<string> => {
-//     const aa = a();
-//     if (isErr(aa)) {
-//         const bb = aa;
-//         if (Math.random() > 0.5) {
-//             return aa.err.with("test");
-//         }
-//         const aaa = aa.err.forward();
-//         return aa;
-//     }
-//     return "";
-// };
-// TODO TESTING END
