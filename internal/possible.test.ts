@@ -1,20 +1,28 @@
-import {Possible, isErr, newErr, isErrOfType} from "./possible";
+import {Possible, isErr, isErrOfType, newErr} from "./possible";
 
 test("api", () => {
     // TODO TESTING START
-    // const a = (): Possible<string> => "";
-    // const b = (): Possible<string> => {
-    //     const aa = a();
-    //     if (isErr(aa)) {
-    //         const bb = aa;
-    //         if (Math.random() > 0.5) {
-    //             return aa.err.with("test");
-    //         }
-    //         const aaa = aa.err.forward();
-    //         return aa;
-    //     }
-    //     return "";
-    // };
+    const a = (): Possible<string> => "";
+    const b = (): Possible<string> => {
+        const aa = a();
+        if (isErr(aa)) {
+            const bb = aa;
+            if (Math.random() > 0.5) {
+                return aa.err.fwd("test");
+            }
+            const aaa = aa.err.fwd("");
+            return aa;
+        }
+        return "";
+    };
+    const c: Possible<string> = a();
+    let d: Possible<string> = a();
+    if (isErr(c)) {
+        d = c;
+        // c.print();
+        c.err.print();
+        c.err.err.err;
+    }
     // TODO TESTING END
 });
 
@@ -69,7 +77,7 @@ describe("isErrOfType", () => {
             }
         }
     });
-})
+});
 
 describe("Err", () => {
     it("should include message in printed errors", () => {
@@ -108,7 +116,7 @@ describe("Err", () => {
     it("should be resistant to cycles", () => {
         const rootErr = newErr("foo");
         const cycleErr = rootErr.fwd(rootErr);
-        
+
         expect(cycleErr.err.print()).toBe("foo: foo");
     });
 });

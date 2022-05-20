@@ -1,8 +1,8 @@
 import React from "react";
 
-import {DEBUG_DISABLE_SVG_REF} from "../../website/internal/debug";
 import {Point} from "../../internal/point";
 import {ReactElement, ReactProps} from "../../internal/react";
+import {DEBUG_DISABLE_SVG_REF} from "../../website/internal/debug";
 
 export interface ViewProps extends ReactProps {
     unitSize: Point;

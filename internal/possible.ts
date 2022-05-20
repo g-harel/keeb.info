@@ -1,34 +1,42 @@
-export type Possible<T> = T | Err;
+export type Possible<T> = T | Err | UnresolvedErr;
+export type AsyncPossible<T> = Promise<Possible<T>>;
 
-// TODO async
-export type Promible<T> = Promise<Possible<T>>;
-export type Possmise<T> = Possible<Promise<T>>;
+const GLOBAL_ERR_IDENTITY = {};
 
-const globalErrIdentity = {};
+// TODO 2022-05-20 internal Err wrapper for typesafe access (remove all "as any")
 
-// TODO builder that works better with try/catch
+// TODO 2022-05-20 builder that works better with try/catch
 export const newErr = (message: string): Err => {
     return new Err(null, message, null);
 };
 
-export const isErr = (value: any): value is Err => {
+export const isErr = (value: any): value is Err | UnresolvedErr => {
     return (
-        (value as any) && (value as any).$globalIdentity === globalErrIdentity
+        (value as any) && (value as any).$globalIdentity === GLOBAL_ERR_IDENTITY
     );
 };
 
 export const isErrOfType = (value: any, err: Err): value is Err => {
     if (!isErr(value)) return false;
-    return (value as any).nextErrs().find(
-        (e: Err) => (e as any).$identity === (err as any).$identity,
-    );
+    return (value as any)
+        .nextErrs()
+        .find((e: Err) => (e as any).$identity === (err as any).$identity);
 };
 
-// TODO identity is not serializable.
-// TODO 2022-05-18 force "value.err" to be used even when returning plain err. remove otherwise
+// TODO 2022-05-20 also dissallow error chains "possibleValue.err.err.err".
+// To dissalow calls to public members of "isErr" guarded Possible values.
+//     <allowed> possibleValue.err.print();
+// <not allowed> possibleValue.print();
+class UnresolvedErr {
+    public err!: Err;
+    public fwd!: unknown;
+    public print!: unknown;
+}
+
+// TODO make serializable across runs.
 class Err {
     public err = this;
-    private $globalIdentity = globalErrIdentity;
+    private $globalIdentity = GLOBAL_ERR_IDENTITY;
 
     private readonly $identity: {};
     private readonly message: string;
@@ -40,7 +48,6 @@ class Err {
         this.nextErr = nextErr;
     }
 
-    // TODO 2022-05-18 cycle protection
     private nextErrs(): Err[] {
         let cur: Err = this;
         const errs: Err[] = [];
