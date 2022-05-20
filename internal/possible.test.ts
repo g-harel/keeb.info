@@ -104,4 +104,11 @@ describe("Err", () => {
             indexes.slice(1).every((item, i) => indexes[i] >= item),
         ).toBeTruthy();
     });
+
+    it("should be resistant to cycles", () => {
+        const rootErr = newErr("foo");
+        const cycleErr = rootErr.fwd(rootErr);
+        
+        expect(cycleErr.err.print()).toBe("foo: foo");
+    });
 });

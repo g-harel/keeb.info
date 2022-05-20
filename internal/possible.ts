@@ -57,7 +57,6 @@ class Err {
         if (typeof messageOrErr === "string") {
             return new Err(null, messageOrErr, this);
         }
-        // TODO test this
         return new Err(messageOrErr.$identity, messageOrErr.message, this);
     }
 
