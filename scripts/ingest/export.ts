@@ -53,12 +53,12 @@ export const exportKeyboards = async (
     // TODO this should be a test.
     const deserializedIndex = SearchIndex.fromSerialized(serializedIndex);
     if (isErr(deserializedIndex)) {
-        console.log(deserializedIndex.print());
+        console.log(deserializedIndex.err.print());
         process.exit(1);
     }
     const result = deserializedIndex.search("wilba");
     if (isErr(result)) {
-        console.log(result.print());
+        console.log(result.err.print());
         process.exit(1);
     }
 
