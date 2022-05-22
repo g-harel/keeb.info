@@ -32,9 +32,9 @@ time("qmk/qmk_firmware", () => ingestQMK(ctx));
     const [index, keyboards] = await exportKeyboards(ctx);
 
     // Write index and keyboards to output.
-    const err = writeFile(outFile, index);
-    if (isErr(err)) {
-        console.error(err.print());
+    const output = writeFile(outFile, index);
+    if (isErr(output)) {
+        console.error(output.err.print());
         process.exit(1);
     }
     Object.entries(keyboards).forEach(([name, keyboard]) => {
@@ -45,9 +45,9 @@ time("qmk/qmk_firmware", () => ingestQMK(ctx));
             });
             return;
         }
-        const err = writeFile(keyboardOutFile, JSON.stringify(keyboard));
-        if (isErr(err)) {
-            console.error(err.print());
+        const output = writeFile(keyboardOutFile, JSON.stringify(keyboard));
+        if (isErr(output)) {
+            console.error(output.err.print());
             process.exit(1);
         }
     });

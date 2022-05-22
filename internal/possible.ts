@@ -16,6 +16,8 @@ export const isErr = (value: any): value is Err | UnresolvedErr => {
     );
 };
 
+// TODO 2022-05-20 should this also traverse err ancestry?
+// TODO 2022-05-20 should this restrict err ancestry depth to 0?
 export const isErrOfType = (value: any, err: Err): value is Err => {
     if (!isErr(value)) return false;
     return (value as any)
