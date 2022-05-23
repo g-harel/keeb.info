@@ -10,7 +10,7 @@ export const newErr = (message: string): Err => {
     return new Err(null, message, null);
 };
 
-export const isErr = (value: any): value is Err | UnresolvedErr => {
+export const isErr = (value: any): value is UnresolvedErr => {
     return (
         (value as any) && (value as any).$globalIdentity === GLOBAL_ERR_IDENTITY
     );
@@ -18,25 +18,30 @@ export const isErr = (value: any): value is Err | UnresolvedErr => {
 
 // TODO 2022-05-20 should this also traverse err ancestry?
 // TODO 2022-05-20 should this restrict err ancestry depth to 0?
-export const isErrOfType = (value: any, err: Err): value is Err => {
+export const isErrOfType = (value: any, err: Err): value is UnresolvedErr => {
     if (!isErr(value)) return false;
     return (value as any)
         .nextErrs()
         .find((e: Err) => (e as any).$identity === (err as any).$identity);
 };
 
-// TODO 2022-05-20 also dissallow error chains "possibleValue.err.err.err".
-// To dissalow calls to public members of "isErr" guarded Possible values.
+interface IErr {
+    fwd: (messageOrErr: string | Err) => Err;
+    print: () => string;
+}
+
+// To dissalow confusing calls to "isErr" guarded Possible values.
 //     <allowed> possibleValue.err.print();
 // <not allowed> possibleValue.print();
+// <not allowed> possibleValue.err.err;
 class UnresolvedErr {
-    public err!: Err;
+    public err!: IErr;
     public fwd!: unknown;
     public print!: unknown;
 }
 
 // TODO make serializable across runs.
-class Err {
+class Err implements IErr {
     public err = this;
     private $globalIdentity = GLOBAL_ERR_IDENTITY;
 

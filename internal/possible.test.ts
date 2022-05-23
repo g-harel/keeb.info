@@ -17,11 +17,11 @@ test("api", () => {
     };
     const c: Possible<string> = a();
     let d: Possible<string> = a();
-    if (isErr(c)) {
+    if (isErrOfType(c, newErr(""))) {
         d = c;
         // c.print();
         c.err.print();
-        c.err.err.err;
+        // c.err.err.err;
     }
     // TODO TESTING END
 });
