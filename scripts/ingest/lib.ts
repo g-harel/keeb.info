@@ -35,7 +35,7 @@ export const readJsonFile = <T>(filePath: string): Possible<T> => {
         if (isErr(contents)) return contents;
         return json5.parse(contents);
     } catch (e) {
-        return newErr(filePath).err.fwd(String(e));
+        return newErr(filePath).err.decorate(String(e));
     }
 };
 
@@ -48,6 +48,6 @@ export const writeFile = (
         if (!fs.existsSync(dirname)) fs.mkdirSync(dirname, {recursive: true});
         fs.writeFileSync(filePath, contents);
     } catch (e) {
-        return newErr(filePath).err.fwd(String(e));
+        return newErr(filePath).err.decorate(String(e));
     }
 };

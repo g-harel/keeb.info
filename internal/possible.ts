@@ -10,7 +10,7 @@ export const newErr = (message: string): Err => {
     return new Err(null, message, null);
 };
 
-export const isErr = (value: any): value is UnresolvedErr => {
+export const isErr = (value: any): value is Err | UnresolvedErr => {
     return (
         (value as any) && (value as any).$globalIdentity === GLOBAL_ERR_IDENTITY
     );
@@ -18,7 +18,10 @@ export const isErr = (value: any): value is UnresolvedErr => {
 
 // TODO 2022-05-20 should this also traverse err ancestry?
 // TODO 2022-05-20 should this restrict err ancestry depth to 0?
-export const isErrOfType = (value: any, err: Err): value is UnresolvedErr => {
+export const isErrOfType = (
+    value: any,
+    err: Err,
+): value is Err | UnresolvedErr => {
     if (!isErr(value)) return false;
     return (value as any)
         .nextErrs()
@@ -26,7 +29,7 @@ export const isErrOfType = (value: any, err: Err): value is UnresolvedErr => {
 };
 
 interface IErr {
-    fwd: (messageOrErr: string | Err) => Err;
+    decorate: (messageOrErr: string | Err) => Err;
     print: () => string;
 }
 
@@ -67,7 +70,7 @@ class Err implements IErr {
     }
 
     // TODO find better name
-    public fwd(messageOrErr: string | Err): Err {
+    public decorate(messageOrErr: string | Err): Err {
         if (typeof messageOrErr === "string") {
             return new Err(null, messageOrErr, this);
         }

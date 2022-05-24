@@ -40,7 +40,7 @@ export class SearchIndex<T> {
         try {
             data = JSON.parse(serialized);
         } catch (e) {
-            return newErr(String(e)).fwd("deserialize index");
+            return newErr(String(e)).decorate("deserialize index");
         }
 
         const index = new Document<T>(data.options);

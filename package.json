@@ -1,7 +1,7 @@
 {
     "scripts": {
         "build": "run-p build:*",
-        "build:website": "parcel build website/index.html",
+        "build:website": "parcel build website/index.html --dist-dir .dist",
         "build:search-index": "ts-node scripts/ingest ./.dist/keyboard-index.json ./.dist/keyboards",
         "fmt": "prettier --list-different --write \"**/*.{js,ts,tsx,md,yml,json}\"",
         "dev": "run-s build:search-index dev:*",
