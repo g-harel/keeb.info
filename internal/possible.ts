@@ -10,15 +10,16 @@ export const newErr = (message: string): Err => {
     return new Err(null, message, null);
 };
 
+// Type guard to check if a `Possible` value is an `Err`.
 export const isErr = (value: any): value is Err | UnresolvedErr => {
     return (
         (value as any) && (value as any).$globalIdentity === GLOBAL_ERR_IDENTITY
     );
 };
 
-// Type guard that asserts `value` is an `Er`r that matches the matcher type.
-// All the ancestor types of the `value` will be compared to only the most
-// recent identiy of the `matcher`.
+// Type guard to check if a `Possible` value is an `Err` that also matches the
+// matcher type. All the ancestor types of the `value` will be compared to only
+// the most recent identiy of the `matcher`.
 export const isErrOfType = (
     value: any,
     matcher: Err,
@@ -46,12 +47,13 @@ class UnresolvedErr {
     public print!: unknown;
 }
 
-// TODO make serializable across runs.
 class Err implements IErr {
     public err = this;
-    private $globalIdentity = GLOBAL_ERR_IDENTITY;
 
+    // TODO make serializable across runs.
+    private readonly $globalIdentity = GLOBAL_ERR_IDENTITY;
     private readonly $identity: {};
+
     private readonly message: string;
     private readonly nextErr: Err | null = null;
 
@@ -61,6 +63,7 @@ class Err implements IErr {
         this.nextErr = nextErr;
     }
 
+    // Utility to traverse `Err` ancestry and convert it into an array.
     private nextErrs(): Err[] {
         let cur: Err = this;
         const errs: Err[] = [];
@@ -72,7 +75,8 @@ class Err implements IErr {
         return errs;
     }
 
-    // TODO find better name
+    // Wrap the `Err` instance to add more context. When printed, the decorated
+    // message will be formatted as: `<decorated message>: <original message>`.
     public decorate(messageOrErr: string | Err): Err {
         if (typeof messageOrErr === "string") {
             return new Err(null, messageOrErr, this);
