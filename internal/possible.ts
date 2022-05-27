@@ -3,8 +3,6 @@ export type AsyncPossible<T> = Promise<Possible<T>>;
 
 const GLOBAL_ERR_IDENTITY = {};
 
-// TODO 2022-05-20 internal Err wrapper for type-safe access (remove all "as any")
-
 // TODO 2022-05-20 builder that works better with try/catch
 export const newErr = (message: string): Err => {
     return new Err(null, message, null);
@@ -12,9 +10,8 @@ export const newErr = (message: string): Err => {
 
 // Type guard to check if a `Possible` value is an `Err`.
 export const isErr = (value: any): value is Err | UnresolvedErr => {
-    return (
-        (value as any) && (value as any).$globalIdentity === GLOBAL_ERR_IDENTITY
-    );
+    const pValue: IPrivateErr = value as any;
+    return pValue && pValue.$globalIdentity === GLOBAL_ERR_IDENTITY;
 };
 
 // Type guard to check if a `Possible` value is an `Err` that also matches the
@@ -25,9 +22,11 @@ export const isErrOfType = (
     matcher: Err,
 ): value is Err | UnresolvedErr => {
     if (!isErr(value)) return false;
-    return (value as any)
-        .nextErrs()
-        .find((e: Err) => (e as any).$identity === (matcher as any).$identity);
+
+    const pValue: IPrivateErr = value as any;
+    const pMatcher: IPrivateErr = matcher as any;
+
+    return !!pValue.nextErrs().find((e) => e.$identity === pMatcher.$identity);
 };
 
 // Internal helper that captures the public `Err` API without the .err member.
@@ -35,6 +34,13 @@ export const isErrOfType = (
 interface IErr {
     decorate: (messageOrErr: string | Err) => Err;
     print: () => string;
+}
+
+// Internal helper to expose private `Err` api to helper methods.
+interface IPrivateErr extends IErr {
+    $globalIdentity: any;
+    $identity: any;
+    nextErrs(): IPrivateErr[];
 }
 
 // To disallow confusing calls to `isErr` guarded Possible values.
@@ -64,6 +70,7 @@ class Err implements IErr {
     }
 
     // Utility to traverse `Err` ancestry and convert it into an array.
+    // In order of most distant ancestor first.
     private nextErrs(): Err[] {
         let cur: Err = this;
         const errs: Err[] = [];
@@ -84,6 +91,9 @@ class Err implements IErr {
         return new Err(messageOrErr.$identity, messageOrErr.message, this);
     }
 
+    // Print the error with all the decorated messages and `Err`s in order.
+    // <example> newErr("a").decorate("b").decorate("c").print()
+    //  <output> c: b: a
     public print(): string {
         return this.nextErrs()
             .map((e) => e.message)
