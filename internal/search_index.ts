@@ -1,6 +1,6 @@
 import {Document, IndexOptionsForDocumentSearch} from "flexsearch";
 
-import {Possible, newErr} from "./possible";
+import {Possible, isErr, mightErr, newErr} from "./possible";
 
 interface SerializedSearchIndex {
     index: any;
@@ -36,11 +36,11 @@ export class SearchIndex<T> {
     public static fromSerialized<T>(
         serialized: string,
     ): Possible<SearchIndex<T>> {
-        let data: SerializedSearchIndex;
-        try {
-            data = JSON.parse(serialized);
-        } catch (e) {
-            return newErr(String(e)).decorate("deserialize index");
+        const data = mightErr(() => {
+            return JSON.parse(serialized) as SerializedSearchIndex;
+        });
+        if (isErr(data)) {
+            return data.err.decorate("deserialize index");
         }
 
         const index = new Document<T>(data.options);

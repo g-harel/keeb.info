@@ -8,6 +8,14 @@ export const newErr = (message: string): Err => {
     return new Err(null, message, null);
 };
 
+export const mightErr = <T>(callback: () => T): Possible<T> => {
+    try {
+        return callback();
+    } catch (e) {
+        return newErr(String(e));
+    }
+};
+
 // Type guard to check if a `Possible` value is an `Err`.
 export const isErr = (value: any): value is Err | UnresolvedErr => {
     const pValue: IPrivateErr = value as any;
@@ -51,8 +59,8 @@ interface IPrivateErr extends IErr {
 // <not allowed> possibleValue.err.err;
 class UnresolvedErr {
     public err!: IErr;
-    public fwd!: unknown;
-    public print!: unknown;
+    public decorate!: void;
+    public print!: void;
 }
 
 class Err implements IErr {

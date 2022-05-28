@@ -1,4 +1,4 @@
-import {Possible, isErr, isErrOfType, newErr} from "./possible";
+import {Possible, isErr, isErrOfType, mightErr, newErr} from "./possible";
 
 test("api", () => {
     // TODO TESTING START
