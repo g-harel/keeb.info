@@ -1,7 +1,7 @@
 export type Possible<T> = T | Err | UnresolvedErr;
 export type AsyncPossible<T> = Promise<Possible<T>>;
 
-const GLOBAL_ERR_IDENTITY = {};
+const GLOBAL_ERR_IDENTITY = "xX_pOsSiBlE_Xx";
 
 // TODO 2022-05-20 builder that works better with try/catch
 export const newErr = (message: string): Err => {
@@ -11,7 +11,7 @@ export const newErr = (message: string): Err => {
 // Type guard to check if a `Possible` value is an `Err`.
 export const isErr = (value: any): value is Err | UnresolvedErr => {
     const pValue: IPrivateErr = value as any;
-    return pValue && pValue.$globalIdentity === GLOBAL_ERR_IDENTITY;
+    return pValue && pValue.$possible_globalIdentity === GLOBAL_ERR_IDENTITY;
 };
 
 // Type guard to check if a `Possible` value is an `Err` that also matches the
@@ -26,7 +26,9 @@ export const isErrOfType = (
     const pValue: IPrivateErr = value as any;
     const pMatcher: IPrivateErr = matcher as any;
 
-    return !!pValue.nextErrs().find((e) => e.$identity === pMatcher.$identity);
+    return !!pValue
+        .nextErrs()
+        .find((e) => e.$possible_identity === pMatcher.$possible_identity);
 };
 
 // Internal helper that captures the public `Err` API without the .err member.
@@ -38,8 +40,8 @@ interface IErr {
 
 // Internal helper to expose private `Err` api to helper methods.
 interface IPrivateErr extends IErr {
-    $globalIdentity: any;
-    $identity: any;
+    $possible_globalIdentity: any;
+    $possible_identity: any;
     nextErrs(): IPrivateErr[];
 }
 
@@ -56,15 +58,18 @@ class UnresolvedErr {
 class Err implements IErr {
     public err = this;
 
-    // TODO make serializable across runs.
-    private readonly $globalIdentity = GLOBAL_ERR_IDENTITY;
-    private readonly $identity: {};
+    private readonly $possible_globalIdentity = GLOBAL_ERR_IDENTITY;
+    private readonly $possible_identity: number;
 
     private readonly message: string;
     private readonly nextErr: Err | null = null;
 
-    constructor($identity: {} | null, message: string, nextErr: Err | null) {
-        this.$identity = $identity || Math.random();
+    constructor(
+        $possible_identity: number | null,
+        message: string,
+        nextErr: Err | null,
+    ) {
+        this.$possible_identity = $possible_identity || Math.random();
         this.message = message;
         this.nextErr = nextErr;
     }
@@ -88,7 +93,11 @@ class Err implements IErr {
         if (typeof messageOrErr === "string") {
             return new Err(null, messageOrErr, this);
         }
-        return new Err(messageOrErr.$identity, messageOrErr.message, this);
+        return new Err(
+            messageOrErr.$possible_identity,
+            messageOrErr.message,
+            this,
+        );
     }
 
     // Print the error with all the decorated messages and `Err`s in order.
