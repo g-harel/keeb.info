@@ -1,6 +1,6 @@
 import moo, {Token} from "moo";
 
-import {Possible, isErr, newErr} from "../../../internal/possible";
+import {Possible, isErr, newErr, mightErr} from "../../../internal/possible";
 
 export interface QMKRules {
     layouts: string[];
@@ -112,14 +112,16 @@ const extract = (tokens: Token[]): Possible<Record<string, string[]>> => {
 };
 
 export const parse = (raw: string): Possible<QMKRules> => {
-    const tokens: Token[] = [];
-    try {
+    const tokens = mightErr(() => {
+        const t: Token[] = [];
         lexer.reset(raw);
         for (let token of lexer) {
-            tokens.push(token);
+            t.push(token);
         }
-    } catch (e) {
-        return newErr(String(e)).err.decorate("parse error");
+        return t;
+    });
+    if (isErr(tokens)) {
+        return tokens.err.decorate("parse error");
     }
 
     const extracted = extract(tokens);

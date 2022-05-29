@@ -1,6 +1,6 @@
 import {Document, IndexOptionsForDocumentSearch} from "flexsearch";
 
-import {Possible, isErr, mightErr, newErr} from "./possible";
+import {Possible, isErr, mightErr} from "./possible";
 
 interface SerializedSearchIndex {
     index: any;
