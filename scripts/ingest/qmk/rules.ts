@@ -1,6 +1,6 @@
 import moo, {Token} from "moo";
 
-import {Possible, isErr, newErr, mightErr} from "../../../internal/possible";
+import {Possible, isErr, mightErr, newErr} from "../../../internal/possible";
 
 export interface QMKRules {
     layouts: string[];
