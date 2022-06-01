@@ -8,9 +8,22 @@ export const newErr = (message: string): Err => {
     return new Err(null, message, null);
 };
 
-export const mightErr = <T>(callback: () => T): Possible<T> => {
+interface IMightErr<T> {
+    (expr: Promise<T>): Possible<Promise<T>>;
+    (expr: () => T): Possible<T>;
+}
+
+export const mightErr: IMightErr = (expr) => {
+    // Expression is a promise.
+    if (typeof (expr as any).catch === "function") {
+        return new Promise<T>(async (resolve) => {
+
+        });
+    }
+
+    // Expression is a callback.
     try {
-        return callback();
+        return expr();
     } catch (e) {
         return newErr(String(e));
     }

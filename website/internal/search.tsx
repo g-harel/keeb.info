@@ -1,4 +1,4 @@
-import {AsyncPossible, newErr} from "../../internal/possible";
+import {AsyncPossible, mightErr, newErr} from "../../internal/possible";
 import {SearchIndex} from "../../internal/search_index";
 import {KeyboardMetadata} from "../../scripts/ingest/export";
 
@@ -8,16 +8,15 @@ export const loadSearchData = async (): AsyncPossible<
 > => {
     let rawIndex = "";
     try {
-        const keyboardIndexResponse = await fetch("/keyboard-index.json");
-        rawIndex = await keyboardIndexResponse.text();
+        const rawIndex = mightErr(fetch("/keyboard-index.json"));
     } catch (e) {
-        return newErr(String(e)).fwd("failed to fetch index");
+        return newErr(String(e)).decorate("failed to fetch index");
     }
     try {
         return SearchIndex.fromSerialized(rawIndex);
     } catch (e) {
         console.log(e, rawIndex);
-        return newErr(String(e)).fwd("corrupted index");
+        return newErr(String(e)).decorate("corrupted index");
     }
 };
 
@@ -29,6 +28,6 @@ export const loadKeyboardMetadata = async (
         const keyboardIndexResponse = await fetch(`/keyboards/${name}.json`);
         return await keyboardIndexResponse.json();
     } catch (e) {
-        return newErr(String(e)).fwd("failed to fetch keyboard");
+        return newErr(String(e)).decorate("failed to fetch keyboard");
     }
 };

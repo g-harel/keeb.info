@@ -59,11 +59,11 @@ describe("isErrOfType", () => {
     it("should be callable before the value is resolved to Err", () => {
         const ERR_TEST = newErr("foo");
         const plainErr: Possible<string> = newErr("bar") as any;
-        const fwdErr: Possible<string> = ERR_TEST.decorate("baz") as any;
+        const decorateErr: Possible<string> = ERR_TEST.decorate("baz") as any;
         const value: Possible<string> = "" as any;
 
         expect(isErrOfType(plainErr, ERR_TEST)).toBeFalsy();
-        expect(isErrOfType(fwdErr, ERR_TEST)).toBeTruthy();
+        expect(isErrOfType(decorateErr, ERR_TEST)).toBeTruthy();
         expect(isErrOfType(value, ERR_TEST)).toBeFalsy();
     });
 
