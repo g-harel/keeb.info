@@ -8,26 +8,34 @@ export const newErr = (message: string): Err => {
     return new Err(null, message, null);
 };
 
-interface IMightErr<T> {
-    (expr: Promise<T>): Possible<Promise<T>>;
-    (expr: () => T): Possible<T>;
-}
+// TODO 2022-06-01 test this
+export function mightErr<T>(expr: Promise<T>): AsyncPossible<T>;
+export function mightErr<T>(expr: () => T): Possible<T>;
+export function mightErr<T>(
+    expr: Promise<T> | (() => T),
+): Possible<T> | AsyncPossible<T> {
+    // Expression is a callback.
+    if (typeof expr === "function") {
+        try {
+            return expr();
+        } catch (e) {
+            return newErr(String(e));
+        }
+    }
 
-export const mightErr: IMightErr = (expr) => {
     // Expression is a promise.
-    if (typeof (expr as any).catch === "function") {
-        return new Promise<T>(async (resolve) => {
-
+    if (typeof expr.catch === "function") {
+        return new Promise<Possible<T>>(async (resolve) => {
+            try {
+                resolve(await expr);
+            } catch (e) {
+                resolve(newErr(String(e)));
+            }
         });
     }
 
-    // Expression is a callback.
-    try {
-        return expr();
-    } catch (e) {
-        return newErr(String(e));
-    }
-};
+    return null as any;
+}
 
 // Type guard to check if a `Possible` value is an `Err`.
 export const isErr = (value: any): value is Err | UnresolvedErr => {

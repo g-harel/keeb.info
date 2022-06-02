@@ -1,4 +1,4 @@
-import {AsyncPossible, mightErr, newErr} from "../../internal/possible";
+import {AsyncPossible, isErr, mightErr, newErr} from "../../internal/possible";
 import {SearchIndex} from "../../internal/search_index";
 import {KeyboardMetadata} from "../../scripts/ingest/export";
 
@@ -8,6 +8,7 @@ export const loadSearchData = async (): AsyncPossible<
 > => {
     let rawIndex = "";
     try {
+        // TODO 2022-06-01 make this work after refactor.
         const rawIndex = mightErr(fetch("/keyboard-index.json"));
     } catch (e) {
         return newErr(String(e)).decorate("failed to fetch index");
@@ -24,10 +25,15 @@ export const loadSearchData = async (): AsyncPossible<
 export const loadKeyboardMetadata = async (
     name: string,
 ): AsyncPossible<KeyboardMetadata> => {
-    try {
-        const keyboardIndexResponse = await fetch(`/keyboards/${name}.json`);
-        return await keyboardIndexResponse.json();
-    } catch (e) {
-        return newErr(String(e)).decorate("failed to fetch keyboard");
+    const keyboardIndexResponse = await mightErr(fetch(`/keyboards/${name}.json`));
+    if (isErr(keyboardIndexResponse)) {
+        return keyboardIndexResponse.err.decorate("fetch keyboard");
     }
+
+    const keyboardIndex = await mightErr(keyboardIndexResponse.json());
+    if (isErr(keyboardIndex)) {
+        return keyboardIndex.err.decorate("parse keyboard response");
+    }
+
+    return keyboardIndex;
 };
