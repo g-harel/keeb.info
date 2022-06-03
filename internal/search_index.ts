@@ -43,9 +43,15 @@ export class SearchIndex<T> {
             return data.err.decorate("deserialize index");
         }
 
-        const index = new Document<T>(data.options);
-        for (const [key, d] of Object.entries(data.index)) {
-            index.import(key, d as any);
+        const index = mightErr(() => {
+            const index = new Document<T>(data.options);
+            for (const [key, d] of Object.entries(data.index)) {
+                index.import(key, d as any);
+            }
+            return index;
+        });
+        if (isErr(index)) {
+            return index.err.decorate("corrupted index");
         }
 
         return new SearchIndex(index, data.options);

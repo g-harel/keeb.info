@@ -6,26 +6,26 @@ import {KeyboardMetadata} from "../../scripts/ingest/export";
 export const loadSearchData = async (): AsyncPossible<
     SearchIndex<KeyboardMetadata>
 > => {
-    let rawIndex = "";
-    try {
-        // TODO 2022-06-01 make this work after refactor.
-        const rawIndex = mightErr(fetch("/keyboard-index.json"));
-    } catch (e) {
-        return newErr(String(e)).decorate("failed to fetch index");
+    const rawIndexResponse = await mightErr(fetch("/keyboard-index.json"));
+    if (isErr(rawIndexResponse)) {
+        return rawIndexResponse.err.decorate("fetch index");
     }
-    try {
-        return SearchIndex.fromSerialized(rawIndex);
-    } catch (e) {
-        console.log(e, rawIndex);
-        return newErr(String(e)).decorate("corrupted index");
+
+    const rawIndex = await mightErr(rawIndexResponse.text());
+    if (isErr(rawIndex)) {
+        return rawIndex.err.decorate("read index data");
     }
+
+    return SearchIndex.fromSerialized(rawIndex);
 };
 
 // TODO this is not the right place
 export const loadKeyboardMetadata = async (
     name: string,
 ): AsyncPossible<KeyboardMetadata> => {
-    const keyboardIndexResponse = await mightErr(fetch(`/keyboards/${name}.json`));
+    const keyboardIndexResponse = await mightErr(
+        fetch(`/keyboards/${name}.json`),
+    );
     if (isErr(keyboardIndexResponse)) {
         return keyboardIndexResponse.err.decorate("fetch keyboard");
     }
