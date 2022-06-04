@@ -1,46 +1,14 @@
 export type Possible<T> = T | Err | UnresolvedErr;
 export type AsyncPossible<T> = Promise<Possible<T>>;
 
-const GLOBAL_ERR_IDENTITY = "xX_pOsSiBlE_Xx";
-
-// TODO 2022-05-20 builder that works better with try/catch
+// Create a new `Err` with the given message.
 export const newErr = (message: string): Err => {
     return new Err(null, message, null);
 };
 
-// TODO 2022-06-01 test this
-export function mightErr<T>(expr: Promise<T>): AsyncPossible<T>;
-export function mightErr<T>(expr: () => T): Possible<T>;
-export function mightErr<T>(
-    expr: Promise<T> | (() => T),
-): Possible<T> | AsyncPossible<T> {
-    // Expression is a callback.
-    if (typeof expr === "function") {
-        try {
-            return expr();
-        } catch (e) {
-            return newErr(String(e));
-        }
-    }
-
-    // Expression is a promise.
-    if (typeof expr.catch === "function") {
-        return new Promise<Possible<T>>(async (resolve) => {
-            try {
-                resolve(await expr);
-            } catch (e) {
-                resolve(newErr(String(e)));
-            }
-        });
-    }
-
-    return null as any;
-}
-
 // Type guard to check if a `Possible` value is an `Err`.
 export const isErr = (value: any): value is Err | UnresolvedErr => {
-    const pValue: IPrivateErr = value as any;
-    return pValue && pValue.$possible_globalIdentity === GLOBAL_ERR_IDENTITY;
+    return value instanceof Err;
 };
 
 // Type guard to check if a `Possible` value is an `Err` that also matches the
@@ -59,6 +27,37 @@ export const isErrOfType = (
         .nextErrs()
         .find((e) => e.$possible_identity === pMatcher.$possible_identity);
 };
+
+// Helper to rap expressions that might produce `Error`s that are not native to
+// this package. Input can be a function that might throw, or a `Promise` that
+// might get rejected.
+// It is not recommended for the expression to return a `Possible` since this
+// mixes error handling and results in wrapped `Possible`s.
+export function mightErr<T>(expr: Promise<T>): AsyncPossible<T>;
+export function mightErr<T>(expr: () => T): Possible<T>;
+export function mightErr<T>(
+    expr: Promise<T> | (() => T),
+): Possible<T> | AsyncPossible<T> {
+    // Expression is a callback.
+    if (typeof expr === "function") {
+        try {
+            return expr();
+        } catch (e) {
+            return newErr(String(e));
+        }
+    }
+
+    // Expression is a promise.
+    if (typeof expr.catch === "function" && typeof expr.then === "function") {
+        return new Promise<Possible<T>>(async (resolve) => {
+            await expr
+                .then((v) => resolve(v))
+                .catch((e) => resolve(newErr(String(e))));
+        });
+    }
+
+    return expr as any;
+}
 
 // Internal helper that captures the public `Err` API without the .err member.
 // It is used to restrict repeated chains of .err.err...
@@ -87,9 +86,7 @@ class UnresolvedErr {
 class Err implements IErr {
     public err = this;
 
-    private readonly $possible_globalIdentity = GLOBAL_ERR_IDENTITY;
     private readonly $possible_identity: number;
-
     private readonly message: string;
     private readonly nextErr: Err | null = null;
 
@@ -116,6 +113,7 @@ class Err implements IErr {
         return errs;
     }
 
+    // TODO 2022-06-03 should this be "describe"
     // Wrap the `Err` instance to add more context. When printed, the decorated
     // message will be formatted as: `<decorated message>: <original message>`.
     public decorate(messageOrErr: string | Err): Err {

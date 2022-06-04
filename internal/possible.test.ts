@@ -28,6 +28,8 @@ test("api", () => {
     // TODO TESTING END
 });
 
+const testStr = () => String(Math.random());
+
 describe("isErr", () => {
     it("should guard the original type", () => {
         const testValue = {test: true};
@@ -40,7 +42,7 @@ describe("isErr", () => {
     });
 
     it("should detect errors", () => {
-        const value = newErr("test");
+        const value = newErr(testStr());
         expect(isErr(value)).toBeTruthy();
     });
 
@@ -49,18 +51,18 @@ describe("isErr", () => {
         expect(isErr(value)).toBeFalsy();
     });
 
-    it("should detect elaborated errors", () => {
-        const value = newErr("test").err.decorate("test");
+    it("should detect decorated errors", () => {
+        const value = newErr(testStr()).err.decorate(testStr());
         expect(isErr(value)).toBeTruthy();
     });
 });
 
 describe("isErrOfType", () => {
     it("should be callable before the value is resolved to Err", () => {
-        const ERR_TEST = newErr("foo");
-        const plainErr: Possible<string> = newErr("bar") as any;
-        const decorateErr: Possible<string> = ERR_TEST.decorate("baz") as any;
-        const value: Possible<string> = "" as any;
+        const ERR_TEST = newErr(testStr());
+        const plainErr: Possible<string> = newErr(testStr());
+        const decorateErr: Possible<string> = ERR_TEST.decorate(testStr());
+        const value: Possible<string> = "";
 
         expect(isErrOfType(plainErr, ERR_TEST)).toBeFalsy();
         expect(isErrOfType(decorateErr, ERR_TEST)).toBeTruthy();
@@ -68,9 +70,9 @@ describe("isErrOfType", () => {
     });
 
     it("should correctly identify all ancestor error type", () => {
-        const firstErr = newErr("test");
-        const secondErr = firstErr.decorate("test");
-        const thirdErr = secondErr.decorate("test");
+        const firstErr = newErr(testStr());
+        const secondErr = firstErr.decorate(testStr());
+        const thirdErr = secondErr.decorate(testStr());
         const errs = [firstErr, secondErr, thirdErr];
 
         for (let i = 0; i < errs.length; i++) {
@@ -81,16 +83,62 @@ describe("isErrOfType", () => {
     });
 });
 
+describe("mightErr", () => {
+    it("should return the value if it is neither a callback or a promise", () => {
+        const testString: any = testStr();
+        expect(mightErr(testString)).toBe(testString);
+    });
+
+    it("should return the callback value", () => {
+        const testString = testStr();
+        expect(mightErr(() => testString)).toBe(testString);
+    });
+
+    it("should return the promise value", async () => {
+        const testString = testStr();
+        expect(await mightErr(new Promise((res) => res(testString)))).toBe(
+            testString,
+        );
+    });
+
+    it("should wrap callback exceptions", () => {
+        const testString = testStr();
+        const possible = mightErr(() => {
+            throw testString;
+        });
+        expect(isErr(possible)).toBeTruthy();
+        expect(possible.err.print()).toContain(testString);
+    });
+
+    it("should wrap promise exceptions", async () => {
+        const testString = testStr();
+        const possible = await mightErr(
+            new Promise(() => {
+                throw testString;
+            }),
+        );
+        expect(isErr(possible)).toBeTruthy();
+        expect((possible as any).err.print()).toContain(testString);
+    });
+
+    it("should wrap promise rejections", async () => {
+        const testString = testStr();
+        const possible = await mightErr(new Promise((_, r) => r(testString)));
+        expect(isErr(possible)).toBeTruthy();
+        expect((possible as any).err.print()).toContain(testString);
+    });
+});
+
 describe("Err", () => {
     it("should include message in printed errors", () => {
-        const testString = "abc";
+        const testString = testStr();
         const value = newErr(testString);
 
         expect(value.err.print()).toContain(testString);
     });
 
     it("should include extended messages in printed errors", () => {
-        const testStrings = ["foo", "bar", "xyz"];
+        const testStrings = [testStr(), testStr(), testStr()];
         let value = newErr(testStrings[0]);
         for (let i = 1; i < testStrings.length; i++) {
             value = value.err.decorate(testStrings[i]);
@@ -102,7 +150,7 @@ describe("Err", () => {
     });
 
     it("should start with most recent extension in printed error", () => {
-        const testStrings = ["123", "456", "789"];
+        const testStrings = [testStr(), testStr(), testStr()];
         let value = newErr(testStrings[0]);
         for (let i = 1; i < testStrings.length; i++) {
             value = value.err.decorate(testStrings[i]);
@@ -116,9 +164,10 @@ describe("Err", () => {
     });
 
     it("should be resistant to cycles", () => {
-        const rootErr = newErr("foo");
+        const testString = testStr();
+        const rootErr = newErr(testString);
         const cycleErr = rootErr.decorate(rootErr);
 
-        expect(cycleErr.err.print()).toBe("foo: foo");
+        expect(cycleErr.err.print()).toBe(`${testString}: ${testString}`);
     });
 });
