@@ -8,12 +8,12 @@ export const loadSearchData = async (): AsyncPossible<
 > => {
     const rawIndexResponse = await mightErr(fetch("/keyboard-index.json"));
     if (isErr(rawIndexResponse)) {
-        return rawIndexResponse.err.decorate("fetch index");
+        return rawIndexResponse.err.describe("fetch index");
     }
 
     const rawIndex = await mightErr(rawIndexResponse.text());
     if (isErr(rawIndex)) {
-        return rawIndex.err.decorate("read index data");
+        return rawIndex.err.describe("read index data");
     }
 
     return SearchIndex.fromSerialized(rawIndex);
@@ -27,12 +27,12 @@ export const loadKeyboardMetadata = async (
         fetch(`/keyboards/${name}.json`),
     );
     if (isErr(keyboardIndexResponse)) {
-        return keyboardIndexResponse.err.decorate("fetch keyboard");
+        return keyboardIndexResponse.err.describe("fetch keyboard");
     }
 
     const keyboardIndex = await mightErr(keyboardIndexResponse.json());
     if (isErr(keyboardIndex)) {
-        return keyboardIndex.err.decorate("parse keyboard response");
+        return keyboardIndex.err.describe("parse keyboard response");
     }
 
     return keyboardIndex;

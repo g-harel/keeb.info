@@ -51,7 +51,7 @@ const extract = (tokens: Token[]): Possible<Record<string, string[]>> => {
             token.type === EVAL ||
             token.type === INCLUDE
         ) {
-            return newErr(JSON.stringify(token)).err.decorate(
+            return newErr(JSON.stringify(token)).err.describe(
                 "unsupported token",
             );
         }
@@ -70,7 +70,7 @@ const extract = (tokens: Token[]): Possible<Record<string, string[]>> => {
             if (assignSymbol === null) {
                 // Two symbols following each other with no assignment.
                 if (lastToken !== null && lastToken.type === SYMBOL) {
-                    return newErr(JSON.stringify(lastToken)).err.decorate(
+                    return newErr(JSON.stringify(lastToken)).err.describe(
                         "loose symbol",
                     );
                 }
@@ -121,12 +121,12 @@ export const parse = (raw: string): Possible<QMKRules> => {
         return t;
     });
     if (isErr(tokens)) {
-        return tokens.err.decorate("parse error");
+        return tokens.err.describe("parse error");
     }
 
     const extracted = extract(tokens);
     if (isErr(extracted)) {
-        return extracted.err.decorate("extract error");
+        return extracted.err.describe("extract error");
     }
 
     const layouts: string[] = [];

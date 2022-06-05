@@ -40,7 +40,7 @@ export class SearchIndex<T> {
             return JSON.parse(serialized) as SerializedSearchIndex;
         });
         if (isErr(data)) {
-            return data.err.decorate("deserialize index");
+            return data.err.describe("deserialize index");
         }
 
         const index = mightErr(() => {
@@ -51,7 +51,7 @@ export class SearchIndex<T> {
             return index;
         });
         if (isErr(index)) {
-            return index.err.decorate("corrupted index");
+            return index.err.describe("corrupted index");
         }
 
         return new SearchIndex(index, data.options);

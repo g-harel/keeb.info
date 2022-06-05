@@ -75,23 +75,23 @@ const internalCalcKeycap = (key: KeycapInput): Possible<CalculatedKeycap> => {
 
     // Sharp key base.
     const rawBase = toShape(boxes);
-    if (isErr(rawBase)) return rawBase.err.decorate("base");
+    if (isErr(rawBase)) return rawBase.err.describe("base");
     const roundBase = round(rawBase, KEY_RADIUS, KEY_RADIUS);
 
     // Shelf outer edge.
     const rawStep = toShape(pad(boxes, STEP_PADDING));
-    if (isErr(rawStep)) return rawStep.err.decorate("step");
+    if (isErr(rawStep)) return rawStep.err.describe("step");
     const roundStep = round(rawStep, STEP_RADIUS, KEY_RADIUS);
     const approxStep = approx(roundStep, ROUND_RESOLUTION);
 
     // Shelf shape.
     const rawShelf = toShape(pad(shelfShape, SHELF_PADDING));
-    if (isErr(rawShelf)) return rawShelf.err.decorate("shelf");
+    if (isErr(rawShelf)) return rawShelf.err.describe("shelf");
     const roundShelf = round(rawShelf, SHELF_RADIUS, KEY_RADIUS);
 
     // Shelf inner edge.
     const rawShelfBase = toShape(pad(shelfShape, STEP_PADDING));
-    if (isErr(rawShelfBase)) return rawShelfBase.err.decorate("shelf base");
+    if (isErr(rawShelfBase)) return rawShelfBase.err.describe("shelf base");
     const roundShelfBase = round(rawShelfBase, STEP_RADIUS, KEY_RADIUS);
     const approxShelfBase = approx(roundShelfBase, ROUND_RESOLUTION);
 
@@ -141,7 +141,7 @@ const internalCalcKeycap = (key: KeycapInput): Possible<CalculatedKeycap> => {
     const inflatePadding = STEP_PADDING.map((n) => n - BORDER / 1000) as any;
     const inflatedShelf = toShape(pad(shelfShape, inflatePadding));
     if (isErr(inflatedShelf))
-        return inflatedShelf.err.decorate("inflated shelf");
+        return inflatedShelf.err.describe("inflated shelf");
     const approxInflatedShelfBase = approx(
         round(inflatedShelf, STEP_RADIUS, KEY_RADIUS),
         ROUND_RESOLUTION,

@@ -30,7 +30,7 @@ export const exportKeyboards = async (
             const name = ingested.via?.name || `${vendorID} ${productID}`;
             if (keyboards[name] !== undefined) {
                 ctx.errors.nameConflicts.push({
-                    error: newErr(name).decorate("duplicate name").print(),
+                    error: newErr(name).describe("duplicate name").print(),
                     path: ingested.viaPath || "unknown",
                 });
             }

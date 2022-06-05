@@ -62,7 +62,7 @@ export function mightErr<T>(
 // Internal helper that captures the public `Err` API without the .err member.
 // It is used to restrict repeated chains of .err.err...
 interface IErr {
-    decorate: (messageOrErr: string | Err) => Err;
+    describe: (messageOrErr: string | Err) => Err;
     print: () => string;
 }
 
@@ -79,7 +79,7 @@ interface IPrivateErr extends IErr {
 // <not allowed> possibleValue.err.err;
 class UnresolvedErr {
     public err!: IErr;
-    public decorate!: void;
+    public describe!: void;
     public print!: void;
 }
 
@@ -114,9 +114,9 @@ class Err implements IErr {
     }
 
     // TODO 2022-06-03 should this be "describe"
-    // Wrap the `Err` instance to add more context. When printed, the decorated
-    // message will be formatted as: `<decorated message>: <original message>`.
-    public decorate(messageOrErr: string | Err): Err {
+    // Wrap the `Err` instance to add more context. When printed, the described
+    // message will be formatted as: `<described message>: <original message>`.
+    public describe(messageOrErr: string | Err): Err {
         if (typeof messageOrErr === "string") {
             return new Err(null, messageOrErr, this);
         }
@@ -127,8 +127,8 @@ class Err implements IErr {
         );
     }
 
-    // Print the error with all the decorated messages and `Err`s in order.
-    // <example> newErr("a").decorate("b").decorate("c").print()
+    // Print the error with all the described messages and `Err`s in order.
+    // <example> newErr("a").describe("b").describe("c").print()
     //  <output> c: b: a
     public print(): string {
         return this.nextErrs()

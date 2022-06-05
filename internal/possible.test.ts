@@ -8,9 +8,9 @@ test("api", () => {
         if (isErr(aa)) {
             const bb = aa;
             if (Math.random() > 0.5) {
-                return aa.err.decorate("test");
+                return aa.err.describe("test");
             }
-            const aaa = aa.err.decorate("");
+            const aaa = aa.err.describe("");
             return aa;
         }
         return "";
@@ -51,8 +51,8 @@ describe("isErr", () => {
         expect(isErr(value)).toBeFalsy();
     });
 
-    it("should detect decorated errors", () => {
-        const value = newErr(testStr()).err.decorate(testStr());
+    it("should detect described errors", () => {
+        const value = newErr(testStr()).err.describe(testStr());
         expect(isErr(value)).toBeTruthy();
     });
 });
@@ -61,18 +61,18 @@ describe("isErrOfType", () => {
     it("should be callable before the value is resolved to Err", () => {
         const ERR_TEST = newErr(testStr());
         const plainErr: Possible<string> = newErr(testStr());
-        const decorateErr: Possible<string> = ERR_TEST.decorate(testStr());
+        const describeErr: Possible<string> = ERR_TEST.describe(testStr());
         const value: Possible<string> = "";
 
         expect(isErrOfType(plainErr, ERR_TEST)).toBeFalsy();
-        expect(isErrOfType(decorateErr, ERR_TEST)).toBeTruthy();
+        expect(isErrOfType(describeErr, ERR_TEST)).toBeTruthy();
         expect(isErrOfType(value, ERR_TEST)).toBeFalsy();
     });
 
     it("should correctly identify all ancestor error type", () => {
         const firstErr = newErr(testStr());
-        const secondErr = firstErr.decorate(testStr());
-        const thirdErr = secondErr.decorate(testStr());
+        const secondErr = firstErr.describe(testStr());
+        const thirdErr = secondErr.describe(testStr());
         const errs = [firstErr, secondErr, thirdErr];
 
         for (let i = 0; i < errs.length; i++) {
@@ -141,7 +141,7 @@ describe("Err", () => {
         const testStrings = [testStr(), testStr(), testStr()];
         let value = newErr(testStrings[0]);
         for (let i = 1; i < testStrings.length; i++) {
-            value = value.err.decorate(testStrings[i]);
+            value = value.err.describe(testStrings[i]);
         }
 
         for (const message of testStrings) {
@@ -153,7 +153,7 @@ describe("Err", () => {
         const testStrings = [testStr(), testStr(), testStr()];
         let value = newErr(testStrings[0]);
         for (let i = 1; i < testStrings.length; i++) {
-            value = value.err.decorate(testStrings[i]);
+            value = value.err.describe(testStrings[i]);
         }
 
         const printed = value.err.print();
@@ -166,7 +166,7 @@ describe("Err", () => {
     it("should be resistant to cycles", () => {
         const testString = testStr();
         const rootErr = newErr(testString);
-        const cycleErr = rootErr.decorate(rootErr);
+        const cycleErr = rootErr.describe(rootErr);
 
         expect(cycleErr.err.print()).toBe(`${testString}: ${testString}`);
     });
