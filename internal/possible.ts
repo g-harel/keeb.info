@@ -113,7 +113,6 @@ class Err implements IErr {
         return errs;
     }
 
-    // TODO 2022-06-03 should this be "describe"
     // Wrap the `Err` instance to add more context. When printed, the described
     // message will be formatted as: `<described message>: <original message>`.
     public describe(messageOrErr: string | Err): Err {

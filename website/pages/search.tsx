@@ -54,7 +54,7 @@ export const ResultLayout = (props: {name: string}) => {
         return <>loading...</>;
     }
     if (isErr(keyboard)) {
-        return <>{keyboard.print()}</>;
+        return <>{keyboard.err.print()}</>;
     }
 
     const {name, layout} = keyboard;
@@ -95,7 +95,7 @@ export const Search = () => {
         return <>loading...</>;
     }
     if (isErr(idx)) {
-        return <>{idx.print()}</>;
+        return <>{idx.err.print()}</>;
     }
 
     const results = idx.search(query);

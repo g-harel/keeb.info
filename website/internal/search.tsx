@@ -2,10 +2,8 @@ import {AsyncPossible, isErr, mightErr, newErr} from "../../internal/possible";
 import {SearchIndex} from "../../internal/search_index";
 import {KeyboardMetadata} from "../../scripts/ingest/export";
 
-// TODO dedupe/cache requests
-export const loadSearchData = async (): AsyncPossible<
-    SearchIndex<KeyboardMetadata>
-> => {
+let searchData: AsyncPossible<SearchIndex<KeyboardMetadata>> = null;
+export const loadSearchDataInternal = async (): typeof searchData => {
     const rawIndexResponse = await mightErr(fetch("/keyboard-index.json"));
     if (isErr(rawIndexResponse)) {
         return rawIndexResponse.err.describe("fetch index");
@@ -17,6 +15,10 @@ export const loadSearchData = async (): AsyncPossible<
     }
 
     return SearchIndex.fromSerialized(rawIndex);
+};
+export const loadSearchData = async (): typeof searchData => {
+    if (searchData === null) searchData = loadSearchDataInternal();
+    return searchData;
 };
 
 // TODO this is not the right place
