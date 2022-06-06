@@ -12,7 +12,7 @@ const ID_FIELD = "__id__";
 
 export class SearchIndex<T> {
     // TODO index on arbitrary field.
-    public static fromDocuments<T>(
+    public static fromDocuments<T extends Record<string, any>>(
         documents: Record<ID_TYPE, T>,
         fields: string[],
     ): SearchIndex<T> {
@@ -42,6 +42,8 @@ export class SearchIndex<T> {
         if (isErr(data)) {
             return data.err.describe("deserialize index");
         }
+
+        console.log(data);
 
         const index = mightErr(() => {
             const index = new Document<T>(data.options);

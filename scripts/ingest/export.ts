@@ -50,7 +50,6 @@ export const exportKeyboards = async (
     const serializedIndex = await searchIndex.serialize();
 
     // Test that deserialziation works.
-    // TODO this should be a test.
     const deserializedIndex = SearchIndex.fromSerialized(serializedIndex);
     if (isErr(deserializedIndex)) {
         console.log(deserializedIndex.err.print());

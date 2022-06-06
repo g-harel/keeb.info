@@ -1,9 +1,9 @@
 import fastGlob from "fast-glob";
 import fs from "fs";
 
-import {ViaDefinition} from "../../internal/via";
-import {IngestContext} from "./context";
-import {hexToInt} from "./lib";
+import {ViaDefinition} from "../../../internal/via";
+import {IngestContext} from "../context";
+import {hexToInt} from "../lib";
 
 export const ingestVia = (ctx: IngestContext) => {
     fastGlob
