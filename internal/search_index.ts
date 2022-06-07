@@ -43,20 +43,18 @@ export class SearchIndex<T> {
             return data.err.describe("deserialize index");
         }
 
-        console.log(data);
-
-        const index = mightErr(() => {
+        const deserializedIndex = mightErr(() => {
             const index = new Document<T>(data.options);
             for (const [key, d] of Object.entries(data.index)) {
                 index.import(key, d as any);
             }
             return index;
         });
-        if (isErr(index)) {
-            return index.err.describe("corrupted index");
+        if (isErr(deserializedIndex)) {
+            return deserializedIndex.err.describe("corrupted index");
         }
 
-        return new SearchIndex(index, data.options);
+        return new SearchIndex(deserializedIndex, data.options);
     }
 
     private index: Document<T>;
@@ -86,8 +84,9 @@ export class SearchIndex<T> {
         const exportDetectIntervalMS = 100;
         const exportWaitIntervalMS = 1000;
         await new Promise((res) => {
-            setInterval(() => {
+            const intervalID = setInterval(() => {
                 if (wasExported) {
+                    clearInterval(intervalID);
                     setTimeout(res, exportWaitIntervalMS);
                 }
             }, exportDetectIntervalMS);

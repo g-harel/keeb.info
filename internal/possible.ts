@@ -83,6 +83,7 @@ class UnresolvedErr {
     public print!: void;
 }
 
+// TODO 2022-06-07 Add stack and other info to err.
 class Err implements IErr {
     public err = this;
 
