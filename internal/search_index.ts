@@ -1,4 +1,4 @@
-import {Document, IndexOptionsForDocumentSearch} from "flexsearch";
+import {Index, IndexOptions} from "flexsearch";
 
 import {Possible, isErr, mightErr} from "./possible";
 
@@ -8,26 +8,22 @@ interface SerializedSearchIndex {
 }
 
 type ID_TYPE = string;
-const ID_FIELD = "__id__";
 
 export class SearchIndex<T> {
     // TODO index on arbitrary field.
     public static fromDocuments<T extends Record<string, any>>(
         documents: Record<ID_TYPE, T>,
-        fields: string[],
+        fieldExtractor: (document: T) => string[],
     ): SearchIndex<T> {
-        const options: IndexOptionsForDocumentSearch<T> = {
-            document: {
-                id: ID_FIELD,
-                index: fields,
-            },
-        };
+        const options: IndexOptions<T> = {};
 
         // TODO tune options.
-        const index = new Document<T>(options);
+        const index = new Index(options);
         for (const [id, doc] of Object.entries(documents)) {
-            (doc as any)[ID_FIELD] = id;
-            index.add(doc);
+            for (const str of fieldExtractor(doc)) {
+                console.log(id, str);
+                index.add(id, str);
+            }
         }
 
         return new SearchIndex(index, options);
@@ -44,7 +40,7 @@ export class SearchIndex<T> {
         }
 
         const deserializedIndex = mightErr(() => {
-            const index = new Document<T>(data.options);
+            const index = new Index(data.options);
             for (const [key, d] of Object.entries(data.index)) {
                 index.import(key, d as any);
             }
@@ -57,12 +53,12 @@ export class SearchIndex<T> {
         return new SearchIndex(deserializedIndex, data.options);
     }
 
-    private index: Document<T>;
-    private options: IndexOptionsForDocumentSearch<T>;
+    private index: Index;
+    private options: IndexOptions<void>;
 
     private constructor(
-        index: Document<T>,
-        options: IndexOptionsForDocumentSearch<T>,
+        index: Index,
+        options: IndexOptions<void>,
     ) {
         this.index = index;
         this.options = options;
@@ -71,7 +67,7 @@ export class SearchIndex<T> {
     public async serialize(): Promise<string> {
         let wasExported = false;
         const exportedIndex: Record<string, any> = {};
-        this.index.export((key, data: any) => {
+        await this.index.export((key, data: any) => {
             wasExported = true;
             if (data !== undefined) {
                 data = JSON.parse(data);
@@ -104,10 +100,8 @@ export class SearchIndex<T> {
 
         // TODO order search results by quality across fields.
         const results: ID_TYPE[] = [];
-        for (const fieldResult of searchResults) {
-            for (const resultID of fieldResult.result) {
-                results.push(resultID as ID_TYPE);
-            }
+        for (const resultID of searchResults) {
+            results.push(resultID as ID_TYPE);
         }
         return results;
     }

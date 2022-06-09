@@ -5,12 +5,13 @@ const testStr = () => String(Math.random());
 
 describe("SearchIndex", () => {
     it("should work", async () => {
+        const testKey = testStr();
         const testValue = testStr();
-        const testDocument = {test: {[testStr()]: testValue}};
+        const testDocument = {test: {[testKey]: testValue}};
 
         const index = SearchIndex.fromDocuments(
             testDocument,
-            Object.keys(testDocument.test),
+            (doc: any) => [doc[testKey]],
         );
         const indexCopy = SearchIndex.fromSerialized(await index.serialize());
         if (isErr(indexCopy))
