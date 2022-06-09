@@ -21,7 +21,6 @@ export class SearchIndex<T> {
         const index = new Index(options);
         for (const [id, doc] of Object.entries(documents)) {
             for (const str of fieldExtractor(doc)) {
-                console.log(id, str);
                 index.add(id, str);
             }
         }
@@ -56,10 +55,7 @@ export class SearchIndex<T> {
     private index: Index;
     private options: IndexOptions<void>;
 
-    private constructor(
-        index: Index,
-        options: IndexOptions<void>,
-    ) {
+    private constructor(index: Index, options: IndexOptions<void>) {
         this.index = index;
         this.options = options;
     }
@@ -67,7 +63,10 @@ export class SearchIndex<T> {
     public async serialize(): Promise<string> {
         let wasExported = false;
         const exportedIndex: Record<string, any> = {};
+        const t = Date.now();
+        console.log("start", Date.now() - t);
         await this.index.export((key, data: any) => {
+            console.log("export " + key, Date.now() - t);
             wasExported = true;
             if (data !== undefined) {
                 data = JSON.parse(data);

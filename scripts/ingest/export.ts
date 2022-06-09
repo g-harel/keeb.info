@@ -4,14 +4,19 @@ import {SearchIndex} from "../../internal/search_index";
 import {convertViaToLayout} from "../../internal/via";
 import {IngestContext, IngestedMetadata} from "./context";
 
-// TODO index layout options and the like... maybe flatten that into a string?
-const keyboardMetadataSearchableFields = ["name"];
 export interface KeyboardMetadata {
     name: string;
     vendorID: string;
     productID: string;
     layout: Layout;
 }
+
+// TODO index layout options and the like... maybe flatten that into a string?
+const keyboardMetadataFieldExtractor = (
+    keyboard: KeyboardMetadata,
+): string[] => {
+    return [keyboard.name];
+};
 
 export const exportKeyboards = async (
     ctx: IngestContext,
@@ -45,7 +50,7 @@ export const exportKeyboards = async (
 
     const searchIndex = SearchIndex.fromDocuments(
         keyboards,
-        keyboardMetadataSearchableFields,
+        keyboardMetadataFieldExtractor,
     );
     const serializedIndex = await searchIndex.serialize();
 
@@ -58,6 +63,10 @@ export const exportKeyboards = async (
     const result = deserializedIndex.search("wilba");
     if (isErr(result)) {
         console.log(result.err.print());
+        process.exit(1);
+    }
+    if (result.length === 0) {
+        console.log("index failed");
         process.exit(1);
     }
 
