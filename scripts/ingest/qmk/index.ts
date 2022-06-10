@@ -9,13 +9,14 @@ import {parse as parseConfig} from "./config";
 import {QMKInfo} from "./info";
 import {QMKRules, parse as parseRules} from "./rules";
 
-const ROOT = "external/qmk/qmk_firmware/keyboards/ai03/vega";
+const ROOT = "external/qmk/qmk_firmware/keyboards/ai03";
+const VIA_KEYMAP = "keymaps/via/keymap.c";
 const CONFIG = "config.h";
 const INFO = "info.json";
 const RULES = "rules.mk";
 
 // Collect suspected keyboard roots.
-const findRoots = (currentPath: string): string[] => {
+const findViaRoots = (currentPath: string): string[] => {
     let roots: string[] = [];
 
     const nestedFiles: string[] = [];
@@ -30,23 +31,15 @@ const findRoots = (currentPath: string): string[] => {
     }
 
     // Decide whether current path is a root.
-    let isRoot = false;
-    for (const nestedFile of nestedFiles) {
-        for (const rootFile of [CONFIG, INFO, RULES]) {
-            if (path.basename(nestedFile) === rootFile) {
-                isRoot = true;
-                break;
-            }
-        }
-        if (isRoot) break;
-    }
+    const isRoot = fs.existsSync(path.join(currentPath, VIA_KEYMAP));
+    console.log(currentPath, isRoot)
 
     // Add current dir or keep looking depending on root status.
     if (isRoot) {
         roots.push(currentPath);
     } else {
         nestedDirs.forEach((nestedDir) => {
-            roots = roots.concat(...findRoots(nestedDir));
+            roots = roots.concat(...findViaRoots(nestedDir));
         });
     }
 
@@ -56,7 +49,7 @@ const findRoots = (currentPath: string): string[] => {
 // TODO combine revisions of same board.
 // TODO do better for oddly laid out directories.
 export const ingestQMK = (ctx: IngestContext) => {
-    const roots = findRoots(ROOT);
+    const roots = findViaRoots(ROOT);
 
     for (const root of roots) {
         let configContents: QMKConfig | null = null;
