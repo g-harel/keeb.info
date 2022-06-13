@@ -2,7 +2,7 @@ import {AsyncPossible, isErr, mightErr, newErr} from "../../internal/possible";
 import {SearchIndex} from "../../internal/search_index";
 import {KeyboardMetadata} from "../../scripts/ingest/export";
 
-let searchData: AsyncPossible<SearchIndex<KeyboardMetadata>> = null;
+let searchData: AsyncPossible<SearchIndex> = null;
 export const loadSearchDataInternal = async (): typeof searchData => {
     const rawIndexResponse = await mightErr(fetch("/keyboard-index.json"));
     if (isErr(rawIndexResponse)) {

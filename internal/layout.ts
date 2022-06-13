@@ -217,6 +217,7 @@ export const spreadSections = (layout: Layout): Layout => {
     let avoid = footprint(layout);
 
     let count = 0;
+    console.log(layout);
     for (const section of orderVertically(out.variableSections)) {
         // Keep track of how far last option had to be moved and start there.
         let lastIncrement = count * SECTION_INC;
@@ -299,11 +300,11 @@ const blockerCorners = (blockers: LayoutBlocker[]): Point[] => {
 };
 
 const centerOfMass = (entities: LayoutEntity[]): Point => {
-    const perimiterPoints = multiUnion(
+    const perimeterPoints = multiUnion(
         ...entities.map(toComposite).flat(),
     ).flat();
-    const pointsSum = perimiterPoints.reduce(add, [0, 0]);
-    return pointsSum.map((v) => v / perimiterPoints.length) as Point;
+    const pointsSum = perimeterPoints.reduce(add, [0, 0]);
+    return pointsSum.map((v) => v / perimeterPoints.length) as Point;
 };
 
 export const stackSections = (layout: Layout): Layout => {

@@ -9,6 +9,7 @@ import discipline from "../../external/the-via/keyboards/v3/cftkb/discipline/dis
 import epoch from "../../external/the-via/keyboards/v3/epoch80/epoch80.json";
 import bear from "../../external/the-via/keyboards/v3/other/bear_65/bear_65.json";
 import candybar from "../../external/the-via/keyboards/v3/tkc/candybar/candybar-lefty.json";
+import alice from "../../external/the-via/keyboards/v3/projectkb/alice/projectkb_alice.json";
 
 import {colorSeries} from "../../internal/color";
 import {Keyset} from "../../internal/keyset";
@@ -56,7 +57,10 @@ const DemoItem = (props: DemoItemProps) => {
 
 export const Demo = () => (
     <Wrapper>
-        <DemoItem name="via-titan-layout-exploded">
+        <DemoItem name="via-alice-layout-exploded">
+            <ExplodedLayout layout={convertViaToLayout(alice)} width={1200} />
+        </DemoItem>
+        {/* <DemoItem name="via-titan-layout-exploded">
             <ExplodedLayout layout={convertViaToLayout(titan)} width={600} />
         </DemoItem>
         <DemoItem name="via-polaris-layout-exploded">
@@ -111,7 +115,7 @@ export const Demo = () => (
                     width={600}
                 />
             </DemoItem>
-        </LegacyTestContainer>
+        </LegacyTestContainer> */}
     </Wrapper>
 );
 

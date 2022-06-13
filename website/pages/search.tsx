@@ -78,9 +78,7 @@ export const ResultLayout = (props: {name: string}) => {
 };
 
 export const Search = () => {
-    const [idx, setIdx] = useState<null | Possible<
-        SearchIndex<KeyboardMetadata>
-    >>(null);
+    const [idx, setIdx] = useState<null | Possible<SearchIndex>>(null);
 
     useEffect(() => {
         const load = async () => setIdx(await loadSearchData());
@@ -91,9 +89,11 @@ export const Search = () => {
     if (isErr(query)) {
         return <>no results</>;
     }
+
     if (idx === null) {
         return <>loading...</>;
     }
+
     if (isErr(idx)) {
         return <>{idx.err.print()}</>;
     }
@@ -101,6 +101,10 @@ export const Search = () => {
     const results = idx.search(query);
     if (isErr(results)) {
         return <>{results.err.print()}</>;
+    }
+
+    if (results.length === 0) {
+        return <>no results</>
     }
 
     return (
