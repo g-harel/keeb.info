@@ -12,8 +12,6 @@ describe("SearchIndex", () => {
         if (isErr(indexCopy))
             throw indexCopy.err.describe("deserialize").print();
 
-        console.log(index, indexCopy);
-
         const matchingResult = index.search(testValue);
         if (isErr(matchingResult))
             throw matchingResult.err.describe("match").print();

@@ -32,7 +32,7 @@ const findViaRoots = (currentPath: string): string[] => {
 
     // Decide whether current path is a root.
     const isRoot = fs.existsSync(path.join(currentPath, VIA_KEYMAP));
-    console.log(currentPath, isRoot)
+    console.log(currentPath, isRoot);
 
     // Add current dir or keep looking depending on root status.
     if (isRoot) {

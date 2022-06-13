@@ -9,12 +9,12 @@ interface SerializedSearchIndex {
 
 type ID_TYPE = string;
 
-export class SearchIndex<T> {
+export class SearchIndex {
     // TODO index on arbitrary field.
     public static fromDocuments<T extends Record<string, any>>(
         documents: Record<ID_TYPE, T>,
         fieldExtractor: (document: T) => string[],
-    ): SearchIndex<T> {
+    ): SearchIndex {
         const options: IndexOptions<T> = {};
 
         // TODO tune options.
@@ -28,9 +28,7 @@ export class SearchIndex<T> {
         return new SearchIndex(index, options);
     }
 
-    public static fromSerialized<T>(
-        serialized: string,
-    ): Possible<SearchIndex<T>> {
+    public static fromSerialized(serialized: string): Possible<SearchIndex> {
         const data = mightErr(() => {
             return JSON.parse(serialized) as SerializedSearchIndex;
         });
@@ -63,21 +61,21 @@ export class SearchIndex<T> {
     public async serialize(): Promise<string> {
         let wasExported = false;
         const exportedIndex: Record<string, any> = {};
-        const t = Date.now();
-        console.log("start", Date.now() - t);
-        await this.index.export((key, data: any) => {
-            console.log("export " + key, Date.now() - t);
+
+        await this.index.export((key: any, data: any) => {
+            // https://github.com/nextapps-de/flexsearch/issues/273
+            const fixedKey = key.split(".").slice(-1)[0];
             wasExported = true;
             if (data !== undefined) {
                 data = JSON.parse(data);
             }
-            exportedIndex[key] = data;
+            exportedIndex[fixedKey] = data;
         });
 
         // Wait for signal that index has been exported.
         // TODO there has to be a better way.
-        const exportDetectIntervalMS = 100;
-        const exportWaitIntervalMS = 1000;
+        const exportDetectIntervalMS = 10;
+        const exportWaitIntervalMS = 100;
         await new Promise((res) => {
             const intervalID = setInterval(() => {
                 if (wasExported) {
