@@ -217,7 +217,6 @@ export const spreadSections = (layout: Layout): Layout => {
     let avoid = footprint(layout);
 
     let count = 0;
-    console.log(layout);
     for (const section of orderVertically(out.variableSections)) {
         // Keep track of how far last option had to be moved and start there.
         let lastIncrement = count * SECTION_INC;
@@ -337,7 +336,9 @@ export const stackSections = (layout: Layout): Layout => {
                 maxCommonCornersOptions.push(option);
             }
         }
-        // Fallback to option with key position nearest the origin.
+        console.log(maxCommonCorners, maxCommonCornersOptions);
+        // Fallback to option with key position nearest the center.
+        // TODO 2022-06-14 change to nearest the center
         let anchorOption: LayoutOption = maxCommonCornersOptions[0];
         let minSectionAnchorDistance: number = Infinity;
         for (const option of maxCommonCornersOptions) {
