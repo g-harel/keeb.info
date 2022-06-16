@@ -60,7 +60,7 @@ export const Demo = () => (
         <DemoItem name="via-alice-layout-exploded">
             <ExplodedLayout layout={convertViaToLayout(alice)} width={1200} />
         </DemoItem>
-        {/* <DemoItem name="via-titan-layout-exploded">
+        <DemoItem name="via-titan-layout-exploded">
             <ExplodedLayout layout={convertViaToLayout(titan)} width={600} />
         </DemoItem>
         <DemoItem name="via-polaris-layout-exploded">
@@ -115,7 +115,7 @@ export const Demo = () => (
                     width={600}
                 />
             </DemoItem>
-        </LegacyTestContainer> */}
+        </LegacyTestContainer>
     </Wrapper>
 );
 

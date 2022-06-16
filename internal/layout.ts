@@ -319,7 +319,6 @@ export const stackSections = (layout: Layout): Layout => {
     // Make all options overlap within section.
     for (const section of layout.variableSections) {
         // Find section anchor by option with most corners in common with fixed keys.
-        // TODO make a center of mass calculation with fixed entities.
         let maxCommonCornersOptions: LayoutOption[] = [];
         let maxCommonCorners = 0;
         for (const option of section.options) {
@@ -336,24 +335,18 @@ export const stackSections = (layout: Layout): Layout => {
                 maxCommonCornersOptions.push(option);
             }
         }
-        console.log(maxCommonCorners, maxCommonCornersOptions);
-        // Fallback to option with key position nearest the center.
-        // TODO 2022-06-14 change to nearest the center
+
+        // Secondary sort to option with key position nearest the center.
         let anchorOption: LayoutOption = maxCommonCornersOptions[0];
-        let minSectionAnchorDistance: number = Infinity;
-        for (const option of maxCommonCornersOptions) {
-            for (const key of option.keys) {
-                const delta = distance(key.position, [0, 0]);
-                if (delta < minSectionAnchorDistance) {
+        if (maxCommonCornersOptions.length > 1) {
+            const fixedCenterOfMass = centerOfMass([...layout.fixedKeys, ...layout.fixedBlockers]);
+            let minCenterOfMassDistance: number = Infinity;
+            for (const option of maxCommonCornersOptions) {
+                const optionCenterOfMass = centerOfMass([...option.keys, ...option.blockers]);
+                const delta = distance(fixedCenterOfMass, optionCenterOfMass);
+                if (delta < minCenterOfMassDistance) {
                     anchorOption = option;
-                    minSectionAnchorDistance = delta;
-                }
-            }
-            for (const blocker of option.blockers) {
-                const delta = distance(blocker.position, [0, 0]);
-                if (delta < minSectionAnchorDistance) {
-                    anchorOption = option;
-                    minSectionAnchorDistance = delta;
+                    minCenterOfMassDistance = delta;
                 }
             }
         }
