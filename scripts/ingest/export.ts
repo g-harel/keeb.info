@@ -15,7 +15,19 @@ export interface KeyboardMetadata {
 const keyboardMetadataFieldExtractor = (
     keyboard: KeyboardMetadata,
 ): string[] => {
-    return [keyboard.name];
+    const values: string[] = [
+        keyboard.name,
+        keyboard.productID,
+        keyboard.vendorID,
+        keyboard.layout.ref,
+    ];
+    keyboard.layout.variableSections.forEach((section) => {
+        values.push(section.ref);
+        section.options.forEach((option) => {
+            values.push(option.ref);
+        });
+    });
+    return values;
 };
 
 export const exportKeyboards = async (

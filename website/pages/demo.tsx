@@ -8,8 +8,8 @@ import polaris from "../../external/the-via/keyboards/v3/ai03/polaris/polaris.js
 import discipline from "../../external/the-via/keyboards/v3/cftkb/discipline/discipline.json";
 import epoch from "../../external/the-via/keyboards/v3/epoch80/epoch80.json";
 import bear from "../../external/the-via/keyboards/v3/other/bear_65/bear_65.json";
-import candybar from "../../external/the-via/keyboards/v3/tkc/candybar/candybar-lefty.json";
 import alice from "../../external/the-via/keyboards/v3/projectkb/alice/projectkb_alice.json";
+import candybar from "../../external/the-via/keyboards/v3/tkc/candybar/candybar-lefty.json";
 
 import {colorSeries} from "../../internal/color";
 import {Keyset} from "../../internal/keyset";

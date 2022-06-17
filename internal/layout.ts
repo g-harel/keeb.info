@@ -339,10 +339,16 @@ export const stackSections = (layout: Layout): Layout => {
         // Secondary sort to option with key position nearest the center.
         let anchorOption: LayoutOption = maxCommonCornersOptions[0];
         if (maxCommonCornersOptions.length > 1) {
-            const fixedCenterOfMass = centerOfMass([...layout.fixedKeys, ...layout.fixedBlockers]);
+            const fixedCenterOfMass = centerOfMass([
+                ...layout.fixedKeys,
+                ...layout.fixedBlockers,
+            ]);
             let minCenterOfMassDistance: number = Infinity;
             for (const option of maxCommonCornersOptions) {
-                const optionCenterOfMass = centerOfMass([...option.keys, ...option.blockers]);
+                const optionCenterOfMass = centerOfMass([
+                    ...option.keys,
+                    ...option.blockers,
+                ]);
                 const delta = distance(fixedCenterOfMass, optionCenterOfMass);
                 if (delta < minCenterOfMassDistance) {
                     anchorOption = option;

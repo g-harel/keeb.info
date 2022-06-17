@@ -104,7 +104,7 @@ export const Search = () => {
     }
 
     if (results.length === 0) {
-        return <>no results</>
+        return <>no results</>;
     }
 
     return (
