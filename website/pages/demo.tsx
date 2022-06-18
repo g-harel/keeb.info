@@ -8,6 +8,7 @@ import polaris from "../../external/the-via/keyboards/v3/ai03/polaris/polaris.js
 import discipline from "../../external/the-via/keyboards/v3/cftkb/discipline/discipline.json";
 import epoch from "../../external/the-via/keyboards/v3/epoch80/epoch80.json";
 import bear from "../../external/the-via/keyboards/v3/other/bear_65/bear_65.json";
+import dz60 from "../../external/the-via/keyboards/v3/other/dz60/dz60.json";
 import alice from "../../external/the-via/keyboards/v3/projectkb/alice/projectkb_alice.json";
 import candybar from "../../external/the-via/keyboards/v3/tkc/candybar/candybar-lefty.json";
 
@@ -57,8 +58,11 @@ const DemoItem = (props: DemoItemProps) => {
 
 export const Demo = () => (
     <Wrapper>
+        <DemoItem name="via-dz60-layout-exploded">
+            <ExplodedLayout layout={convertViaToLayout(dz60)} width={1200} />
+        </DemoItem>
         <DemoItem name="via-alice-layout-exploded">
-            <ExplodedLayout layout={convertViaToLayout(alice)} width={1200} />
+            <ExplodedLayout layout={convertViaToLayout(alice)} width={600} />
         </DemoItem>
         <DemoItem name="via-titan-layout-exploded">
             <ExplodedLayout layout={convertViaToLayout(titan)} width={600} />

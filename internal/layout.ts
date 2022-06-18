@@ -90,6 +90,7 @@ export interface LayoutKey {
 }
 
 // Maximum offset for options will be INC * ATTEMPTS.
+// TODO 2022-06-17 make attempts increase with number of options + binary search?
 const PAD = 0.45;
 const INC = 0.10001;
 const SECTION_INC = 0.001;
