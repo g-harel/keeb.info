@@ -10,7 +10,13 @@ import {
 } from "./point";
 import {Angle, Point, RightAngle, minmax as pointMinmax} from "./point";
 import {ROTATION_ORIGIN} from "./rendering/view";
-import {Composite, Shape, doesIntersect, multiUnion} from "./shape";
+import {
+    Composite,
+    Shape,
+    doesIntersect,
+    equalComposite,
+    multiUnion,
+} from "./shape";
 
 // Keyboard layout.
 export interface Layout {
@@ -146,18 +152,38 @@ export const toComposite = (entity: LayoutEntity) => {
     );
 };
 
-export const footprint = (layout: Layout, footprintPad: number): Composite => {
+export const optionFootprint = (option: LayoutOption): Composite => {
+    return multiUnion(
+        ...option.keys.map(toComposite).flat(1),
+        ...option.blockers.map(toComposite).flat(1),
+    );
+};
+
+export const layoutFootprint = (
+    layout: Layout,
+    footprintPad: number,
+): Composite => {
     const shapes: Shape[] = [];
     // Add fixed layout elements.
-    shapes.push(...layout.fixedKeys.map(pad(footprintPad)).map(toComposite).flat(1));
-    shapes.push(...layout.fixedBlockers.map(pad(footprintPad)).map(toComposite).flat(1));
+    shapes.push(
+        ...layout.fixedKeys.map(pad(footprintPad)).map(toComposite).flat(1),
+    );
+    shapes.push(
+        ...layout.fixedBlockers.map(pad(footprintPad)).map(toComposite).flat(1),
+    );
     // Add first option of each variable section.
     for (const v of layout.variableSections) {
         shapes.push(
-            ...v.options[0].keys.map(pad(footprintPad)).map(toComposite).flat(1),
+            ...v.options[0].keys
+                .map(pad(footprintPad))
+                .map(toComposite)
+                .flat(1),
         );
         shapes.push(
-            ...v.options[0].blockers.map(pad(footprintPad)).map(toComposite).flat(1),
+            ...v.options[0].blockers
+                .map(pad(footprintPad))
+                .map(toComposite)
+                .flat(1),
         );
     }
     return multiUnion(...shapes);
@@ -214,16 +240,25 @@ export const orderVertically = (sections: LayoutSection[]): LayoutSection[] => {
 export const spreadSections = (layout: Layout): Layout => {
     const out: Layout = deepCopy(layout);
 
-    let avoid = footprint(layout, PAD);
+    let avoid = layoutFootprint(layout, PAD);
 
     let count = 0;
     for (const section of orderVertically(out.variableSections)) {
         // Keep track of how far last option had to be moved and start there.
         let lastIncrement = count * SECTION_INC;
         count++;
-        // TODO 2022-06-19 validate overlap
-        // const canonicalFootprint = 
+        const canonicalFootprint = optionFootprint(section.options[0]);
         for (const option of section.options.slice(1)) {
+            // Validate overlap and reject broken section options.
+            if (!equalComposite(canonicalFootprint, optionFootprint(option))) {
+                console.log(
+                    `invalid overlap for option: ${layout.ref}, ${section.ref}, ${option.ref}`,
+                );
+                option.blockers = [];
+                option.keys = [];
+                continue;
+            }
+
             // Move option until it doesn't intersect.
             // TODO alternate offset between full jumps and smaller ones
             for (let j = lastIncrement; ; j += INC) {
