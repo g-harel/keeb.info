@@ -146,18 +146,18 @@ export const toComposite = (entity: LayoutEntity) => {
     );
 };
 
-export const footprint = (layout: Layout): Composite => {
+export const footprint = (layout: Layout, footprintPad: number): Composite => {
     const shapes: Shape[] = [];
     // Add fixed layout elements.
-    shapes.push(...layout.fixedKeys.map(pad(PAD)).map(toComposite).flat(1));
-    shapes.push(...layout.fixedBlockers.map(pad(PAD)).map(toComposite).flat(1));
+    shapes.push(...layout.fixedKeys.map(pad(footprintPad)).map(toComposite).flat(1));
+    shapes.push(...layout.fixedBlockers.map(pad(footprintPad)).map(toComposite).flat(1));
     // Add first option of each variable section.
     for (const v of layout.variableSections) {
         shapes.push(
-            ...v.options[0].keys.map(pad(PAD)).map(toComposite).flat(1),
+            ...v.options[0].keys.map(pad(footprintPad)).map(toComposite).flat(1),
         );
         shapes.push(
-            ...v.options[0].blockers.map(pad(PAD)).map(toComposite).flat(1),
+            ...v.options[0].blockers.map(pad(footprintPad)).map(toComposite).flat(1),
         );
     }
     return multiUnion(...shapes);
@@ -209,25 +209,27 @@ export const orderVertically = (sections: LayoutSection[]): LayoutSection[] => {
     return orderedSectionEntries.map(([ref]) => sectionsByRef[ref]);
 };
 
-// TODO validate section overlap.
-// TODO consider returning -> const offsets: Record<UUID, Point> = {};
 // TODO return possible
+// TODO 2022-06-19 do this at compile time and return offsets instead of transformed layout
 export const spreadSections = (layout: Layout): Layout => {
     const out: Layout = deepCopy(layout);
 
-    let avoid = footprint(layout);
+    let avoid = footprint(layout, PAD);
 
     let count = 0;
     for (const section of orderVertically(out.variableSections)) {
         // Keep track of how far last option had to be moved and start there.
         let lastIncrement = count * SECTION_INC;
         count++;
+        // TODO 2022-06-19 validate overlap
+        // const canonicalFootprint = 
         for (const option of section.options.slice(1)) {
             // Move option until it doesn't intersect.
             // TODO alternate offset between full jumps and smaller ones
             for (let j = lastIncrement; ; j += INC) {
                 // Break when too many attempts.
                 if (j >= ATTEMPTS * INC) {
+                    // TODO 2022-06-19 float up errors to final ui
                     console.log(
                         `spread failed for option: ${layout.ref}, ${section.ref}, ${option.ref}`,
                     );

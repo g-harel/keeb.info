@@ -24,8 +24,7 @@ export const START_COLOR = "hsl(0, 50%, 83%)";
 const DEFAULT_KEY_COLOR = "#eeeeee";
 
 export const ExplodedLayout = (props: ExplodedLayoutProps) => {
-    // const spreadLayout = spreadSections(props.layout);
-    const spreadLayout = props.layout || spreadSections(props.layout);
+    const spreadLayout = spreadSections(props.layout);
     const [min, max] = minmax(spreadLayout);
     const unitWidth = max[0] - min[0];
     const unitHeight = max[1] - min[1];

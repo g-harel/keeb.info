@@ -40,11 +40,6 @@ export const convertViaToLayout = (definition: ViaDefinition): Layout => {
                 .split(",")
                 .map(Number);
 
-            if (sectionIndex === 2 && optionIndex === 5) {
-                // TODO 2022-06-18 print when width === 1.75
-                console.log(key);
-            }
-
             // Create required sections.
             while (variableSections.length <= sectionIndex) {
                 variableSections.push({
@@ -117,8 +112,7 @@ export const convertViaToLayout = (definition: ViaDefinition): Layout => {
     }
 
     // TODO 2022-06-17 broken for dz60
-    // return stackSections({
-    return ({
+    return stackSections({
         ref: definition.name,
         fixedBlockers,
         fixedKeys,
