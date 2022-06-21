@@ -9,6 +9,7 @@ import {
     subtract,
 } from "./point";
 import {Angle, Point, RightAngle, minmax as pointMinmax} from "./point";
+import {Possible, isErr, isErrOfType, newErr} from "./possible";
 import {ROTATION_ORIGIN} from "./rendering/view";
 import {
     Composite,
@@ -95,12 +96,14 @@ export interface LayoutKey {
     orientation: RightAngle;
 }
 
-// Maximum offset for options will be INC * ATTEMPTS.
-// TODO 2022-06-17 make attempts increase with number of options + binary search?
 const PAD = 0.45;
-const INC = 0.10001;
-const SECTION_INC = 0.001;
-const ATTEMPTS = 100;
+const SEARCH_RESOLUTION = 0.01;
+const SEARCH_RANGE = 5;
+const SEARCH_MAX_ATTEMPTS = 1000;
+const SEARCH_CLOSE_SIZE = 0.2;
+const SEARCH_CLOSE_RANGE = 0.1;
+const SEARCH_CLOSE_MAX_ATTEMPTS = 10;
+const ERR_ILLEGAL_ARGUMENTS = newErr("invalid arguments");
 
 export const minmax = (layout: Layout): [Point, Point] => {
     const entities: LayoutEntity[] = layout.fixedKeys.slice();
@@ -235,19 +238,61 @@ export const orderVertically = (sections: LayoutSection[]): LayoutSection[] => {
     return orderedSectionEntries.map(([ref]) => sectionsByRef[ref]);
 };
 
+// TODO 2022-06-21 move to a util file.
+const binarySearch = (
+    min: number,
+    max: number,
+    range: number,
+    resolution: number,
+    maxAttempts: number,
+    tooSmall: (inc: number) => boolean,
+): Possible<number> => {
+    // Validate range makes sense.
+    if (min + range > max) {
+        return ERR_ILLEGAL_ARGUMENTS.describe(
+            `range exceeds search area (${range} > ${max} - ${min})`,
+        );
+    }
+
+    // Use range-sized jumps to find initial window.
+    let start = min;
+    let end = min + range;
+    while (tooSmall(end)) {
+        if (end > max) return newErr("max exceeded");
+        start = end;
+        end += range;
+    }
+
+    // Use binary search to find first increment within resolution.
+    let prevAttempt = 0;
+    for (let i = 0; i < maxAttempts; i++) {
+        // Calculate new attempt and return if within resolution.
+        const attempt = start + (end - start) / 2;
+        if (Math.abs(prevAttempt - attempt) < resolution) return prevAttempt;
+        prevAttempt = attempt;
+
+        const attemptTooSmall = tooSmall(attempt);
+        if (attemptTooSmall) {
+            start = attempt;
+        } else {
+            end = attempt;
+        }
+    }
+
+    return newErr("binary search failed, too many attempts");
+};
+
 // TODO return possible
 // TODO 2022-06-19 do this at compile time and return offsets instead of transformed layout
+// TODO assumes all options are in their real/overlapping positions.
 export const spreadSections = (layout: Layout): Layout => {
     const out: Layout = deepCopy(layout);
 
     let avoid = layoutFootprint(layout, PAD);
 
-    let count = 0;
     for (const section of orderVertically(out.variableSections)) {
-        // Keep track of how far last option had to be moved and start there.
-        let lastIncrement = count * SECTION_INC;
-        count++;
         const canonicalFootprint = optionFootprint(section.options[0]);
+        let previousIncrement = 0;
         for (const option of section.options.slice(1)) {
             // Validate overlap and reject broken section options.
             if (!equalComposite(canonicalFootprint, optionFootprint(option))) {
@@ -259,22 +304,13 @@ export const spreadSections = (layout: Layout): Layout => {
                 continue;
             }
 
-            // Move option until it doesn't intersect.
-            // TODO alternate offset between full jumps and smaller ones
-            for (let j = lastIncrement; ; j += INC) {
-                // Break when too many attempts.
-                if (j >= ATTEMPTS * INC) {
-                    // TODO 2022-06-19 float up errors to final ui
-                    console.log(
-                        `spread failed for option: ${layout.ref}, ${section.ref}, ${option.ref}`,
-                    );
-                    break;
-                }
-
-                const offsetAmount: Point = [0, j];
-
-                // Check if any key/blocker of the option intersects.
+            let attemptCount = 0;
+            const doesOptionIntersect = (inc: number): boolean => {
+                attemptCount++;
+                const offsetAmount: Point = [0, inc];
                 let intersects = false;
+
+                // Check if any key intersects.
                 for (const key of option.keys) {
                     const s = toComposite(offset(offsetAmount)(key));
                     if (doesIntersect(avoid, s)) {
@@ -282,6 +318,9 @@ export const spreadSections = (layout: Layout): Layout => {
                         break;
                     }
                 }
+                if (intersects) return true;
+
+                // Check if blocker intersects.
                 for (const blocker of option.blockers) {
                     const s = toComposite(offset(offsetAmount)(blocker));
                     if (doesIntersect(avoid, s)) {
@@ -289,23 +328,63 @@ export const spreadSections = (layout: Layout): Layout => {
                         break;
                     }
                 }
-                if (intersects) continue;
+                return intersects;
+            };
 
-                // Modify option members and add to avoided area.
-                lastIncrement = j;
-                for (const key of option.keys) {
-                    key.position = add(key.position, offsetAmount);
-                }
-                for (const blocker of option.blockers) {
-                    blocker.position = add(blocker.position, offsetAmount);
-                }
-                avoid = multiUnion(
-                    ...avoid,
-                    ...option.keys.map(toComposite).flat(1),
-                    ...option.blockers.map(toComposite).flat(1),
-                );
-                break;
+            // Search near the previous increment
+            // TODO 2022-06-21 why does this never find anything?
+            let increment = binarySearch(
+                previousIncrement,
+                previousIncrement + SEARCH_CLOSE_SIZE,
+                SEARCH_CLOSE_RANGE,
+                SEARCH_RESOLUTION,
+                SEARCH_CLOSE_MAX_ATTEMPTS,
+                doesOptionIntersect,
+            );
+            if (isErrOfType(increment, ERR_ILLEGAL_ARGUMENTS)) {
+                console.error(increment.err.print());
             }
+
+            // Close binary search failed, search from scratch.
+            if (isErr(increment)) {
+                increment = binarySearch(
+                    previousIncrement,
+                    Infinity,
+                    SEARCH_RANGE,
+                    SEARCH_RESOLUTION,
+                    SEARCH_MAX_ATTEMPTS,
+                    doesOptionIntersect,
+                );
+                if (isErr(increment)) {
+                    // TODO 2022-06-19 float up errors to final ui
+                    console.log(
+                        increment.err
+                            .describe(
+                                `spread failed for option: ${layout.ref}, ${section.ref}, ${option.ref}`,
+                            )
+                            .print(),
+                    );
+                    break;
+                }
+            } else {
+                console.log("TODO", "success");
+            }
+            previousIncrement = increment;
+
+            console.log("TODO", attemptCount);
+
+            // Modify option with correct increment and update avoided area.
+            for (const key of option.keys) {
+                key.position = add(key.position, [0, increment]);
+            }
+            for (const blocker of option.blockers) {
+                blocker.position = add(blocker.position, [0, increment]);
+            }
+            avoid = multiUnion(
+                ...avoid,
+                ...option.keys.map(toComposite).flat(1),
+                ...option.blockers.map(toComposite).flat(1),
+            );
         }
     }
 

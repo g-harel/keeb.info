@@ -59,13 +59,13 @@ const DemoItem = (props: DemoItemProps) => {
 export const Demo = () => (
     <Wrapper>
         <DemoItem name="via-dz60-layout-exploded">
-            <ExplodedLayout layout={convertViaToLayout(dz60)} width={1200} />
+            <ExplodedLayout layout={convertViaToLayout(dz60)} width={400} />
         </DemoItem>
         {/* <DemoItem name="via-alice-layout-exploded">
-            <ExplodedLayout layout={convertViaToLayout(alice)} width={600} />
+            <ExplodedLayout layout={convertViaToLayout(alice)} width={400} />
         </DemoItem>
         <DemoItem name="via-titan-layout-exploded">
-            <ExplodedLayout layout={convertViaToLayout(titan)} width={600} />
+            <ExplodedLayout layout={convertViaToLayout(titan)} width={400} />
         </DemoItem>
         <DemoItem name="via-polaris-layout-exploded">
             <ExplodedLayout layout={convertViaToLayout(polaris)} width={600} />
