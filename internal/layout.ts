@@ -97,7 +97,7 @@ export interface LayoutKey {
 }
 
 const PAD = 0.45;
-const SEARCH_RESOLUTION = 0.01;
+const SEARCH_RESOLUTION = 0.015;
 const SEARCH_JUMP = 5;
 const SEARCH_MAX_ATTEMPTS = 1000;
 const SEARCH_CLOSE_RANGE = 0.2;
@@ -308,9 +308,7 @@ export const spreadSections = (layout: Layout): Layout => {
                 continue;
             }
 
-            let attemptCount = 0;
             const doesOptionIntersect = (inc: number): boolean => {
-                attemptCount++;
                 const offsetAmount: Point = [0, inc];
                 let intersects = false;
 
@@ -370,12 +368,8 @@ export const spreadSections = (layout: Layout): Layout => {
                     );
                     break;
                 }
-            } else {
-                console.log("TODO", "success", increment);
             }
             previousIncrement = increment;
-
-            console.log("TODO", attemptCount);
 
             // Modify option with correct increment and update avoided area.
             for (const key of option.keys) {
