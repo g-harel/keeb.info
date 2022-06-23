@@ -98,10 +98,10 @@ export interface LayoutKey {
 
 const PAD = 0.45;
 const SEARCH_RESOLUTION = 0.01;
-const SEARCH_RANGE = 5;
+const SEARCH_JUMP = 5;
 const SEARCH_MAX_ATTEMPTS = 1000;
-const SEARCH_CLOSE_SIZE = 0.2;
-const SEARCH_CLOSE_RANGE = 0.1;
+const SEARCH_CLOSE_RANGE = 0.2;
+const SEARCH_CLOSE_JUMP = 0.02;
 const SEARCH_CLOSE_MAX_ATTEMPTS = 10;
 const ERR_ILLEGAL_ARGUMENTS = newErr("invalid arguments");
 
@@ -242,25 +242,29 @@ export const orderVertically = (sections: LayoutSection[]): LayoutSection[] => {
 const binarySearch = (
     min: number,
     max: number,
-    range: number,
+    jump: number,
     resolution: number,
     maxAttempts: number,
     tooSmall: (inc: number) => boolean,
 ): Possible<number> => {
-    // Validate range makes sense.
-    if (min + range > max) {
+    // Validate jump makes sense.
+    if (min + jump > max) {
         return ERR_ILLEGAL_ARGUMENTS.describe(
-            `range exceeds search area (${range} > ${max} - ${min})`,
+            `jump exceeds search area (${jump} > ${max} - ${min})`,
         );
     }
 
-    // Use range-sized jumps to find initial window.
+    if (max !== Infinity && tooSmall(max)) {
+        return newErr("max exceeded");
+    }
+
+    // Use jump repeatedly to find initial window.
     let start = min;
-    let end = min + range;
+    let end = min + jump;
     while (tooSmall(end)) {
         if (end > max) return newErr("max exceeded");
         start = end;
-        end += range;
+        end += jump;
     }
 
     // Use binary search to find first increment within resolution.
@@ -334,9 +338,9 @@ export const spreadSections = (layout: Layout): Layout => {
             // Search near the previous increment
             // TODO 2022-06-21 why does this never find anything?
             let increment = binarySearch(
-                previousIncrement,
-                previousIncrement + SEARCH_CLOSE_SIZE,
-                SEARCH_CLOSE_RANGE,
+                previousIncrement + 1,
+                previousIncrement + 1 + SEARCH_CLOSE_RANGE,
+                SEARCH_CLOSE_JUMP,
                 SEARCH_RESOLUTION,
                 SEARCH_CLOSE_MAX_ATTEMPTS,
                 doesOptionIntersect,
@@ -350,7 +354,7 @@ export const spreadSections = (layout: Layout): Layout => {
                 increment = binarySearch(
                     previousIncrement,
                     Infinity,
-                    SEARCH_RANGE,
+                    SEARCH_JUMP,
                     SEARCH_RESOLUTION,
                     SEARCH_MAX_ATTEMPTS,
                     doesOptionIntersect,
@@ -367,7 +371,7 @@ export const spreadSections = (layout: Layout): Layout => {
                     break;
                 }
             } else {
-                console.log("TODO", "success");
+                console.log("TODO", "success", increment);
             }
             previousIncrement = increment;
 
