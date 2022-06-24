@@ -19,12 +19,12 @@ const keyboardMetadataFieldExtractor = (
         keyboard.name,
         keyboard.productID,
         keyboard.vendorID,
-        keyboard.layout.ref,
+        keyboard.layout.label,
     ];
     keyboard.layout.variableSections.forEach((section) => {
-        values.push(section.ref);
+        values.push(section.label);
         section.options.forEach((option) => {
-            values.push(option.ref);
+            values.push(option.label);
         });
     });
     return values;

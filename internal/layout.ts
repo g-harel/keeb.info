@@ -24,6 +24,9 @@ export interface Layout {
     // Unique identifier to refer to the layout.
     ref: UUID;
 
+    // Human-readable description of the layout.
+    label: string;
+
     // Blockers that do not overlap and are not part of a section.
     fixedBlockers: LayoutBlocker[];
 
@@ -38,6 +41,9 @@ export interface LayoutSection {
     // Unique identifier to refer to the section.
     ref: UUID;
 
+    // Human-readable description of the section.
+    label: string;
+
     // Options available for the section.
     // All options should overlap exactly.
     options: LayoutOption[];
@@ -47,6 +53,9 @@ export interface LayoutSection {
 export interface LayoutOption {
     // Unique identifier to refer to the option.
     ref: UUID;
+
+    // Human-readable description of the option.
+    label: string;
 
     // Blocker positions when layout option is selected.
     blockers: LayoutBlocker[];
@@ -238,7 +247,7 @@ export const orderVertically = (sections: LayoutSection[]): LayoutSection[] => {
     return orderedSectionEntries.map(([ref]) => sectionsByRef[ref]);
 };
 
-// TODO 2022-06-21 move to a util file.
+// TODO 2022-06-21 move to a util file + document + test.
 const binarySearch = (
     min: number,
     max: number,
@@ -288,7 +297,6 @@ const binarySearch = (
 
 // TODO return possible
 // TODO 2022-06-19 do this at compile time and return offsets instead of transformed layout
-// TODO assumes all options are in their real/overlapping positions.
 export const spreadSections = (layout: Layout): Layout => {
     const out: Layout = deepCopy(layout);
 

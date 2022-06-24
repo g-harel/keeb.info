@@ -1,4 +1,5 @@
 import {Serial} from "@ijprest/kle-serial";
+import {v4 as uuid} from "uuid";
 
 import {convertKLEKey} from "./kle";
 import {
@@ -27,7 +28,6 @@ export const convertViaToLayout = (definition: ViaDefinition): Layout => {
     const kle = Serial.deserialize(definition.layouts.keymap);
 
     // Collect keys and sections.
-    // TODO add labels to things instead of using refs
     // TODO flag that pole/stab positions are guessed
     const fixedKeys: LayoutKey[] = [];
     const fixedBlockers: LayoutBlocker[] = [];
@@ -43,7 +43,8 @@ export const convertViaToLayout = (definition: ViaDefinition): Layout => {
             // Create required sections.
             while (variableSections.length <= sectionIndex) {
                 variableSections.push({
-                    ref: "",
+                    ref: uuid(),
+                    label: "",
                     options: [],
                 });
             }
@@ -51,13 +52,14 @@ export const convertViaToLayout = (definition: ViaDefinition): Layout => {
             if (Array.isArray(sectionLabel)) {
                 sectionLabel = sectionLabel[0];
             }
-            variableSections[sectionIndex].ref = sectionLabel;
+            variableSections[sectionIndex].label = sectionLabel;
 
             // Create required options.
             const options = variableSections[sectionIndex].options;
             while (options.length <= optionIndex) {
                 options.push({
-                    ref: "",
+                    ref: uuid(),
+                    label: "",
                     blockers: [],
                     keys: [],
                 });
@@ -68,12 +70,12 @@ export const convertViaToLayout = (definition: ViaDefinition): Layout => {
             } else {
                 optionLabel = String(optionIndex);
             }
-            options[optionIndex].ref = optionLabel;
+            options[optionIndex].label = optionLabel;
 
             const option = options[optionIndex];
             if (isEmpty) {
                 option.blockers.push({
-                    ref: String(Math.random()),
+                    ref: uuid(),
                     boxes: convertKLEKey(key).boxes,
                     label: "covered",
                     position: [key.x, key.y],
@@ -81,7 +83,7 @@ export const convertViaToLayout = (definition: ViaDefinition): Layout => {
                 });
             } else {
                 option.keys.push({
-                    ref: String(Math.random()),
+                    ref: uuid(),
                     blank: convertKLEKey(key),
                     position: [key.x, key.y],
                     angle: key.rotation_angle,
@@ -94,7 +96,7 @@ export const convertViaToLayout = (definition: ViaDefinition): Layout => {
 
         if (isEmpty) {
             fixedBlockers.push({
-                ref: String(Math.random()),
+                ref: uuid(),
                 boxes: convertKLEKey(key).boxes,
                 label: "covered",
                 position: [key.x, key.y],
@@ -102,7 +104,7 @@ export const convertViaToLayout = (definition: ViaDefinition): Layout => {
             });
         } else {
             fixedKeys.push({
-                ref: String(Math.random()),
+                ref: uuid(),
                 blank: convertKLEKey(key),
                 position: [key.x, key.y],
                 angle: key.rotation_angle,
@@ -113,7 +115,8 @@ export const convertViaToLayout = (definition: ViaDefinition): Layout => {
 
     // TODO 2022-06-17 broken for dz60
     return stackSections({
-        ref: definition.name,
+        ref: uuid(),
+        label: definition.name,
         fixedBlockers,
         fixedKeys,
         variableSections,
