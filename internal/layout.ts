@@ -211,11 +211,9 @@ export const orderVertically = (sections: LayoutSection[]): LayoutSection[] => {
     const allSectionEntities: Record<UUID, OrderableEntity[]> = {};
     for (const section of sections) {
         let sectionEntities: OrderableEntity[] = [];
-        for (const option of section.options) {
-            sectionEntities = sectionEntities
-                .concat(option.keys)
-                .concat(option.blockers);
-        }
+        sectionEntities = sectionEntities
+            .concat(section.options[0].keys)
+            .concat(section.options[0].blockers);
         allSectionEntities[section.ref] = sectionEntities;
     }
 
@@ -295,24 +293,37 @@ const binarySearch = (
     return newErr("binary search failed, too many attempts");
 };
 
-// TODO return possible
-// TODO 2022-06-19 do this at compile time and return offsets instead of transformed layout
-export const spreadSections = (layout: Layout): Layout => {
-    const out: Layout = deepCopy(layout);
+export interface SpreadResult {
+    offsets: Record<UUID, Point>;
+    errors: Record<UUID, string>;
+}
 
+// TODO 2022-06-25 demo layout is broken now.
+export const spreadSectionsOffsets = (layout: Layout): SpreadResult => {
+    const offsets: Record<UUID, Point> = {};
+    const errors: Record<UUID, string> = {};
     let avoid = layoutFootprint(layout, PAD);
 
-    for (const section of orderVertically(out.variableSections)) {
+    for (const section of layout.variableSections) {
+        const firstOption = section.options[0];
+        offsets[firstOption.ref] = [0, 0];
+        avoid = multiUnion(
+            ...avoid,
+            ...firstOption.keys.map(toComposite).flat(1),
+            ...firstOption.blockers.map(toComposite).flat(1),
+        );
+    }
+
+    for (const section of orderVertically(layout.variableSections)) {
         const canonicalFootprint = optionFootprint(section.options[0]);
+
         let previousIncrement = 0;
         for (const option of section.options.slice(1)) {
             // Validate overlap and reject broken section options.
             if (!equalComposite(canonicalFootprint, optionFootprint(option))) {
-                console.log(
-                    `invalid overlap for option: ${layout.ref}, ${section.ref}, ${option.ref}`,
-                );
-                option.blockers = [];
-                option.keys = [];
+                errors[
+                    option.ref
+                ] = `invalid overlap for option: ${layout.label}, ${section.label}, ${option.label}`;
                 continue;
             }
 
@@ -342,7 +353,6 @@ export const spreadSections = (layout: Layout): Layout => {
             };
 
             // Search near the previous increment
-            // TODO 2022-06-21 why does this never find anything?
             let increment = binarySearch(
                 previousIncrement + 1,
                 previousIncrement + 1 + SEARCH_CLOSE_RANGE,
@@ -367,33 +377,67 @@ export const spreadSections = (layout: Layout): Layout => {
                 );
                 if (isErr(increment)) {
                     // TODO 2022-06-19 float up errors to final ui
-                    console.log(
-                        increment.err
-                            .describe(
-                                `spread failed for option: ${layout.ref}, ${section.ref}, ${option.ref}`,
-                            )
-                            .print(),
-                    );
-                    break;
+                    errors[option.ref] = increment.err
+                        .describe(
+                            `spread failed for option: ${layout.label}, ${section.label}, ${option.label}`,
+                        )
+                        .print();
+                    continue;
                 }
             }
             previousIncrement = increment;
 
-            // Modify option with correct increment and update avoided area.
+            const newComposites: Composite[] = [];
             for (const key of option.keys) {
-                key.position = add(key.position, [0, increment]);
+                const copy = Object.assign({}, key);
+                copy.position = add(copy.position, [0, increment]);
+                newComposites.push(toComposite(copy));
             }
             for (const blocker of option.blockers) {
-                blocker.position = add(blocker.position, [0, increment]);
+                const copy = Object.assign({}, blocker);
+                copy.position = add(copy.position, [0, increment]);
+                newComposites.push(toComposite(copy));
             }
-            avoid = multiUnion(
-                ...avoid,
-                ...option.keys.map(toComposite).flat(1),
-                ...option.blockers.map(toComposite).flat(1),
-            );
+
+            // Modify option with correct increment and update avoided area.
+            offsets[option.ref] = [0, increment];
+            avoid = multiUnion(...avoid, ...newComposites.flat(1));
         }
     }
 
+    return {offsets, errors};
+};
+
+// TODO return possible
+// TODO 2022-06-19 do this at compile time and return offsets instead of transformed layout
+export const spreadSections = (layout: Layout): Layout => {
+    const out: Layout = deepCopy(layout);
+    const {offsets, errors} = spreadSectionsOffsets(layout);
+    for (const section of out.variableSections) {
+        for (const option of section.options) {
+            if (errors[option.ref]) {
+                console.error(errors[option.ref]);
+                option.keys = [];
+                option.blockers = [];
+                continue;
+            }
+            if (!offsets[option.ref]) {
+                console.error(
+                    "Missing offset",
+                    out.label,
+                    section.label,
+                    option.label,
+                );
+                continue;
+            }
+            for (const key of option.keys) {
+                key.position = add(key.position, offsets[option.ref]);
+            }
+            for (const blocker of option.blockers) {
+                blocker.position = add(blocker.position, offsets[option.ref]);
+            }
+        }
+    }
     return out;
 };
 

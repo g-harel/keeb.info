@@ -58,7 +58,7 @@ const DemoItem = (props: DemoItemProps) => {
 
 export const Demo = () => (
     <Wrapper>
-        <DemoItem name="via-dz60-layout-exploded">
+        {/* <DemoItem name="via-dz60-layout-exploded">
             <ExplodedLayout layout={convertViaToLayout(dz60)} width={400} />
         </DemoItem>
         <DemoItem name="via-alice-layout-exploded">
@@ -87,11 +87,11 @@ export const Demo = () => (
         </DemoItem>
         <DemoItem name="via-tkc1800-layout-exploded">
             <ExplodedLayout layout={convertViaToLayout(tkc1800)} width={1200} />
-        </DemoItem>
+        </DemoItem> */}
         <DemoItem name="demo-layout-exploded">
             <ExplodedLayout layout={demoLayout as Layout} width={1200} />
         </DemoItem>
-        <DemoItem name="botanical-keyset">
+        {/* <DemoItem name="botanical-keyset">
             <FullKeyset
                 keyset={botanicalKeyset as any as Keyset}
                 width={1200}
@@ -119,7 +119,7 @@ export const Demo = () => (
                     width={600}
                 />
             </DemoItem>
-        </LegacyTestContainer>
+        </LegacyTestContainer> */}
     </Wrapper>
 );
 
