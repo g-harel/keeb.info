@@ -1,10 +1,10 @@
-import {Composite, Shape, equalComposite, equalShape} from "./shape";
+import {Composite, Shape, eqComposite, eqShape} from "./shape";
 
 describe("equalShape", () => {
     it("return true when empty", () => {
         const a: Shape = [];
         const b: Shape = [];
-        expect(equalShape(a, b)).toBeTruthy();
+        expect(eqShape(a, b)).toBeTruthy();
     });
 
     it("should detect unequal shapes", () => {
@@ -16,7 +16,7 @@ describe("equalShape", () => {
             [0, 1],
             [2, 1],
         ];
-        expect(equalShape(a, b)).toBeFalsy();
+        expect(eqShape(a, b)).toBeFalsy();
     });
 
     it("should detect equal shapes", () => {
@@ -32,7 +32,7 @@ describe("equalShape", () => {
             [0, 0],
             [0, 1],
         ];
-        expect(equalShape(a, b)).toBeTruthy();
+        expect(eqShape(a, b)).toBeTruthy();
     });
 
     it("should detect reversed shapes", () => {
@@ -44,7 +44,7 @@ describe("equalComposite", () => {
     it("return true when empty", () => {
         const a: Composite = [];
         const b: Composite = [];
-        expect(equalComposite(a, b)).toBeTruthy();
+        expect(eqComposite(a, b)).toBeTruthy();
     });
 
     it("should detect unequal composites", () => {
@@ -60,7 +60,7 @@ describe("equalComposite", () => {
                 [2, 1],
             ],
         ];
-        expect(equalComposite(a, b)).toBeFalsy();
+        expect(eqComposite(a, b)).toBeFalsy();
     });
 
     it("should detect equal composites", () => {
@@ -90,7 +90,7 @@ describe("equalComposite", () => {
             ],
             [],
         ];
-        expect(equalComposite(a, b)).toBeTruthy();
+        expect(eqComposite(a, b)).toBeTruthy();
     });
 
     it("should detect reversed composites", () => {

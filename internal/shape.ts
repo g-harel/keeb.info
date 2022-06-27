@@ -4,6 +4,7 @@ import {
     union as originalUnion,
 } from "polygon-clipping";
 
+import {unorderedArrayComparator} from "./algorithms";
 import {CurveShape} from "./curve";
 import {angleBetween, distance} from "./point";
 import {Point} from "./point";
@@ -91,38 +92,6 @@ export const round = (
     return points;
 };
 
-export const equalComposite = (a: Composite, b: Composite): boolean => {
-    if (a.length !== b.length) return false;
-    if (a.length === 0) return true;
-    for (let i = 0; i < b.length; i++) {
-        let eq = true;
-        for (let j = 0; j < b.length; j++) {
-            if (!equalShape(a[j], b[(i + j) % b.length])) {
-                eq = false;
-                break;
-            }
-        }
-        if (eq) return true;
-    }
-    return false;
-};
-
-export const equalShape = (a: Shape, b: Shape): boolean => {
-    if (a.length !== b.length) return false;
-    if (a.length === 0) return true;
-    for (let i = 0; i < b.length; i++) {
-        let eq = true;
-        for (let j = 0; j < b.length; j++) {
-            if (!equalPoint(a[j], b[(i + j) % b.length])) {
-                eq = false;
-                break;
-            }
-        }
-        if (eq) return true;
-    }
-    return false;
-};
-
-export const equalPoint = (a: Point, b: Point): boolean => {
-    return a[0] === b[0] && a[1] === b[1];
-};
+export const eqPoint = (a: Point, b: Point) => a[0] === b[0] && a[1] === b[1];
+export const eqShape = unorderedArrayComparator<Point>(eqPoint);
+export const eqComposite = unorderedArrayComparator<Shape>(eqShape);

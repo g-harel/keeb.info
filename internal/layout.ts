@@ -1,3 +1,4 @@
+import {ERR_ILLEGAL_ARGUMENTS, binarySearch} from "./algorithms";
 import {Blank} from "./blank";
 import {Box, corners, pad as padBox} from "./box";
 import {UUID} from "./identity";
@@ -9,13 +10,13 @@ import {
     subtract,
 } from "./point";
 import {Angle, Point, RightAngle, minmax as pointMinmax} from "./point";
-import {Possible, isErr, isErrOfType, newErr} from "./possible";
+import {isErr, isErrOfType} from "./possible";
 import {ROTATION_ORIGIN} from "./rendering/view";
 import {
     Composite,
     Shape,
     doesIntersect,
-    equalComposite,
+    eqComposite,
     multiUnion,
 } from "./shape";
 
@@ -112,7 +113,6 @@ const SEARCH_MAX_ATTEMPTS = 1000;
 const SEARCH_CLOSE_RANGE = 0.2;
 const SEARCH_CLOSE_JUMP = 0.02;
 const SEARCH_CLOSE_MAX_ATTEMPTS = 10;
-const ERR_ILLEGAL_ARGUMENTS = newErr("invalid arguments");
 
 export const minmax = (layout: Layout): [Point, Point] => {
     const entities: LayoutEntity[] = layout.fixedKeys.slice();
@@ -245,54 +245,6 @@ export const orderVertically = (sections: LayoutSection[]): LayoutSection[] => {
     return orderedSectionEntries.map(([ref]) => sectionsByRef[ref]);
 };
 
-// TODO 2022-06-21 move to a util file + document + test.
-const binarySearch = (
-    min: number,
-    max: number,
-    jump: number,
-    resolution: number,
-    maxAttempts: number,
-    tooSmall: (inc: number) => boolean,
-): Possible<number> => {
-    // Validate jump makes sense.
-    if (min + jump > max) {
-        return ERR_ILLEGAL_ARGUMENTS.describe(
-            `jump exceeds search area (${jump} > ${max} - ${min})`,
-        );
-    }
-
-    if (max !== Infinity && tooSmall(max)) {
-        return newErr("max exceeded");
-    }
-
-    // Use jump repeatedly to find initial window.
-    let start = min;
-    let end = min + jump;
-    while (tooSmall(end)) {
-        if (end > max) return newErr("max exceeded");
-        start = end;
-        end += jump;
-    }
-
-    // Use binary search to find first increment within resolution.
-    let prevAttempt = 0;
-    for (let i = 0; i < maxAttempts; i++) {
-        // Calculate new attempt and return if within resolution.
-        const attempt = start + (end - start) / 2;
-        if (Math.abs(prevAttempt - attempt) < resolution) return prevAttempt;
-        prevAttempt = attempt;
-
-        const attemptTooSmall = tooSmall(attempt);
-        if (attemptTooSmall) {
-            start = attempt;
-        } else {
-            end = attempt;
-        }
-    }
-
-    return newErr("binary search failed, too many attempts");
-};
-
 export interface SpreadResult {
     offsets: Record<UUID, Point>;
     errors: Record<UUID, string>;
@@ -321,7 +273,7 @@ export const spreadSectionsOffsets = (layout: Layout): SpreadResult => {
         let previousIncrement = 0;
         for (const option of section.options.slice(1)) {
             // Validate overlap and reject broken section options.
-            if (!equalComposite(canonicalFootprint, optionFootprint(option))) {
+            if (!eqComposite(canonicalFootprint, optionFootprint(option))) {
                 errors[
                     option.ref
                 ] = `invalid overlap for option: ${layout.label}, ${section.label}, ${option.label}`;
