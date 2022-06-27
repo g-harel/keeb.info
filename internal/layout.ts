@@ -304,6 +304,7 @@ export const spreadSectionsOffsets = (layout: Layout): SpreadResult => {
     const errors: Record<UUID, string> = {};
     let avoid = layoutFootprint(layout, PAD);
 
+    // TODO 2022-06-25 validate option overlap and count here, then calc offsets for options in this section.
     for (const section of layout.variableSections) {
         const firstOption = section.options[0];
         offsets[firstOption.ref] = [0, 0];

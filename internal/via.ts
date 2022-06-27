@@ -113,7 +113,6 @@ export const convertViaToLayout = (definition: ViaDefinition): Layout => {
         }
     }
 
-    // TODO 2022-06-17 broken for dz60
     return stackSections({
         ref: uuid(),
         label: definition.name,

@@ -1,5 +1,6 @@
 import {Key, Serial} from "@ijprest/kle-serial";
 import color from "color";
+import {v4 as uuid} from "uuid";
 
 import {Blank, Stabilizer} from "./blank";
 import {Box} from "./box";
@@ -58,7 +59,7 @@ export const convertKLEKey = (key: KLEKey): Blank => {
 
 export const convertKLEToLayoutKeymap = (raw: any): [Layout, LayoutKeymap] => {
     const kle = Serial.deserialize(raw);
-    const layoutRef = String(Math.random());
+    const layoutRef = uuid();
 
     const keymap: Record<UUID, KeymapKey> = {};
     const legend = (
@@ -77,9 +78,10 @@ export const convertKLEToLayoutKeymap = (raw: any): [Layout, LayoutKeymap] => {
     return [
         {
             ref: layoutRef,
+            label: uuid(),
             fixedBlockers: [],
             fixedKeys: kle.keys.map((key) => {
-                const keyRef = String(Math.random());
+                const keyRef = uuid();
                 if (key.width !== 1) {
                     key.labels[8] = String(key.width);
                     key.textColor[8] = "#444444";
@@ -140,11 +142,12 @@ export const convertKLEToLayout = (raw: any): Layout => {
     const kle = Serial.deserialize(raw);
 
     return {
-        ref: String(Math.random()),
+        ref: uuid(),
+        label: uuid(),
         fixedBlockers: [],
         fixedKeys: kle.keys.map((key) => {
             return {
-                ref: String(Math.random()),
+                ref: uuid(),
                 blank: convertKLEKey(key),
                 position: [key.x, key.y],
                 angle: key.rotation_angle,
@@ -160,24 +163,24 @@ export const convertKLEToKeysetKit = (raw: any): Keyset => {
 
     return {
         id: {
-            vendorID: String(Math.random()),
-            productID: String(Math.random()),
+            vendorID: uuid(),
+            productID: uuid(),
         },
-        name: String(Math.random()),
+        name: uuid(),
         kits: [
             {
                 id: {
-                    vendorID: String(Math.random()),
-                    productID: String(Math.random()),
+                    vendorID: uuid(),
+                    productID: uuid(),
                 },
-                name: String(Math.random()),
+                name: uuid(),
                 keys: kle.keys.map((key) => {
                     const blank = convertKLEKey(key);
                     return {
                         blank: blank,
                         shelf: blank.boxes.length > 1 ? [blank.boxes[0]] : [],
                         profile: {
-                            profile: String(Math.random()),
+                            profile: uuid(),
                             row: "R1",
                         },
                         legend: {
