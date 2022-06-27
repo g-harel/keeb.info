@@ -91,21 +91,13 @@ export const round = (
     return points;
 };
 
-const rotateArray = <T>(a: T[], count: number): T[] => {
-    if (count === 0) return a;
-    count = count % a.length;
-    return a.slice(count, a.length).concat(a.slice(0, count));
-};
-
-// TODO 2022-06-20 avoid expensive rotation with mods
 export const equalComposite = (a: Composite, b: Composite): boolean => {
     if (a.length !== b.length) return false;
     if (a.length === 0) return true;
     for (let i = 0; i < b.length; i++) {
-        const rB = rotateArray(b, i);
         let eq = true;
-        for (let j = 0; j < rB.length; j++) {
-            if (!equalShape(a[j], rB[j])) {
+        for (let j = 0; j < b.length; j++) {
+            if (!equalShape(a[j], b[(i + j) % b.length])) {
                 eq = false;
                 break;
             }
@@ -115,15 +107,13 @@ export const equalComposite = (a: Composite, b: Composite): boolean => {
     return false;
 };
 
-// TODO 2022-06-20 avoid expensive rotation with mods
 export const equalShape = (a: Shape, b: Shape): boolean => {
     if (a.length !== b.length) return false;
     if (a.length === 0) return true;
     for (let i = 0; i < b.length; i++) {
-        const rB = rotateArray(b, i);
         let eq = true;
-        for (let j = 0; j < rB.length; j++) {
-            if (!equalPoint(a[j], rB[j])) {
+        for (let j = 0; j < b.length; j++) {
+            if (!equalPoint(a[j], b[(i + j) % b.length])) {
                 eq = false;
                 break;
             }
