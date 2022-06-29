@@ -2,9 +2,11 @@ import {Possible, newErr} from "./possible";
 
 export const ERR_ILLEGAL_ARGUMENTS = newErr("invalid arguments");
 
-// TODO 2022-06-27 document + test.
-export const unorderedArrayComparator = <T>(
-    comparator: (a: T, b: T) => boolean,
+// TODO 2022-06-27 test (incl. duplicate items)
+// Test whether two arrays are equal ignoring the order.
+// Returns true if equal.
+export const unorderedArrayCompare = <T>(
+    compare: (a: T, b: T) => boolean,
 ): ((a: T[], b: T[]) => boolean) => {
     return (a: T[], b: T[]): boolean => {
         if (a.length !== b.length) return false;
@@ -12,7 +14,7 @@ export const unorderedArrayComparator = <T>(
         for (let i = 0; i < b.length; i++) {
             let eq = true;
             for (let j = 0; j < b.length; j++) {
-                if (!comparator(a[j], b[(i + j) % b.length])) {
+                if (!compare(a[j], b[(i + j) % b.length])) {
                     eq = false;
                     break;
                 }
@@ -23,7 +25,12 @@ export const unorderedArrayComparator = <T>(
     };
 };
 
-// TODO 2022-06-21 document + test.
+// TODO 2022-06-21 test.
+// TODO 2022-06-28 make sure max is respected on all paths.
+// TODO 2022-06-28 ignore jump if bigger than max-min and make optional.
+// Binary search between "min" and "max" for a value that is within "resolution"
+// of being "tooSmall". The "jump" is used iteratively to find a search window
+// when it is smaller than "min-max" (ex. max is Infinity).
 export const binarySearch = (
     min: number,
     max: number,
