@@ -4,7 +4,7 @@ import {
     union as originalUnion,
 } from "polygon-clipping";
 
-import {unorderedArrayComparator} from "./algorithms";
+import {unorderedArrayCompare} from "./algorithms";
 import {CurveShape} from "./curve";
 import {angleBetween, distance} from "./point";
 import {Point} from "./point";
@@ -93,5 +93,5 @@ export const round = (
 };
 
 export const eqPoint = (a: Point, b: Point) => a[0] === b[0] && a[1] === b[1];
-export const eqShape = unorderedArrayComparator<Point>(eqPoint);
-export const eqComposite = unorderedArrayComparator<Shape>(eqShape);
+export const eqShape = unorderedArrayCompare<Point>(eqPoint);
+export const eqComposite = unorderedArrayCompare<Shape>(eqShape);
