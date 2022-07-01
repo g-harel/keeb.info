@@ -26,10 +26,9 @@ export const unorderedArrayCompare = <T>(
 };
 
 // TODO 2022-06-21 test.
-// TODO 2022-06-28 ignore jump if bigger than max-min and make optional.
 // Binary search between "min" and "max" for a value that is within "resolution"
 // of being "tooSmall". The "jump" is used iteratively to find a search window
-// when it is smaller than "min-max" (ex. max is Infinity).
+// when it is smaller than "max - min" (ex. max is Infinity).
 export const binarySearch = (
     min: number,
     max: number,
@@ -38,28 +37,28 @@ export const binarySearch = (
     maxAttempts: number,
     tooSmall: (inc: number) => boolean,
 ): Possible<number> => {
-    // Validate jump makes sense.
+    // Validate jump value.
+    if (jump <= 0) {
+        return ERR_ILLEGAL_ARGUMENTS.describe(
+            `jump is not a positive number: ${jump}`,
+        );
+    }
     if (min + jump > max) {
         return ERR_ILLEGAL_ARGUMENTS.describe(
             `jump exceeds search area (${jump} > ${max} - ${min})`,
         );
     }
 
-    if (max !== Infinity) {
-        if (tooSmall(max)) {
-            return newErr("max exceeded");
-        }
-        maxAttempts--;
-    }
-
     // Use jump repeatedly to find initial window.
     let start = min;
     let end = min + jump;
     while (tooSmall(end) && maxAttempts > 0) {
+        // Attempt is still too small at max, search failed.
+        if (end === max) return newErr("max exceeded");
         maxAttempts--;
-        if (end > max) return newErr("max exceeded");
         start = end;
         end += jump;
+        if (end > max) end = max;
     }
 
     // Use binary search to find first increment within resolution.

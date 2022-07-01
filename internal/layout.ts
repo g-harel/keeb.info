@@ -112,7 +112,7 @@ const SEARCH_JUMP = 5;
 const SEARCH_MAX_ATTEMPTS = 1000;
 const SEARCH_CLOSE_RANGE = 0.2;
 const SEARCH_CLOSE_JUMP = 0.02;
-const SEARCH_CLOSE_MAX_ATTEMPTS = 10;
+const SEARCH_CLOSE_MAX_ATTEMPTS = 3;
 
 export const minmax = (layout: Layout): [Point, Point] => {
     const entities: LayoutEntity[] = layout.fixedKeys.slice();
