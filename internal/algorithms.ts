@@ -2,10 +2,9 @@ import {Possible, newErr} from "./possible";
 
 export const ERR_ILLEGAL_ARGUMENTS = newErr("invalid arguments");
 
-// TODO 2022-06-27 test (incl. duplicate items)
 // Test whether two arrays are equal ignoring the order.
 // Returns true if equal.
-export const unorderedArrayCompare = <T>(
+export const rotatedArrayCompare = <T>(
     compare: (a: T, b: T) => boolean,
 ): ((a: T[], b: T[]) => boolean) => {
     return (a: T[], b: T[]): boolean => {
