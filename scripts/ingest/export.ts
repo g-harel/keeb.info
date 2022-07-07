@@ -1,4 +1,4 @@
-import {Layout} from "../../internal/layout";
+import {Layout, SpreadResult, spreadSectionsOffsets} from "../../internal/layout";
 import {isErr, newErr} from "../../internal/possible";
 import {SearchIndex} from "../../internal/search_index";
 import {convertViaToLayout} from "../../internal/via";
@@ -9,6 +9,7 @@ export interface KeyboardMetadata {
     vendorID: string;
     productID: string;
     layout: Layout;
+    spreadResult: SpreadResult;
 }
 
 // TODO index layout options and the like... maybe flatten that into a string?
@@ -51,11 +52,13 @@ export const exportKeyboards = async (
                     path: ingested.viaPath || "unknown",
                 });
             }
+            const layout = convertViaToLayout(ingested.via);
             keyboards[name] = {
                 name,
                 vendorID,
                 productID,
-                layout: convertViaToLayout(ingested.via),
+                layout,
+                spreadResult: spreadSectionsOffsets(layout)
             };
         }
     }
