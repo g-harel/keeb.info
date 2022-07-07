@@ -1,4 +1,4 @@
-import {Possible, newErr} from "../../internal/possible";
+import {Possible, newErr} from "possible-ts";
 
 export const ERR_NOT_FOUND = newErr("not found");
 

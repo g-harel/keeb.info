@@ -5008,6 +5008,11 @@ polygon-clipping@^0.15.3:
   dependencies:
     splaytree "^3.1.0"
 
+possible-ts@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/possible-ts/-/possible-ts-0.0.1.tgz#7aadd8043600f3efbf87c34f493dad9dc1d1cafd"
+  integrity sha512-c6MM2CyG6rL8JWqa+OgHp8NtcpsLbr5OJHypW4uDkxFZNEiA+lfLqKGSY3iVj90caH2oR9L6nw3WDZxKeH+ZCA==
+
 postcss-calc@^8.2.0:
   version "8.2.4"
   resolved "https://registry.yarnpkg.com/postcss-calc/-/postcss-calc-8.2.4.tgz#77b9c29bfcbe8a07ff6693dc87050828889739a5"

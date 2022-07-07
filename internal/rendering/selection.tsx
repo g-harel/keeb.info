@@ -1,4 +1,5 @@
 import color from "color";
+import {isErr} from "possible-ts";
 import React from "react";
 
 import {Blank} from "../blank";
@@ -7,7 +8,6 @@ import {UUID} from "../identity";
 import {calcKeycap} from "../keycap";
 import {rotateCoord} from "../point";
 import {Angle, Point} from "../point";
-import {isErr} from "../possible";
 import {ReactProps} from "../react";
 import {Shape} from "../shape";
 import {Pooler, ROTATION_ORIGIN} from "./view";

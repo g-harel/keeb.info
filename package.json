@@ -35,6 +35,7 @@
         "npm-run-all": "^4.1.5",
         "parcel": "^2.0.0-beta.2",
         "polygon-clipping": "^0.15.3",
+        "possible-ts": "^0.0.1",
         "prettier": "^2.3.0",
         "prettier-plugin-firestore-rules": "^0.1.5",
         "react": "^17.0.2",

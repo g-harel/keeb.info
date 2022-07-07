@@ -1,8 +1,7 @@
 import fs from "fs";
 import json5 from "json5";
 import path from "path";
-
-import {Possible, isErr, mightErr, newErr} from "../../internal/possible";
+import {Possible, isErr, mightErr, newErr} from "possible-ts";
 
 export const hexToInt = (hex: string): number | null => {
     let result = Number(hex);

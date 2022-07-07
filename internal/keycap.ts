@@ -1,11 +1,11 @@
 import {difference} from "polygon-clipping";
+import {Possible, isErr} from "possible-ts";
 
 import {Box, toShape} from "./box";
 import {memCache} from "./cache";
 import {CurveShape, approx, bridgeArcs, toSVGPath as curvedPath} from "./curve";
 import {genID} from "./identity";
 import {Line, Point} from "./point";
-import {Possible, isErr} from "./possible";
 import {
     Composite,
     Shape,

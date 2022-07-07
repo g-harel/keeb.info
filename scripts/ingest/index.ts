@@ -1,7 +1,7 @@
 import path from "path";
+import {isErr} from "possible-ts";
 import sanitize from "sanitize-filename";
 
-import {isErr} from "../../internal/possible";
 import {createContext} from "./context";
 import {exportKeyboards} from "./export";
 import {writeFile} from "./lib";

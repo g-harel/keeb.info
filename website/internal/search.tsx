@@ -1,4 +1,5 @@
-import {AsyncPossible, isErr, mightErr, newErr} from "../../internal/possible";
+import {AsyncPossible, isErr, mightErr, newErr} from "possible-ts";
+
 import {SearchIndex} from "../../internal/search_index";
 import {KeyboardMetadata} from "../../scripts/ingest/export";
 

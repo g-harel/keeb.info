@@ -1,4 +1,4 @@
-import {Possible, newErr} from "./possible";
+import {Possible, newErr} from "possible-ts";
 
 export const ERR_ILLEGAL_ARGUMENTS = newErr("invalid arguments");
 

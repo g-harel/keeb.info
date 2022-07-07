@@ -1,5 +1,6 @@
+import {Possible, newErr} from "possible-ts";
+
 import {Point} from "./point";
-import {Possible, newErr} from "./possible";
 import {Composite, Shape} from "./shape";
 import {multiUnion} from "./shape";
 

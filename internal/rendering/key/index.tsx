@@ -1,3 +1,4 @@
+import {isErr} from "possible-ts";
 import React from "react";
 
 import {Blank} from "../../blank";
@@ -11,7 +12,6 @@ import {
     calcKeycap,
 } from "../../keycap";
 import {KeysetKeycapLegends} from "../../keyset";
-import {isErr} from "../../possible";
 import {ReactProps} from "../../react";
 import {keyColor} from "../color";
 import {Pooler} from "../view";

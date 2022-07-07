@@ -1,5 +1,6 @@
+import {isErr} from "possible-ts";
+
 import {Box, toComposite, toShape} from "./box";
-import {isErr} from "./possible";
 
 describe("toComposite", () => {
     it("should combine touching boxes", () => {

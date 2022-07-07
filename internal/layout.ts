@@ -1,3 +1,5 @@
+import {isErr, isErrOfType} from "possible-ts";
+
 import {ERR_ILLEGAL_ARGUMENTS, binarySearch} from "./algorithms";
 import {Blank} from "./blank";
 import {Box, corners, pad as padBox} from "./box";
@@ -10,7 +12,6 @@ import {
     subtract,
 } from "./point";
 import {Angle, Point, RightAngle, minmax as pointMinmax} from "./point";
-import {isErr, isErrOfType} from "./possible";
 import {ROTATION_ORIGIN} from "./rendering/view";
 import {
     Composite,

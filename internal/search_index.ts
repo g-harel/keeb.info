@@ -1,6 +1,5 @@
 import {Index, IndexOptions} from "flexsearch";
-
-import {Possible, isErr, mightErr} from "./possible";
+import {Possible, isErr, mightErr} from "possible-ts";
 
 interface SerializedSearchIndex {
     index: any;

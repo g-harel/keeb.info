@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
+import {isErr} from "possible-ts";
 
-import {isErr} from "../../../internal/possible";
 import {IngestContext} from "../context";
 import {readFile, readJsonFile} from "../lib";
 import {QMKConfig} from "./config";

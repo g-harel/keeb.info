@@ -1,4 +1,5 @@
-import {isErr} from "./possible";
+import {isErr} from "possible-ts";
+
 import {SearchIndex} from "./search_index";
 
 const testStr = () => String(Math.random());

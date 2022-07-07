@@ -1,11 +1,11 @@
 import color from "color";
+import {isErr} from "possible-ts";
 import React from "react";
 
 import {Box, toShape} from "../box";
 import {toSVGPath} from "../curve";
 import {genID} from "../identity";
 import {BORDER, KEY_RADIUS} from "../keycap";
-import {isErr} from "../possible";
 import {ReactProps} from "../react";
 import {round} from "../shape";
 import {keyColor} from "./color";

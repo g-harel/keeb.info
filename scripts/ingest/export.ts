@@ -1,5 +1,10 @@
-import {Layout, SpreadResult, spreadSectionsOffsets} from "../../internal/layout";
-import {isErr, newErr} from "../../internal/possible";
+import {isErr, newErr} from "possible-ts";
+
+import {
+    Layout,
+    SpreadResult,
+    spreadSectionsOffsets,
+} from "../../internal/layout";
 import {SearchIndex} from "../../internal/search_index";
 import {convertViaToLayout} from "../../internal/via";
 import {IngestContext, IngestedMetadata} from "./context";
@@ -58,7 +63,7 @@ export const exportKeyboards = async (
                 vendorID,
                 productID,
                 layout,
-                spreadResult: spreadSectionsOffsets(layout)
+                spreadResult: spreadSectionsOffsets(layout),
             };
         }
     }

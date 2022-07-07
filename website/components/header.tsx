@@ -1,8 +1,8 @@
+import {isErr} from "possible-ts";
 import React from "react";
 import {Link} from "react-router-dom";
 import styled from "styled-components";
 
-import {isErr} from "../../internal/possible";
 import {getQuery, isPath} from "../internal/location";
 import {theme} from "../internal/theme";
 import {sitemap} from "../sitemap";

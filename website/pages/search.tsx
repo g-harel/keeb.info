@@ -1,10 +1,9 @@
+import {isErr, Possible} from "possible-ts";
 import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 
 import {Layout, minmax} from "../../internal/layout";
 import {subtract} from "../../internal/point";
-import {isErr} from "../../internal/possible";
-import {Possible} from "../../internal/possible";
 import {ExplodedLayout} from "../../internal/rendering/views/exploded-layout";
 import {SearchIndex} from "../../internal/search_index";
 import {KeyboardMetadata} from "../../scripts/ingest/export";
@@ -57,6 +56,7 @@ export const ResultLayout = (props: {name: string}) => {
         return <>{keyboard.err.print()}</>;
     }
 
+    console.log(keyboard);
     const {name, layout} = keyboard;
     const [width, height] = subtract(...minmax(layout));
     const defaultWidth = 838;
