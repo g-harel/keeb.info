@@ -3,8 +3,8 @@ import {AsyncPossible, isErr, mightErr, newErr} from "possible-ts";
 import {SearchIndex} from "../../internal/search_index";
 import {KeyboardMetadata} from "../../scripts/ingest/export";
 
-let searchData: AsyncPossible<SearchIndex> = null;
-export const loadSearchDataInternal = async (): typeof searchData => {
+let searchData: AsyncPossible<SearchIndex> | null = null;
+export const loadSearchDataInternal = async (): AsyncPossible<SearchIndex> => {
     const rawIndexResponse = await mightErr(fetch("/keyboard-index.json"));
     if (isErr(rawIndexResponse)) {
         return rawIndexResponse.err.describe("fetch index");
@@ -17,7 +17,7 @@ export const loadSearchDataInternal = async (): typeof searchData => {
 
     return SearchIndex.fromSerialized(rawIndex);
 };
-export const loadSearchData = async (): typeof searchData => {
+export const loadSearchData = async (): AsyncPossible<SearchIndex> => {
     if (searchData === null) searchData = loadSearchDataInternal();
     return searchData;
 };

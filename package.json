@@ -7,8 +7,9 @@
         "dev": "run-s build:search-index dev:*",
         "dev:website": "parcel website/index.html --open --dist-dir .dist",
         "deploy": "firebase deploy --only firestore:rules",
-        "test:types": "tsc --noEmit -p tsconfig.json",
-        "test": "jest"
+        "test:types": "tsc -p tsconfig.json",
+        "test:unit": "jest",
+        "test": "run-s test:*"
     },
     "dependencies": {
         "@ijprest/kle-serial": "^0.15.1",
