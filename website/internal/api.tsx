@@ -22,7 +22,6 @@ export const loadSearchData = async (): AsyncPossible<SearchIndex> => {
     return searchData;
 };
 
-// TODO this is not the right place
 export const loadKeyboardMetadata = async (
     name: string,
 ): AsyncPossible<KeyboardMetadata> => {

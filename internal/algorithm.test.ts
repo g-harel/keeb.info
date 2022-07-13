@@ -1,4 +1,6 @@
-import {rotatedArrayCompare} from "./algorithms";
+import {isErr} from "possible-ts";
+
+import {binarySearch, rotatedArrayCompare} from "./algorithms";
 
 const eq = (a: number, b: number) => a === b;
 
@@ -30,5 +32,13 @@ describe("rotatedArrayCompare", () => {
         const b: number[] = a.slice(n, a.length).concat(a.slice(0, n));
 
         expect(rotatedArrayCompare(eq)(a, b)).toBeTruthy();
+    });
+});
+
+describe("binarySearch", () => {
+    it("should find values", () => {
+        const result = binarySearch(0, 1, 0.1, 0.001, 100, (v) => v < 0.4);
+        expect(isErr(result)).toBeFalsy();
+        expect(result).toBeCloseTo(0.4, 2);
     });
 });

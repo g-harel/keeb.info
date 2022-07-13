@@ -1,4 +1,4 @@
-import {isErr, Possible} from "possible-ts";
+import {Possible, isErr} from "possible-ts";
 import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 
@@ -9,7 +9,7 @@ import {SearchIndex} from "../../internal/search_index";
 import {KeyboardMetadata} from "../../scripts/ingest/export";
 import {Defer} from "../components/defer";
 import {getQuery} from "../internal/location";
-import {loadKeyboardMetadata, loadSearchData} from "../internal/search";
+import {loadKeyboardMetadata, loadSearchData} from "../internal/api";
 
 const StyledWrapper = styled.div`
     align-items: center;
