@@ -36,17 +36,41 @@ describe("rotatedArrayCompare", () => {
 });
 
 describe("binarySearch", () => {
-    it("should find values", () => {
-        const min = 0;
-        const max = 1;
-        const resolution = 0.001;
-        const jump = 0.1;
-        const attempts = 100;
-        const target = 0.4;
+    const runSearch = (target: number, inputs: {
+        min?: number;
+        max?: number;
+        resolution?: number;
+        jump?: number;
+        attempts?: number;
+    } = {}) => {
+        const defaults = {
+            min: 0,
+            max: 1,
+            resolution: 0.001,
+            jump: 0.1,
+            attempts: 100,
+        };
+        const required: Required<typeof inputs> = Object.assign(
+            defaults,
+            inputs,
+        );
 
-        const result = binarySearch(min, max, jump, resolution, attempts, (v) => v < target);
+        const result = binarySearch(
+            required.min,
+            required.max,
+            required.jump,
+            required.resolution,
+            required.attempts,
+            (v) => v < target,
+        );
 
         expect(isErr(result)).toBeFalsy();
-        expect(result).toBeCloseTo(target, -Math.log10(resolution));
+        expect(result).toBeCloseTo(target, -Math.log10(required.resolution));
+    };
+
+    it("should find values", () => {
+        for (let i = 0; i < 12; i++) {
+            runSearch(Math.random());
+        }
     });
 });

@@ -8,8 +8,8 @@ import {ExplodedLayout} from "../../internal/rendering/views/exploded-layout";
 import {SearchIndex} from "../../internal/search_index";
 import {KeyboardMetadata} from "../../scripts/ingest/export";
 import {Defer} from "../components/defer";
-import {getQuery} from "../internal/location";
 import {loadKeyboardMetadata, loadSearchData} from "../internal/api";
+import {getQuery} from "../internal/location";
 
 const StyledWrapper = styled.div`
     align-items: center;
