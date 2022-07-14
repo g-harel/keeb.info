@@ -37,8 +37,16 @@ describe("rotatedArrayCompare", () => {
 
 describe("binarySearch", () => {
     it("should find values", () => {
-        const result = binarySearch(0, 1, 0.1, 0.001, 100, (v) => v < 0.4);
+        const min = 0;
+        const max = 1;
+        const resolution = 0.001;
+        const jump = 0.1;
+        const attempts = 100;
+        const target = 0.4;
+
+        const result = binarySearch(min, max, jump, resolution, attempts, (v) => v < target);
+
         expect(isErr(result)).toBeFalsy();
-        expect(result).toBeCloseTo(0.4, 2);
+        expect(result).toBeCloseTo(target, -Math.log10(resolution));
     });
 });

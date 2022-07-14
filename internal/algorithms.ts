@@ -65,7 +65,7 @@ export const binarySearch = (
     for (let i = 0; i < maxAttempts; i++) {
         // Calculate new attempt and return if within resolution.
         const attempt = start + (end - start) / 2;
-        if (Math.abs(prevAttempt - attempt) < resolution) return prevAttempt;
+        if (Math.abs(prevAttempt - attempt) < resolution / 2) return attempt;
         prevAttempt = attempt;
 
         const attemptTooSmall = tooSmall(attempt);
