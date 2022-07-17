@@ -55,17 +55,19 @@ describe("binarySearch", () => {
             inputs,
         );
 
+        const mockTooSmall = jest.fn((v) => v < target);
         const result = binarySearch(
             required.min,
             required.max,
             required.jump,
             required.resolution,
             required.attempts,
-            (v) => v < target,
+            mockTooSmall,
         );
 
         expect(isErr(result)).toBeFalsy();
         expect(result).toBeCloseTo(target, -Math.log10(required.resolution));
+        return mockTooSmall;
     };
 
     it("should find values", () => {
