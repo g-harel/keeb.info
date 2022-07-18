@@ -51,13 +51,16 @@ export const binarySearch = (
     // Use jump repeatedly to find initial window.
     let start = min;
     let end = min + jump;
-    while (tooSmall(end) && maxAttempts > 0) {
+    while ( maxAttempts > 0 && tooSmall(end)) {
         // Attempt is still too small at max, search failed.
         if (end === max) return newErr("max exceeded");
         maxAttempts--;
         start = end;
         end += jump;
         if (end > max) end = max;
+    }
+    if (maxAttempts < 1) {
+        return newErr("max exceeded");
     }
 
     // Use binary search to find first increment within resolution.

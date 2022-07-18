@@ -65,14 +65,25 @@ describe("binarySearch", () => {
             mockTooSmall,
         );
 
-        expect(isErr(result)).toBeFalsy();
-        expect(result).toBeCloseTo(target, -Math.log10(required.resolution));
-        return mockTooSmall;
+        if (!isErr(result)) {
+            expect(result).toBeCloseTo(target, -Math.log10(required.resolution));
+        }
+        return {mock: mockTooSmall, result};
     };
 
     it("should find values", () => {
         for (let i = 0; i < 12; i++) {
             runSearch(Math.random());
         }
+    });
+
+    it("should not exceed max attempts with small jumps", () => {
+        const jump = 0.0001;
+        const attempts = 10;
+
+        const {mock, result} = runSearch(1, {jump, attempts});
+
+        expect(isErr(result)).toBeTruthy();
+        expect(mock).toHaveBeenCalledTimes(10);
     });
 });
