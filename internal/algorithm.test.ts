@@ -78,12 +78,22 @@ describe("binarySearch", () => {
     });
 
     it("should not exceed max attempts with small jumps", () => {
-        const jump = 0.0001;
-        const attempts = 10;
+        const jump = 10e-5;
+        const attempts = 8;
 
         const {mock, result} = runSearch(1, {jump, attempts});
 
         expect(isErr(result)).toBeTruthy();
-        expect(mock).toHaveBeenCalledTimes(10);
+        expect(mock).toHaveBeenCalledTimes(attempts);
+    });
+
+    it("should not exceed max attempts with small resolution", () => {
+        const resolution = 10e-100;
+        const attempts = 4;
+
+        const {mock, result} = runSearch(1, {resolution, attempts});
+
+        expect(isErr(result)).toBeTruthy();
+        expect(mock).toHaveBeenCalledTimes(attempts);
     });
 });
