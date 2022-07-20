@@ -96,4 +96,12 @@ describe("binarySearch", () => {
         expect(isErr(result)).toBeTruthy();
         expect(mock).toHaveBeenCalledTimes(attempts);
     });
+
+    it("should support infinite max range", () => {
+        const max = Infinity;
+
+        const {result} = runSearch(Math.random(), {max});
+
+        expect(isErr(result)).toBeFalsy();
+    });
 });
