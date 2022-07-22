@@ -104,4 +104,23 @@ describe("binarySearch", () => {
 
         expect(isErr(result)).toBeFalsy();
     });
+
+    it("should not support invalid min/max", () => {
+        const min = 2;
+        const max = 1;
+
+        const {result} = runSearch(Math.random(), {min, max});
+
+        expect(isErr(result)).toBeTruthy();
+    });
+
+    it("should not support invalid jump", () => {
+        const min = 1;
+        const max = 4;
+        const jump = max - min + 0.1;
+
+        const {result} = runSearch(Math.random(), {min, max, jump});
+
+        expect(isErr(result)).toBeTruthy();
+    });
 });
