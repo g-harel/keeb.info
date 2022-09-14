@@ -59,11 +59,16 @@ export const LayoutItem = (props: {raw: any}) => {
     const [width, height] = subtract(...minmax(layout));
     const defaultWidth = 838;
 
+    let stabCount = 0;
+    for (const key of layout.fixedKeys) {
+        stabCount += key.blank.stabilizers.length;
+    }
+
     const name = props.raw[0]?.name || "unknown";
     return (
         <StyledItem>
             <h2>{name}</h2>
-            <h4>{layout.fixedKeys.length} keys</h4>
+            <h4>{layout.fixedKeys.length} keys, {stabCount} stabs</h4>
             <Defer
                 width={`${defaultWidth}px`}
                 height={`${(defaultWidth / width) * height}px`}

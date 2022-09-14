@@ -34,6 +34,7 @@ export const convertKLEKey = (key: KLEKey): Blank => {
     }
 
     // Infer stabilizers.
+    // TODO 2022-09-14 round to standard stab lengths.
     const stabilizers: Stabilizer[] = [];
     if (boxes[0].width >= 2) {
         stabilizers.push({
