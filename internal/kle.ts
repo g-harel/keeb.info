@@ -34,7 +34,6 @@ export const convertKLEKey = (key: KLEKey): Blank => {
     }
 
     // Infer stabilizers.
-    // TODO 2022-09-14 round to standard stab lengths.
     const stabilizers: Stabilizer[] = [];
     if (boxes[0].width >= 2) {
         stabilizers.push({
@@ -50,9 +49,21 @@ export const convertKLEKey = (key: KLEKey): Blank => {
         });
     }
 
+    const resizedStabilizers: Stabilizer[] = stabilizers.map((stab) => {
+        console.log(stab.length);
+        const actualLength =
+            stab.length > 6 ? 6 : stab.length > 5.25 ? 5.25 : 1;
+        const offsetOffset = (stab.length - actualLength) / 2;
+        return {
+            angle: stab.angle,
+            length: actualLength,
+            offset: [stab.offset[0] + offsetOffset, stab.offset[1]],
+        };
+    });
+
     return {
         boxes: boxes,
-        stabilizers,
+        stabilizers: resizedStabilizers,
         // Assume centered all the time.
         stem: [key.width / 2, key.height / 2],
     };

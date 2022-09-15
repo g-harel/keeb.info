@@ -36,13 +36,16 @@ describe("rotatedArrayCompare", () => {
 });
 
 describe("binarySearch", () => {
-    const runSearch = (target: number, inputs: {
-        min?: number;
-        max?: number;
-        resolution?: number;
-        jump?: number;
-        attempts?: number;
-    } = {}) => {
+    const runSearch = (
+        target: number,
+        inputs: {
+            min?: number;
+            max?: number;
+            resolution?: number;
+            jump?: number;
+            attempts?: number;
+        } = {},
+    ) => {
         const defaults = {
             min: 0,
             max: 1,
@@ -66,7 +69,10 @@ describe("binarySearch", () => {
         );
 
         if (!isErr(result)) {
-            expect(result).toBeCloseTo(target, -Math.log10(required.resolution));
+            expect(result).toBeCloseTo(
+                target,
+                -Math.log10(required.resolution),
+            );
         }
         return {mock: mockTooSmall, result};
     };

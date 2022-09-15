@@ -68,7 +68,9 @@ export const LayoutItem = (props: {raw: any}) => {
     return (
         <StyledItem>
             <h2>{name}</h2>
-            <h4>{layout.fixedKeys.length} keys, {stabCount} stabs</h4>
+            <h4>
+                {layout.fixedKeys.length} keys, {stabCount} stabs
+            </h4>
             <Defer
                 width={`${defaultWidth}px`}
                 height={`${(defaultWidth / width) * height}px`}

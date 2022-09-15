@@ -51,7 +51,7 @@ export const binarySearch = (
     // Use jump repeatedly to find initial window.
     let start = min;
     let end = min + jump;
-    while ( maxAttempts > 0 && tooSmall(end)) {
+    while (maxAttempts > 0 && tooSmall(end)) {
         // Attempt is still too small at max, search failed.
         if (end === max) return newErr("max exceeded");
         maxAttempts--;
